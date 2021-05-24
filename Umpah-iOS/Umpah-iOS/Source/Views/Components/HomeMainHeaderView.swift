@@ -59,22 +59,18 @@ class HomeMainHeaderView: UIView {
             make.top.equalTo(self.snp.top).inset(52)
             make.leading.equalTo(self.snp.leading).inset(25)
         }
-        
         subTitleLabel.snp.makeConstraints { make in
             make.top.equalTo(largeTitleLabel.snp.bottom)
             make.leading.equalTo(largeTitleLabel)
         }
-        
         settingButton.snp.makeConstraints { make in
             make.trailing.equalTo(self.snp.trailing).inset(11)
             make.top.equalTo(self.snp.top).inset(8)
         }
-        
         personalButton.snp.makeConstraints { make in
             make.trailing.equalTo(settingButton.snp.leading).offset(-11)
             make.top.equalTo(settingButton)
         }
-        
         characterImageView.snp.makeConstraints { make in
             make.top.equalTo(personalButton.snp.bottom).offset(16)
             make.trailing.equalTo(self.snp.trailing).inset(44)
@@ -82,7 +78,6 @@ class HomeMainHeaderView: UIView {
     }
     
     private func setupConfigure() {
-        print(#fileID, #function, #line, "")
         backgroundColor = .none?.withAlphaComponent(0)
         
         addSubviews()
