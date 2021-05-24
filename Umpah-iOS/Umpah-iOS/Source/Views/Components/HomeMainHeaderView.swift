@@ -26,19 +26,20 @@ class HomeMainHeaderView: UIView {
     
     private let characterImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .cyan
-        imageView.image = UIImage(named: "")
+        imageView.image = UIImage(systemName: "flame.fill")
         return imageView
     }()
     
     // MARK: - TODO: Naming 다시 잡아주기
     private let personalButton: UIButton = {
         let button = UIButton()
+        button.backgroundColor = .blue
         return button
     }()
     
     private let settingButton: UIButton = {
         let button = UIButton()
+        button.backgroundColor = .cyan
         return button
     }()
     
@@ -70,7 +71,7 @@ class HomeMainHeaderView: UIView {
         }
         
         personalButton.snp.makeConstraints { make in
-            make.trailing.equalTo(settingButton.snp.leading).offset(11)
+            make.trailing.equalTo(settingButton.snp.leading).offset(-11)
             make.top.equalTo(settingButton)
         }
         
