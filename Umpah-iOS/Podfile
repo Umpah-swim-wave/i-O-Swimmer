@@ -1,0 +1,28 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'Umpah-iOS' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for Umpah-iOS
+  pod 'SnapKit', '~> 5.0.0'
+  pod 'Moya', '~> 14.0'
+  pod 'lottie-ios'
+end
+
+target 'Umpah-iOS WatchKit App' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for Umpah-iOS WatchKit App
+
+end
+
+target 'Umpah-iOS WatchKit Extension' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for Umpah-iOS WatchKit Extension
+
+end
