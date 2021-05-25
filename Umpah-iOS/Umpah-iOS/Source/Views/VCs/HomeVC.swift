@@ -16,6 +16,7 @@ class HomeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupConfigure()
+        linkCollectionViewCell()
     }
     
     private func setupConfigure() {
@@ -37,6 +38,11 @@ class HomeVC: UIViewController {
             make.leading.trailing.bottom.equalToSuperview()
         }
     }
+    
+    private func linkCollectionViewCell() {
+        routeCollectionView.setCollectionViewNib(nib: HomeTodayRouteCVC.identifier)
+        routeCollectionView.setCollectionViewNib(nib: HomeSelectRouteCVC.identifier)
+    }
 }
 
 extension HomeVC: UICollectionViewDataSource {
@@ -56,6 +62,21 @@ extension HomeVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let section = indexPath.section
+        
+        switch section {
+        case 0:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeTodayRouteCVC.identifier, for: indexPath) as? HomeTodayRouteCVC else {
+                return UICollectionViewCell()
+            }
+            return cell
+        case 1:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomeSelectRouteCVC.identifier, for: indexPath) as? HomeSelectRouteCVC else {
+                return UICollectionViewCell()
+            }
+            return cell
+        default: break
+        }
         return UICollectionViewCell()
     }
 }
