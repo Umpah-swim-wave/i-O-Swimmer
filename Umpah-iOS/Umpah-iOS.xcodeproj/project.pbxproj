@@ -15,6 +15,8 @@
 		EDC4AB29265CC91F0052F21F /* HomeSelectRouteCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC4AB27265CC91F0052F21F /* HomeSelectRouteCVC.swift */; };
 		EDC4AB2A265CC91F0052F21F /* HomeSelectRouteCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = EDC4AB28265CC91F0052F21F /* HomeSelectRouteCVC.xib */; };
 		EDC4AB2C265CCB200052F21F /* Extension+UICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC4AB2B265CCB200052F21F /* Extension+UICollectionView.swift */; };
+		EDC4AB2E265CCF7D0052F21F /* Extension+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC4AB2D265CCF7D0052F21F /* Extension+UIView.swift */; };
+		EDC4AB30265CD4500052F21F /* HomeSelectRouteHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC4AB2F265CD4500052F21F /* HomeSelectRouteHeaderView.swift */; };
 		EDCB2AC9265BD3DC00F183A2 /* HomeMainHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDCB2AC8265BD3DC00F183A2 /* HomeMainHeaderView.swift */; };
 		EDD43FD426483C9500C866F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD43FD326483C9500C866F3 /* AppDelegate.swift */; };
 		EDD43FD626483C9500C866F3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD43FD526483C9500C866F3 /* SceneDelegate.swift */; };
@@ -95,6 +97,8 @@
 		EDC4AB27265CC91F0052F21F /* HomeSelectRouteCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSelectRouteCVC.swift; sourceTree = "<group>"; };
 		EDC4AB28265CC91F0052F21F /* HomeSelectRouteCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeSelectRouteCVC.xib; sourceTree = "<group>"; };
 		EDC4AB2B265CCB200052F21F /* Extension+UICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UICollectionView.swift"; sourceTree = "<group>"; };
+		EDC4AB2D265CCF7D0052F21F /* Extension+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIView.swift"; sourceTree = "<group>"; };
+		EDC4AB2F265CD4500052F21F /* HomeSelectRouteHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSelectRouteHeaderView.swift; sourceTree = "<group>"; };
 		EDCB2AC8265BD3DC00F183A2 /* HomeMainHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMainHeaderView.swift; sourceTree = "<group>"; };
 		EDD43FD026483C9500C866F3 /* Umpah-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Umpah-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDD43FD326483C9500C866F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -177,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				EDCB2AC8265BD3DC00F183A2 /* HomeMainHeaderView.swift */,
+				EDC4AB2F265CD4500052F21F /* HomeSelectRouteHeaderView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -260,6 +265,7 @@
 			isa = PBXGroup;
 			children = (
 				EDC4AB2B265CCB200052F21F /* Extension+UICollectionView.swift */,
+				EDC4AB2D265CCF7D0052F21F /* Extension+UIView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -624,8 +630,10 @@
 			files = (
 				EDCB2AC9265BD3DC00F183A2 /* HomeMainHeaderView.swift in Sources */,
 				EDD43FD426483C9500C866F3 /* AppDelegate.swift in Sources */,
+				EDC4AB30265CD4500052F21F /* HomeSelectRouteHeaderView.swift in Sources */,
 				EDD440262648404C00C866F3 /* HomeVC.swift in Sources */,
 				EDD4402226483EFE00C866F3 /* TabbarController.swift in Sources */,
+				EDC4AB2E265CCF7D0052F21F /* Extension+UIView.swift in Sources */,
 				EDD4402C2648425700C866F3 /* AnalysisVC.swift in Sources */,
 				EDC4AB29265CC91F0052F21F /* HomeSelectRouteCVC.swift in Sources */,
 				EDD43FD626483C9500C866F3 /* SceneDelegate.swift in Sources */,

@@ -25,7 +25,7 @@ class HomeVC: UIViewController {
         routeCollectionView.collectionViewLayout = flowLayout
         routeCollectionView.delegate = self
         routeCollectionView.dataSource = self
-        routeCollectionView.backgroundColor = .cyan
+        routeCollectionView.backgroundColor = .none?.withAlphaComponent(0)
         
         view.addSubview(mainHeaderView)
         view.addSubview(routeCollectionView)
@@ -42,6 +42,7 @@ class HomeVC: UIViewController {
     private func linkCollectionViewCell() {
         routeCollectionView.setCollectionViewNib(nib: HomeTodayRouteCVC.identifier)
         routeCollectionView.setCollectionViewNib(nib: HomeSelectRouteCVC.identifier)
+        routeCollectionView.register(HomeSelectRouteHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeSelectRouteHeaderView.identifier)
     }
 }
 
@@ -78,6 +79,21 @@ extension HomeVC: UICollectionViewDataSource {
         default: break
         }
         return UICollectionViewCell()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if indexPath.section == 1 {
+            switch kind {
+            case UICollectionView.elementKindSectionHeader:
+                guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: HomeSelectRouteHeaderView.identifier, for: indexPath) as? HomeSelectRouteHeaderView else {
+                    return UICollectionReusableView()
+                }
+                return headerView
+            default:
+                assert(false, "Fail to create header")
+            }
+        }
+        return UICollectionReusableView()
     }
 }
 

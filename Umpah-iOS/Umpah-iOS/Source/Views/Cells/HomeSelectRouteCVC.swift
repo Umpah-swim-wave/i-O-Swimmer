@@ -10,9 +10,14 @@ import UIKit
 class HomeSelectRouteCVC: UICollectionViewCell {
     static let identifier = "HomeSelectRouteCVC"
 
+    @IBOutlet weak var backView: UIView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        setupConfigure()
     }
-
+    
+    private func setupConfigure() {
+        self.makeRoundedCellWithShadow(background: backView)
+    }
 }
