@@ -6,9 +6,12 @@
 //
 
 import UIKit
+import SnapKit
 
 class HomeTodayRouteCVC: UICollectionViewCell {
     static let identifier = "HomeTodayRouteCVC"
+    
+    let emptyView = HomeEmptyRouteView()
 
     @IBOutlet weak var backView: UIView!
     
@@ -19,5 +22,10 @@ class HomeTodayRouteCVC: UICollectionViewCell {
     
     private func setupConfigure() {
         self.makeRoundedCellWithShadow(background: backView)
+        
+        self.addSubview(emptyView)
+        emptyView.snp.makeConstraints { make in
+            make.edges.equalToSuperview().inset(8)
+        }
     }
 }
