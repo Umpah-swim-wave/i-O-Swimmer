@@ -109,6 +109,7 @@ extension HomeVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.section == 1 {
             guard let dvc = storyboard?.instantiateViewController(withIdentifier: "DetailedRoutineVC") as? DetailedRoutineVC else { return }
+            dvc.modalPresentationStyle = .overCurrentContext
             present(dvc, animated: true, completion: nil)
         }
     }
