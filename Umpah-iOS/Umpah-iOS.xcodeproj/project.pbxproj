@@ -10,6 +10,7 @@
 		65BD8F2201A9C1AFD7C2D8DD /* Pods_Umpah_iOS_WatchKit_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86DD879FC3C4E84D7E3F34D5 /* Pods_Umpah_iOS_WatchKit_App.framework */; };
 		D1F464F8FC2774B0D55FFF79 /* Pods_Umpah_iOS_WatchKit_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C521171D608E01D7F8B2492 /* Pods_Umpah_iOS_WatchKit_Extension.framework */; };
 		ECF21C0C9372B4F1A806C262 /* Pods_Umpah_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB7CF8BBFF32001FC0A7E689 /* Pods_Umpah_iOS.framework */; };
+		ED4C8A90265F702B0037C523 /* HomeEmptyRouteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4C8A8F265F702B0037C523 /* HomeEmptyRouteView.swift */; };
 		EDC4AB25265CC8D10052F21F /* HomeTodayRouteCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC4AB23265CC8D10052F21F /* HomeTodayRouteCVC.swift */; };
 		EDC4AB26265CC8D10052F21F /* HomeTodayRouteCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = EDC4AB24265CC8D10052F21F /* HomeTodayRouteCVC.xib */; };
 		EDC4AB29265CC91F0052F21F /* HomeSelectRouteCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC4AB27265CC91F0052F21F /* HomeSelectRouteCVC.swift */; };
@@ -92,6 +93,7 @@
 		B53DA869B8F832A627BB5D6C /* Pods-Umpah-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Umpah-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Umpah-iOS/Pods-Umpah-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		DB7CF8BBFF32001FC0A7E689 /* Pods_Umpah_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Umpah_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2A34E7653F7869CEB27C154 /* Pods-Umpah-iOS WatchKit Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Umpah-iOS WatchKit Extension.debug.xcconfig"; path = "Target Support Files/Pods-Umpah-iOS WatchKit Extension/Pods-Umpah-iOS WatchKit Extension.debug.xcconfig"; sourceTree = "<group>"; };
+		ED4C8A8F265F702B0037C523 /* HomeEmptyRouteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEmptyRouteView.swift; sourceTree = "<group>"; };
 		EDC4AB23265CC8D10052F21F /* HomeTodayRouteCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTodayRouteCVC.swift; sourceTree = "<group>"; };
 		EDC4AB24265CC8D10052F21F /* HomeTodayRouteCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTodayRouteCVC.xib; sourceTree = "<group>"; };
 		EDC4AB27265CC91F0052F21F /* HomeSelectRouteCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSelectRouteCVC.swift; sourceTree = "<group>"; };
@@ -182,6 +184,7 @@
 			children = (
 				EDCB2AC8265BD3DC00F183A2 /* HomeMainHeaderView.swift */,
 				EDC4AB2F265CD4500052F21F /* HomeSelectRouteHeaderView.swift */,
+				ED4C8A8F265F702B0037C523 /* HomeEmptyRouteView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -629,6 +632,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				EDCB2AC9265BD3DC00F183A2 /* HomeMainHeaderView.swift in Sources */,
+				ED4C8A90265F702B0037C523 /* HomeEmptyRouteView.swift in Sources */,
 				EDD43FD426483C9500C866F3 /* AppDelegate.swift in Sources */,
 				EDC4AB30265CD4500052F21F /* HomeSelectRouteHeaderView.swift in Sources */,
 				EDD440262648404C00C866F3 /* HomeVC.swift in Sources */,
