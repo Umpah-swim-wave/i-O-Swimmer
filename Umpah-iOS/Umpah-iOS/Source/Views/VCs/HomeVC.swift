@@ -95,6 +95,16 @@ extension HomeVC: UICollectionViewDataSource {
         }
         return UICollectionReusableView()
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        if section == 1 {
+            if let layout = collectionViewLayout as? UICollectionViewFlowLayout {
+                layout.sectionHeadersPinToVisibleBounds = true
+            }
+            return CGSize(width: UIScreen.main.bounds.size.width, height: 30)
+        }
+        return CGSize.zero
+    }
 }
 
 extension HomeVC: UICollectionViewDelegateFlowLayout {
@@ -125,6 +135,6 @@ extension HomeVC: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 10, left: 16, bottom: 59, right: 16)
+        return UIEdgeInsets(top: 10, left: 16, bottom: 48, right: 16)
     }
 }

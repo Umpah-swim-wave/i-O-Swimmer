@@ -28,7 +28,7 @@ class HomeSelectRouteHeaderView: UICollectionReusableView {
     
     override func layoutSubviews() {
         titleLabel.snp.makeConstraints { make in
-            make.bottom.equalTo(self.snp.bottom).inset(-8)
+            make.bottom.equalTo(self.snp.bottom).inset(4)
             make.leading.equalTo(self.snp.leading).inset(24)
         }
     }
