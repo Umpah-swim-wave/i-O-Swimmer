@@ -10,7 +10,7 @@ import UIKit
 extension UIView {
     func makeRoundedCellWithShadow(background: UIView) {
         background.layer.masksToBounds = true
-        background.layer.cornerRadius = 10
+        background.layer.cornerRadius = 15
         
         layer.masksToBounds = false
         layer.shadowColor = UIColor.systemBlue.cgColor
@@ -19,4 +19,3 @@ extension UIView {
         layer.shadowRadius = 10
     }
 }
-

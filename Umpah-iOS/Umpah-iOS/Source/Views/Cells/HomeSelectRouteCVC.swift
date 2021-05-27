@@ -23,5 +23,6 @@ class HomeSelectRouteCVC: UICollectionViewCell {
     
     private func setupConfigure() {
         self.makeRoundedCellWithShadow(background: backView)
+        routeImageView.layer.cornerRadius = 15
     }
 }
