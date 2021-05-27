@@ -329,8 +329,8 @@
 				EDD440252648404C00C866F3 /* HomeVC.swift */,
 				EDD4402B2648425700C866F3 /* AnalysisVC.swift */,
 				EDD4402D2648430900C866F3 /* StorageVC.swift */,
-				EDD4402126483EFE00C866F3 /* TabbarController.swift */,
 				ED4C8A92265FBBD20037C523 /* DetailedRoutineVC.swift */,
+				EDD4402126483EFE00C866F3 /* TabbarController.swift */,
 			);
 			path = VCs;
 			sourceTree = "<group>";
