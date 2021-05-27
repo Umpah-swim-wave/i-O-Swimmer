@@ -11,7 +11,7 @@ import SnapKit
 class HomeTodayRouteCVC: UICollectionViewCell {
     static let identifier = "HomeTodayRouteCVC"
     
-    let emptyView = HomeEmptyRouteView()
+    private let emptyView = HomeEmptyRouteView()
 
     @IBOutlet weak var backView: UIView!
     

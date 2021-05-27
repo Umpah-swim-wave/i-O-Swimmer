@@ -10,8 +10,8 @@ import SnapKit
 
 class HomeVC: UIViewController {
     
-    let mainHeaderView = HomeMainHeaderView()
-    let routeCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: UICollectionViewLayout())
+    private let mainHeaderView = HomeMainHeaderView()
+    private let routeCollectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 0, height: 0), collectionViewLayout: UICollectionViewLayout())
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -179,12 +179,20 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		EDCB2AC7265BD0F700F183A2 /* Components */ = {
+		ED4C8A91265F766E0037C523 /* HomeScene */ = {
 			isa = PBXGroup;
 			children = (
 				EDCB2AC8265BD3DC00F183A2 /* HomeMainHeaderView.swift */,
 				EDC4AB2F265CD4500052F21F /* HomeSelectRouteHeaderView.swift */,
 				ED4C8A8F265F702B0037C523 /* HomeEmptyRouteView.swift */,
+			);
+			path = HomeScene;
+			sourceTree = "<group>";
+		};
+		EDCB2AC7265BD0F700F183A2 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				ED4C8A91265F766E0037C523 /* HomeScene */,
 			);
 			path = Components;
 			sourceTree = "<group>";
