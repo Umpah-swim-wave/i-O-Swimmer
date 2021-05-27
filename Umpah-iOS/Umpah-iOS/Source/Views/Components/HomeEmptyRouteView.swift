@@ -24,7 +24,9 @@ class HomeEmptyRouteView: UIView {
     private let registerButton: UIButton = {
        let button = UIButton()
         button.setTitle("루틴 등록", for: .normal)
-        button.layer.cornerRadius = 20
+        button.setTitleColor(.blue, for: .normal)
+        button.backgroundColor = .white
+        button.layer.cornerRadius = 13
         button.layer.shadowColor = UIColor.systemBlue.cgColor
         button.layer.shadowOpacity = 0.5
         button.layer.shadowRadius = 10
