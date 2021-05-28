@@ -14,7 +14,7 @@ class HomeSelectRouteCVC: UICollectionViewCell {
     @IBOutlet weak var routeImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var contentLabel: UILabel!
-    @IBOutlet weak var kiloLabel: UILabel!
+    @IBOutlet weak var distanceLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
