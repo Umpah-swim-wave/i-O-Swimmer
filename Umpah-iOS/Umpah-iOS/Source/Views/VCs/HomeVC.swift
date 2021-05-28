@@ -16,7 +16,7 @@ class HomeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupConfigure()
-        linkCollectionViewCell()
+        linkToCollectionViewCell()
     }
     
     private func setupConfigure() {
@@ -39,7 +39,7 @@ class HomeVC: UIViewController {
         }
     }
     
-    private func linkCollectionViewCell() {
+    private func linkToCollectionViewCell() {
         routeCollectionView.setCollectionViewNib(nib: HomeTodayRouteCVC.identifier)
         routeCollectionView.setCollectionViewNib(nib: HomeSelectRouteCVC.identifier)
         routeCollectionView.register(HomeSelectRouteHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: HomeSelectRouteHeaderView.identifier)
