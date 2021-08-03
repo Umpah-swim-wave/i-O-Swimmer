@@ -1,13 +1,13 @@
 //
-//  AnalysisVC.swift
+//  RoutineVC.swift
 //  Umpah-iOS
 //
-//  Created by SHIN YOON AH on 2021/05/10.
+//  Created by SHIN YOON AH on 2021/08/03.
 //
 
 import UIKit
 
-class AnalysisVC: UIViewController {
+class RoutineVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

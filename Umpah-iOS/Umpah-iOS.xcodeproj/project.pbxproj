@@ -10,17 +10,10 @@
 		65BD8F2201A9C1AFD7C2D8DD /* Pods_Umpah_iOS_WatchKit_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86DD879FC3C4E84D7E3F34D5 /* Pods_Umpah_iOS_WatchKit_App.framework */; };
 		D1F464F8FC2774B0D55FFF79 /* Pods_Umpah_iOS_WatchKit_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C521171D608E01D7F8B2492 /* Pods_Umpah_iOS_WatchKit_Extension.framework */; };
 		ECF21C0C9372B4F1A806C262 /* Pods_Umpah_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB7CF8BBFF32001FC0A7E689 /* Pods_Umpah_iOS.framework */; };
-		ED4C8A90265F702B0037C523 /* HomeEmptyRouteView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4C8A8F265F702B0037C523 /* HomeEmptyRouteView.swift */; };
-		ED4C8A93265FBBD20037C523 /* DetailedRoutineVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4C8A92265FBBD20037C523 /* DetailedRoutineVC.swift */; };
-		ED4C8A95265FBF5C0037C523 /* DetailedRoutineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED4C8A94265FBF5C0037C523 /* DetailedRoutineView.swift */; };
-		EDC4AB25265CC8D10052F21F /* HomeTodayRouteCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC4AB23265CC8D10052F21F /* HomeTodayRouteCVC.swift */; };
-		EDC4AB26265CC8D10052F21F /* HomeTodayRouteCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = EDC4AB24265CC8D10052F21F /* HomeTodayRouteCVC.xib */; };
-		EDC4AB29265CC91F0052F21F /* HomeSelectRouteCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC4AB27265CC91F0052F21F /* HomeSelectRouteCVC.swift */; };
-		EDC4AB2A265CC91F0052F21F /* HomeSelectRouteCVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = EDC4AB28265CC91F0052F21F /* HomeSelectRouteCVC.xib */; };
-		EDC4AB2C265CCB200052F21F /* Extension+UICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC4AB2B265CCB200052F21F /* Extension+UICollectionView.swift */; };
-		EDC4AB2E265CCF7D0052F21F /* Extension+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC4AB2D265CCF7D0052F21F /* Extension+UIView.swift */; };
-		EDC4AB30265CD4500052F21F /* HomeSelectRouteHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC4AB2F265CD4500052F21F /* HomeSelectRouteHeaderView.swift */; };
-		EDCB2AC9265BD3DC00F183A2 /* HomeMainHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDCB2AC8265BD3DC00F183A2 /* HomeMainHeaderView.swift */; };
+		ED5396E226B975AD0061722F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED5396E126B975AD0061722F /* Main.storyboard */; };
+		ED5396E426B975D70061722F /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5396E326B975D70061722F /* MainVC.swift */; };
+		ED5396E626B975E70061722F /* Routine.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED5396E526B975E70061722F /* Routine.storyboard */; };
+		ED5396E826B975F60061722F /* RoutineVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5396E726B975F60061722F /* RoutineVC.swift */; };
 		EDD43FD426483C9500C866F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD43FD326483C9500C866F3 /* AppDelegate.swift */; };
 		EDD43FD626483C9500C866F3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD43FD526483C9500C866F3 /* SceneDelegate.swift */; };
 		EDD43FDD26483C9600C866F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDD43FDC26483C9600C866F3 /* Assets.xcassets */; };
@@ -33,14 +26,6 @@
 		EDD43FFB26483C9700C866F3 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD43FFA26483C9700C866F3 /* ExtensionDelegate.swift */; };
 		EDD43FFD26483C9700C866F3 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD43FFC26483C9700C866F3 /* ComplicationController.swift */; };
 		EDD43FFF26483C9700C866F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDD43FFE26483C9700C866F3 /* Assets.xcassets */; };
-		EDD4402226483EFE00C866F3 /* TabbarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD4402126483EFE00C866F3 /* TabbarController.swift */; };
-		EDD4402426483F2800C866F3 /* Tabbar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDD4402326483F2800C866F3 /* Tabbar.storyboard */; };
-		EDD440262648404C00C866F3 /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD440252648404C00C866F3 /* HomeVC.swift */; };
-		EDD440282648414400C866F3 /* Home.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDD440272648414400C866F3 /* Home.storyboard */; };
-		EDD4402A2648424200C866F3 /* Analysis.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDD440292648424200C866F3 /* Analysis.storyboard */; };
-		EDD4402C2648425700C866F3 /* AnalysisVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD4402B2648425700C866F3 /* AnalysisVC.swift */; };
-		EDD4402E2648430900C866F3 /* StorageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD4402D2648430900C866F3 /* StorageVC.swift */; };
-		EDD440302648435800C866F3 /* Storage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDD4402F2648435800C866F3 /* Storage.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,17 +80,10 @@
 		B53DA869B8F832A627BB5D6C /* Pods-Umpah-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Umpah-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Umpah-iOS/Pods-Umpah-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		DB7CF8BBFF32001FC0A7E689 /* Pods_Umpah_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Umpah_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2A34E7653F7869CEB27C154 /* Pods-Umpah-iOS WatchKit Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Umpah-iOS WatchKit Extension.debug.xcconfig"; path = "Target Support Files/Pods-Umpah-iOS WatchKit Extension/Pods-Umpah-iOS WatchKit Extension.debug.xcconfig"; sourceTree = "<group>"; };
-		ED4C8A8F265F702B0037C523 /* HomeEmptyRouteView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeEmptyRouteView.swift; sourceTree = "<group>"; };
-		ED4C8A92265FBBD20037C523 /* DetailedRoutineVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedRoutineVC.swift; sourceTree = "<group>"; };
-		ED4C8A94265FBF5C0037C523 /* DetailedRoutineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedRoutineView.swift; sourceTree = "<group>"; };
-		EDC4AB23265CC8D10052F21F /* HomeTodayRouteCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTodayRouteCVC.swift; sourceTree = "<group>"; };
-		EDC4AB24265CC8D10052F21F /* HomeTodayRouteCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeTodayRouteCVC.xib; sourceTree = "<group>"; };
-		EDC4AB27265CC91F0052F21F /* HomeSelectRouteCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSelectRouteCVC.swift; sourceTree = "<group>"; };
-		EDC4AB28265CC91F0052F21F /* HomeSelectRouteCVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeSelectRouteCVC.xib; sourceTree = "<group>"; };
-		EDC4AB2B265CCB200052F21F /* Extension+UICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UICollectionView.swift"; sourceTree = "<group>"; };
-		EDC4AB2D265CCF7D0052F21F /* Extension+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIView.swift"; sourceTree = "<group>"; };
-		EDC4AB2F265CD4500052F21F /* HomeSelectRouteHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSelectRouteHeaderView.swift; sourceTree = "<group>"; };
-		EDCB2AC8265BD3DC00F183A2 /* HomeMainHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeMainHeaderView.swift; sourceTree = "<group>"; };
+		ED5396E126B975AD0061722F /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		ED5396E326B975D70061722F /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
+		ED5396E526B975E70061722F /* Routine.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Routine.storyboard; sourceTree = "<group>"; };
+		ED5396E726B975F60061722F /* RoutineVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineVC.swift; sourceTree = "<group>"; };
 		EDD43FD026483C9500C866F3 /* Umpah-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Umpah-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDD43FD326483C9500C866F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EDD43FD526483C9500C866F3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -122,14 +100,6 @@
 		EDD43FFC26483C9700C866F3 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
 		EDD43FFE26483C9700C866F3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EDD4400026483C9700C866F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EDD4402126483EFE00C866F3 /* TabbarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TabbarController.swift; path = "Umpah-iOS/Source/Views/VCs/TabbarController.swift"; sourceTree = SOURCE_ROOT; };
-		EDD4402326483F2800C866F3 /* Tabbar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Tabbar.storyboard; sourceTree = "<group>"; };
-		EDD440252648404C00C866F3 /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
-		EDD440272648414400C866F3 /* Home.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Home.storyboard; sourceTree = "<group>"; };
-		EDD440292648424200C866F3 /* Analysis.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Analysis.storyboard; sourceTree = "<group>"; };
-		EDD4402B2648425700C866F3 /* AnalysisVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalysisVC.swift; sourceTree = "<group>"; };
-		EDD4402D2648430900C866F3 /* StorageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageVC.swift; sourceTree = "<group>"; };
-		EDD4402F2648435800C866F3 /* Storage.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storage.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -183,21 +153,9 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		ED4C8A91265F766E0037C523 /* HomeScene */ = {
-			isa = PBXGroup;
-			children = (
-				EDCB2AC8265BD3DC00F183A2 /* HomeMainHeaderView.swift */,
-				EDC4AB2F265CD4500052F21F /* HomeSelectRouteHeaderView.swift */,
-				ED4C8A8F265F702B0037C523 /* HomeEmptyRouteView.swift */,
-				ED4C8A94265FBF5C0037C523 /* DetailedRoutineView.swift */,
-			);
-			path = HomeScene;
-			sourceTree = "<group>";
-		};
 		EDCB2AC7265BD0F700F183A2 /* Components */ = {
 			isa = PBXGroup;
 			children = (
-				ED4C8A91265F766E0037C523 /* HomeScene */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -258,6 +216,7 @@
 			children = (
 				EDD4401626483D1A00C866F3 /* Models */,
 				EDD4401526483D1600C866F3 /* ViewModels */,
+				EDD4401726483D2100C866F3 /* ViewControllers */,
 				EDD4401426483CDA00C866F3 /* Views */,
 				EDD4401326483CD600C866F3 /* Services */,
 				EDD4401226483CD100C866F3 /* Supports */,
@@ -280,8 +239,6 @@
 		EDD4401126483CCD00C866F3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				EDC4AB2B265CCB200052F21F /* Extension+UICollectionView.swift */,
-				EDC4AB2D265CCF7D0052F21F /* Extension+UIView.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -307,7 +264,6 @@
 			children = (
 				EDCB2AC7265BD0F700F183A2 /* Components */,
 				EDD4401826483D2500C866F3 /* Cells */,
-				EDD4401726483D2100C866F3 /* VCs */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -326,23 +282,18 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
-		EDD4401726483D2100C866F3 /* VCs */ = {
+		EDD4401726483D2100C866F3 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
-				EDD440252648404C00C866F3 /* HomeVC.swift */,
-				EDD4402B2648425700C866F3 /* AnalysisVC.swift */,
-				EDD4402D2648430900C866F3 /* StorageVC.swift */,
-				ED4C8A92265FBBD20037C523 /* DetailedRoutineVC.swift */,
-				EDD4402126483EFE00C866F3 /* TabbarController.swift */,
+				ED5396E326B975D70061722F /* MainVC.swift */,
+				ED5396E726B975F60061722F /* RoutineVC.swift */,
 			);
-			path = VCs;
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 		EDD4401826483D2500C866F3 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				EDC4AB23265CC8D10052F21F /* HomeTodayRouteCVC.swift */,
-				EDC4AB27265CC91F0052F21F /* HomeSelectRouteCVC.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -350,11 +301,9 @@
 		EDD4401926483D2F00C866F3 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				EDD440272648414400C866F3 /* Home.storyboard */,
-				EDD440292648424200C866F3 /* Analysis.storyboard */,
-				EDD4402F2648435800C866F3 /* Storage.storyboard */,
-				EDD4402326483F2800C866F3 /* Tabbar.storyboard */,
 				EDD43FDE26483C9600C866F3 /* LaunchScreen.storyboard */,
+				ED5396E126B975AD0061722F /* Main.storyboard */,
+				ED5396E526B975E70061722F /* Routine.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -362,8 +311,6 @@
 		EDD4401A26483D4900C866F3 /* Xibs */ = {
 			isa = PBXGroup;
 			children = (
-				EDC4AB24265CC8D10052F21F /* HomeTodayRouteCVC.xib */,
-				EDC4AB28265CC91F0052F21F /* HomeSelectRouteCVC.xib */,
 			);
 			path = Xibs;
 			sourceTree = "<group>";
@@ -524,14 +471,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EDD4402426483F2800C866F3 /* Tabbar.storyboard in Resources */,
-				EDD4402A2648424200C866F3 /* Analysis.storyboard in Resources */,
-				EDD440302648435800C866F3 /* Storage.storyboard in Resources */,
-				EDC4AB2A265CC91F0052F21F /* HomeSelectRouteCVC.xib in Resources */,
+				ED5396E226B975AD0061722F /* Main.storyboard in Resources */,
 				EDD43FE026483C9600C866F3 /* LaunchScreen.storyboard in Resources */,
-				EDC4AB26265CC8D10052F21F /* HomeTodayRouteCVC.xib in Resources */,
 				EDD43FDD26483C9600C866F3 /* Assets.xcassets in Resources */,
-				EDD440282648414400C866F3 /* Home.storyboard in Resources */,
+				ED5396E626B975E70061722F /* Routine.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -645,21 +588,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				EDCB2AC9265BD3DC00F183A2 /* HomeMainHeaderView.swift in Sources */,
-				ED4C8A90265F702B0037C523 /* HomeEmptyRouteView.swift in Sources */,
 				EDD43FD426483C9500C866F3 /* AppDelegate.swift in Sources */,
-				EDC4AB30265CD4500052F21F /* HomeSelectRouteHeaderView.swift in Sources */,
-				EDD440262648404C00C866F3 /* HomeVC.swift in Sources */,
-				ED4C8A93265FBBD20037C523 /* DetailedRoutineVC.swift in Sources */,
-				EDD4402226483EFE00C866F3 /* TabbarController.swift in Sources */,
-				EDC4AB2E265CCF7D0052F21F /* Extension+UIView.swift in Sources */,
-				EDD4402C2648425700C866F3 /* AnalysisVC.swift in Sources */,
-				ED4C8A95265FBF5C0037C523 /* DetailedRoutineView.swift in Sources */,
-				EDC4AB29265CC91F0052F21F /* HomeSelectRouteCVC.swift in Sources */,
+				ED5396E826B975F60061722F /* RoutineVC.swift in Sources */,
+				ED5396E426B975D70061722F /* MainVC.swift in Sources */,
 				EDD43FD626483C9500C866F3 /* SceneDelegate.swift in Sources */,
-				EDD4402E2648430900C866F3 /* StorageVC.swift in Sources */,
-				EDC4AB2C265CCB200052F21F /* Extension+UICollectionView.swift in Sources */,
-				EDC4AB25265CC8D10052F21F /* HomeTodayRouteCVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
