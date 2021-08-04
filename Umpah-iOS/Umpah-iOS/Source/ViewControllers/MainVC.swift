@@ -1,13 +1,13 @@
 //
-//  StorageVC.swift
+//  MainVC.swift
 //  Umpah-iOS
 //
-//  Created by SHIN YOON AH on 2021/05/10.
+//  Created by SHIN YOON AH on 2021/08/03.
 //
 
 import UIKit
 
-class StorageVC: UIViewController {
+class MainVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
