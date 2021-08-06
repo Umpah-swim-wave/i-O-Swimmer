@@ -6,24 +6,35 @@
 //
 
 import UIKit
+import SnapKit
 
 class RoutineVC: UIViewController {
 
+    static let identifier = "RoutineVC"
+    
+    private let navigationView = UIView()
+    private var tableView = UITableView()
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupConstraints()
+    }
 
-        // Do any additional setup after loading the view.
+    private func setupConstraints(){
+        view.addSubviews([navigationView,
+                          tableView])
+
+        navigationView.snp.makeConstraints{
+            $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
+            $0.height.equalTo(44)
+        }
+        
+        tableView.snp.makeConstraints {
+            $0.top.equalTo(navigationView.snp.bottom)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+    
 }
