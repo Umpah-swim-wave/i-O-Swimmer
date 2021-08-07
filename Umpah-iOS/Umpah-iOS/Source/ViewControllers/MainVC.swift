@@ -17,7 +17,12 @@ enum CardViewState {
 
 class MainVC: UIViewController {
     // MARK: - Properties
-    var cardView = UIView()
+    var cardView = UIView().then {
+        $0.backgroundColor = .white
+        $0.clipsToBounds = true
+        $0.layer.cornerRadius = 32.0
+        $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+    }
     var routineView = RectangularDashedView().then {
         $0.backgroundColor = .lightGray
         $0.cornerRadius = 16
@@ -79,10 +84,16 @@ class MainVC: UIViewController {
     }
     
     private func initCardView() {
-        cardView.backgroundColor = .white
-        cardView.clipsToBounds = true
-        cardView.layer.cornerRadius = 32.0
-        cardView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        let handleView = UIView()
+        handleView.backgroundColor = .lightGray
+        handleView.layer.cornerRadius = 3
+        cardView.addSubview(handleView)
+        handleView.snp.makeConstraints {
+            $0.top.equalTo(cardView.snp.top).offset(9)
+            $0.centerX.equalToSuperview()
+            $0.height.equalTo(4)
+            $0.width.equalTo(48)
+        }
         
         if let safeAreaHeight = UIApplication.shared.keyWindow?.safeAreaLayoutGuide.layoutFrame.size.height,
           let bottomPadding = UIApplication.shared.keyWindow?.safeAreaInsets.bottom {
