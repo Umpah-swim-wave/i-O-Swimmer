@@ -13,7 +13,7 @@ import Charts
 
 class NormalStateView: UIView {
     // MARK: - Properties
-    var lineChartView = LineChartView()
+    let lineChartView = LineChartView()
     let chartBackView = UIView().then {
         $0.backgroundColor = .systemGray5
         $0.layer.cornerRadius = 16

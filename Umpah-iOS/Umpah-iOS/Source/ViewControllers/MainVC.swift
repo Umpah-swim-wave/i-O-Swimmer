@@ -9,6 +9,7 @@ import UIKit
 
 import Then
 import SnapKit
+import Charts
 
 enum CardViewState {
     case expanded
@@ -56,7 +57,6 @@ class MainVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         showCard()
-        normalView.lineChartView.animate(yAxisDuration: 2.0, easingOption: .easeInOutQuint)
     }
     
     // MARK: - Custom Methods
@@ -131,10 +131,12 @@ extension MainVC {
         
         if atState == .expanded {
             cardViewTopConstraint?.constant = 30.0
+            expandedView.lineChartView.animate(yAxisDuration: 2.0, easingOption: .easeInOutQuint)
             expandedView.fadeIn()
             normalView.fadeOut()
         } else {
             cardViewTopConstraint?.constant = UIScreen.main.bounds.size.height * 0.42
+            normalView.lineChartView.animate(yAxisDuration: 2.0, easingOption: .easeInOutQuint)
             normalView.fadeIn()
             expandedView.fadeOut()
         }

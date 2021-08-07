@@ -9,6 +9,7 @@ import UIKit
 
 import Then
 import SnapKit
+import Charts
 
 class ExpandedStateView: UIView {
     // MARK: - Properties
@@ -29,12 +30,20 @@ class ExpandedStateView: UIView {
         $0.minimumLineSpacing = 0
         $0.minimumInteritemSpacing = 16
     }
+    let lineChartView = LineChartView()
+    let chartBackView = UIView().then {
+        $0.backgroundColor = .systemGray5
+        $0.layer.cornerRadius = 16
+    }
     
     let types: [String] = ["DAY", "WEEK", "MONTH", "ALL"]
+    var numbers: [Double] = [3.0, 2.5, 3.3, 5.5, 2.7, 2.8, 4.1]
+    let weeks: [String] = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"]
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
+        initCharts()
     }
     
     required init?(coder: NSCoder) {
@@ -43,7 +52,8 @@ class ExpandedStateView: UIView {
     
     // MARK: - Custom Method
     private func setupLayout() {
-        addSubviews([titleLabel, typeCollectionView])
+        addSubviews([titleLabel, typeCollectionView, chartBackView])
+        chartBackView.addSubview(lineChartView)
         
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(46)
@@ -56,6 +66,64 @@ class ExpandedStateView: UIView {
             $0.height.equalTo(44)
             $0.width.equalTo(290)
         }
+        
+        chartBackView.snp.makeConstraints {
+            $0.top.equalTo(typeCollectionView.snp.bottom).offset(16)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.height.equalTo(300)
+        }
+        
+        lineChartView.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(57)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview().inset(6)
+        }
+    }
+    
+    private func initCharts() {
+        lineChartView.xAxis.labelFont = .systemFont(ofSize: 10, weight: .medium)
+        lineChartView.xAxis.labelPosition = .bottom
+        lineChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: weeks)
+        lineChartView.xAxis.setLabelCount(weeks.count, force: true)
+        lineChartView.xAxis.avoidFirstLastClippingEnabled = true
+        lineChartView.xAxis.axisLineWidth = 1.0
+        lineChartView.xAxis.gridColor = .clear
+        lineChartView.xAxis.axisLineColor = .clear
+        lineChartView.rightAxis.enabled = false
+        lineChartView.rightAxis.drawLabelsEnabled = false
+        lineChartView.leftAxis.axisLineWidth = 0.0
+        lineChartView.leftAxis.gridColor = .systemGray3
+        lineChartView.leftAxis.drawLabelsEnabled = false
+        lineChartView.legend.enabled = false
+        lineChartView.doubleTapToZoomEnabled = false
+        
+        lineChartView.extraRightOffset = 30
+        lineChartView.extraLeftOffset = 30
+        lineChartView.extraBottomOffset = 10
+        
+        changeLineChartdata()
+    }
+    
+    func changeLineChartdata(){
+        var lineChartEntry = [ChartDataEntry]()
+ 
+        for i in 0..<numbers.count {
+            let value = ChartDataEntry(x: Double(i), y: numbers[i])
+            lineChartEntry.append(value)
+        }
+        
+        let line1 = LineChartDataSet(entries: lineChartEntry, label: "일주일")
+        line1.highlightEnabled = false
+        line1.colors = [.gray]
+        line1.circleColors = [NSUIColor.gray]
+        line1.circleHoleColor = NSUIColor.systemGray5
+        line1.circleRadius = 4.0
+        line1.circleHoleRadius = 1.5
+        line1.lineWidth = 3.0
+        line1.mode = .cubicBezier
+        
+        let data = LineChartData(dataSet: line1)
+        lineChartView.data = data
     }
 }
 
