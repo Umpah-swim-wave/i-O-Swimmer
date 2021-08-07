@@ -7,6 +7,7 @@
 
 import UIKit
 
+import Then
 import SnapKit
 
 enum CardViewState {
@@ -17,7 +18,21 @@ enum CardViewState {
 class MainVC: UIViewController {
     // MARK: - Properties
     var cardView = UIView()
-    var titleLabel = UILabel()
+    var routineView = RectangularDashedView().then {
+        $0.backgroundColor = .lightGray
+        $0.cornerRadius = 16
+        $0.dashWidth = 2
+        $0.dashColor = .black
+        $0.betweenDashesSpace = 8
+        $0.dashLength = 8
+    }
+    var titleLabel = UILabel().then {
+        $0.text = "어푸님!\n수영하기 좋은 날이에요!"
+        $0.textColor = .black
+        $0.numberOfLines = 0
+        $0.font = .systemFont(ofSize: 24, weight: .medium)
+    }
+    
     var cardViewState : CardViewState = .normal
     var cardPanStartingTopConstant : CGFloat = 20.0
     var cardViewTopConstraint: NSLayoutConstraint?
@@ -38,7 +53,19 @@ class MainVC: UIViewController {
     
     // MARK: - Custom Methods
     private func setupLayout() {
-        view.addSubviews([cardView])
+        view.addSubviews([titleLabel, routineView, cardView])
+        
+        titleLabel.snp.makeConstraints {
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(60)
+            $0.leading.equalToSuperview().inset(24)
+        }
+        
+        routineView.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(40)
+            $0.leading.equalToSuperview().inset(16)
+            $0.width.equalTo(160)
+            $0.height.equalTo(80)
+        }
         
         cardView.snp.makeConstraints {
             $0.leading.trailing.bottom.equalToSuperview()
@@ -126,10 +153,8 @@ extension MainVC {
                let bottomPadding = UIApplication.shared.keyWindow?.safeAreaInsets.bottom {
                 if self.cardViewTopConstraint?.constant ?? 0 < (safeAreaHeight + bottomPadding) * 0.25 {
                     showCard(atState: .expanded)
-                    titleLabel.text = "My Progress"
                 } else  {
                     showCard(atState: .normal)
-                    titleLabel.text = "Total"
                 }
             }
         default:
