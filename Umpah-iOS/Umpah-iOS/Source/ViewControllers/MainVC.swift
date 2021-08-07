@@ -131,12 +131,12 @@ extension MainVC {
         
         if atState == .expanded {
             cardViewTopConstraint?.constant = 30.0
-            expandedView.lineChartView.animate(yAxisDuration: 2.0, easingOption: .easeInOutQuint)
+            expandedView.lineChartView.animate(yAxisDuration: 1.0, easingOption: .easeInOutQuint)
             expandedView.fadeIn()
             normalView.fadeOut()
         } else {
             cardViewTopConstraint?.constant = UIScreen.main.bounds.size.height * 0.42
-            normalView.lineChartView.animate(yAxisDuration: 2.0, easingOption: .easeInOutQuint)
+            normalView.lineChartView.animate(yAxisDuration: 1.0, easingOption: .easeInOutQuint)
             normalView.fadeIn()
             expandedView.fadeOut()
         }
