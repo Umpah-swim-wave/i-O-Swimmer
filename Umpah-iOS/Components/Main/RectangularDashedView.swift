@@ -8,7 +8,7 @@
 import UIKit
 
 class RectangularDashedView: UIView {
-    
+    // MARK: - Properties
     var cornerRadius: CGFloat = 0 {
         didSet {
             layer.cornerRadius = cornerRadius

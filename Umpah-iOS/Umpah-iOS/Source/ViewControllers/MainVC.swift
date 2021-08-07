@@ -107,16 +107,13 @@ extension MainVC {
     private func showCard(atState: CardViewState = .normal) {
         self.view.layoutIfNeeded()
         
-        if let safeAreaHeight = UIApplication.shared.keyWindow?.safeAreaLayoutGuide.layoutFrame.size.height,
-           let bottomPadding = UIApplication.shared.keyWindow?.safeAreaInsets.bottom {
-            if atState == .expanded {
-                cardViewTopConstraint?.constant = 30.0
-            } else {
-                cardViewTopConstraint?.constant = UIScreen.main.bounds.size.height * 0.42
-            }
-            
-            cardPanStartingTopConstant = cardViewTopConstraint?.constant ?? 0
+        if atState == .expanded {
+            cardViewTopConstraint?.constant = 30.0
+        } else {
+            cardViewTopConstraint?.constant = UIScreen.main.bounds.size.height * 0.42
         }
+        
+        cardPanStartingTopConstant = cardViewTopConstraint?.constant ?? 0
         
         let showCard = UIViewPropertyAnimator(duration: 0.25, curve: .easeIn, animations: {
             self.view.layoutIfNeeded()
