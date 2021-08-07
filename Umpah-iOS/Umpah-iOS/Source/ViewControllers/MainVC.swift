@@ -56,6 +56,7 @@ class MainVC: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         showCard()
+        normalView.lineChartView.animate(yAxisDuration: 2.0, easingOption: .easeInOutQuint)
     }
     
     // MARK: - Custom Methods
@@ -82,7 +83,8 @@ class MainVC: UIViewController {
         cardViewTopConstraint?.isActive = true
         
         normalView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.top.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
         
         expandedView.snp.makeConstraints {
