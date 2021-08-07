@@ -35,6 +35,7 @@ class MainVC: UIViewController {
     
     var cardViewState : CardViewState = .normal
     var cardPanStartingTopConstant : CGFloat = 20.0
+    var cardPanMaxVelocity: CGFloat = 1500.0
     var cardViewTopConstraint: NSLayoutConstraint?
     
     // MARK: - Life Cycle
@@ -141,7 +142,7 @@ extension MainVC {
                 self.cardViewTopConstraint?.constant = self.cardPanStartingTopConstant + translation.y
             }
         case .ended:
-            if velocity.y > 1500.0 {
+            if velocity.y > cardPanMaxVelocity {
                 showCard(atState: .normal)
                 return
             }
