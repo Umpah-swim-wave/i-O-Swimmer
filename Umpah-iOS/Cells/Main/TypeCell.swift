@@ -25,14 +25,16 @@ class TypeCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        initTypeLabel()
+        initTypeCell()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func initTypeLabel() {
+    private func initTypeCell() {
+        layer.cornerRadius = 8
+        
         addSubview(typeLabel)
         typeLabel.snp.makeConstraints {
             $0.centerX.centerY.equalToSuperview()

@@ -52,8 +52,9 @@ class ExpandedStateView: UIView {
         
         typeCollectionView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(16)
-            $0.leading.trailing.equalToSuperview()
+            $0.centerX.equalToSuperview()
             $0.height.equalTo(44)
+            $0.width.equalTo(290)
         }
     }
 }
@@ -85,7 +86,7 @@ extension ExpandedStateView: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 8, left: 32, bottom: 8, right: 32)
+        return UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
     }
     
     private func calculateLabelWidth(text: String) -> CGFloat {
