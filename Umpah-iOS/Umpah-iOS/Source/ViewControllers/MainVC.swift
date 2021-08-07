@@ -41,7 +41,7 @@ class MainVC: UIViewController {
     let normalView = NormalStateView()
     let expandedView = ExpandedStateView()
     
-    var cardViewState : CardViewState = .normal
+    var cardViewState : CardViewState = .expanded
     var cardPanStartingTopConstant : CGFloat = 20.0
     var cardViewTopConstraint: NSLayoutConstraint?
     
@@ -134,11 +134,16 @@ extension MainVC {
             expandedView.lineChartView.animate(yAxisDuration: 1.0, easingOption: .easeInOutQuint)
             expandedView.fadeIn()
             normalView.fadeOut()
+            cardViewState = .expanded
         } else {
             cardViewTopConstraint?.constant = UIScreen.main.bounds.size.height * 0.42
-            normalView.lineChartView.animate(yAxisDuration: 1.0, easingOption: .easeInOutQuint)
             normalView.fadeIn()
             expandedView.fadeOut()
+            
+            if cardViewState == .expanded {
+                normalView.lineChartView.animate(yAxisDuration: 1.0, easingOption: .easeInOutQuint)
+            }
+            cardViewState = .normal
         }
         
         cardPanStartingTopConstant = cardViewTopConstraint?.constant ?? 0
