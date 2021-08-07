@@ -64,7 +64,7 @@ class ExpandedStateView: UIView {
             $0.top.equalTo(titleLabel.snp.bottom).offset(16)
             $0.centerX.equalToSuperview()
             $0.height.equalTo(44)
-            $0.width.equalTo(290)
+            $0.width.equalTo(312)
         }
         
         chartBackView.snp.makeConstraints {
@@ -135,6 +135,7 @@ extension ExpandedStateView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: TypeCell.identifier, for: indexPath) as? TypeCell else { return UICollectionViewCell() }
         cell.typeLabel.text = types[indexPath.item]
+        cell.typeLabel.addCharacterSpacing(kernValue: 2)
         
         if indexPath.item == 0 {
             cell.isSelected = true
@@ -161,6 +162,7 @@ extension ExpandedStateView: UICollectionViewDelegateFlowLayout {
         let label = UILabel()
         label.text = text
         label.font = .boldSystemFont(ofSize: 12)
+        label.addCharacterSpacing(kernValue: 2)
         label.sizeToFit()
         
         return label.bounds.size.width + 28
