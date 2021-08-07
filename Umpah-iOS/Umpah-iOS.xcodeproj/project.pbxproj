@@ -36,6 +36,7 @@
 		EDD46F4926BE758B00FA91F2 /* RectangularDashedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD46F4826BE758B00FA91F2 /* RectangularDashedView.swift */; };
 		EDD46F4B26BE99F900FA91F2 /* NormalStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD46F4A26BE99F900FA91F2 /* NormalStateView.swift */; };
 		EDD46F4D26BE9C0200FA91F2 /* ExpandedStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD46F4C26BE9C0200FA91F2 /* ExpandedStateView.swift */; };
+		EDD46F5026BEDE4D00FA91F2 /* TypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD46F4F26BEDE4D00FA91F2 /* TypeCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -120,6 +121,7 @@
 		EDD46F4826BE758B00FA91F2 /* RectangularDashedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RectangularDashedView.swift; path = Components/Main/RectangularDashedView.swift; sourceTree = SOURCE_ROOT; };
 		EDD46F4A26BE99F900FA91F2 /* NormalStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NormalStateView.swift; path = Components/Main/NormalStateView.swift; sourceTree = SOURCE_ROOT; };
 		EDD46F4C26BE9C0200FA91F2 /* ExpandedStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExpandedStateView.swift; path = Components/Main/ExpandedStateView.swift; sourceTree = SOURCE_ROOT; };
+		EDD46F4F26BEDE4D00FA91F2 /* TypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TypeCell.swift; path = Cells/Main/TypeCell.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -322,6 +324,7 @@
 		EDD4401826483D2500C866F3 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				EDD46F4E26BEDE3500FA91F2 /* Main */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -402,6 +405,14 @@
 			);
 			name = Main;
 			path = Components/Main;
+			sourceTree = "<group>";
+		};
+		EDD46F4E26BEDE3500FA91F2 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				EDD46F4F26BEDE4D00FA91F2 /* TypeCell.swift */,
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -628,6 +639,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED5396ED26B977320061722F /* UIApplication+.swift in Sources */,
+				EDD46F5026BEDE4D00FA91F2 /* TypeCell.swift in Sources */,
 				ED5396F526B977A20061722F /* UIScreen+.swift in Sources */,
 				EDD46F4926BE758B00FA91F2 /* RectangularDashedView.swift in Sources */,
 				ED5396F726B977BB0061722F /* UIViewController+.swift in Sources */,

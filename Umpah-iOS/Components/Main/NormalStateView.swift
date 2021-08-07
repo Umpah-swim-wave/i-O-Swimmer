@@ -76,7 +76,6 @@ class NormalStateView: UIView {
         lineChartView.xAxis.axisLineWidth = 1.0
         lineChartView.xAxis.gridColor = .clear
         lineChartView.xAxis.axisLineColor = .clear
-//        lineChartView.xAxis.enabled = false
         lineChartView.rightAxis.enabled = false
         lineChartView.rightAxis.drawLabelsEnabled = false
         lineChartView.leftAxis.axisLineWidth = 0.0
