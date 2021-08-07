@@ -117,10 +117,6 @@ class MainVC: UIViewController {
     }
     
     private func initGestureView() {
-        let dimmerTap = UITapGestureRecognizer(target: self, action: #selector(dimmerViewTapped(_:)))
-        view.addGestureRecognizer(dimmerTap)
-        view.isUserInteractionEnabled = true
-        
         let viewPan = UIPanGestureRecognizer(target: self, action: #selector(viewPanned(_:)))
         viewPan.delaysTouchesBegan = false
         viewPan.delaysTouchesEnded = false
@@ -153,11 +149,6 @@ extension MainVC {
     }
     
     // MARK: - @objc
-    @objc
-    func dimmerViewTapped(_ tapRecognizer: UITapGestureRecognizer) {
-        showCard(atState: .normal)
-    }
-    
     @objc
     func viewPanned(_ panRecognizer: UIPanGestureRecognizer) {
         let velocity = panRecognizer.velocity(in: self.view)
