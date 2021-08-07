@@ -69,6 +69,7 @@ class NormalStateView: UIView {
     }
     
     private func initCharts() {
+        lineChartView.xAxis.labelFont = .systemFont(ofSize: 10, weight: .medium)
         lineChartView.xAxis.labelPosition = .bottom
         lineChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: swimPositions)
         lineChartView.xAxis.setLabelCount(swimPositions.count, force: true)
@@ -105,7 +106,7 @@ class NormalStateView: UIView {
         line1.circleColors = [NSUIColor.gray]
         line1.circleHoleColor = NSUIColor.systemGray5
         line1.circleRadius = 4.0
-        line1.circleHoleRadius = 2.0
+        line1.circleHoleRadius = 1.5
         line1.lineWidth = 3.0
         line1.mode = .cubicBezier
         
