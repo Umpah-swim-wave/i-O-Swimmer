@@ -37,6 +37,8 @@ class MainVC: UIViewController {
         $0.numberOfLines = 0
         $0.font = .systemFont(ofSize: 24, weight: .medium)
     }
+    let normalView = NormalStateView()
+    let expandedView = ExpandedStateView()
     
     var cardViewState : CardViewState = .normal
     var cardPanStartingTopConstant : CGFloat = 20.0
@@ -59,6 +61,7 @@ class MainVC: UIViewController {
     // MARK: - Custom Methods
     private func setupLayout() {
         view.addSubviews([titleLabel, routineView, cardView])
+        cardView.addSubviews([normalView, expandedView])
         
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).inset(60)
@@ -77,6 +80,14 @@ class MainVC: UIViewController {
         }
         cardViewTopConstraint = cardView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20)
         cardViewTopConstraint?.isActive = true
+        
+        normalView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
+        expandedView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
     
     private func initUpperView() {
@@ -84,6 +95,8 @@ class MainVC: UIViewController {
     }
     
     private func initCardView() {
+        expandedView.alpha = 0.0
+        
         let handleView = UIView()
         handleView.backgroundColor = .lightGray
         handleView.layer.cornerRadius = 3
@@ -120,8 +133,12 @@ extension MainVC {
         
         if atState == .expanded {
             cardViewTopConstraint?.constant = 30.0
+            expandedView.fadeIn()
+            normalView.fadeOut()
         } else {
             cardViewTopConstraint?.constant = UIScreen.main.bounds.size.height * 0.42
+            normalView.fadeIn()
+            expandedView.fadeOut()
         }
         
         cardPanStartingTopConstant = cardViewTopConstraint?.constant ?? 0

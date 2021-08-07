@@ -34,6 +34,8 @@
 		EDD43FFD26483C9700C866F3 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD43FFC26483C9700C866F3 /* ComplicationController.swift */; };
 		EDD43FFF26483C9700C866F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDD43FFE26483C9700C866F3 /* Assets.xcassets */; };
 		EDD46F4926BE758B00FA91F2 /* RectangularDashedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD46F4826BE758B00FA91F2 /* RectangularDashedView.swift */; };
+		EDD46F4B26BE99F900FA91F2 /* NormalStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD46F4A26BE99F900FA91F2 /* NormalStateView.swift */; };
+		EDD46F4D26BE9C0200FA91F2 /* ExpandedStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD46F4C26BE9C0200FA91F2 /* ExpandedStateView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -116,6 +118,8 @@
 		EDD43FFE26483C9700C866F3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EDD4400026483C9700C866F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EDD46F4826BE758B00FA91F2 /* RectangularDashedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RectangularDashedView.swift; path = Components/Main/RectangularDashedView.swift; sourceTree = SOURCE_ROOT; };
+		EDD46F4A26BE99F900FA91F2 /* NormalStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NormalStateView.swift; path = Components/Main/NormalStateView.swift; sourceTree = SOURCE_ROOT; };
+		EDD46F4C26BE9C0200FA91F2 /* ExpandedStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExpandedStateView.swift; path = Components/Main/ExpandedStateView.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -393,6 +397,8 @@
 			isa = PBXGroup;
 			children = (
 				EDD46F4826BE758B00FA91F2 /* RectangularDashedView.swift */,
+				EDD46F4A26BE99F900FA91F2 /* NormalStateView.swift */,
+				EDD46F4C26BE9C0200FA91F2 /* ExpandedStateView.swift */,
 			);
 			name = Main;
 			path = Components/Main;
@@ -628,8 +634,10 @@
 				ED5396F126B9776F0061722F /* UIWindow+.swift in Sources */,
 				EDD43FD426483C9500C866F3 /* AppDelegate.swift in Sources */,
 				ED5396E826B975F60061722F /* RoutineVC.swift in Sources */,
+				EDD46F4D26BE9C0200FA91F2 /* ExpandedStateView.swift in Sources */,
 				ED5396EF26B9774C0061722F /* Encodable+.swift in Sources */,
 				ED5396E426B975D70061722F /* MainVC.swift in Sources */,
+				EDD46F4B26BE99F900FA91F2 /* NormalStateView.swift in Sources */,
 				ED5396F926B977D10061722F /* UIView+.swift in Sources */,
 				EDD43FD626483C9500C866F3 /* SceneDelegate.swift in Sources */,
 				ED5396F326B977920061722F /* UITextField+.swift in Sources */,
