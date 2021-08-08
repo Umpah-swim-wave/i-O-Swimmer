@@ -70,7 +70,7 @@ class RoutineItemTVC: UITableViewCell {
         }
     }
 
-    public func setRutineItem(item: RoutineItemData){
+    public func setRoutineItem(item: RoutineItemData){
         routineItem = item
         print("routineItem = \(routineItem)")
         strokeLabel.text = item.stroke

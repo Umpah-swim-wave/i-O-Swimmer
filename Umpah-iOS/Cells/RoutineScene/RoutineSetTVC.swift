@@ -139,7 +139,7 @@ extension RoutineSetTVC: UITableViewDataSource{
             return UITableViewCell()
         }
         
-        cell.setRutineItem(item: itemList[indexPath.row])
+        cell.setRoutineItem(item: itemList[indexPath.row])
         return cell
     }
     
