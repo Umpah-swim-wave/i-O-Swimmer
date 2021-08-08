@@ -40,6 +40,7 @@
 		EDD43FFB26483C9700C866F3 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD43FFA26483C9700C866F3 /* ExtensionDelegate.swift */; };
 		EDD43FFD26483C9700C866F3 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD43FFC26483C9700C866F3 /* ComplicationController.swift */; };
 		EDD43FFF26483C9700C866F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDD43FFE26483C9700C866F3 /* Assets.xcassets */; };
+		EDD46F4926BE758B00FA91F2 /* RectangularDashedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD46F4826BE758B00FA91F2 /* RectangularDashedView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -128,6 +129,7 @@
 		EDD43FFC26483C9700C866F3 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
 		EDD43FFE26483C9700C866F3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EDD4400026483C9700C866F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		EDD46F4826BE758B00FA91F2 /* RectangularDashedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RectangularDashedView.swift; path = Components/Main/RectangularDashedView.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -210,6 +212,7 @@
 		EDCB2AC7265BD0F700F183A2 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				EDD46F4726BE757600FA91F2 /* Main */,
 				3C64C15726BBA833009BD23B /* Shared */,
 			);
 			path = Components;
@@ -429,6 +432,15 @@
 				EDD43FFA26483C9700C866F3 /* ExtensionDelegate.swift */,
 			);
 			path = Supports;
+			sourceTree = "<group>";
+		};
+		EDD46F4726BE757600FA91F2 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				EDD46F4826BE758B00FA91F2 /* RectangularDashedView.swift */,
+			);
+			name = Main;
+			path = Components/Main;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -658,6 +670,7 @@
 			files = (
 				ED5396ED26B977320061722F /* UIApplication+.swift in Sources */,
 				ED5396F526B977A20061722F /* UIScreen+.swift in Sources */,
+				EDD46F4926BE758B00FA91F2 /* RectangularDashedView.swift in Sources */,
 				ED5396F726B977BB0061722F /* UIViewController+.swift in Sources */,
 				3C8CE32D26BCC318002BBFE5 /* UITableView+.swift in Sources */,
 				3CB4B33126BBB396003C578D /* RoutineItemTVC.swift in Sources */,
