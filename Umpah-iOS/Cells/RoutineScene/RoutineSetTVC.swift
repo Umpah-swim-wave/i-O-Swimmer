@@ -20,17 +20,37 @@ class RoutineSetTVC: UITableViewCell {
     }
     private var tableBackgroundView = UIView().then{
         $0.backgroundColor = .white
+        $0.layer.cornerRadius = 16
     }
     
     private var strokeLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 12)
         $0.textColor = .lightGray
+        $0.text = "영법"
     }
+    
+    private var distanceLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 12)
+        $0.textColor = .lightGray
+        $0.text = "거리(m)"
+    }
+    
+    private var timeLabel = UILabel().then {
+        $0.font = .systemFont(ofSize: 12)
+        $0.textColor = .lightGray
+        $0.text = "시간"
+    }
+    
     
     private var tableView = UITableView()
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        selectionStyle = .none
+        setTableViewAttribute()
+        registerXib()
+        setupLayout()
+        self.backgroundColor = .systemGray6
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -47,20 +67,32 @@ class RoutineSetTVC: UITableViewCell {
         }
         
         tableBackgroundView.snp.makeConstraints{
-            $0.top.equalTo(titleLabel).inset(10)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(10)
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.bottom.equalToSuperview().inset(8)
         }
         
         tableBackgroundView.addSubviews([strokeLabel,
+                                         distanceLabel,
+                                         timeLabel,
                                          tableView])
         
         strokeLabel.snp.makeConstraints {
             $0.top.leading.equalToSuperview().offset(24)
         }
         
+        distanceLabel.snp.makeConstraints{
+            $0.centerY.equalTo(strokeLabel.snp.centerY)
+            $0.leading.equalToSuperview().offset(191)
+        }
+        
+        timeLabel.snp.makeConstraints{
+            $0.centerY.equalTo(strokeLabel.snp.centerY)
+            $0.trailing.equalToSuperview().inset(47)
+        }
+        
         tableView.snp.makeConstraints {
-            $0.top.equalTo(strokeLabel.snp.bottom).inset(16)
+            $0.top.equalTo(strokeLabel.snp.bottom).offset(16)
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalToSuperview().inset(16)
         }
@@ -71,18 +103,25 @@ class RoutineSetTVC: UITableViewCell {
     }
     
     private func setTableViewAttribute(){
-   
+       // tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.separatorStyle = .none
+        tableView.isScrollEnabled = false
     }
+
     
     public func setRoutineContent(title: String, itemList: [RoutineItemData]){
         titleLabel.text = title
         routineItemList = itemList
     }
-    
 }
 
 extension RoutineSetTVC: UITableViewDelegate{
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return tableView.rowHeight
+    }
 }
 
 extension RoutineSetTVC: UITableViewDataSource{
