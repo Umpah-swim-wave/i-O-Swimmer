@@ -69,25 +69,7 @@ class NormalStateView: UIView {
     }
     
     private func initCharts() {
-        lineChartView.xAxis.labelFont = .systemFont(ofSize: 10, weight: .medium)
-        lineChartView.xAxis.labelPosition = .bottom
-        lineChartView.xAxis.valueFormatter = IndexAxisValueFormatter(values: swimPositions)
-        lineChartView.xAxis.setLabelCount(swimPositions.count, force: true)
-        lineChartView.xAxis.avoidFirstLastClippingEnabled = true
-        lineChartView.xAxis.axisLineWidth = 1.0
-        lineChartView.xAxis.gridColor = .clear
-        lineChartView.xAxis.axisLineColor = .clear
-        lineChartView.rightAxis.enabled = false
-        lineChartView.rightAxis.drawLabelsEnabled = false
-        lineChartView.leftAxis.axisLineWidth = 0.0
-        lineChartView.leftAxis.gridColor = .systemGray3
-        lineChartView.leftAxis.drawLabelsEnabled = false
-        lineChartView.legend.enabled = false
-        lineChartView.doubleTapToZoomEnabled = false
-        
-        lineChartView.extraRightOffset = 30
-        lineChartView.extraLeftOffset = 30
-        lineChartView.extraBottomOffset = 10
+        lineChartView.setupLineChartView(values: swimPositions)
         
         changeLineChartdata()
     }

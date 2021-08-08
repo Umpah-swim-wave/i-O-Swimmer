@@ -21,6 +21,7 @@
 		ED5396F526B977A20061722F /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5396F426B977A20061722F /* UIScreen+.swift */; };
 		ED5396F726B977BB0061722F /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5396F626B977BB0061722F /* UIViewController+.swift */; };
 		ED5396F926B977D10061722F /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5396F826B977D10061722F /* UIView+.swift */; };
+		EDC1EDDF26BF8FF600DCB215 /* Charts+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC1EDDE26BF8FF600DCB215 /* Charts+.swift */; };
 		EDD43FD426483C9500C866F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD43FD326483C9500C866F3 /* AppDelegate.swift */; };
 		EDD43FD626483C9500C866F3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD43FD526483C9500C866F3 /* SceneDelegate.swift */; };
 		EDD43FDD26483C9600C866F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDD43FDC26483C9600C866F3 /* Assets.xcassets */; };
@@ -103,6 +104,7 @@
 		ED5396F426B977A20061722F /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
 		ED5396F626B977BB0061722F /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		ED5396F826B977D10061722F /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
+		EDC1EDDE26BF8FF600DCB215 /* Charts+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Charts+.swift"; sourceTree = "<group>"; };
 		EDD43FD026483C9500C866F3 /* Umpah-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Umpah-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDD43FD326483C9500C866F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EDD43FD526483C9500C866F3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -272,6 +274,7 @@
 				ED5396F626B977BB0061722F /* UIViewController+.swift */,
 				ED5396F826B977D10061722F /* UIView+.swift */,
 				EDD46F5126BEEA3B00FA91F2 /* UILabel+.swift */,
+				EDC1EDDE26BF8FF600DCB215 /* Charts+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -646,6 +649,7 @@
 				EDD46F5226BEEA3B00FA91F2 /* UILabel+.swift in Sources */,
 				ED5396F526B977A20061722F /* UIScreen+.swift in Sources */,
 				EDD46F4926BE758B00FA91F2 /* RectangularDashedView.swift in Sources */,
+				EDC1EDDF26BF8FF600DCB215 /* Charts+.swift in Sources */,
 				ED5396F726B977BB0061722F /* UIViewController+.swift in Sources */,
 				ED5396F126B9776F0061722F /* UIWindow+.swift in Sources */,
 				EDD43FD426483C9500C866F3 /* AppDelegate.swift in Sources */,
