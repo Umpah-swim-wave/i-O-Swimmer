@@ -16,12 +16,15 @@ class RoutineItemTVC: UITableViewCell {
     
     private var strokeLabel = UILabel().then{
         $0.font = .systemFont(ofSize: 14)
+        $0.textColor = .black
     }
     private var distanceLabel = UILabel().then{
         $0.font = .systemFont(ofSize: 14)
+        $0.textColor = .black
     }
     private var timeLabel = UILabel().then{
         $0.font = .systemFont(ofSize: 14)
+        $0.textColor = .black
     }
     
     private var lineView = UIView().then {
@@ -32,6 +35,7 @@ class RoutineItemTVC: UITableViewCell {
         super.awakeFromNib()
         setupLayout()
         setContentText()
+        selectionStyle = .none
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -66,8 +70,12 @@ class RoutineItemTVC: UITableViewCell {
         }
     }
 
-    public func setRutineItem(item: RoutineItemData){
+    public func setRoutineItem(item: RoutineItemData){
         routineItem = item
+        print("routineItem = \(routineItem)")
+        strokeLabel.text = item.stroke
+        distanceLabel.text = item.distance + "m"
+        timeLabel.text = item.getTimeToString()
     }
     
     private func setContentText(){
@@ -76,7 +84,7 @@ class RoutineItemTVC: UITableViewCell {
             return
         }
         strokeLabel.text = item.stroke
-        distanceLabel.text = item.distance
+        distanceLabel.text = item.distance + "m"
         timeLabel.text = item.getTimeToString()
     }
 }

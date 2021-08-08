@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C64C15926BBA85C009BD23B /* XmarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C64C15826BBA85C009BD23B /* XmarkButton.swift */; };
+		3C8CE32926BCBE6B002BBFE5 /* RoutineSetTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8CE32726BCBE6B002BBFE5 /* RoutineSetTVC.swift */; };
+		3C8CE32A26BCBE6B002BBFE5 /* RoutineSetTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C8CE32826BCBE6B002BBFE5 /* RoutineSetTVC.xib */; };
+		3C8CE32D26BCC318002BBFE5 /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8CE32C26BCC318002BBFE5 /* UITableView+.swift */; };
+		3C8CE32F26BCCADD002BBFE5 /* RoutineItemDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8CE32E26BCCADD002BBFE5 /* RoutineItemDataModel.swift */; };
+		3CB4B33126BBB396003C578D /* RoutineItemTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB4B32F26BBB396003C578D /* RoutineItemTVC.swift */; };
+		3CB4B33226BBB396003C578D /* RoutineItemTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CB4B33026BBB396003C578D /* RoutineItemTVC.xib */; };
 		65BD8F2201A9C1AFD7C2D8DD /* Pods_Umpah_iOS_WatchKit_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86DD879FC3C4E84D7E3F34D5 /* Pods_Umpah_iOS_WatchKit_App.framework */; };
 		D1F464F8FC2774B0D55FFF79 /* Pods_Umpah_iOS_WatchKit_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C521171D608E01D7F8B2492 /* Pods_Umpah_iOS_WatchKit_Extension.framework */; };
 		ECF21C0C9372B4F1A806C262 /* Pods_Umpah_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB7CF8BBFF32001FC0A7E689 /* Pods_Umpah_iOS.framework */; };
@@ -86,6 +93,13 @@
 /* Begin PBXFileReference section */
 		2D05BFF43235C874BA8005FE /* Pods-Umpah-iOS WatchKit Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Umpah-iOS WatchKit Extension.release.xcconfig"; path = "Target Support Files/Pods-Umpah-iOS WatchKit Extension/Pods-Umpah-iOS WatchKit Extension.release.xcconfig"; sourceTree = "<group>"; };
 		30E19E303BB4F713D525DDCC /* Pods-Umpah-iOS WatchKit App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Umpah-iOS WatchKit App.debug.xcconfig"; path = "Target Support Files/Pods-Umpah-iOS WatchKit App/Pods-Umpah-iOS WatchKit App.debug.xcconfig"; sourceTree = "<group>"; };
+		3C64C15826BBA85C009BD23B /* XmarkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = XmarkButton.swift; path = Components/Shared/XmarkButton.swift; sourceTree = SOURCE_ROOT; };
+		3C8CE32726BCBE6B002BBFE5 /* RoutineSetTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RoutineSetTVC.swift; path = Cells/RoutineScene/RoutineSetTVC.swift; sourceTree = SOURCE_ROOT; };
+		3C8CE32826BCBE6B002BBFE5 /* RoutineSetTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RoutineSetTVC.xib; path = "Umpah-iOS/Resource/Xibs/RoutineScene/RoutineSetTVC.xib"; sourceTree = SOURCE_ROOT; };
+		3C8CE32C26BCC318002BBFE5 /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
+		3C8CE32E26BCCADD002BBFE5 /* RoutineItemDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RoutineItemDataModel.swift; path = "Umpah-iOS/Source/Extensions/RoutineItemDataModel.swift"; sourceTree = SOURCE_ROOT; };
+		3CB4B32F26BBB396003C578D /* RoutineItemTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RoutineItemTVC.swift; path = Cells/RoutineScene/RoutineItemTVC.swift; sourceTree = SOURCE_ROOT; };
+		3CB4B33026BBB396003C578D /* RoutineItemTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RoutineItemTVC.xib; path = "Umpah-iOS/Resource/Xibs/RoutineScene/RoutineItemTVC.xib"; sourceTree = SOURCE_ROOT; };
 		5C22123FD09CFCBFA7BA82AB /* Pods-Umpah-iOS WatchKit App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Umpah-iOS WatchKit App.release.xcconfig"; path = "Target Support Files/Pods-Umpah-iOS WatchKit App/Pods-Umpah-iOS WatchKit App.release.xcconfig"; sourceTree = "<group>"; };
 		7C521171D608E01D7F8B2492 /* Pods_Umpah_iOS_WatchKit_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Umpah_iOS_WatchKit_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		86DD879FC3C4E84D7E3F34D5 /* Pods_Umpah_iOS_WatchKit_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Umpah_iOS_WatchKit_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -166,6 +180,32 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		3C64C15726BBA833009BD23B /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				3C64C15826BBA85C009BD23B /* XmarkButton.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
+		3C8CE32B26BCBE73002BBFE5 /* RoutineScene */ = {
+			isa = PBXGroup;
+			children = (
+				3C8CE32826BCBE6B002BBFE5 /* RoutineSetTVC.xib */,
+				3CB4B33026BBB396003C578D /* RoutineItemTVC.xib */,
+			);
+			path = RoutineScene;
+			sourceTree = "<group>";
+		};
+		3CB4B32E26BBB370003C578D /* RoutineScene */ = {
+			isa = PBXGroup;
+			children = (
+				3CB4B32F26BBB396003C578D /* RoutineItemTVC.swift */,
+				3C8CE32726BCBE6B002BBFE5 /* RoutineSetTVC.swift */,
+			);
+			path = RoutineScene;
+			sourceTree = "<group>";
+		};
 		BB7FBBC3787B03C3765734FA /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -183,6 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				EDD46F4726BE757600FA91F2 /* Main */,
+				3C64C15726BBA833009BD23B /* Shared */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -266,11 +307,11 @@
 		EDD4401126483CCD00C866F3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				ED5396EC26B977320061722F /* UIApplication+.swift */,
 				ED5396EE26B9774C0061722F /* Encodable+.swift */,
-				ED5396F026B9776F0061722F /* UIWindow+.swift */,
-				ED5396F226B977920061722F /* UITextField+.swift */,
+				ED5396EC26B977320061722F /* UIApplication+.swift */,
 				ED5396F426B977A20061722F /* UIScreen+.swift */,
+				3C8CE32C26BCC318002BBFE5 /* UITableView+.swift */,
+				ED5396F226B977920061722F /* UITextField+.swift */,
 				ED5396F626B977BB0061722F /* UIViewController+.swift */,
 				ED5396F826B977D10061722F /* UIView+.swift */,
 				EDD46F5126BEEA3B00FA91F2 /* UILabel+.swift */,
@@ -314,6 +355,7 @@
 		EDD4401626483D1A00C866F3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				3C8CE32E26BCCADD002BBFE5 /* RoutineItemDataModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -330,6 +372,7 @@
 		EDD4401826483D2500C866F3 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				3CB4B32E26BBB370003C578D /* RoutineScene */,
 				EDD46F4E26BEDE3500FA91F2 /* Main */,
 			);
 			path = Cells;
@@ -348,6 +391,7 @@
 		EDD4401A26483D4900C866F3 /* Xibs */ = {
 			isa = PBXGroup;
 			children = (
+				3C8CE32B26BCBE73002BBFE5 /* RoutineScene */,
 			);
 			path = Xibs;
 			sourceTree = "<group>";
@@ -527,10 +571,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CB4B33226BBB396003C578D /* RoutineItemTVC.xib in Resources */,
 				ED5396E226B975AD0061722F /* Main.storyboard in Resources */,
 				EDD43FE026483C9600C866F3 /* LaunchScreen.storyboard in Resources */,
 				EDD43FDD26483C9600C866F3 /* Assets.xcassets in Resources */,
 				ED5396E626B975E70061722F /* Routine.storyboard in Resources */,
+				3C8CE32A26BCBE6B002BBFE5 /* RoutineSetTVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -651,6 +697,10 @@
 				EDD46F4926BE758B00FA91F2 /* RectangularDashedView.swift in Sources */,
 				EDC1EDDF26BF8FF600DCB215 /* Charts+.swift in Sources */,
 				ED5396F726B977BB0061722F /* UIViewController+.swift in Sources */,
+				3C8CE32D26BCC318002BBFE5 /* UITableView+.swift in Sources */,
+				3CB4B33126BBB396003C578D /* RoutineItemTVC.swift in Sources */,
+				3C8CE32F26BCCADD002BBFE5 /* RoutineItemDataModel.swift in Sources */,
+				3C64C15926BBA85C009BD23B /* XmarkButton.swift in Sources */,
 				ED5396F126B9776F0061722F /* UIWindow+.swift in Sources */,
 				EDD43FD426483C9500C866F3 /* AppDelegate.swift in Sources */,
 				ED5396E826B975F60061722F /* RoutineVC.swift in Sources */,
@@ -661,6 +711,7 @@
 				ED5396F926B977D10061722F /* UIView+.swift in Sources */,
 				EDD43FD626483C9500C866F3 /* SceneDelegate.swift in Sources */,
 				ED5396F326B977920061722F /* UITextField+.swift in Sources */,
+				3C8CE32926BCBE6B002BBFE5 /* RoutineSetTVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
