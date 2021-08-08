@@ -9,6 +9,7 @@ import UIKit
 
 import Then
 import SnapKit
+import Charts
 
 enum CardViewState {
     case expanded
@@ -17,7 +18,12 @@ enum CardViewState {
 
 class MainVC: UIViewController {
     // MARK: - Properties
-    var cardView = UIView()
+    var cardView = UIView().then {
+        $0.backgroundColor = .white
+        $0.clipsToBounds = true
+        $0.layer.cornerRadius = 32.0
+        $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+    }
     var routineView = RectangularDashedView().then {
         $0.backgroundColor = .lightGray
         $0.cornerRadius = 16
@@ -32,8 +38,10 @@ class MainVC: UIViewController {
         $0.numberOfLines = 0
         $0.font = .systemFont(ofSize: 24, weight: .medium)
     }
+    let normalView = NormalStateView()
+    let expandedView = ExpandedStateView()
     
-    var cardViewState : CardViewState = .normal
+    var cardViewState : CardViewState = .expanded
     var cardPanStartingTopConstant : CGFloat = 20.0
     var cardPanMaxVelocity: CGFloat = 1500.0
     var cardViewTopConstraint: NSLayoutConstraint?
@@ -55,6 +63,7 @@ class MainVC: UIViewController {
     // MARK: - Custom Methods
     private func setupLayout() {
         view.addSubviews([titleLabel, routineView, cardView])
+        cardView.addSubviews([normalView, expandedView])
         
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(view.safeAreaLayoutGuide).inset(60)
@@ -73,6 +82,15 @@ class MainVC: UIViewController {
         }
         cardViewTopConstraint = cardView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20)
         cardViewTopConstraint?.isActive = true
+        
+        normalView.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
+            $0.bottom.equalTo(view.safeAreaLayoutGuide)
+        }
+        
+        expandedView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
     }
     
     private func initUpperView() {
@@ -80,10 +98,18 @@ class MainVC: UIViewController {
     }
     
     private func initCardView() {
-        cardView.backgroundColor = .white
-        cardView.clipsToBounds = true
-        cardView.layer.cornerRadius = 32.0
-        cardView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        expandedView.alpha = 0.0
+        
+        let handleView = UIView()
+        handleView.backgroundColor = .lightGray
+        handleView.layer.cornerRadius = 3
+        cardView.addSubview(handleView)
+        handleView.snp.makeConstraints {
+            $0.top.equalTo(cardView.snp.top).offset(9)
+            $0.centerX.equalToSuperview()
+            $0.height.equalTo(4)
+            $0.width.equalTo(48)
+        }
         
         if let safeAreaHeight = UIApplication.shared.keyWindow?.safeAreaLayoutGuide.layoutFrame.size.height,
           let bottomPadding = UIApplication.shared.keyWindow?.safeAreaInsets.bottom {
@@ -92,10 +118,6 @@ class MainVC: UIViewController {
     }
     
     private func initGestureView() {
-        let dimmerTap = UITapGestureRecognizer(target: self, action: #selector(dimmerViewTapped(_:)))
-        view.addGestureRecognizer(dimmerTap)
-        view.isUserInteractionEnabled = true
-        
         let viewPan = UIPanGestureRecognizer(target: self, action: #selector(viewPanned(_:)))
         viewPan.delaysTouchesBegan = false
         viewPan.delaysTouchesEnded = false
@@ -110,8 +132,22 @@ extension MainVC {
         
         if atState == .expanded {
             cardViewTopConstraint?.constant = 30.0
+            expandedView.fadeIn()
+            normalView.fadeOut()
+            
+            if cardViewState == .normal {
+                expandedView.lineChartView.animate(yAxisDuration: 1.0, easingOption: .easeInOutQuint)
+            }
+            cardViewState = .expanded
         } else {
             cardViewTopConstraint?.constant = UIScreen.main.bounds.size.height * 0.42
+            normalView.fadeIn()
+            expandedView.fadeOut()
+            
+            if cardViewState == .expanded {
+                normalView.lineChartView.animate(yAxisDuration: 1.0, easingOption: .easeInOutQuint)
+            }
+            cardViewState = .normal
         }
         
         cardPanStartingTopConstant = cardViewTopConstraint?.constant ?? 0
@@ -124,11 +160,6 @@ extension MainVC {
     }
     
     // MARK: - @objc
-    @objc
-    func dimmerViewTapped(_ tapRecognizer: UITapGestureRecognizer) {
-        showCard(atState: .normal)
-    }
-    
     @objc
     func viewPanned(_ panRecognizer: UIPanGestureRecognizer) {
         let velocity = panRecognizer.velocity(in: self.view)
