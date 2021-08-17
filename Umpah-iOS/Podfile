@@ -11,6 +11,7 @@ target 'Umpah-iOS' do
   pod 'lottie-ios'
   pod 'Then'
   pod 'Charts'
+  pod 'Firebase/Analytics'
 end
 
 target 'Umpah-iOS WatchKit App' do
