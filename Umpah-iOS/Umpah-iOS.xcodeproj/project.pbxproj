@@ -28,6 +28,8 @@
 		ED5396F526B977A20061722F /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5396F426B977A20061722F /* UIScreen+.swift */; };
 		ED5396F726B977BB0061722F /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5396F626B977BB0061722F /* UIViewController+.swift */; };
 		ED5396F926B977D10061722F /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5396F826B977D10061722F /* UIView+.swift */; };
+		EDB91D8626C2A4F300F4562D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EDB91D8526C2A4F300F4562D /* GoogleService-Info.plist */; };
+		EDB91D8826C2A66700F4562D /* UIWindow+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB91D8726C2A66700F4562D /* UIWindow+.swift */; };
 		EDC1EDDF26BF8FF600DCB215 /* Charts+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC1EDDE26BF8FF600DCB215 /* Charts+.swift */; };
 		EDD43FD426483C9500C866F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD43FD326483C9500C866F3 /* AppDelegate.swift */; };
 		EDD43FD626483C9500C866F3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD43FD526483C9500C866F3 /* SceneDelegate.swift */; };
@@ -118,6 +120,8 @@
 		ED5396F426B977A20061722F /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
 		ED5396F626B977BB0061722F /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		ED5396F826B977D10061722F /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
+		EDB91D8526C2A4F300F4562D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EDB91D8726C2A66700F4562D /* UIWindow+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+.swift"; sourceTree = "<group>"; };
 		EDC1EDDE26BF8FF600DCB215 /* Charts+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Charts+.swift"; sourceTree = "<group>"; };
 		EDD43FD026483C9500C866F3 /* Umpah-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Umpah-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDD43FD326483C9500C866F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -232,6 +236,7 @@
 			isa = PBXGroup;
 			children = (
 				EDD43FD226483C9500C866F3 /* Umpah-iOS */,
+				EDB91D8526C2A4F300F4562D /* GoogleService-Info.plist */,
 				EDD43FE826483C9600C866F3 /* Umpah-iOS WatchKit App */,
 				EDD43FF726483C9700C866F3 /* Umpah-iOS WatchKit Extension */,
 				EDD43FD126483C9500C866F3 /* Products */,
@@ -317,6 +322,7 @@
 				ED5396F826B977D10061722F /* UIView+.swift */,
 				EDD46F5126BEEA3B00FA91F2 /* UILabel+.swift */,
 				EDC1EDDE26BF8FF600DCB215 /* Charts+.swift */,
+				EDB91D8726C2A66700F4562D /* UIWindow+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -577,6 +583,7 @@
 				EDD43FE026483C9600C866F3 /* LaunchScreen.storyboard in Resources */,
 				EDD43FDD26483C9600C866F3 /* Assets.xcassets in Resources */,
 				ED5396E626B975E70061722F /* Routine.storyboard in Resources */,
+				EDB91D8626C2A4F300F4562D /* GoogleService-Info.plist in Resources */,
 				3C8CE32A26BCBE6B002BBFE5 /* RoutineSetTVC.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -700,6 +707,7 @@
 				ED5396F726B977BB0061722F /* UIViewController+.swift in Sources */,
 				3C8CE32D26BCC318002BBFE5 /* UITableView+.swift in Sources */,
 				3CB4B33126BBB396003C578D /* RoutineItemTVC.swift in Sources */,
+				EDB91D8826C2A66700F4562D /* UIWindow+.swift in Sources */,
 				3C8CE32F26BCCADD002BBFE5 /* RoutineItemDataModel.swift in Sources */,
 				3C64C15926BBA85C009BD23B /* XmarkButton.swift in Sources */,
 				EDD43FD426483C9500C866F3 /* AppDelegate.swift in Sources */,
