@@ -9,7 +9,6 @@ import UIKit
 
 import Then
 import SnapKit
-import Charts
 
 class ExpandedStateView: UIView {
     // MARK: - Properties
@@ -19,6 +18,12 @@ class ExpandedStateView: UIView {
         $0.backgroundColor = .clear
         $0.showsHorizontalScrollIndicator = false
         $0.register(TypeCell.self, forCellWithReuseIdentifier: TypeCell.identifier)
+    }
+    lazy var categoryTableView = UITableView().then {
+        $0.delegate = self
+        $0.dataSource = self
+        $0.estimatedRowHeight = 100
+        $0.register(ChartTVC.self, forCellReuseIdentifier: ChartTVC.identifier)
     }
     let titleLabel = UILabel().then {
         $0.text = "MY PROGRESS"
@@ -30,11 +35,6 @@ class ExpandedStateView: UIView {
         $0.minimumLineSpacing = 0
         $0.minimumInteritemSpacing = 16
     }
-    let lineChartView = LineChartView()
-    let chartBackView = UIView().then {
-        $0.backgroundColor = .systemGray5
-        $0.layer.cornerRadius = 16
-    }
     
     let types: [String] = ["DAY", "WEEK", "MONTH", "ALL"]
     var numbers: [Double] = [3.0, 2.5, 3.3, 5.5, 2.7, 2.8, 4.1]
@@ -43,7 +43,6 @@ class ExpandedStateView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
-        initCharts()
     }
     
     required init?(coder: NSCoder) {
@@ -52,8 +51,7 @@ class ExpandedStateView: UIView {
     
     // MARK: - Custom Method
     private func setupLayout() {
-        addSubviews([titleLabel, typeCollectionView, chartBackView])
-        chartBackView.addSubview(lineChartView)
+        addSubviews([titleLabel, typeCollectionView, categoryTableView])
         
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(46)
@@ -67,48 +65,14 @@ class ExpandedStateView: UIView {
             $0.width.equalTo(312)
         }
         
-        chartBackView.snp.makeConstraints {
+        categoryTableView.snp.makeConstraints {
             $0.top.equalTo(typeCollectionView.snp.bottom).offset(16)
-            $0.leading.trailing.equalToSuperview().inset(16)
-            $0.height.equalTo(300)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
-        
-        lineChartView.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(57)
-            $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(6)
-        }
-    }
-    
-    private func initCharts() {
-        lineChartView.setupLineChartView(values: weeks)
-        
-        changeLineChartdata()
-    }
-    
-    func changeLineChartdata(){
-        var lineChartEntry = [ChartDataEntry]()
- 
-        for i in 0..<numbers.count {
-            let value = ChartDataEntry(x: Double(i), y: numbers[i])
-            lineChartEntry.append(value)
-        }
-        
-        let line1 = LineChartDataSet(entries: lineChartEntry, label: "일주일")
-        line1.highlightEnabled = false
-        line1.colors = [.gray]
-        line1.circleColors = [NSUIColor.gray]
-        line1.circleHoleColor = NSUIColor.systemGray5
-        line1.circleRadius = 4.0
-        line1.circleHoleRadius = 1.5
-        line1.lineWidth = 3.0
-        line1.mode = .cubicBezier
-        
-        let data = LineChartData(dataSet: line1)
-        lineChartView.data = data
     }
 }
 
+// MARK: - UICollectionViewDataSource
 extension ExpandedStateView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return types.count
@@ -130,6 +94,7 @@ extension ExpandedStateView: UICollectionViewDataSource {
     }
 }
 
+// MARK: - UICollectionViewDelegateFlowLayout
 extension ExpandedStateView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = calculateLabelWidth(text: types[indexPath.item])
@@ -148,5 +113,36 @@ extension ExpandedStateView: UICollectionViewDelegateFlowLayout {
         label.sizeToFit()
         
         return label.bounds.size.width + 28
+    }
+}
+
+// MARK: - UITableViewDataSource
+extension ExpandedStateView: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: ChartTVC.identifier) as? ChartTVC else { return UITableViewCell() }
+        cell.backgroundColor = .clear
+        cell.selectionStyle = .none
+        return cell
+    }
+}
+
+// MARK: - UITableViewDelegate
+extension ExpandedStateView: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        tableView.backgroundColor = UIColor.init(red: 246/255, green: 250/255, blue: 252/255, alpha: 1.0)
+        tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+        tableView.separatorColor = .clear
     }
 }

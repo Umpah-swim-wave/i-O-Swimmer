@@ -136,7 +136,7 @@ extension MainVC {
             normalView.fadeOut()
             
             if cardViewState == .normal {
-                expandedView.lineChartView.animate(yAxisDuration: 1.0, easingOption: .easeInOutQuint)
+                expandedView.categoryTableView.reloadData()
             }
             cardViewState = .expanded
         } else {
