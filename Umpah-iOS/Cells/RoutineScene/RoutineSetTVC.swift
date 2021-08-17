@@ -13,6 +13,7 @@ class RoutineSetTVC: UITableViewCell {
     static let identifier = "RoutineSetTVC"
     
     private var routineItemList: [RoutineItemData]?
+    public var routineCellList: [RoutineItemTVC] = []
     
     private var titleLabel = UILabel().then{
         $0.font = .boldSystemFont(ofSize: 15)
@@ -41,8 +42,7 @@ class RoutineSetTVC: UITableViewCell {
         $0.text = "시간"
     }
     
-    
-    private var tableView = UITableView()
+    public var tableView = UITableView()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -57,6 +57,69 @@ class RoutineSetTVC: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
+    private func registerXib(){
+        tableView.registerCustomXib(name: RoutineItemTVC.identifier)
+    }
+    
+    private func setTableViewAttribute(){
+       // tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableView.automaticDimension
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.separatorStyle = .none
+        tableView.isScrollEnabled = false
+    }
+
+    
+    public func setRoutineContent(title: String, itemList: [RoutineItemData]){
+        titleLabel.text = title
+        routineItemList = itemList
+    }
+}
+
+extension RoutineSetTVC: UITableViewDelegate{
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return tableView.rowHeight
+    }
+    
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        routineItemList?.swapAt(sourceIndexPath.row, destinationIndexPath.row)
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .delete
+    }
+}
+
+extension RoutineSetTVC: UITableViewDataSource{
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return routineItemList?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineItemTVC.identifier) as? RoutineItemTVC else {
+            return UITableViewCell()
+        }
+        
+        guard let itemList = routineItemList else {
+            print("넘어온 아이템 리스트가 없음")
+            return UITableViewCell()
+        }
+        
+        cell.setRoutineItem(item: itemList[indexPath.row])
+        
+        if routineCellList.count < routineItemList?.count ?? 0 {
+            routineCellList.append(cell)
+        }
+        return cell
+    }
+}
+
+extension RoutineSetTVC {
     private func setupLayout(){
         addSubviews([titleLabel,
                      tableBackgroundView])
@@ -98,50 +161,24 @@ class RoutineSetTVC: UITableViewCell {
         }
     }
     
-    private func registerXib(){
-        tableView.registerCustomXib(name: RoutineItemTVC.identifier)
-    }
-    
-    private func setTableViewAttribute(){
-       // tableView.estimatedRowHeight = 100
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.separatorStyle = .none
-        tableView.isScrollEnabled = false
-    }
-
-    
-    public func setRoutineContent(title: String, itemList: [RoutineItemData]){
-        titleLabel.text = title
-        routineItemList = itemList
-    }
-}
-
-extension RoutineSetTVC: UITableViewDelegate{
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return tableView.rowHeight
-    }
-}
-
-extension RoutineSetTVC: UITableViewDataSource{
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return routineItemList?.count ?? 0
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineItemTVC.identifier) as? RoutineItemTVC else {
-            return UITableViewCell()
+    public func changeLayoutAtEditingMode(){
+        strokeLabel.snp.updateConstraints {
+            $0.leading.equalToSuperview().inset(46)
         }
         
-        guard let itemList = routineItemList else {
-            print("넘어온 아이템 리스트가 없음")
-            return UITableViewCell()
+        timeLabel.snp.updateConstraints {
+            $0.trailing.equalToSuperview().inset(63)
         }
-        
-        cell.setRoutineItem(item: itemList[indexPath.row])
-        return cell
     }
     
+    public func turnToInitLayout(){
+        strokeLabel.snp.updateConstraints {
+            $0.leading.equalToSuperview().inset(24)
+        }
+        
+        timeLabel.snp.updateConstraints {
+            $0.trailing.equalToSuperview().inset(47)
+        }
+    }
 }
 
