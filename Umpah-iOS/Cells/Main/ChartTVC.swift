@@ -20,6 +20,17 @@ class ChartTVC: UITableViewCell {
         $0.backgroundColor = .white
         $0.layer.cornerRadius = 16
     }
+    let weekButton = UIButton().then {
+        $0.semanticContentAttribute = .forceRightToLeft
+        $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
+        $0.tintColor = .black
+        $0.setTitleColor(.black, for: .normal)
+        $0.setTitleColor(.gray, for: .highlighted)
+        $0.setTitle("이번 주", for: .normal)
+        $0.setImage(UIImage(systemName: "arrowtriangle.down.fill"), for: .normal)
+        
+        $0.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 5)
+    }
     
     var numbers: [Double] = [3.0, 2.5, 3.3, 5.5, 2.7, 2.8, 4.1]
     let weeks: [String] = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
@@ -37,13 +48,21 @@ class ChartTVC: UITableViewCell {
     // MARK: - Custom Method
     private func setupLayout() {
         sendSubviewToBack(contentView)
-        addSubviews([chartBackView])
+        
+        addSubviews([chartBackView, weekButton])
         chartBackView.addSubview(lineChartView)
         
         chartBackView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(68)
             $0.leading.trailing.bottom.equalToSuperview().inset(16)
             $0.height.equalTo(353)
+        }
+        
+        weekButton.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(24)
+            $0.leading.equalToSuperview().inset(26)
+            $0.height.equalTo(28)
+            $0.width.equalTo(82)
         }
 
         lineChartView.snp.makeConstraints {
