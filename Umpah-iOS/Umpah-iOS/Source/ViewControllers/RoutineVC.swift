@@ -71,61 +71,85 @@ class RoutineVC: UIViewController {
     }
     
     private func initRoutineItem(){
-        routineList = ["warm-up" : [RoutineItemData(stroke: "자유영", distance: "1200", time: 135),
-                                    RoutineItemData(stroke: "자유영", distance: "1200", time: 135),
-                                    RoutineItemData(stroke: "자유영", distance: "1200", time: 135)] ,
-                       "main" : [RoutineItemData(stroke: "배형", distance: "1200", time: 135),
-                                 RoutineItemData(stroke: "배형", distance: "1200", time: 135),
-                                 RoutineItemData(stroke: "배형", distance: "1200", time: 135),
-                                 RoutineItemData(stroke: "배형", distance: "1200", time: 135),
-                                 RoutineItemData(stroke: "배형", distance: "1200", time: 135)],
-                       
-                       "cool" : [RoutineItemData(stroke: "접형", distance: "1200", time: 135),
-                                 RoutineItemData(stroke: "접형", distance: "1200", time: 135),
-                                 RoutineItemData(stroke: "접형", distance: "1200", time: 135),
-                                 RoutineItemData(stroke: "접형", distance: "1200", time: 135)]]
+        routineList = ["warm-up" : [RoutineItemData(stroke: "자유영", distance: "1225", time: 135),
+                                    RoutineItemData(stroke: "자유영", distance: "1250", time: 235),
+                                    RoutineItemData(stroke: "자유영", distance: "1275", time: 335)] ,
+                       "main" : [RoutineItemData(stroke: "배형", distance: "1225", time: 130),
+                                 RoutineItemData(stroke: "배형", distance: "1250", time: 131),
+                                 RoutineItemData(stroke: "배형", distance: "1275", time: 132),
+                                 RoutineItemData(stroke: "배형", distance: "1300", time: 133),
+                                 RoutineItemData(stroke: "배형", distance: "1225", time: 134)],
+                       "cool" : [RoutineItemData(stroke: "접형", distance: "1200", time: 100),
+                                 RoutineItemData(stroke: "접형", distance: "1225", time: 200),
+                                 RoutineItemData(stroke: "접형", distance: "1250", time: 300),
+                                 RoutineItemData(stroke: "접형", distance: "1275", time: 400)]]
+    }
+    
+    private func addActions(){
+        bottomButton.addTarget(self, action: #selector(changeTableViewEditingMode), for: .touchUpInside)
+    }
+    
+    @objc
+    func changeTableViewEditingMode(){
+        tableView.isEditing = tableView.isEditing ? false : true
+        tableCellList.forEach{
+            let item = $0 as! RoutineSetTVC
+            let mode = item.tableView.isEditing ? false : true
+            item.tableView.setEditing(mode, animated: true)
+            if mode {
+                item.changeLayoutAtEditingMode()
+                item.routineCellList.forEach {
+                    $0.changeLayoutAtEditingMode()
+                }
+            }else {
+                item.turnToInitLayout()
+                item.routineCellList.forEach {
+                    $0.turnToInitLayout()
+                }
+            }
+        }
     }
 
 }
 
 extension RoutineVC: UITableViewDelegate{
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        
-        switch indexPath.row {
-        case 0:
-            return CGFloat(150 + routineList["warm-up"]!.count * 44)
-        case 1 :
-            return CGFloat(150 + routineList["main"]!.count * 44)
-        default:
-            return CGFloat(150 + routineList["cool"]!.count * 44)
-        }
-        
-        return tableView.rowHeight
+        return CGFloat(150 + routineList[tableSetTitleList[indexPath.row]]!.count * 44)
     }
     
+    func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        tableSetTitleList.swapAt(sourceIndexPath.row, destinationIndexPath.row)
+    }
+    
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
+        return .none
+    }
 }
 
 extension RoutineVC: UITableViewDataSource{
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineSetTVC.identifier) as? RoutineSetTVC else {
             return UITableViewCell()
         }
         
-        switch indexPath.row {
-        case 0:
-            cell.setRoutineContent(title: "WARM-UP SET", itemList: routineList["warm-up"] ?? [])
-        case 1:
-            cell.setRoutineContent(title: "MAIN SET", itemList: routineList["main"] ?? [])
-        default:
-            cell.setRoutineContent(title: "COOL-DOWN SET", itemList: routineList["cool"] ?? [])
+        let setTitle = tableSetTitleList[indexPath.row]
+        
+        cell.setRoutineContent(title: setTitle.uppercased() + " SET",
+                               itemList: routineList[setTitle] ?? [])
+        
+        if tableCellList.count < 3 {
+            tableCellList.append(cell)
         }
-        
         return cell
-        
     }
     
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 3
+    }
+
 }
