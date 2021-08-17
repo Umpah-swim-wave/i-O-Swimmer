@@ -24,6 +24,7 @@ class ExpandedStateView: UIView {
         $0.dataSource = self
         $0.estimatedRowHeight = 100
         $0.register(ChartTVC.self, forCellReuseIdentifier: ChartTVC.identifier)
+        $0.register(DetailTVC.self, forCellReuseIdentifier: DetailTVC.identifier)
     }
     let titleLabel = UILabel().then {
         $0.text = "MY PROGRESS"
@@ -127,10 +128,18 @@ extension ExpandedStateView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: ChartTVC.identifier) as? ChartTVC else { return UITableViewCell() }
-        cell.backgroundColor = .clear
-        cell.selectionStyle = .none
-        return cell
+        switch indexPath.section {
+        case 0:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: ChartTVC.identifier) as? ChartTVC else { return UITableViewCell() }
+            cell.backgroundColor = .clear
+            cell.selectionStyle = .none
+            return cell
+        default:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
+            cell.backgroundColor = .clear
+            cell.selectionStyle = .none
+            return cell
+        }
     }
 }
 
