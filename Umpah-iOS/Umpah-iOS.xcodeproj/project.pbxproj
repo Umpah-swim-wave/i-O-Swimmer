@@ -12,6 +12,7 @@
 		3C8CE32A26BCBE6B002BBFE5 /* RoutineSetTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C8CE32826BCBE6B002BBFE5 /* RoutineSetTVC.xib */; };
 		3C8CE32D26BCC318002BBFE5 /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8CE32C26BCC318002BBFE5 /* UITableView+.swift */; };
 		3C8CE32F26BCCADD002BBFE5 /* RoutineItemDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8CE32E26BCCADD002BBFE5 /* RoutineItemDataModel.swift */; };
+		3CAD1F2626CBDA64001CD535 /* UIWindow+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CAD1F2526CBDA64001CD535 /* UIWindow+.swift */; };
 		3CB4B33126BBB396003C578D /* RoutineItemTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB4B32F26BBB396003C578D /* RoutineItemTVC.swift */; };
 		3CB4B33226BBB396003C578D /* RoutineItemTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CB4B33026BBB396003C578D /* RoutineItemTVC.xib */; };
 		65BD8F2201A9C1AFD7C2D8DD /* Pods_Umpah_iOS_WatchKit_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86DD879FC3C4E84D7E3F34D5 /* Pods_Umpah_iOS_WatchKit_App.framework */; };
@@ -23,7 +24,6 @@
 		ED5396E826B975F60061722F /* RoutineVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5396E726B975F60061722F /* RoutineVC.swift */; };
 		ED5396ED26B977320061722F /* UIApplication+.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5396EC26B977320061722F /* UIApplication+.swift */; };
 		ED5396EF26B9774C0061722F /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5396EE26B9774C0061722F /* Encodable+.swift */; };
-		ED5396F126B9776F0061722F /* UIWindow+.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5396F026B9776F0061722F /* UIWindow+.swift */; };
 		ED5396F326B977920061722F /* UITextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5396F226B977920061722F /* UITextField+.swift */; };
 		ED5396F526B977A20061722F /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5396F426B977A20061722F /* UIScreen+.swift */; };
 		ED5396F726B977BB0061722F /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5396F626B977BB0061722F /* UIViewController+.swift */; };
@@ -98,6 +98,7 @@
 		3C8CE32826BCBE6B002BBFE5 /* RoutineSetTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RoutineSetTVC.xib; path = "Umpah-iOS/Resource/Xibs/RoutineScene/RoutineSetTVC.xib"; sourceTree = SOURCE_ROOT; };
 		3C8CE32C26BCC318002BBFE5 /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
 		3C8CE32E26BCCADD002BBFE5 /* RoutineItemDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RoutineItemDataModel.swift; path = "Umpah-iOS/Source/Extensions/RoutineItemDataModel.swift"; sourceTree = SOURCE_ROOT; };
+		3CAD1F2526CBDA64001CD535 /* UIWindow+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIWindow+.swift"; sourceTree = "<group>"; };
 		3CB4B32F26BBB396003C578D /* RoutineItemTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RoutineItemTVC.swift; path = Cells/RoutineScene/RoutineItemTVC.swift; sourceTree = SOURCE_ROOT; };
 		3CB4B33026BBB396003C578D /* RoutineItemTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RoutineItemTVC.xib; path = "Umpah-iOS/Resource/Xibs/RoutineScene/RoutineItemTVC.xib"; sourceTree = SOURCE_ROOT; };
 		5C22123FD09CFCBFA7BA82AB /* Pods-Umpah-iOS WatchKit App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Umpah-iOS WatchKit App.release.xcconfig"; path = "Target Support Files/Pods-Umpah-iOS WatchKit App/Pods-Umpah-iOS WatchKit App.release.xcconfig"; sourceTree = "<group>"; };
@@ -113,7 +114,6 @@
 		ED5396E726B975F60061722F /* RoutineVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineVC.swift; sourceTree = "<group>"; };
 		ED5396EC26B977320061722F /* UIApplication+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+.swift"; sourceTree = "<group>"; };
 		ED5396EE26B9774C0061722F /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
-		ED5396F026B9776F0061722F /* UIWindow+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+.swift"; sourceTree = "<group>"; };
 		ED5396F226B977920061722F /* UITextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+.swift"; sourceTree = "<group>"; };
 		ED5396F426B977A20061722F /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
 		ED5396F626B977BB0061722F /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
@@ -307,6 +307,7 @@
 		EDD4401126483CCD00C866F3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				3CAD1F2526CBDA64001CD535 /* UIWindow+.swift */,
 				ED5396EE26B9774C0061722F /* Encodable+.swift */,
 				ED5396EC26B977320061722F /* UIApplication+.swift */,
 				ED5396F426B977A20061722F /* UIScreen+.swift */,
@@ -701,7 +702,6 @@
 				3CB4B33126BBB396003C578D /* RoutineItemTVC.swift in Sources */,
 				3C8CE32F26BCCADD002BBFE5 /* RoutineItemDataModel.swift in Sources */,
 				3C64C15926BBA85C009BD23B /* XmarkButton.swift in Sources */,
-				ED5396F126B9776F0061722F /* UIWindow+.swift in Sources */,
 				EDD43FD426483C9500C866F3 /* AppDelegate.swift in Sources */,
 				ED5396E826B975F60061722F /* RoutineVC.swift in Sources */,
 				EDD46F4D26BE9C0200FA91F2 /* ExpandedStateView.swift in Sources */,
@@ -712,6 +712,7 @@
 				EDD43FD626483C9500C866F3 /* SceneDelegate.swift in Sources */,
 				ED5396F326B977920061722F /* UITextField+.swift in Sources */,
 				3C8CE32926BCBE6B002BBFE5 /* RoutineSetTVC.swift in Sources */,
+				3CAD1F2626CBDA64001CD535 /* UIWindow+.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
