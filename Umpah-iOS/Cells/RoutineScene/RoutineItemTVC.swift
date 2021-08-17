@@ -42,6 +42,29 @@ class RoutineItemTVC: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
+
+    public func setRoutineItem(item: RoutineItemData){
+        routineItem = item
+        print("routineItem = \(routineItem)")
+        strokeLabel.text = item.stroke
+        distanceLabel.text = item.distance + "m"
+        timeLabel.text = item.getTimeToString()
+    }
+    
+    private func setContentText(){
+        guard let item = routineItem else {
+            print("넘겨져온 item이 없음")
+            return
+        }
+        strokeLabel.text = item.stroke
+        distanceLabel.text = item.distance + "m"
+        timeLabel.text = item.getTimeToString()
+    }
+}
+
+
+//MARK: UI
+extension RoutineItemTVC {
     private func setupLayout(){
         addSubviews([strokeLabel,
                      distanceLabel,
@@ -69,22 +92,24 @@ class RoutineItemTVC: UITableViewCell {
             $0.height.equalTo(1)
         }
     }
-
-    public func setRoutineItem(item: RoutineItemData){
-        routineItem = item
-        print("routineItem = \(routineItem)")
-        strokeLabel.text = item.stroke
-        distanceLabel.text = item.distance + "m"
-        timeLabel.text = item.getTimeToString()
+    
+    public func changeLayoutAtEditingMode(){
+        strokeLabel.snp.updateConstraints {
+            $0.leading.equalToSuperview().inset(46)
+        }
+        
+        timeLabel.snp.updateConstraints {
+            $0.trailing.equalToSuperview().inset(50)
+        }
     }
     
-    private func setContentText(){
-        guard let item = routineItem else {
-            print("넘겨져온 item이 없음")
-            return
+    public func turnToInitLayout(){
+        strokeLabel.snp.updateConstraints {
+            $0.leading.equalToSuperview().inset(24)
         }
-        strokeLabel.text = item.stroke
-        distanceLabel.text = item.distance + "m"
-        timeLabel.text = item.getTimeToString()
+        
+        timeLabel.snp.updateConstraints {
+            $0.trailing.equalToSuperview().inset(32)
+        }
     }
 }
