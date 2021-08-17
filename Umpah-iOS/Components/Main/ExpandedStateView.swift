@@ -131,6 +131,7 @@ extension ExpandedStateView: UITableViewDataSource {
         switch indexPath.section {
         case 0:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ChartTVC.identifier) as? ChartTVC else { return UITableViewCell() }
+            cell.lineChartView.animate(yAxisDuration: 1.0, easingOption: .easeInOutQuint)
             cell.backgroundColor = .clear
             cell.selectionStyle = .none
             return cell

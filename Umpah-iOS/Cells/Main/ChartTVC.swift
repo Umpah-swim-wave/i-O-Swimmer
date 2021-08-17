@@ -112,9 +112,8 @@ class ChartTVC: UITableViewCell {
         }
     }
     
-    private func initCharts() {
+    func initCharts() {
         lineChartView.setupLineChartView(values: weeks)
-        lineChartView.animate(yAxisDuration: 1.0, easingOption: .easeInOutQuint)
         
         changeLineChartdata()
     }
