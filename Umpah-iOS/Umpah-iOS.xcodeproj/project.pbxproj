@@ -50,6 +50,7 @@
 		EDD7C43C26CB903F00D93306 /* ChartTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD7C43B26CB903F00D93306 /* ChartTVC.swift */; };
 		EDD7C43E26CBD3EF00D93306 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD7C43D26CBD3EF00D93306 /* UIButton+.swift */; };
 		EDD7C44026CBDB4600D93306 /* DetailTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD7C43F26CBDB4600D93306 /* DetailTVC.swift */; };
+		EDD7C44226CBDCE200D93306 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD7C44126CBDCE200D93306 /* DetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -148,6 +149,7 @@
 		EDD7C43B26CB903F00D93306 /* ChartTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChartTVC.swift; path = Cells/Main/ChartTVC.swift; sourceTree = SOURCE_ROOT; };
 		EDD7C43D26CBD3EF00D93306 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		EDD7C43F26CBDB4600D93306 /* DetailTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailTVC.swift; path = Cells/Main/DetailTVC.swift; sourceTree = SOURCE_ROOT; };
+		EDD7C44126CBDCE200D93306 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailView.swift; path = Cells/Main/DetailView.swift; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -463,6 +465,7 @@
 				EDD46F4826BE758B00FA91F2 /* RectangularDashedView.swift */,
 				EDD46F4A26BE99F900FA91F2 /* NormalStateView.swift */,
 				EDD46F4C26BE9C0200FA91F2 /* ExpandedStateView.swift */,
+				EDD7C44126CBDCE200D93306 /* DetailView.swift */,
 			);
 			name = Main;
 			path = Components/Main;
@@ -711,6 +714,7 @@
 				EDD7C43C26CB903F00D93306 /* ChartTVC.swift in Sources */,
 				EDD46F4926BE758B00FA91F2 /* RectangularDashedView.swift in Sources */,
 				EDC1EDDF26BF8FF600DCB215 /* Charts+.swift in Sources */,
+				EDD7C44226CBDCE200D93306 /* DetailView.swift in Sources */,
 				EDD7C43E26CBD3EF00D93306 /* UIButton+.swift in Sources */,
 				ED5396F726B977BB0061722F /* UIViewController+.swift in Sources */,
 				3C8CE32D26BCC318002BBFE5 /* UITableView+.swift in Sources */,
