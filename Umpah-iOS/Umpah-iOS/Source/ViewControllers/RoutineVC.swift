@@ -7,6 +7,7 @@
 
 import UIKit
 import SnapKit
+import Then
 
 class RoutineVC: UIViewController {
 
@@ -14,6 +15,15 @@ class RoutineVC: UIViewController {
     private var routineList: [String : [RoutineItemData]] = [:]
     private let navigationView = UIView()
     private var tableView = UITableView()
+    private var tableCellList : [UITableViewCell] = []
+    private var tableSetTitleList : [String] = ["warm-up", "main", "cool"]
+    private var bottomButton = UIButton().then {
+        $0.layer.cornerRadius = 16
+        $0.backgroundColor = .blue
+        $0.setTitle("어푸님만의 루틴 만들기", for: .normal)
+        $0.titleLabel?.textColor = .white
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupConstraints()
@@ -21,11 +31,13 @@ class RoutineVC: UIViewController {
         initRoutineItem()
         setTableViewAttribute()
         view.backgroundColor = .systemGray6
+        addActions()
     }
 
     private func setupConstraints(){
         view.addSubviews([navigationView,
-                          tableView])
+                          tableView,
+                          bottomButton])
 
         navigationView.snp.makeConstraints{
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
@@ -37,6 +49,13 @@ class RoutineVC: UIViewController {
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalTo(view.safeAreaLayoutGuide)
         }
+        
+        bottomButton.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(5)
+            $0.height.equalTo(40)
+        }
+        bottomButton.bringSubviewToFront(tableView)
     }
     
     private func registerXib(){
