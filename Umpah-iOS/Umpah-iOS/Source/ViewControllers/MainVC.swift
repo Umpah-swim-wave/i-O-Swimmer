@@ -18,25 +18,25 @@ enum CardViewState {
 
 class MainVC: UIViewController {
     // MARK: - Properties
+    var titleLabel = UILabel().then {
+        $0.text = "어푸님!\n수영하기 좋은 날이에요!"
+        $0.textColor = .black
+        $0.numberOfLines = 0
+        $0.font = .systemFont(ofSize: 20, weight: .medium)
+    }
+    var routineView = RectangularDashedView().then {
+        $0.backgroundColor = .init(red: 7/255, green: 147/255, blue: 182/255, alpha: 0.2)
+        $0.cornerRadius = 16
+        $0.dashWidth = 4
+        $0.dashColor = .init(red: 129/255, green: 151/255, blue: 154/255, alpha: 0.5)
+        $0.betweenDashesSpace = 8
+        $0.dashLength = 8
+    }
     var cardView = UIView().then {
         $0.backgroundColor = .white
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 32.0
         $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-    }
-    var routineView = RectangularDashedView().then {
-        $0.backgroundColor = .lightGray
-        $0.cornerRadius = 16
-        $0.dashWidth = 2
-        $0.dashColor = .black
-        $0.betweenDashesSpace = 8
-        $0.dashLength = 8
-    }
-    var titleLabel = UILabel().then {
-        $0.text = "어푸님!\n수영하기 좋은 날이에요!"
-        $0.textColor = .black
-        $0.numberOfLines = 0
-        $0.font = .systemFont(ofSize: 24, weight: .medium)
     }
     let normalView = NormalStateView()
     let expandedView = ExpandedStateView()
@@ -66,13 +66,13 @@ class MainVC: UIViewController {
         cardView.addSubviews([normalView, expandedView])
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).inset(60)
-            $0.leading.equalToSuperview().inset(24)
+            $0.top.equalTo(view.safeAreaLayoutGuide).inset(49)
+            $0.leading.equalToSuperview().inset(36)
         }
         
         routineView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(40)
-            $0.leading.equalToSuperview().inset(16)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(16)
+            $0.leading.equalToSuperview().inset(28)
             $0.width.equalTo(160)
             $0.height.equalTo(80)
         }
