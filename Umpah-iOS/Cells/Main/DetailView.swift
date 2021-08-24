@@ -68,6 +68,35 @@ class DetailView: UIView {
     let bottomView = UIView().then {
         $0.backgroundColor = .white
         $0.layer.cornerRadius = 16
+        
+        let kcalIconImage = UIImageView().then {
+            $0.backgroundColor = .systemOrange
+        }
+        let heartIconImage = UIImageView().then {
+            $0.backgroundColor = .systemOrange
+        }
+        let divideLine = UIView().then {
+            $0.backgroundColor = .lightGray
+        }
+        
+        $0.addSubviews([kcalIconImage, heartIconImage, divideLine])
+        kcalIconImage.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(22)
+            $0.leading.equalToSuperview().inset(32)
+            $0.width.equalTo(24)
+            $0.height.equalTo(26)
+        }
+        divideLine.snp.makeConstraints {
+            $0.width.equalTo(1)
+            $0.top.bottom.equalToSuperview().inset(24)
+            $0.centerX.equalToSuperview()
+        }
+        heartIconImage.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(23)
+            $0.leading.equalTo(divideLine.snp.trailing).offset(22)
+            $0.width.equalTo(24)
+            $0.height.equalTo(22)
+        }
     }
     let distanceLabel = UILabel().then {
         $0.text = "5.4km"
