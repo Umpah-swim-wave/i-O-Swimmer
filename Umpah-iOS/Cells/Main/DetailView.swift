@@ -15,6 +15,8 @@ class DetailView: UIView {
     let topView = UIView().then {
         $0.backgroundColor = .white
         $0.layer.cornerRadius = 16
+        $0.layer.borderWidth = 2
+        $0.layer.borderColor = UIColor.init(red: 78/255, green: 149/255, blue: 185/255, alpha: 0.15).cgColor
         
         let distanceIconImage = UIImageView().then {
             $0.backgroundColor = .systemOrange
@@ -68,6 +70,8 @@ class DetailView: UIView {
     let bottomView = UIView().then {
         $0.backgroundColor = .white
         $0.layer.cornerRadius = 16
+        $0.layer.borderWidth = 2
+        $0.layer.borderColor = UIColor.init(red: 78/255, green: 149/255, blue: 185/255, alpha: 0.15).cgColor
         
         let kcalIconImage = UIImageView().then {
             $0.backgroundColor = .systemOrange
@@ -110,6 +114,18 @@ class DetailView: UIView {
         $0.font = .boldSystemFont(ofSize: 35)
         $0.changeCharacterAttribute(words: ["h", "m"], size: 22, kernValue: -0.1)
     }
+    let kcalLabel = UILabel().then {
+        $0.text = "390kcal"
+        $0.textColor = .black
+        $0.font = .boldSystemFont(ofSize: 22)
+        $0.changeCharacterAttribute(words: ["kcal"], size: 18, kernValue: 2)
+    }
+    let bpmLabel = UILabel().then {
+        $0.text = "120bpm"
+        $0.textColor = .black
+        $0.font = .boldSystemFont(ofSize: 22)
+        $0.changeCharacterAttribute(words: ["bpm"], size: 18, kernValue: 2)
+    }
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -124,6 +140,7 @@ class DetailView: UIView {
     private func setupLayout() {
         addSubviews([topView, bottomView])
         topView.addSubviews([distanceLabel, timeLabel])
+        bottomView.addSubviews([kcalLabel, bpmLabel])
         
         topView.snp.makeConstraints {
             $0.top.equalToSuperview()
@@ -146,6 +163,16 @@ class DetailView: UIView {
         timeLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(52)
             $0.leading.equalTo(topView.snp.centerX).offset(30)
+        }
+        
+        kcalLabel.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.leading.equalToSuperview().inset(64)
+        }
+        
+        bpmLabel.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.leading.equalTo(bottomView.snp.centerX).offset(54)
         }
     }
 }
