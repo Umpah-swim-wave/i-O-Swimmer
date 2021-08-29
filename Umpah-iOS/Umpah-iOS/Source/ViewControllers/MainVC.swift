@@ -17,6 +17,16 @@ enum CardViewState {
 }
 
 class MainVC: UIViewController {
+    // MARK: - Lazy Properties
+    lazy var mainTableView = UITableView().then {
+        $0.delegate = self
+        $0.dataSource = self
+        $0.estimatedRowHeight = 100
+        $0.register(ChartTVC.self, forCellReuseIdentifier: ChartTVC.identifier)
+        $0.register(DetailTVC.self, forCellReuseIdentifier: DetailTVC.identifier)
+        $0.backgroundColor = .clear
+    }
+    
     // MARK: - Properties
     var titleLabel = UILabel().then {
         $0.text = "어푸님!\n수영하기 좋은 날이에요!"
@@ -62,7 +72,7 @@ class MainVC: UIViewController {
     
     // MARK: - Custom Methods
     private func setupLayout() {
-        view.addSubviews([titleLabel, routineView, cardView])
+        view.addSubviews([titleLabel, routineView, mainTableView, cardView])
         cardView.addSubviews([normalView, expandedView])
         
         titleLabel.snp.makeConstraints {
@@ -75,6 +85,11 @@ class MainVC: UIViewController {
             $0.leading.equalToSuperview().inset(28)
             $0.width.equalTo(160)
             $0.height.equalTo(80)
+        }
+        
+        mainTableView.snp.makeConstraints {
+            $0.top.equalTo(routineView.snp.bottom).offset(24)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
         
         cardView.snp.makeConstraints {
@@ -94,7 +109,7 @@ class MainVC: UIViewController {
     }
     
     private func initUpperView() {
-        view.backgroundColor = .init(red: 228/255, green: 237/255, blue: 255/255, alpha: 1.0)
+        view.backgroundColor = .init(red: 166/255, green: 226/255, blue: 226/255, alpha: 1.0)
     }
     
     private func initCardView() {
@@ -189,5 +204,41 @@ extension MainVC {
         default:
             break
         }
+    }
+}
+
+extension MainVC: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch indexPath.section {
+        case 0:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: ChartTVC.identifier) as? ChartTVC else { return UITableViewCell() }
+            cell.lineChartView.animate(yAxisDuration: 1.0, easingOption: .easeInOutQuint)
+            cell.backgroundColor = .clear
+            cell.selectionStyle = .none
+            return cell
+        default:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
+            cell.backgroundColor = .clear
+            cell.selectionStyle = .none
+            return cell
+        }
+    }
+}
+
+extension MainVC: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return UIView()
     }
 }
