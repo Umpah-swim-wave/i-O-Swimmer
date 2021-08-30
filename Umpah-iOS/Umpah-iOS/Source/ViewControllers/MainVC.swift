@@ -34,14 +34,6 @@ class MainVC: UIViewController {
         $0.numberOfLines = 0
         $0.font = .systemFont(ofSize: 20, weight: .medium)
     }
-    var routineView = RectangularDashedView().then {
-        $0.backgroundColor = .init(red: 7/255, green: 147/255, blue: 182/255, alpha: 0.2)
-        $0.cornerRadius = 16
-        $0.dashWidth = 4
-        $0.dashColor = .init(red: 129/255, green: 151/255, blue: 154/255, alpha: 0.5)
-        $0.betweenDashesSpace = 8
-        $0.dashLength = 8
-    }
     var cardView = UIView().then {
         $0.backgroundColor = .white
         $0.clipsToBounds = true
@@ -72,7 +64,7 @@ class MainVC: UIViewController {
     
     // MARK: - Custom Methods
     private func setupLayout() {
-        view.addSubviews([titleLabel, routineView, mainTableView, cardView])
+        view.addSubviews([titleLabel, mainTableView, cardView])
         cardView.addSubviews([normalView, expandedView])
         
         titleLabel.snp.makeConstraints {
@@ -80,15 +72,8 @@ class MainVC: UIViewController {
             $0.leading.equalToSuperview().inset(36)
         }
         
-        routineView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(16)
-            $0.leading.equalToSuperview().inset(28)
-            $0.width.equalTo(160)
-            $0.height.equalTo(80)
-        }
-        
         mainTableView.snp.makeConstraints {
-            $0.top.equalTo(routineView.snp.bottom).offset(24)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(33)
             $0.leading.trailing.bottom.equalToSuperview()
         }
         

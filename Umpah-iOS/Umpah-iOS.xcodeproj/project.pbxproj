@@ -42,7 +42,6 @@
 		EDD43FFB26483C9700C866F3 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD43FFA26483C9700C866F3 /* ExtensionDelegate.swift */; };
 		EDD43FFD26483C9700C866F3 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD43FFC26483C9700C866F3 /* ComplicationController.swift */; };
 		EDD43FFF26483C9700C866F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDD43FFE26483C9700C866F3 /* Assets.xcassets */; };
-		EDD46F4926BE758B00FA91F2 /* RectangularDashedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD46F4826BE758B00FA91F2 /* RectangularDashedView.swift */; };
 		EDD46F4B26BE99F900FA91F2 /* NormalStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD46F4A26BE99F900FA91F2 /* NormalStateView.swift */; };
 		EDD46F4D26BE9C0200FA91F2 /* ExpandedStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD46F4C26BE9C0200FA91F2 /* ExpandedStateView.swift */; };
 		EDD46F5026BEDE4D00FA91F2 /* TypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD46F4F26BEDE4D00FA91F2 /* TypeCell.swift */; };
@@ -141,7 +140,6 @@
 		EDD43FFC26483C9700C866F3 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
 		EDD43FFE26483C9700C866F3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EDD4400026483C9700C866F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EDD46F4826BE758B00FA91F2 /* RectangularDashedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RectangularDashedView.swift; path = Components/Main/RectangularDashedView.swift; sourceTree = SOURCE_ROOT; };
 		EDD46F4A26BE99F900FA91F2 /* NormalStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NormalStateView.swift; path = Components/Main/NormalStateView.swift; sourceTree = SOURCE_ROOT; };
 		EDD46F4C26BE9C0200FA91F2 /* ExpandedStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExpandedStateView.swift; path = Components/Main/ExpandedStateView.swift; sourceTree = SOURCE_ROOT; };
 		EDD46F4F26BEDE4D00FA91F2 /* TypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TypeCell.swift; path = Cells/Main/TypeCell.swift; sourceTree = SOURCE_ROOT; };
@@ -462,7 +460,6 @@
 		EDD46F4726BE757600FA91F2 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				EDD46F4826BE758B00FA91F2 /* RectangularDashedView.swift */,
 				EDD46F4A26BE99F900FA91F2 /* NormalStateView.swift */,
 				EDD46F4C26BE9C0200FA91F2 /* ExpandedStateView.swift */,
 				EDD7C44126CBDCE200D93306 /* DetailView.swift */,
@@ -712,7 +709,6 @@
 				EDD46F5226BEEA3B00FA91F2 /* UILabel+.swift in Sources */,
 				ED5396F526B977A20061722F /* UIScreen+.swift in Sources */,
 				EDD7C43C26CB903F00D93306 /* ChartTVC.swift in Sources */,
-				EDD46F4926BE758B00FA91F2 /* RectangularDashedView.swift in Sources */,
 				EDC1EDDF26BF8FF600DCB215 /* Charts+.swift in Sources */,
 				EDD7C44226CBDCE200D93306 /* DetailView.swift in Sources */,
 				EDD7C43E26CBD3EF00D93306 /* UIButton+.swift in Sources */,
