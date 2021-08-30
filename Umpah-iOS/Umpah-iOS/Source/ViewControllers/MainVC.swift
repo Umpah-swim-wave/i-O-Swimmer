@@ -25,6 +25,7 @@ class MainVC: UIViewController {
         $0.register(ChartTVC.self, forCellReuseIdentifier: ChartTVC.identifier)
         $0.register(DetailTVC.self, forCellReuseIdentifier: DetailTVC.identifier)
         $0.backgroundColor = .clear
+        $0.separatorStyle = .none
     }
     
     // MARK: - Properties
@@ -198,17 +199,19 @@ extension MainVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch indexPath.section {
-        case 0:
+        case 1:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
+            cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
+            cell.selectionStyle = .none
+            return cell
+        case 2:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ChartTVC.identifier) as? ChartTVC else { return UITableViewCell() }
             cell.lineChartView.animate(yAxisDuration: 1.0, easingOption: .easeInOutQuint)
-            cell.backgroundColor = .clear
+            cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
             cell.selectionStyle = .none
             return cell
         default:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
-            cell.backgroundColor = .clear
-            cell.selectionStyle = .none
-            return cell
+            return UITableViewCell()
         }
     }
 }

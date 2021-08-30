@@ -102,6 +102,20 @@ class DetailView: UIView {
             $0.height.equalTo(22)
         }
     }
+    let warningLabel = UILabel().then {
+        $0.text = "휴식시간을 포함한 평균값입니다. 애플 피트니스의 값과 다를 수 있습니다."
+        $0.font = .systemFont(ofSize: 11)
+        $0.textColor = .gray
+        
+        let image = UIImageView()
+        image.image = UIImage(systemName: "exclamationmark.triangle")
+        $0.addSubview(image)
+        image.snp.makeConstraints {
+            $0.width.height.equalTo(14)
+            $0.leading.equalToSuperview().inset(-18)
+            $0.centerY.equalToSuperview()
+        }
+    }
     let distanceLabel = UILabel().then {
         $0.text = "5.4km"
         $0.textColor = .black
@@ -138,7 +152,7 @@ class DetailView: UIView {
     
     // MARK: - Custom Methods
     private func setupLayout() {
-        addSubviews([topView, bottomView])
+        addSubviews([topView, bottomView, warningLabel])
         topView.addSubviews([distanceLabel, timeLabel])
         bottomView.addSubviews([kcalLabel, bpmLabel])
         
@@ -152,7 +166,12 @@ class DetailView: UIView {
             $0.top.equalTo(topView.snp.bottom).offset(14)
             $0.leading.trailing.equalTo(topView)
             $0.height.equalTo(70)
+        }
+        
+        warningLabel.snp.makeConstraints {
             $0.bottom.equalToSuperview()
+            $0.top.equalTo(bottomView.snp.bottom).offset(20)
+            $0.leading.equalToSuperview().inset(40)
         }
         
         distanceLabel.snp.makeConstraints {
