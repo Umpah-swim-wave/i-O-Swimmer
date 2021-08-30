@@ -40,6 +40,7 @@ class MainVC: UIViewController {
         $0.layer.cornerRadius = 32.0
         $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     }
+
     let normalView = NormalStateView()
     let expandedView = ExpandedStateView()
     
