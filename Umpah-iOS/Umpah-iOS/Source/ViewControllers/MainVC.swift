@@ -28,19 +28,14 @@ class MainVC: UIViewController {
     }
     
     // MARK: - Properties
-    var titleLabel = UILabel().then {
-        $0.text = "어푸님!\n수영하기 좋은 날이에요!"
-        $0.textColor = .black
-        $0.numberOfLines = 0
-        $0.font = .systemFont(ofSize: 20, weight: .medium)
-    }
     var cardView = UIView().then {
         $0.backgroundColor = .white
         $0.clipsToBounds = true
         $0.layer.cornerRadius = 32.0
         $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     }
-
+    let topView = TopView()
+    let headerView = HeaderView()
     let normalView = NormalStateView()
     let expandedView = ExpandedStateView()
     
@@ -65,17 +60,11 @@ class MainVC: UIViewController {
     
     // MARK: - Custom Methods
     private func setupLayout() {
-        view.addSubviews([titleLabel, mainTableView, cardView])
+        view.addSubviews([mainTableView, cardView])
         cardView.addSubviews([normalView, expandedView])
         
-        titleLabel.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide).inset(49)
-            $0.leading.equalToSuperview().inset(36)
-        }
-        
         mainTableView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(33)
-            $0.leading.trailing.bottom.equalToSuperview()
+            $0.top.leading.trailing.bottom.equalToSuperview()
         }
         
         cardView.snp.makeConstraints {
@@ -195,11 +184,16 @@ extension MainVC {
 
 extension MainVC: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        switch section {
+        case 0:
+            return 0
+        default:
+            return 1
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -225,6 +219,22 @@ extension MainVC: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        return UIView()
+        switch section {
+        case 0:
+            return topView
+        default:
+            return headerView
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        switch section {
+        case 0:
+            return 143
+        case 1:
+            return 50
+        default:
+            return 0
+        }
     }
 }
