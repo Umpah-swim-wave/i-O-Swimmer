@@ -10,6 +10,12 @@ import UIKit
 class BottomCell: UICollectionViewCell {
     static let identifier = "BottomCell"
     
+    override var isSelected: Bool {
+        didSet {
+            backgroundColor = isSelected ? .black : .clear
+        }
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }

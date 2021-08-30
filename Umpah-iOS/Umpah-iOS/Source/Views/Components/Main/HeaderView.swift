@@ -14,22 +14,13 @@ class HeaderView: UIView {
     // MARK: - Properties
     var recordButton = UIButton().then {
         $0.setTitle("기록", for: .normal)
-        $0.setTitleColor(.gray, for: .normal)
-        $0.setTitleColor(.black, for: .highlighted)
+        $0.setTitleColor(.black, for: .normal)
+        $0.addTarget(self, action: #selector(touchupRecord), for: .touchUpInside)
     }
     var routineButton = UIButton().then {
         $0.setTitle("루틴", for: .normal)
         $0.setTitleColor(.gray, for: .normal)
-        $0.setTitleColor(.black, for: .highlighted)
-    }
-    lazy var bottomCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewFlowLayout()).then {
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.scrollDirection = .horizontal
-        flowLayout.itemSize = CGSize(width: 50, height: 2)
-        flowLayout.minimumLineSpacing = 0
-        $0.collectionViewLayout = flowLayout
-        $0.dataSource = self
-        $0.register(BottomCell.self, forCellWithReuseIdentifier: BottomCell.identifier)
+        $0.addTarget(self, action: #selector(touchupRoutine), for: .touchUpInside)
     }
 
     override init(frame: CGRect) {
@@ -61,19 +52,24 @@ class HeaderView: UIView {
         
         bottomCollectionView.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(1)
-            $0.leading.equalTo(recordButton.snp.leading)
+            $0.leading.equalToSuperview().inset(28)
+            $0.width.equalTo(140)
+            $0.height.equalTo(3)
         }
     }
-}
-
-extension HeaderView: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+    
+    // MARK: - @objc
+    @objc
+    func touchupRecord() {
+        print("Record - ing")
+        recordButton.setTitleColor(.black, for: .normal)
+        routineButton.setTitleColor(.gray, for: .normal)
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BottomCell.identifier, for: indexPath) as? BottomCell else { return UICollectionViewCell() }
-        cell.backgroundColor = .black
-        return cell
+    @objc
+    func touchupRoutine() {
+        print("Routine - ing")
+        routineButton.setTitleColor(.black, for: .normal)
+        recordButton.setTitleColor(.gray, for: .normal)
     }
 }
