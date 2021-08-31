@@ -48,7 +48,7 @@ class MainVC: UIViewController {
     let normalView = NormalStateView()
     let expandedView = ExpandedStateView()
     
-    var currentState: CurrentState = .day
+    var currentState: CurrentState = .routine
     var cardViewState: CardViewState = .base
     var cardPanStartingTopConstant : CGFloat = 20.0
     var cardPanMaxVelocity: CGFloat = 1500.0
@@ -147,6 +147,7 @@ extension MainVC {
                 expandedView.listTableView.reloadData()
             }
             cardViewState = .expanded
+            expandedView.state = currentState
             
             expandedView.fadeIn()
             normalView.fadeOut()

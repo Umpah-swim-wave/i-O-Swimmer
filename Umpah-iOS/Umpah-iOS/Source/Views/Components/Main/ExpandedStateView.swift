@@ -95,4 +95,21 @@ extension ExpandedStateView: UITableViewDelegate {
         tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
         tableView.separatorColor = .clear
     }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        switch state {
+        case .day:
+            return DayHeader()
+        case .week:
+            let header = WeekMonthHeader()
+            header.dateTitle.text = "요일"
+            return header
+        case .month:
+            let header = WeekMonthHeader()
+            header.dateTitle.text = "주차"
+            return header
+        default:
+            return UIView()
+        }
+    }
 }
