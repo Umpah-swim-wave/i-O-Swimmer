@@ -19,7 +19,6 @@ class ExpandedStateView: UIView {
         $0.register(ExpandedWeekTVC.self, forCellReuseIdentifier: ExpandedWeekTVC.identifier)
     }
     let titleLabel = UILabel().then {
-        $0.text = "21/08/31"
         $0.font = .systemFont(ofSize: 16, weight: .semibold)
         $0.textColor = .systemGray
     }

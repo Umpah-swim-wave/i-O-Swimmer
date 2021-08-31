@@ -48,7 +48,7 @@ class MainVC: UIViewController {
     let normalView = NormalStateView()
     let expandedView = ExpandedStateView()
     
-    var currentState: CurrentState = .month
+    var currentState: CurrentState = .routine
     var cardViewState: CardViewState = .base
     var cardPanStartingTopConstant : CGFloat = 20.0
     var cardPanMaxVelocity: CGFloat = 1500.0
@@ -145,6 +145,7 @@ extension MainVC {
         case .expanded:
             cardViewState = .expanded
             expandedView.state = currentState
+            expandedView.titleLabel.text = applyExpandedTitle(of: currentState)
             expandedView.listTableView.reloadData()
             
             expandedView.fadeIn()
@@ -225,6 +226,19 @@ extension MainVC {
             case .routine:
                 return "어푸가 추천하는 루틴 보기"
             }
+        }
+    }
+    
+    private func applyExpandedTitle(of state: CurrentState) -> String {
+        switch state {
+        case .day:
+            return "21/08/31"
+        case .week:
+            return "21/08/29 - 21/09/05"
+        case .month:
+            return "2021/08"
+        case .routine:
+            return "어푸가 추천하는 수영 루틴들"
         }
     }
 }
