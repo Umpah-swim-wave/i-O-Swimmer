@@ -33,6 +33,7 @@
 		ED78843826DE3D18006D8787 /* DayHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED78843726DE3D18006D8787 /* DayHeader.swift */; };
 		ED78843A26DE3F63006D8787 /* WeekMonthHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED78843926DE3F63006D8787 /* WeekMonthHeader.swift */; };
 		ED78843C26DE4551006D8787 /* ExpandedWeekTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED78843B26DE4551006D8787 /* ExpandedWeekTVC.swift */; };
+		ED78843E26DE4C50006D8787 /* SelectedStrokeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED78843D26DE4C50006D8787 /* SelectedStrokeView.swift */; };
 		EDB91D8626C2A4F300F4562D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EDB91D8526C2A4F300F4562D /* GoogleService-Info.plist */; };
 		EDB91D8826C2A66700F4562D /* UIWindow+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB91D8726C2A66700F4562D /* UIWindow+.swift */; };
 		EDC1EDDF26BF8FF600DCB215 /* Charts+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC1EDDE26BF8FF600DCB215 /* Charts+.swift */; };
@@ -133,6 +134,7 @@
 		ED78843726DE3D18006D8787 /* DayHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayHeader.swift; sourceTree = "<group>"; };
 		ED78843926DE3F63006D8787 /* WeekMonthHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekMonthHeader.swift; sourceTree = "<group>"; };
 		ED78843B26DE4551006D8787 /* ExpandedWeekTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedWeekTVC.swift; sourceTree = "<group>"; };
+		ED78843D26DE4C50006D8787 /* SelectedStrokeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedStrokeView.swift; sourceTree = "<group>"; };
 		EDB91D8526C2A4F300F4562D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EDB91D8726C2A66700F4562D /* UIWindow+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+.swift"; sourceTree = "<group>"; };
 		EDC1EDDE26BF8FF600DCB215 /* Charts+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Charts+.swift"; sourceTree = "<group>"; };
@@ -280,6 +282,7 @@
 				ED78843326DCA965006D8787 /* TopView.swift */,
 				ED78843726DE3D18006D8787 /* DayHeader.swift */,
 				ED78843926DE3F63006D8787 /* WeekMonthHeader.swift */,
+				ED78843D26DE4C50006D8787 /* SelectedStrokeView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -736,6 +739,7 @@
 				3C8CE32D26BCC318002BBFE5 /* UITableView+.swift in Sources */,
 				3CB4B33126BBB396003C578D /* RoutineItemTVC.swift in Sources */,
 				EDB91D8826C2A66700F4562D /* UIWindow+.swift in Sources */,
+				ED78843E26DE4C50006D8787 /* SelectedStrokeView.swift in Sources */,
 				3C8CE32F26BCCADD002BBFE5 /* RoutineItemDataModel.swift in Sources */,
 				ED78843426DCA965006D8787 /* TopView.swift in Sources */,
 				3C64C15926BBA85C009BD23B /* XmarkButton.swift in Sources */,

@@ -18,6 +18,9 @@ class ExpandedStateView: UIView {
         $0.register(ExpandedDayTVC.self, forCellReuseIdentifier: ExpandedDayTVC.identifier)
         $0.register(ExpandedWeekTVC.self, forCellReuseIdentifier: ExpandedWeekTVC.identifier)
     }
+    lazy var bottomView = SelectedStrokeView().then {
+        $0.backgroundColor = .white
+    }
     let titleLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 16, weight: .semibold)
         $0.textColor = .systemGray
@@ -39,7 +42,7 @@ class ExpandedStateView: UIView {
     
     // MARK: - Custom Method
     private func setupLayout() {
-        addSubviews([titleLabel, listTableView])
+        addSubviews([titleLabel, listTableView, bottomView])
         
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(34)
@@ -49,6 +52,11 @@ class ExpandedStateView: UIView {
         listTableView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(36)
             $0.leading.trailing.bottom.equalToSuperview()
+        }
+        
+        bottomView.snp.makeConstraints {
+            $0.leading.trailing.bottom.equalToSuperview()
+            $0.height.equalTo(UIScreen.main.hasNotch ? 93 : 49)
         }
     }
 }
@@ -102,6 +110,15 @@ extension ExpandedStateView: UITableViewDataSource {
 extension ExpandedStateView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        switch state {
+        case .routine:
+            return 0
+        default:
+            return 52
+        }
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
