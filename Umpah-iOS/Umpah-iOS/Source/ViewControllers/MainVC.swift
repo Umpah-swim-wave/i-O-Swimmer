@@ -204,7 +204,14 @@ extension MainVC {
         case .normal:
             cardViewTopConstraint?.constant = UIScreen.main.hasNotch ? UIScreen.main.bounds.size.height * 0.8 : UIScreen.main.bounds.size.height * 0.87
         case .expanded:
-            cardViewTopConstraint?.constant = 20.0
+            switch currentState {
+            case .week:
+                cardViewTopConstraint?.constant = UIScreen.main.bounds.size.height * 0.24
+            case .month:
+                cardViewTopConstraint?.constant = UIScreen.main.bounds.size.height * 0.38
+            default:
+                cardViewTopConstraint?.constant = 20.0
+            }
         }
         
         guard let constant = cardViewTopConstraint?.constant else { return 0 }
