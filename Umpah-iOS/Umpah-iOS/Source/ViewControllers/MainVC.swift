@@ -154,38 +154,6 @@ extension MainVC {
         }
     }
     
-    private func decideTopConstraint(of state: CardViewState) -> CGFloat {
-        switch state {
-        case .base:
-            cardViewTopConstraint?.constant = UIScreen.main.hasNotch ? UIScreen.main.bounds.size.height * 0.8 : UIScreen.main.bounds.size.height * 0.87
-        case .normal:
-            cardViewTopConstraint?.constant = UIScreen.main.hasNotch ? UIScreen.main.bounds.size.height * 0.8 : UIScreen.main.bounds.size.height * 0.87
-        case .expanded:
-            cardViewTopConstraint?.constant = 20.0
-        }
-        
-        guard let constant = cardViewTopConstraint?.constant else { return 0 }
-        return constant
-    }
-    
-    private func decideTitle(of state: CardViewState) -> String {
-        switch state {
-        case .expanded:
-            return "expanded"
-        default:
-            switch currentState {
-            case .day:
-                return "랩스 기록 보기"
-            case .week:
-                return "요일별 기록 보기"
-            case .month:
-                return "주간별 기록 보기"
-            case .routine:
-                return "어푸가 추천하는 루틴 보기"
-            }
-        }
-    }
-    
     private func startAnimation() {
         let showCard = UIViewPropertyAnimator(duration: 0.25, curve: .easeIn, animations: {
             self.view.layoutIfNeeded()
@@ -193,7 +161,7 @@ extension MainVC {
 
         showCard.startAnimation()
     }
-    
+
     // MARK: - @objc
     @objc
     func viewPanned(_ panRecognizer: UIPanGestureRecognizer) {
@@ -223,6 +191,41 @@ extension MainVC {
             }
         default:
             break
+        }
+    }
+}
+
+// MARK: - Helper
+extension MainVC {
+    private func decideTopConstraint(of state: CardViewState) -> CGFloat {
+        switch state {
+        case .base:
+            cardViewTopConstraint?.constant = UIScreen.main.hasNotch ? UIScreen.main.bounds.size.height * 0.8 : UIScreen.main.bounds.size.height * 0.87
+        case .normal:
+            cardViewTopConstraint?.constant = UIScreen.main.hasNotch ? UIScreen.main.bounds.size.height * 0.8 : UIScreen.main.bounds.size.height * 0.87
+        case .expanded:
+            cardViewTopConstraint?.constant = 20.0
+        }
+        
+        guard let constant = cardViewTopConstraint?.constant else { return 0 }
+        return constant
+    }
+    
+    private func decideTitle(of state: CardViewState) -> String {
+        switch state {
+        case .expanded:
+            return "expanded"
+        default:
+            switch currentState {
+            case .day:
+                return "랩스 기록 보기"
+            case .week:
+                return "요일별 기록 보기"
+            case .month:
+                return "주간별 기록 보기"
+            case .routine:
+                return "어푸가 추천하는 루틴 보기"
+            }
         }
     }
 }
