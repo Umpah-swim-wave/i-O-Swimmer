@@ -40,7 +40,7 @@ class MainVC: UIViewController {
     let normalView = NormalStateView()
     let expandedView = ExpandedStateView()
     
-    var cardViewState : CardViewState = .expanded
+    var cardViewState : CardViewState = .normal
     var cardPanStartingTopConstant : CGFloat = 20.0
     var cardPanMaxVelocity: CGFloat = 1500.0
     var cardViewTopConstraint: NSLayoutConstraint?
@@ -122,7 +122,7 @@ extension MainVC {
         self.view.layoutIfNeeded()
         
         if atState == .expanded {
-            cardViewTopConstraint?.constant = 30.0
+            cardViewTopConstraint?.constant = 20.0
             expandedView.fadeIn()
             normalView.fadeOut()
             
@@ -131,7 +131,7 @@ extension MainVC {
             }
             cardViewState = .expanded
         } else {
-            cardViewTopConstraint?.constant = UIScreen.main.bounds.size.height * 0.42
+            cardViewTopConstraint?.constant = UIScreen.main.hasNotch ? UIScreen.main.bounds.size.height * 0.8 : UIScreen.main.bounds.size.height * 0.87
             normalView.fadeIn()
             expandedView.fadeOut()
             
@@ -160,7 +160,7 @@ extension MainVC {
         case .began:
             cardPanStartingTopConstant = cardViewTopConstraint?.constant ?? 0
         case .changed:
-            if self.cardPanStartingTopConstant + translation.y > 30.0 {
+            if self.cardPanStartingTopConstant + translation.y > 20.0 {
                 self.cardViewTopConstraint?.constant = self.cardPanStartingTopConstant + translation.y
             }
         case .ended:
@@ -171,7 +171,7 @@ extension MainVC {
             
             if let safeAreaHeight = UIApplication.shared.keyWindow?.safeAreaLayoutGuide.layoutFrame.size.height,
                let bottomPadding = UIApplication.shared.keyWindow?.safeAreaInsets.bottom {
-                if self.cardViewTopConstraint?.constant ?? 0 < (safeAreaHeight + bottomPadding) * 0.25 {
+                if self.cardViewTopConstraint?.constant ?? 0 < (safeAreaHeight + bottomPadding) * 0.6 {
                     showCard(atState: .expanded)
                 } else  {
                     showCard(atState: .normal)
