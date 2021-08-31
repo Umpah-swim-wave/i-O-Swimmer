@@ -18,6 +18,22 @@ class ExpandedWeekTVC: UITableViewCell {
         $0.font = .boldSystemFont(ofSize: 12)
         $0.textColor = .orange
     }
+    let distanceLabel = UILabel().then {
+        $0.text = "999m"
+        $0.font = .systemFont(ofSize: 14)
+    }
+    let timeLabel = UILabel().then {
+        $0.text = "00:99:99"
+        $0.font = .systemFont(ofSize: 14)
+    }
+    let velocityLabel = UILabel().then {
+        $0.text = "1.7m/s"
+        $0.font = .systemFont(ofSize: 14)
+    }
+    let kcalLabel = UILabel().then {
+        $0.text = "320kcal"
+        $0.font = .systemFont(ofSize: 14)
+    }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -29,12 +45,35 @@ class ExpandedWeekTVC: UITableViewCell {
     }
     
     fileprivate func setupLayout() {
-        addSubview(dayLabel)
+        addSubviews([dayLabel,
+                     distanceLabel,
+                     timeLabel,
+                     velocityLabel,
+                     kcalLabel])
         
         dayLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(30)
-            $0.top.equalToSuperview().inset(23)
-            $0.bottom.equalToSuperview().inset(19)
+            $0.centerY.equalToSuperview()
+        }
+        
+        distanceLabel.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.trailing.equalToSuperview().inset(242)
+        }
+        
+        timeLabel.snp.makeConstraints {
+            $0.top.bottom.equalToSuperview().inset(20)
+            $0.trailing.equalToSuperview().inset(169)
+        }
+        
+        velocityLabel.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.trailing.equalToSuperview().inset(107)
+        }
+        
+        kcalLabel.snp.makeConstraints {
+            $0.centerY.equalToSuperview()
+            $0.trailing.equalToSuperview().inset(30)
         }
     }
 
