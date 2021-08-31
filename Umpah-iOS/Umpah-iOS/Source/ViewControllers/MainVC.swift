@@ -12,8 +12,16 @@ import SnapKit
 import Charts
 
 enum CardViewState {
+    case base
     case expanded
     case normal
+}
+
+enum CurrentState {
+    case day
+    case week
+    case month
+    case routine
 }
 
 class MainVC: UIViewController {
@@ -40,7 +48,8 @@ class MainVC: UIViewController {
     let normalView = NormalStateView()
     let expandedView = ExpandedStateView()
     
-    var cardViewState : CardViewState = .normal
+    var currentState: CurrentState = .day
+    var cardViewState: CardViewState = .base
     var cardPanStartingTopConstant : CGFloat = 20.0
     var cardPanMaxVelocity: CGFloat = 1500.0
     var cardViewTopConstraint: NSLayoutConstraint?
@@ -56,7 +65,7 @@ class MainVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        showCard()
+        showCard(atState: cardViewState)
     }
     
     // MARK: - Custom Methods
@@ -121,28 +130,63 @@ extension MainVC {
     private func showCard(atState: CardViewState = .normal) {
         self.view.layoutIfNeeded()
         
-        if atState == .expanded {
-            cardViewTopConstraint?.constant = 20.0
-            expandedView.fadeIn()
-            normalView.fadeOut()
+        cardPanStartingTopConstant = decideTopConstraint(of: atState)
+        normalView.titleLabel.text = decideTitle(of: atState)
+        
+        switch atState {
+        case .base:
+            cardViewState = .expanded
+        case .normal:
+            cardViewState = .normal
             
+            normalView.fadeIn()
+            expandedView.fadeOut()
+            startAnimation()
+        case .expanded:
             if cardViewState == .normal {
                 expandedView.categoryTableView.reloadData()
             }
             cardViewState = .expanded
-        } else {
-            cardViewTopConstraint?.constant = UIScreen.main.hasNotch ? UIScreen.main.bounds.size.height * 0.8 : UIScreen.main.bounds.size.height * 0.87
-            normalView.fadeIn()
-            expandedView.fadeOut()
             
-            if cardViewState == .expanded {
-                normalView.lineChartView.animate(yAxisDuration: 1.0, easingOption: .easeInOutQuint)
-            }
-            cardViewState = .normal
+            expandedView.fadeIn()
+            normalView.fadeOut()
+            startAnimation()
+        }
+    }
+    
+    private func decideTopConstraint(of state: CardViewState) -> CGFloat {
+        switch state {
+        case .base:
+            cardViewTopConstraint?.constant = UIScreen.main.hasNotch ? UIScreen.main.bounds.size.height * 0.8 : UIScreen.main.bounds.size.height * 0.87
+        case .normal:
+            cardViewTopConstraint?.constant = UIScreen.main.hasNotch ? UIScreen.main.bounds.size.height * 0.8 : UIScreen.main.bounds.size.height * 0.87
+        case .expanded:
+            cardViewTopConstraint?.constant = 20.0
         }
         
-        cardPanStartingTopConstant = cardViewTopConstraint?.constant ?? 0
-        
+        guard let constant = cardViewTopConstraint?.constant else { return 0 }
+        return constant
+    }
+    
+    private func decideTitle(of state: CardViewState) -> String {
+        switch state {
+        case .expanded:
+            return "expanded"
+        default:
+            switch currentState {
+            case .day:
+                return "랩스 기록 보기"
+            case .week:
+                return "요일별 기록 보기"
+            case .month:
+                return "주간별 기록 보기"
+            case .routine:
+                return "어푸가 추천하는 루틴 보기"
+            }
+        }
+    }
+    
+    private func startAnimation() {
         let showCard = UIViewPropertyAnimator(duration: 0.25, curve: .easeIn, animations: {
             self.view.layoutIfNeeded()
         })
