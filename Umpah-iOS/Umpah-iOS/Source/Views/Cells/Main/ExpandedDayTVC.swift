@@ -8,6 +8,7 @@
 import UIKit
 
 import Then
+import SnapKit
 
 class ExpandedDayTVC: UITableViewCell {
     static let identifier = "ExpandedDayTVC"
@@ -16,6 +17,7 @@ class ExpandedDayTVC: UITableViewCell {
     let rowLabel = UILabel().then {
         $0.text = "01"
         $0.font = .boldSystemFont(ofSize: 12)
+        $0.textColor = .orange
     }
 
     override func awakeFromNib() {
@@ -32,7 +34,7 @@ class ExpandedDayTVC: UITableViewCell {
         
         rowLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(16)
-            $0.top.bottom.equalToSuperview().inset(21)
+            $0.top.bottom.equalToSuperview().inset(1)
         }
     }
 
