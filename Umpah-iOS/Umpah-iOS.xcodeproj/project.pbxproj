@@ -29,6 +29,7 @@
 		ED5396F926B977D10061722F /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5396F826B977D10061722F /* UIView+.swift */; };
 		ED78843026DC9D3C006D8787 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED78842F26DC9D3C006D8787 /* HeaderView.swift */; };
 		ED78843426DCA965006D8787 /* TopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED78843326DCA965006D8787 /* TopView.swift */; };
+		ED78843626DE3612006D8787 /* ExpandedDayTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED78843526DE3612006D8787 /* ExpandedDayTVC.swift */; };
 		EDB91D8626C2A4F300F4562D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EDB91D8526C2A4F300F4562D /* GoogleService-Info.plist */; };
 		EDB91D8826C2A66700F4562D /* UIWindow+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB91D8726C2A66700F4562D /* UIWindow+.swift */; };
 		EDC1EDDF26BF8FF600DCB215 /* Charts+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC1EDDE26BF8FF600DCB215 /* Charts+.swift */; };
@@ -125,6 +126,7 @@
 		ED5396F826B977D10061722F /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		ED78842F26DC9D3C006D8787 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		ED78843326DCA965006D8787 /* TopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopView.swift; sourceTree = "<group>"; };
+		ED78843526DE3612006D8787 /* ExpandedDayTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedDayTVC.swift; sourceTree = "<group>"; };
 		EDB91D8526C2A4F300F4562D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EDB91D8726C2A66700F4562D /* UIWindow+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+.swift"; sourceTree = "<group>"; };
 		EDC1EDDE26BF8FF600DCB215 /* Charts+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Charts+.swift"; sourceTree = "<group>"; };
@@ -238,6 +240,7 @@
 				EDD46F4F26BEDE4D00FA91F2 /* TypeCell.swift */,
 				EDD7C43B26CB903F00D93306 /* ChartTVC.swift */,
 				EDD7C43F26CBDB4600D93306 /* DetailTVC.swift */,
+				ED78843526DE3612006D8787 /* ExpandedDayTVC.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -716,6 +719,7 @@
 				EDD7C43C26CB903F00D93306 /* ChartTVC.swift in Sources */,
 				EDC1EDDF26BF8FF600DCB215 /* Charts+.swift in Sources */,
 				EDD7C44226CBDCE200D93306 /* DetailView.swift in Sources */,
+				ED78843626DE3612006D8787 /* ExpandedDayTVC.swift in Sources */,
 				EDD7C43E26CBD3EF00D93306 /* UIButton+.swift in Sources */,
 				ED5396F726B977BB0061722F /* UIViewController+.swift in Sources */,
 				3C8CE32D26BCC318002BBFE5 /* UITableView+.swift in Sources */,

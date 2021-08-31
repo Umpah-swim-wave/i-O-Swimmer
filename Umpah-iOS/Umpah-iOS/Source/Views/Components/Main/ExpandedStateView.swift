@@ -15,10 +15,11 @@ class ExpandedStateView: UIView {
     lazy var listTableView = UITableView().then {
         $0.delegate = self
         $0.dataSource = self
+        $0.register(ExpandedDayTVC.self, forCellReuseIdentifier: ExpandedDayTVC.identifier)
     }
     let titleLabel = UILabel().then {
-        $0.text = "MY PROGRESS"
-        $0.font = .systemFont(ofSize: 12)
+        $0.text = "21/08/31"
+        $0.font = .systemFont(ofSize: 16, weight: .semibold)
         $0.textColor = .systemGray
     }
     
@@ -38,8 +39,8 @@ class ExpandedStateView: UIView {
         addSubviews([titleLabel, listTableView])
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(46)
-            $0.leading.equalToSuperview().inset(32)
+            $0.top.equalToSuperview().inset(34)
+            $0.centerX.equalToSuperview()
         }
         
         listTableView.snp.makeConstraints {
@@ -58,22 +59,22 @@ extension ExpandedStateView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch state {
         case .day:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: ExpandedDayTVC.identifier) as? ExpandedDayTVC else { return UITableViewCell() }
             cell.backgroundColor = .clear
             cell.selectionStyle = .none
             return cell
         case .week:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: ExpandedDayTVC.identifier) as? ExpandedDayTVC else { return UITableViewCell() }
             cell.backgroundColor = .clear
             cell.selectionStyle = .none
             return cell
         case .month:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: ExpandedDayTVC.identifier) as? ExpandedDayTVC else { return UITableViewCell() }
             cell.backgroundColor = .clear
             cell.selectionStyle = .none
             return cell
         case .routine:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: ExpandedDayTVC.identifier) as? ExpandedDayTVC else { return UITableViewCell() }
             cell.backgroundColor = .clear
             cell.selectionStyle = .none
             return cell

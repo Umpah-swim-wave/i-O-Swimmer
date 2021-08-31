@@ -214,7 +214,7 @@ extension MainVC {
     private func decideTitle(of state: CardViewState) -> String {
         switch state {
         case .expanded:
-            return "expanded"
+            return ""
         default:
             switch currentState {
             case .day:
