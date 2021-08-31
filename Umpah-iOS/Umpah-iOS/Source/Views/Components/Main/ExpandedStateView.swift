@@ -16,6 +16,7 @@ class ExpandedStateView: UIView {
         $0.delegate = self
         $0.dataSource = self
         $0.register(ExpandedDayTVC.self, forCellReuseIdentifier: ExpandedDayTVC.identifier)
+        $0.register(ExpandedWeekTVC.self, forCellReuseIdentifier: ExpandedWeekTVC.identifier)
     }
     let titleLabel = UILabel().then {
         $0.text = "21/08/31"
@@ -23,6 +24,9 @@ class ExpandedStateView: UIView {
         $0.textColor = .systemGray
     }
     
+    let days: [String] = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
+    let weeks: [String] = ["WEEK1", "WEEK2", "WEEK3", "WEEK4", "WEEK5"]
+        
     var state: CurrentState?
 
     override init(frame: CGRect) {
@@ -53,7 +57,16 @@ class ExpandedStateView: UIView {
 // MARK: - UITableViewDataSource
 extension ExpandedStateView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        switch state {
+        case .day:
+            return 10
+        case .week:
+            return 7
+        case .month:
+            return 5
+        default:
+            return 30
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -64,14 +77,16 @@ extension ExpandedStateView: UITableViewDataSource {
             cell.selectionStyle = .none
             return cell
         case .week:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: ExpandedDayTVC.identifier) as? ExpandedDayTVC else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: ExpandedWeekTVC.identifier) as? ExpandedWeekTVC else { return UITableViewCell() }
             cell.backgroundColor = .clear
             cell.selectionStyle = .none
+            cell.dayLabel.text = days[indexPath.row]
             return cell
         case .month:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: ExpandedDayTVC.identifier) as? ExpandedDayTVC else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: ExpandedWeekTVC.identifier) as? ExpandedWeekTVC else { return UITableViewCell() }
             cell.backgroundColor = .clear
             cell.selectionStyle = .none
+            cell.dayLabel.text = weeks[indexPath.row]
             return cell
         case .routine:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ExpandedDayTVC.identifier) as? ExpandedDayTVC else { return UITableViewCell() }

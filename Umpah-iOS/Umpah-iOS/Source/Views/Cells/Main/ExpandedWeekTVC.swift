@@ -1,5 +1,5 @@
 //
-//  ExpandedDayTVC.swift
+//  ExpandedWeekTVC.swift
 //  Umpah-iOS
 //
 //  Created by SHIN YOON AH on 2021/08/31.
@@ -10,12 +10,11 @@ import UIKit
 import Then
 import SnapKit
 
-class ExpandedDayTVC: UITableViewCell {
-    static let identifier = "ExpandedDayTVC"
+class ExpandedWeekTVC: UITableViewCell {
+    static let identifier = "ExpandedWeekTVC"
     
     // MARK: - Properties
-    let rowLabel = UILabel().then {
-        $0.text = "01"
+    let dayLabel = UILabel().then {
         $0.font = .boldSystemFont(ofSize: 12)
         $0.textColor = .orange
     }
@@ -30,11 +29,12 @@ class ExpandedDayTVC: UITableViewCell {
     }
     
     fileprivate func setupLayout() {
-        addSubview(rowLabel)
+        addSubview(dayLabel)
         
-        rowLabel.snp.makeConstraints {
-            $0.leading.equalToSuperview().inset(16)
-            $0.top.bottom.equalToSuperview().inset(20)
+        dayLabel.snp.makeConstraints {
+            $0.leading.equalToSuperview().inset(30)
+            $0.top.equalToSuperview().inset(23)
+            $0.bottom.equalToSuperview().inset(19)
         }
     }
 
