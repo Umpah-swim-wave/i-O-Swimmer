@@ -28,7 +28,6 @@
 		ED5396F726B977BB0061722F /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5396F626B977BB0061722F /* UIViewController+.swift */; };
 		ED5396F926B977D10061722F /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5396F826B977D10061722F /* UIView+.swift */; };
 		ED78843026DC9D3C006D8787 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED78842F26DC9D3C006D8787 /* HeaderView.swift */; };
-		ED78843226DCA0B8006D8787 /* BottomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED78843126DCA0B8006D8787 /* BottomCell.swift */; };
 		ED78843426DCA965006D8787 /* TopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED78843326DCA965006D8787 /* TopView.swift */; };
 		EDB91D8626C2A4F300F4562D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EDB91D8526C2A4F300F4562D /* GoogleService-Info.plist */; };
 		EDB91D8826C2A66700F4562D /* UIWindow+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB91D8726C2A66700F4562D /* UIWindow+.swift */; };
@@ -125,7 +124,6 @@
 		ED5396F626B977BB0061722F /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		ED5396F826B977D10061722F /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		ED78842F26DC9D3C006D8787 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
-		ED78843126DCA0B8006D8787 /* BottomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomCell.swift; sourceTree = "<group>"; };
 		ED78843326DCA965006D8787 /* TopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopView.swift; sourceTree = "<group>"; };
 		EDB91D8526C2A4F300F4562D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EDB91D8726C2A66700F4562D /* UIWindow+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+.swift"; sourceTree = "<group>"; };
@@ -238,7 +236,6 @@
 			isa = PBXGroup;
 			children = (
 				EDD46F4F26BEDE4D00FA91F2 /* TypeCell.swift */,
-				ED78843126DCA0B8006D8787 /* BottomCell.swift */,
 				EDD7C43B26CB903F00D93306 /* ChartTVC.swift */,
 				EDD7C43F26CBDB4600D93306 /* DetailTVC.swift */,
 			);
@@ -715,7 +712,6 @@
 				ED5396ED26B977320061722F /* UIApplication+.swift in Sources */,
 				EDD46F5026BEDE4D00FA91F2 /* TypeCell.swift in Sources */,
 				EDD46F5226BEEA3B00FA91F2 /* UILabel+.swift in Sources */,
-				ED78843226DCA0B8006D8787 /* BottomCell.swift in Sources */,
 				ED5396F526B977A20061722F /* UIScreen+.swift in Sources */,
 				EDD7C43C26CB903F00D93306 /* ChartTVC.swift in Sources */,
 				EDC1EDDF26BF8FF600DCB215 /* Charts+.swift in Sources */,
