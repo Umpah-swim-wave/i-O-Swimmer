@@ -144,7 +144,7 @@ extension MainVC {
             startAnimation()
         case .expanded:
             if cardViewState == .normal {
-                expandedView.categoryTableView.reloadData()
+                expandedView.listTableView.reloadData()
             }
             cardViewState = .expanded
             

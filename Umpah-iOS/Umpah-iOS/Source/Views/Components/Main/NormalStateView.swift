@@ -16,6 +16,7 @@ class NormalStateView: UIView {
         $0.font = .systemFont(ofSize: 16, weight: .semibold)
         $0.textColor = .systemGray
     }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
