@@ -32,6 +32,7 @@ class MainVC: UIViewController {
         $0.estimatedRowHeight = 100
         $0.register(ChartTVC.self, forCellReuseIdentifier: ChartTVC.identifier)
         $0.register(DetailTVC.self, forCellReuseIdentifier: DetailTVC.identifier)
+        $0.register(FilterTVC.self, forCellReuseIdentifier: FilterTVC.identifier)
         $0.backgroundColor = .clear
         $0.separatorStyle = .none
     }
@@ -262,7 +263,7 @@ extension MainVC {
 
 extension MainVC: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -270,24 +271,36 @@ extension MainVC: UITableViewDataSource {
         case 0:
             return 0
         default:
-            return 1
+            if currentState != .routine {
+                return 3
+            } else {
+                return 10
+            }
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        case 1:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
-            cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
-            cell.selectionStyle = .none
-            return cell
-        case 2:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: ChartTVC.identifier) as? ChartTVC else { return UITableViewCell() }
-            cell.lineChartView.animate(yAxisDuration: 1.0, easingOption: .easeInOutQuint)
-            cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
-            cell.selectionStyle = .none
-            return cell
-        default:
+        if indexPath.section == 1 && currentState != .routine {
+            switch indexPath.row {
+            case 0:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: FilterTVC.identifier) as? FilterTVC else { return UITableViewCell() }
+                cell.selectionStyle = .none
+                return cell
+            case 1:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
+                cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
+                cell.selectionStyle = .none
+                return cell
+            case 2:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: ChartTVC.identifier) as? ChartTVC else { return UITableViewCell() }
+                cell.lineChartView.animate(yAxisDuration: 1.0, easingOption: .easeInOutQuint)
+                cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
+                cell.selectionStyle = .none
+                return cell
+            default:
+                return UITableViewCell()
+            }
+        } else {
             return UITableViewCell()
         }
     }
