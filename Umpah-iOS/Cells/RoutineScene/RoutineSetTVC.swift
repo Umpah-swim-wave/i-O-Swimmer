@@ -9,13 +9,20 @@ import UIKit
 import SnapKit
 import Then
 
+protocol RoutineCellDelegate{
+    func routineItemCellForAdding(cell: RoutineSetTVC)
+    func routineItemCellForDeleting(cell: RoutineSetTVC, index: Int)
+    
+}
+
 class RoutineSetTVC: UITableViewCell {
     static let identifier = "RoutineSetTVC"
-    
-    private var routineItemList: [RoutineItemData]?
+    public var routineItemList: [RoutineItemData] = []
     public var routineCellList: [RoutineItemTVC] = []
-    
-    private var titleLabel = UILabel().then{
+    public var routineAddAction: (() -> ())?
+    public var cellDelegate : RoutineCellDelegate?
+    public var setTitle = ""
+    public var titleLabel = UILabel().then{
         $0.font = .boldSystemFont(ofSize: 15)
         $0.textColor = .black
     }
@@ -44,13 +51,38 @@ class RoutineSetTVC: UITableViewCell {
     
     public var tableView = UITableView()
     
+    public var reorderControlImageView: UIImageView? {
+        let reorderControl = self.subviews.first { view -> Bool in
+            view.classForCoder.description() == "UITableViewCellReorderControl"
+        }
+        return reorderControl?.subviews.first { view -> Bool in
+            view is UIImageView
+        } as? UIImageView
+    }
+        
+    public var isEditingMode: Bool = false {
+        didSet{
+            if isEditingMode{
+                changeLayoutAtEditingMode()
+                tableView.tableFooterView = setTableViewFooter()
+            }else{
+                turnToInitLayout()
+                tableView.tableFooterView = nil
+            }
+            routineCellList.forEach{
+                $0.isEditingMode = isEditingMode
+            }
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         selectionStyle = .none
         setTableViewAttribute()
+        initRoutineItemCells()
         registerXib()
         setupLayout()
-        self.backgroundColor = .systemGray6
+        self.backgroundColor = .clear
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -62,7 +94,6 @@ class RoutineSetTVC: UITableViewCell {
     }
     
     private func setTableViewAttribute(){
-       // tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableView.automaticDimension
         tableView.delegate = self
         tableView.dataSource = self
@@ -70,16 +101,29 @@ class RoutineSetTVC: UITableViewCell {
         tableView.isScrollEnabled = false
     }
 
-    
     public func setRoutineContent(title: String, itemList: [RoutineItemData]){
-        titleLabel.text = title
+        setTitle = title
+        titleLabel.text = setTitle.uppercased() + " SET"
         routineItemList = itemList
+        initRoutineItemCells()
+    }
+    
+    private func initRoutineItemCells(){
+        var list:[RoutineItemTVC] = []
+        routineItemList.forEach{
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineItemTVC.identifier) as? RoutineItemTVC else{
+                return
+            }
+            cell.setRoutineItem(item: $0)
+            list.append(cell)
+        }
+        routineCellList = list
     }
 }
 
 extension RoutineSetTVC: UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return tableView.rowHeight
+        return indexPath.row == routineCellList.count ? 68 : 44
     }
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
@@ -87,38 +131,80 @@ extension RoutineSetTVC: UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        routineItemList?.swapAt(sourceIndexPath.row, destinationIndexPath.row)
+        routineItemList.swapAt(sourceIndexPath.row, destinationIndexPath.row)
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         return .delete
     }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{
+            routineItemList.remove(at: indexPath.row)
+            routineCellList.remove(at: indexPath.row)
+            cellDelegate?.routineItemCellForDeleting(cell: self, index: indexPath.row)
+            tableView.reloadData()
+        }
+    }
 }
 
 extension RoutineSetTVC: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return routineItemList?.count ?? 0
+        return routineItemList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineItemTVC.identifier) as? RoutineItemTVC else {
-            return UITableViewCell()
+        return routineCellList[indexPath.row]
+    }
+    
+    public func setTableViewFooter() -> UIView{
+        let view = UIView(frame: CGRect(x: 0, y: 0,
+                                        width: UIScreen.getDeviceWidth(),
+                                        height: 68))
+        
+        let titleButton = UIButton().then{
+            $0.setTitle("영법 추가하기", for: .normal)
+            $0.titleLabel?.font = .systemFont(ofSize: 12)
+            $0.setTitleColor(.gray, for: .normal)
+            $0.addTarget(self, action: #selector(addInitRoutineItem), for: .touchUpInside)
+        }
+    
+        let titleUnderline = UIView().then{
+            $0.backgroundColor = .gray
         }
         
-        guard let itemList = routineItemList else {
-            print("넘어온 아이템 리스트가 없음")
-            return UITableViewCell()
+        view.addSubviews([titleButton,
+                          titleUnderline])
+        titleButton.snp.makeConstraints{
+            $0.center.equalToSuperview()
         }
         
-        cell.setRoutineItem(item: itemList[indexPath.row])
-        
-        if routineCellList.count < routineItemList?.count ?? 0 {
-            routineCellList.append(cell)
+        titleUnderline.snp.makeConstraints{
+            $0.top.equalTo(titleButton.snp.bottom).offset(-3)
+            $0.centerX.equalTo(titleButton.snp.centerX)
+            $0.width.equalTo(titleButton.snp.width)
+            $0.height.equalTo(1)
         }
-        return cell
+        return view
+    }
+    
+    @objc func addInitRoutineItem(){
+        addRoutineItemCell()
+        cellDelegate?.routineItemCellForAdding(cell: self)
+        tableView.reloadData()
+    }
+    
+    private func addRoutineItemCell(){
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineItemTVC.identifier) as? RoutineItemTVC else{
+            return
+        }
+        cell.setRoutineItem(item: RoutineItemData())
+        routineCellList.append(cell)
+        routineCellList.last?.isEditingMode = true
     }
 }
 
+//MARK: UI
 extension RoutineSetTVC {
     private func setupLayout(){
         addSubviews([titleLabel,
@@ -135,6 +221,7 @@ extension RoutineSetTVC {
             $0.bottom.equalToSuperview().inset(8)
         }
         
+        
         tableBackgroundView.addSubviews([strokeLabel,
                                          distanceLabel,
                                          timeLabel,
@@ -143,7 +230,7 @@ extension RoutineSetTVC {
         strokeLabel.snp.makeConstraints {
             $0.top.leading.equalToSuperview().offset(24)
         }
-        
+                
         distanceLabel.snp.makeConstraints{
             $0.centerY.equalTo(strokeLabel.snp.centerY)
             $0.leading.equalToSuperview().offset(191)
@@ -154,11 +241,12 @@ extension RoutineSetTVC {
             $0.trailing.equalToSuperview().inset(47)
         }
         
-        tableView.snp.makeConstraints {
+        tableView.snp.makeConstraints{
             $0.top.equalTo(strokeLabel.snp.bottom).offset(16)
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalToSuperview().inset(16)
         }
+        
     }
     
     public func changeLayoutAtEditingMode(){
