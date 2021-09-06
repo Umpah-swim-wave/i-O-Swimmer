@@ -14,7 +14,7 @@ class RoutineItemTVC: UITableViewCell {
     
     private var routineItem: RoutineItemData?
     
-    private var strokeLabel = UILabel().then{
+    public var strokeLabel = UILabel().then{
         $0.font = .systemFont(ofSize: 14)
         $0.textColor = .black
     }
@@ -27,8 +27,19 @@ class RoutineItemTVC: UITableViewCell {
         $0.textColor = .black
     }
     
-    private var lineView = UIView().then {
+    public var lineView = UIView().then {
         $0.backgroundColor = .lightGray
+    }
+    
+    public var isEditingMode: Bool = false {
+        didSet{
+            if isEditingMode{
+                print("strokeLabel \(strokeLabel.text)")
+                changeLayoutAtEditingMode()
+            }else{
+                turnToInitLayout()
+            }
+        }
     }
     
     override func awakeFromNib() {
@@ -78,7 +89,7 @@ extension RoutineItemTVC {
         
         distanceLabel.snp.makeConstraints{
             $0.centerY.equalTo(strokeLabel.snp.centerY)
-            $0.leading.equalToSuperview().inset(191)
+            $0.trailing.equalToSuperview().inset(107)
         }
         
         timeLabel.snp.makeConstraints {
@@ -91,6 +102,15 @@ extension RoutineItemTVC {
             $0.bottom.equalToSuperview()
             $0.height.equalTo(1)
         }
+        
+        print("Editing = \(isEditingMode)")
+        print("showsReorderControl = \(showsReorderControl)")
+        if showsReorderControl{
+            changeLayoutAtEditingMode()
+        }else{
+            turnToInitLayout()
+        }
+        
     }
     
     public func changeLayoutAtEditingMode(){
@@ -101,6 +121,7 @@ extension RoutineItemTVC {
         timeLabel.snp.updateConstraints {
             $0.trailing.equalToSuperview().inset(50)
         }
+        
     }
     
     public func turnToInitLayout(){
