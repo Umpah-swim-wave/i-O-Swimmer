@@ -18,6 +18,8 @@
 		3CB4B33126BBB396003C578D /* RoutineItemTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB4B32F26BBB396003C578D /* RoutineItemTVC.swift */; };
 		3CB4B33226BBB396003C578D /* RoutineItemTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CB4B33026BBB396003C578D /* RoutineItemTVC.xib */; };
 		3CE4D67926DD2786007E4193 /* CALayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE4D67826DD2786007E4193 /* CALayer+.swift */; };
+		3CF69DEA26E7776C002FD6DB /* ModifyElementVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF69DE926E7776C002FD6DB /* ModifyElementVC.swift */; };
+		3CF69DEC26E77856002FD6DB /* ModifyElement.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CF69DEB26E77856002FD6DB /* ModifyElement.storyboard */; };
 		65BD8F2201A9C1AFD7C2D8DD /* Pods_Umpah_iOS_WatchKit_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86DD879FC3C4E84D7E3F34D5 /* Pods_Umpah_iOS_WatchKit_App.framework */; };
 		D1F464F8FC2774B0D55FFF79 /* Pods_Umpah_iOS_WatchKit_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C521171D608E01D7F8B2492 /* Pods_Umpah_iOS_WatchKit_Extension.framework */; };
 		ECF21C0C9372B4F1A806C262 /* Pods_Umpah_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB7CF8BBFF32001FC0A7E689 /* Pods_Umpah_iOS.framework */; };
@@ -109,6 +111,8 @@
 		3CB4B32F26BBB396003C578D /* RoutineItemTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RoutineItemTVC.swift; path = Cells/RoutineScene/RoutineItemTVC.swift; sourceTree = SOURCE_ROOT; };
 		3CB4B33026BBB396003C578D /* RoutineItemTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RoutineItemTVC.xib; path = "Umpah-iOS/Resource/Xibs/RoutineScene/RoutineItemTVC.xib"; sourceTree = SOURCE_ROOT; };
 		3CE4D67826DD2786007E4193 /* CALayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+.swift"; sourceTree = "<group>"; };
+		3CF69DE926E7776C002FD6DB /* ModifyElementVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyElementVC.swift; sourceTree = "<group>"; };
+		3CF69DEB26E77856002FD6DB /* ModifyElement.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ModifyElement.storyboard; sourceTree = "<group>"; };
 		5C22123FD09CFCBFA7BA82AB /* Pods-Umpah-iOS WatchKit App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Umpah-iOS WatchKit App.release.xcconfig"; path = "Target Support Files/Pods-Umpah-iOS WatchKit App/Pods-Umpah-iOS WatchKit App.release.xcconfig"; sourceTree = "<group>"; };
 		7C521171D608E01D7F8B2492 /* Pods_Umpah_iOS_WatchKit_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Umpah_iOS_WatchKit_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		86DD879FC3C4E84D7E3F34D5 /* Pods_Umpah_iOS_WatchKit_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Umpah_iOS_WatchKit_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -381,6 +385,7 @@
 			children = (
 				ED5396E326B975D70061722F /* MainVC.swift */,
 				ED5396E726B975F60061722F /* RoutineVC.swift */,
+				3CF69DE926E7776C002FD6DB /* ModifyElementVC.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -400,6 +405,7 @@
 				EDD43FDE26483C9600C866F3 /* LaunchScreen.storyboard */,
 				ED5396E126B975AD0061722F /* Main.storyboard */,
 				ED5396E526B975E70061722F /* Routine.storyboard */,
+				3CF69DEB26E77856002FD6DB /* ModifyElement.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -588,6 +594,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3CB4B33226BBB396003C578D /* RoutineItemTVC.xib in Resources */,
+				3CF69DEC26E77856002FD6DB /* ModifyElement.storyboard in Resources */,
 				ED5396E226B975AD0061722F /* Main.storyboard in Resources */,
 				EDD43FE026483C9600C866F3 /* LaunchScreen.storyboard in Resources */,
 				EDD43FDD26483C9600C866F3 /* Assets.xcassets in Resources */,
@@ -715,6 +722,7 @@
 				EDC1EDDF26BF8FF600DCB215 /* Charts+.swift in Sources */,
 				ED5396F726B977BB0061722F /* UIViewController+.swift in Sources */,
 				3C8CE32D26BCC318002BBFE5 /* UITableView+.swift in Sources */,
+				3CF69DEA26E7776C002FD6DB /* ModifyElementVC.swift in Sources */,
 				3CB4B33126BBB396003C578D /* RoutineItemTVC.swift in Sources */,
 				3CE4D67926DD2786007E4193 /* CALayer+.swift in Sources */,
 				EDB91D8826C2A66700F4562D /* UIWindow+.swift in Sources */,
