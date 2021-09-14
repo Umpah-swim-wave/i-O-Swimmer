@@ -21,11 +21,10 @@ class ModifyElementVC: UIViewController{
     
     private var contentViewHeight = 0
     
-    private var dimmerView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .darkGray
-        return view
-    }()
+    private var dimmerView = UIView().then{
+        $0.backgroundColor = .black
+        $0.alpha = 0.6
+    }
     
     public var titleLabel = UILabel().then{
         $0.textColor = .upuhBlack()
