@@ -73,8 +73,7 @@ class ModifyElementVC: UIViewController{
     }
     
     func calculateContentViewHeight(){
-        contentViewHeight = elementList.count * Int((tableView.rowHeight)) + 98
-        print("contentViewHeight = \(contentViewHeight)")
+        contentViewHeight = elementList.count * 50 + 98
     }
     
     func bindDataToTableView(){
@@ -83,12 +82,26 @@ class ModifyElementVC: UIViewController{
                                                cellType: ModifyElementTVC.self)) { row, element, cell in
             cell.nameLabel.text = element
         }.disposed(by: disposeBag)
+        
+        //MARK: TO-Do 전체적으로 구현해보고 괜찮은 함수 선택하기
+        tableView.rx.itemSelected
+            .subscribe(onNext: { indexPath in
+                print(indexPath)
+                print(self.elementList[indexPath.row])
+            }).disposed(by: disposeBag)
+        
+        tableView.rx.modelSelected(String.self)
+            .subscribe(onNext: { model in
+                print("\(model) is selected")
+            }).disposed(by: disposeBag)
     }
+    
 }
 
 extension ModifyElementVC {
     private func setupBackgroundLayout(){
         view.addSubview(backgroundImageView)
+        print("넘겨져온 backgroundImage = \(backgroundImage)")
         backgroundImageView.image = backgroundImage
         backgroundImageView.snp.makeConstraints{
             $0.top.equalToSuperview()
