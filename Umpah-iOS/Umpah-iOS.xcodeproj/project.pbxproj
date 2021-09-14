@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3C358BB626E5B2970025ABDC /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C358BB526E5B2970025ABDC /* UITableViewCell+.swift */; };
 		3C358BB826E5BEBA0025ABDC /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C358BB726E5BEBA0025ABDC /* UIColor+.swift */; };
+		3C5C209E26EF2B82006951A6 /* RoutineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5C209D26EF2B82006951A6 /* RoutineViewController.swift */; };
 		3C64C15926BBA85C009BD23B /* XmarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C64C15826BBA85C009BD23B /* XmarkButton.swift */; };
 		3C8CE32926BCBE6B002BBFE5 /* RoutineSetTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8CE32726BCBE6B002BBFE5 /* RoutineSetTVC.swift */; };
 		3C8CE32A26BCBE6B002BBFE5 /* RoutineSetTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C8CE32826BCBE6B002BBFE5 /* RoutineSetTVC.xib */; };
@@ -20,6 +21,9 @@
 		3CE4D67926DD2786007E4193 /* CALayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE4D67826DD2786007E4193 /* CALayer+.swift */; };
 		3CF69DEA26E7776C002FD6DB /* ModifyElementVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF69DE926E7776C002FD6DB /* ModifyElementVC.swift */; };
 		3CF69DEC26E77856002FD6DB /* ModifyElement.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CF69DEB26E77856002FD6DB /* ModifyElement.storyboard */; };
+		3CF69DF026E781B5002FD6DB /* ModifyElementTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF69DEE26E781B5002FD6DB /* ModifyElementTVC.swift */; };
+		3CF69DF126E781B5002FD6DB /* ModifyElementTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CF69DEF26E781B5002FD6DB /* ModifyElementTVC.xib */; };
+		3CF69DF426E79A68002FD6DB /* RoutineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF69DF326E79A68002FD6DB /* RoutineViewModel.swift */; };
 		65BD8F2201A9C1AFD7C2D8DD /* Pods_Umpah_iOS_WatchKit_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86DD879FC3C4E84D7E3F34D5 /* Pods_Umpah_iOS_WatchKit_App.framework */; };
 		D1F464F8FC2774B0D55FFF79 /* Pods_Umpah_iOS_WatchKit_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C521171D608E01D7F8B2492 /* Pods_Umpah_iOS_WatchKit_Extension.framework */; };
 		ECF21C0C9372B4F1A806C262 /* Pods_Umpah_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB7CF8BBFF32001FC0A7E689 /* Pods_Umpah_iOS.framework */; };
@@ -102,17 +106,21 @@
 		30E19E303BB4F713D525DDCC /* Pods-Umpah-iOS WatchKit App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Umpah-iOS WatchKit App.debug.xcconfig"; path = "Target Support Files/Pods-Umpah-iOS WatchKit App/Pods-Umpah-iOS WatchKit App.debug.xcconfig"; sourceTree = "<group>"; };
 		3C358BB526E5B2970025ABDC /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
 		3C358BB726E5BEBA0025ABDC /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
+		3C5C209D26EF2B82006951A6 /* RoutineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineViewController.swift; sourceTree = "<group>"; };
 		3C64C15826BBA85C009BD23B /* XmarkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = XmarkButton.swift; path = Components/Shared/XmarkButton.swift; sourceTree = SOURCE_ROOT; };
 		3C8CE32726BCBE6B002BBFE5 /* RoutineSetTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RoutineSetTVC.swift; path = Cells/RoutineScene/RoutineSetTVC.swift; sourceTree = SOURCE_ROOT; };
 		3C8CE32826BCBE6B002BBFE5 /* RoutineSetTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RoutineSetTVC.xib; path = "Umpah-iOS/Resource/Xibs/RoutineScene/RoutineSetTVC.xib"; sourceTree = SOURCE_ROOT; };
 		3C8CE32C26BCC318002BBFE5 /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
-		3C8CE32E26BCCADD002BBFE5 /* RoutineItemDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RoutineItemDataModel.swift; path = "Umpah-iOS/Source/Extensions/RoutineItemDataModel.swift"; sourceTree = SOURCE_ROOT; };
+		3C8CE32E26BCCADD002BBFE5 /* RoutineItemDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RoutineItemDataModel.swift; path = "Umpah-iOS/Source/Models/RoutineItemDataModel.swift"; sourceTree = SOURCE_ROOT; };
 		3CAD1F2526CBDA64001CD535 /* UIWindow+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIWindow+.swift"; sourceTree = "<group>"; };
 		3CB4B32F26BBB396003C578D /* RoutineItemTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RoutineItemTVC.swift; path = Cells/RoutineScene/RoutineItemTVC.swift; sourceTree = SOURCE_ROOT; };
 		3CB4B33026BBB396003C578D /* RoutineItemTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RoutineItemTVC.xib; path = "Umpah-iOS/Resource/Xibs/RoutineScene/RoutineItemTVC.xib"; sourceTree = SOURCE_ROOT; };
 		3CE4D67826DD2786007E4193 /* CALayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+.swift"; sourceTree = "<group>"; };
 		3CF69DE926E7776C002FD6DB /* ModifyElementVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyElementVC.swift; sourceTree = "<group>"; };
 		3CF69DEB26E77856002FD6DB /* ModifyElement.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ModifyElement.storyboard; sourceTree = "<group>"; };
+		3CF69DEE26E781B5002FD6DB /* ModifyElementTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ModifyElementTVC.swift; path = Cells/ModifyElementScene/ModifyElementTVC.swift; sourceTree = SOURCE_ROOT; };
+		3CF69DEF26E781B5002FD6DB /* ModifyElementTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ModifyElementTVC.xib; path = "Umpah-iOS/Resource/Xibs/ModifyElementScene/ModifyElementTVC.xib"; sourceTree = SOURCE_ROOT; };
+		3CF69DF326E79A68002FD6DB /* RoutineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RoutineViewModel.swift; path = "Umpah-iOS/Source/ViewModels/RoutineViewModel.swift"; sourceTree = SOURCE_ROOT; };
 		5C22123FD09CFCBFA7BA82AB /* Pods-Umpah-iOS WatchKit App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Umpah-iOS WatchKit App.release.xcconfig"; path = "Target Support Files/Pods-Umpah-iOS WatchKit App/Pods-Umpah-iOS WatchKit App.release.xcconfig"; sourceTree = "<group>"; };
 		7C521171D608E01D7F8B2492 /* Pods_Umpah_iOS_WatchKit_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Umpah_iOS_WatchKit_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		86DD879FC3C4E84D7E3F34D5 /* Pods_Umpah_iOS_WatchKit_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Umpah_iOS_WatchKit_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -218,6 +226,22 @@
 				3C8CE32726BCBE6B002BBFE5 /* RoutineSetTVC.swift */,
 			);
 			path = RoutineScene;
+			sourceTree = "<group>";
+		};
+		3CF69DED26E78178002FD6DB /* ModifyElementScene */ = {
+			isa = PBXGroup;
+			children = (
+				3CF69DEE26E781B5002FD6DB /* ModifyElementTVC.swift */,
+			);
+			path = ModifyElementScene;
+			sourceTree = "<group>";
+		};
+		3CF69DF226E781C3002FD6DB /* ModifyElementScene */ = {
+			isa = PBXGroup;
+			children = (
+				3CF69DEF26E781B5002FD6DB /* ModifyElementTVC.xib */,
+			);
+			path = ModifyElementScene;
 			sourceTree = "<group>";
 		};
 		BB7FBBC3787B03C3765734FA /* Pods */ = {
@@ -368,6 +392,7 @@
 		EDD4401526483D1600C866F3 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				3CF69DF326E79A68002FD6DB /* RoutineViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -386,6 +411,7 @@
 				ED5396E326B975D70061722F /* MainVC.swift */,
 				ED5396E726B975F60061722F /* RoutineVC.swift */,
 				3CF69DE926E7776C002FD6DB /* ModifyElementVC.swift */,
+				3C5C209D26EF2B82006951A6 /* RoutineViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -393,6 +419,7 @@
 		EDD4401826483D2500C866F3 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				3CF69DED26E78178002FD6DB /* ModifyElementScene */,
 				3CB4B32E26BBB370003C578D /* RoutineScene */,
 				EDD46F4E26BEDE3500FA91F2 /* Main */,
 			);
@@ -413,6 +440,7 @@
 		EDD4401A26483D4900C866F3 /* Xibs */ = {
 			isa = PBXGroup;
 			children = (
+				3CF69DF226E781C3002FD6DB /* ModifyElementScene */,
 				3C8CE32B26BCBE73002BBFE5 /* RoutineScene */,
 			);
 			path = Xibs;
@@ -598,6 +626,7 @@
 				ED5396E226B975AD0061722F /* Main.storyboard in Resources */,
 				EDD43FE026483C9600C866F3 /* LaunchScreen.storyboard in Resources */,
 				EDD43FDD26483C9600C866F3 /* Assets.xcassets in Resources */,
+				3CF69DF126E781B5002FD6DB /* ModifyElementTVC.xib in Resources */,
 				ED5396E626B975E70061722F /* Routine.storyboard in Resources */,
 				EDB91D8626C2A4F300F4562D /* GoogleService-Info.plist in Resources */,
 				3C8CE32A26BCBE6B002BBFE5 /* RoutineSetTVC.xib in Resources */,
@@ -714,6 +743,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CF69DF026E781B5002FD6DB /* ModifyElementTVC.swift in Sources */,
 				ED5396ED26B977320061722F /* UIApplication+.swift in Sources */,
 				EDD46F5026BEDE4D00FA91F2 /* TypeCell.swift in Sources */,
 				EDD46F5226BEEA3B00FA91F2 /* UILabel+.swift in Sources */,
@@ -732,7 +762,9 @@
 				ED5396E826B975F60061722F /* RoutineVC.swift in Sources */,
 				EDD46F4D26BE9C0200FA91F2 /* ExpandedStateView.swift in Sources */,
 				ED5396EF26B9774C0061722F /* Encodable+.swift in Sources */,
+				3C5C209E26EF2B82006951A6 /* RoutineViewController.swift in Sources */,
 				ED5396E426B975D70061722F /* MainVC.swift in Sources */,
+				3CF69DF426E79A68002FD6DB /* RoutineViewModel.swift in Sources */,
 				EDD46F4B26BE99F900FA91F2 /* NormalStateView.swift in Sources */,
 				ED5396F926B977D10061722F /* UIView+.swift in Sources */,
 				EDD43FD626483C9500C866F3 /* SceneDelegate.swift in Sources */,
