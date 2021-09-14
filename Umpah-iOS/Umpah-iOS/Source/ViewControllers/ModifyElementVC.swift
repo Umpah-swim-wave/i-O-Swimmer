@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class ModifyElementVC: UIViewController, UIScrollViewDelegate {
+class ModifyElementVC: UIViewController{
 
     static let identifier = "ModifyElementVC"
     private var disposeBag = DisposeBag()
@@ -40,6 +40,9 @@ class ModifyElementVC: UIViewController, UIScrollViewDelegate {
     private lazy var tableView = UITableView().then {
         $0.registerCustomXib(name: ModifyElementTVC.identifier)
         $0.rowHeight = 50
+        $0.layer.cornerRadius = 16
+        $0.separatorStyle = .none
+        $0.isScrollEnabled = false
     }
     
     override func viewDidLoad() {
@@ -50,8 +53,29 @@ class ModifyElementVC: UIViewController, UIScrollViewDelegate {
         bindDataToTableView()
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        if let touch = touches.first {
+            let position = touch.location(in: view)
+            print(position)
+            if isBackgroundTouched(point: position) {
+                dismiss(animated: false, completion: nil)
+            }
+        }
+    }
+    
+    func isBackgroundTouched(point: CGPoint) -> Bool{
+        if point.x > contentView.frame.minX
+            && point.x < contentView.frame.maxX
+            && point.y > contentView.frame.minY
+            && point.y < contentView.frame.maxY{
+           return false
+        }
+        return true
+    }
+    
     func calculateContentViewHeight(){
-        contentViewHeight = elementList.count * 40 + 98
+        contentViewHeight = elementList.count * Int((tableView.rowHeight)) + 98
+        print("contentViewHeight = \(contentViewHeight)")
     }
     
     func bindDataToTableView(){
@@ -95,11 +119,11 @@ extension ModifyElementVC {
         
         titleLabel.snp.makeConstraints{
             $0.centerX.equalToSuperview()
-            $0.top.equalToSuperview().inset(32)
+            $0.top.equalToSuperview().offset(32)
         }
         
         tableView.snp.makeConstraints{
-            $0.top.equalTo(titleLabel.snp.bottom).inset(24)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(24)
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalToSuperview().inset(24)
         }
