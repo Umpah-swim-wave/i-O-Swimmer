@@ -61,7 +61,7 @@ class RoutineVC: UIViewController {
         $0.layer.cornerRadius = 8
         $0.setTitleColor(.white, for: .normal)
         $0.backgroundColor = .orange
-        $0.isUserInteractionEnabled = false
+        $0.isUserInteractionEnabled = true
         $0.contentEdgeInsets = UIEdgeInsets(top: 6, left: 10, bottom: 6, right: 10)
     }
     
@@ -152,6 +152,7 @@ class RoutineVC: UIViewController {
     }
     private func addActions(){
         bottomButton.addTarget(self, action: #selector(changeTableViewEditingMode), for: .touchUpInside)
+        distanceButton.addTarget(self, action: #selector(presentSetSelectionView), for: .touchUpInside)
     }
     
     @objc
@@ -173,6 +174,24 @@ class RoutineVC: UIViewController {
                 print("---------------------------------")
             }
         }
+    }
+    
+    @objc
+    func presentSetSelectionView(){
+        let storyboard = UIStoryboard(name: "ModifyElement", bundle: nil)
+        guard let nextVC = storyboard.instantiateViewController(identifier: ModifyElementVC.identifier) as? ModifyElementVC else {
+            return
+        }
+        nextVC.elementList = ["WARM-UP SET", "PRE SET", "MAIN SET", "KICK SET", "PULL SET", "DRILL SET", "COOL DOWN SET"]
+        nextVC.titleLabel.text = "세트 선택"
+        
+        nextVC.modalPresentationStyle = .fullScreen
+
+         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1 , execute: {
+            nextVC.backgroundImage = self.view.asImage()
+            dump(self.view.asImage())
+           self.present(nextVC, animated: false, completion: nil)
+         })
     }
     
 //    private func bindViewModel(){
