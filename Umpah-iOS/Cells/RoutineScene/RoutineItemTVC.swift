@@ -14,10 +14,13 @@ class RoutineItemTVC: UITableViewCell {
     
     private var routineItem: RoutineItemData?
     
-    public var strokeLabel = UILabel().then{
-        $0.font = .systemFont(ofSize: 14)
-        $0.textColor = .black
+    public var strokeButton = UIButton().then{
+        $0.semanticContentAttribute = .forceRightToLeft
+        $0.imageEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: 0)
+        $0.setTitleColor(.upuhBlack(), for: .normal)
+        $0.titleLabel?.font = .systemFont(ofSize: 14)
     }
+    
     private var distanceLabel = UILabel().then{
         $0.font = .systemFont(ofSize: 14)
         $0.textColor = .black
@@ -34,10 +37,11 @@ class RoutineItemTVC: UITableViewCell {
     public var isEditingMode: Bool = false {
         didSet{
             if isEditingMode{
-                print("strokeLabel \(strokeLabel.text)")
                 changeLayoutAtEditingMode()
+                strokeButton.setImage(UIImage(named: "chevronDown"), for: .normal)
             }else{
                 turnToInitLayout()
+                strokeButton.setImage(nil, for: .normal)
             }
         }
     }
@@ -57,7 +61,7 @@ class RoutineItemTVC: UITableViewCell {
     public func setRoutineItem(item: RoutineItemData){
         routineItem = item
         print("routineItem = \(routineItem)")
-        strokeLabel.text = item.stroke
+        strokeButton.setTitle(item.stroke, for: .normal)
         distanceLabel.text = item.distance + "m"
         timeLabel.text = item.getTimeToString()
     }
@@ -67,7 +71,7 @@ class RoutineItemTVC: UITableViewCell {
             print("넘겨져온 item이 없음")
             return
         }
-        strokeLabel.text = item.stroke
+        strokeButton.setTitle(item.stroke, for: .normal)
         distanceLabel.text = item.distance + "m"
         timeLabel.text = item.getTimeToString()
     }
@@ -77,23 +81,23 @@ class RoutineItemTVC: UITableViewCell {
 //MARK: UI
 extension RoutineItemTVC {
     private func setupLayout(){
-        addSubviews([strokeLabel,
+        addSubviews([strokeButton,
                      distanceLabel,
                      timeLabel,
                      lineView])
-        
-        strokeLabel.snp.makeConstraints{
+
+        strokeButton.snp.makeConstraints{
             $0.top.bottom.equalToSuperview().inset(15)
             $0.leading.equalToSuperview().inset(24)
         }
         
         distanceLabel.snp.makeConstraints{
-            $0.centerY.equalTo(strokeLabel.snp.centerY)
+            $0.centerY.equalTo(strokeButton.snp.centerY)
             $0.trailing.equalToSuperview().inset(107)
         }
         
         timeLabel.snp.makeConstraints {
-            $0.centerY.equalTo(strokeLabel.snp.centerY)
+            $0.centerY.equalTo(strokeButton.snp.centerY)
             $0.trailing.equalToSuperview().inset(32)
         }
         
@@ -114,18 +118,17 @@ extension RoutineItemTVC {
     }
     
     public func changeLayoutAtEditingMode(){
-        strokeLabel.snp.updateConstraints {
+        strokeButton.snp.updateConstraints {
             $0.leading.equalToSuperview().inset(46)
         }
         
         timeLabel.snp.updateConstraints {
             $0.trailing.equalToSuperview().inset(50)
         }
-        
     }
     
     public func turnToInitLayout(){
-        strokeLabel.snp.updateConstraints {
+        strokeButton.snp.updateConstraints {
             $0.leading.equalToSuperview().inset(24)
         }
         
