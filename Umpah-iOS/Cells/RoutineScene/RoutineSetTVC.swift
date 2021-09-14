@@ -12,16 +12,15 @@ import Then
 protocol RoutineCellDelegate{
     func routineItemCellForAdding(cell: RoutineSetTVC)
     func routineItemCellForDeleting(cell: RoutineSetTVC, index: Int)
-    
 }
 
 class RoutineSetTVC: UITableViewCell {
     static let identifier = "RoutineSetTVC"
-    public var routineItemList: [RoutineItemData] = []
-    public var routineCellList: [RoutineItemTVC] = []
+    public var viewModel: RoutineViewModel?
+    public var routineItemCellList: [RoutineItemTVC] = []
     public var routineAddAction: (() -> ())?
     public var cellDelegate : RoutineCellDelegate?
-    public var setTitle = ""
+    public var routineSetTitle = ""
     public var titleLabel = UILabel().then{
         $0.font = .boldSystemFont(ofSize: 15)
         $0.textColor = .black
@@ -49,7 +48,9 @@ class RoutineSetTVC: UITableViewCell {
         $0.text = "시간"
     }
     
-    public var tableView = UITableView()
+    public var tableView = UITableView().then{
+        $0.registerCustomXib(name: RoutineItemTVC.identifier)
+    }
     
     public var reorderControlImageView: UIImageView? {
         let reorderControl = self.subviews.first { view -> Bool in
@@ -69,7 +70,7 @@ class RoutineSetTVC: UITableViewCell {
                 turnToInitLayout()
                 tableView.tableFooterView = nil
             }
-            routineCellList.forEach{
+            routineItemCellList.forEach{
                 $0.isEditingMode = isEditingMode
             }
         }
@@ -80,7 +81,6 @@ class RoutineSetTVC: UITableViewCell {
         selectionStyle = .none
         setTableViewAttribute()
         initRoutineItemCells()
-        registerXib()
         setupLayout()
         self.backgroundColor = .clear
     }
@@ -89,9 +89,6 @@ class RoutineSetTVC: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    private func registerXib(){
-        tableView.registerCustomXib(name: RoutineItemTVC.identifier)
-    }
     
     private func setTableViewAttribute(){
         tableView.rowHeight = UITableView.automaticDimension
@@ -102,28 +99,40 @@ class RoutineSetTVC: UITableViewCell {
     }
 
     public func setRoutineContent(title: String, itemList: [RoutineItemData]){
-        setTitle = title
-        titleLabel.text = setTitle.uppercased() + " SET"
-        routineItemList = itemList
+        routineSetTitle = title
+        titleLabel.text = routineSetTitle.uppercased() + " SET"
+        initRoutineItemCells()
+    }
+    
+    public func setRoutineContent(title: String, viewModel: RoutineViewModel){
+        routineSetTitle = title
+        titleLabel.text = routineSetTitle.uppercased() + " SET"
+        self.viewModel = viewModel
         initRoutineItemCells()
     }
     
     private func initRoutineItemCells(){
-        var list:[RoutineItemTVC] = []
-        routineItemList.forEach{
+        var list: [RoutineItemTVC] = []
+        let datalist = viewModel?.getRoutineDataList(title: routineSetTitle) ?? []
+        datalist.forEach{
             guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineItemTVC.identifier) as? RoutineItemTVC else{
                 return
             }
             cell.setRoutineItem(item: $0)
             list.append(cell)
         }
-        routineCellList = list
+        routineItemCellList = list
+    }
+    
+    private func bindToViewModel(){
+        
     }
 }
 
 extension RoutineSetTVC: UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return indexPath.row == routineCellList.count ? 68 : 44
+        let datalist = viewModel?.getRoutineDataList(title: routineSetTitle) ?? []
+        return indexPath.row == datalist.count ? 68 : 44
     }
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
@@ -131,7 +140,8 @@ extension RoutineSetTVC: UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        routineItemList.swapAt(sourceIndexPath.row, destinationIndexPath.row)
+        viewModel?.swapRutineItems(routineSetTitle, sourceIndexPath.row, destinationIndexPath.row)
+        routineItemCellList.swapAt(sourceIndexPath.row, destinationIndexPath.row)
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
@@ -140,8 +150,8 @@ extension RoutineSetTVC: UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete{
-            routineItemList.remove(at: indexPath.row)
-            routineCellList.remove(at: indexPath.row)
+            viewModel?.deleteRoutineItem(title: routineSetTitle, index: indexPath.row)
+            routineItemCellList.remove(at: indexPath.row)
             cellDelegate?.routineItemCellForDeleting(cell: self, index: indexPath.row)
             tableView.reloadData()
         }
@@ -150,11 +160,11 @@ extension RoutineSetTVC: UITableViewDelegate{
 
 extension RoutineSetTVC: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return routineItemList.count
+        return routineItemCellList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return routineCellList[indexPath.row]
+        return routineItemCellList[indexPath.row]
     }
     
     public func setTableViewFooter() -> UIView{
@@ -199,8 +209,9 @@ extension RoutineSetTVC: UITableViewDataSource{
             return
         }
         cell.setRoutineItem(item: RoutineItemData())
-        routineCellList.append(cell)
-        routineCellList.last?.isEditingMode = true
+        viewModel?.addRoutineItem(title: routineSetTitle, item: RoutineItemData())
+        routineItemCellList.append(cell)
+        routineItemCellList.last?.isEditingMode = true
     }
 }
 
@@ -246,7 +257,6 @@ extension RoutineSetTVC {
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalToSuperview().inset(16)
         }
-        
     }
     
     public func changeLayoutAtEditingMode(){
