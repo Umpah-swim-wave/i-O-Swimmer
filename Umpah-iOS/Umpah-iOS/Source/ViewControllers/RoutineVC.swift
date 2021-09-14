@@ -8,10 +8,14 @@
 import UIKit
 import SnapKit
 import Then
+import RxSwift
+import RxCocoa
 
 class RoutineVC: UIViewController {
 
     static let identifier = "RoutineVC"
+    //private var viewModel = RoutineViewModel()
+    private var disposeBag = DisposeBag()
     
     //MARK: TableView data
     private var routineList: [String : [RoutineItemData]] = [:]
@@ -142,6 +146,7 @@ class RoutineVC: UIViewController {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineSetTVC.identifier) as? RoutineSetTVC else { return }
             cell.setRoutineContent(title: $0, itemList: routineList[$0] ?? [])
             cell.cellDelegate = self
+            //cell.viewModel = viewModel
             tableCellList.append(cell)
         }
     }
@@ -169,6 +174,18 @@ class RoutineVC: UIViewController {
             }
         }
     }
+    
+//    private func bindViewModel(){
+//
+//        for title in viewModel.routineSetTitleList {
+//            viewModel.routineSubjectList[title]?.bind(to: tableView.rx.items){ (tableView, row, item) -> UITableViewCell in
+//                guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineSetTVC.identifier) as? RoutineSetTVC else { return UITableViewCell()}
+//                cell.setRoutineContent(title: title)
+//                cell.viewModel = self.viewModel
+//                return cell
+//            }.disposed(by: disposeBag)
+//        }
+//    }
 }
 
 extension RoutineVC: UITableViewDelegate{
@@ -207,14 +224,14 @@ extension RoutineVC: RoutineCellDelegate{
     func routineItemCellForAdding(cell: RoutineSetTVC) {
         print("이거 왜 안눌려??")
         let index = cell.getTableCellIndexPathRow()
-        routineList[cell.setTitle]?.append(RoutineItemData())
-        tableCellList[index].routineItemList = routineList[cell.setTitle] ?? []
+//        routineList[cell.setTitle]?.append(RoutineItemData())
+//        tableCellList[index].routineItemList = routineList[cell.setTitle] ?? []
         updateTableView()
     }
     
     func routineItemCellForDeleting(cell: RoutineSetTVC, index: Int) {
         let index = cell.getTableCellIndexPathRow()
-        routineList[cell.setTitle]?.remove(at: index)
+       // routineList[cell.setTitle]?.remove(at: index)
         updateTableView()
     }
     
