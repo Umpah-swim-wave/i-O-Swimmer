@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
-class ModifyElementVC: UIViewController {
+class ModifyElementVC: UIViewController, UIScrollViewDelegate {
 
     static let identifier = "ModifyElementVC"
+    private var disposeBag = DisposeBag()
     
     public var elementList: [String] = []
     
@@ -35,22 +38,29 @@ class ModifyElementVC: UIViewController {
     }
     
     private lazy var tableView = UITableView().then {
-        $0.registerCustomXib(name: "")
+        $0.registerCustomXib(name: ModifyElementTVC.identifier)
+        $0.rowHeight = 50
     }
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         calculateContentViewHeight()
         setupBackgroundLayout()
         setupContentViewLayout()
-        
+        bindDataToTableView()
     }
     
     func calculateContentViewHeight(){
         contentViewHeight = elementList.count * 40 + 98
     }
-
+    
+    func bindDataToTableView(){
+        let observable = Observable.of(elementList)
+        observable.bind(to: tableView.rx.items(cellIdentifier: ModifyElementTVC.identifier,
+                                               cellType: ModifyElementTVC.self)) { row, element, cell in
+            cell.nameLabel.text = element
+        }.disposed(by: disposeBag)
+    }
 }
 
 extension ModifyElementVC {
