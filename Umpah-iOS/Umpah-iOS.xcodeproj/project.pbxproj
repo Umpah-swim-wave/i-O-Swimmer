@@ -42,6 +42,7 @@
 		EDB91D8626C2A4F300F4562D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EDB91D8526C2A4F300F4562D /* GoogleService-Info.plist */; };
 		EDB91D8826C2A66700F4562D /* UIWindow+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB91D8726C2A66700F4562D /* UIWindow+.swift */; };
 		EDC1EDDF26BF8FF600DCB215 /* Charts+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC1EDDE26BF8FF600DCB215 /* Charts+.swift */; };
+		EDD3CCD7270118DA00AFED4B /* StatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3CCD6270118DA00AFED4B /* StatusBar.swift */; };
 		EDD43FD426483C9500C866F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD43FD326483C9500C866F3 /* AppDelegate.swift */; };
 		EDD43FD626483C9500C866F3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD43FD526483C9500C866F3 /* SceneDelegate.swift */; };
 		EDD43FDD26483C9600C866F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDD43FDC26483C9600C866F3 /* Assets.xcassets */; };
@@ -149,6 +150,7 @@
 		EDB91D8526C2A4F300F4562D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EDB91D8726C2A66700F4562D /* UIWindow+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+.swift"; sourceTree = "<group>"; };
 		EDC1EDDE26BF8FF600DCB215 /* Charts+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Charts+.swift"; sourceTree = "<group>"; };
+		EDD3CCD6270118DA00AFED4B /* StatusBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBar.swift; sourceTree = "<group>"; };
 		EDD43FD026483C9500C866F3 /* Umpah-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Umpah-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDD43FD326483C9500C866F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EDD43FD526483C9500C866F3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -309,6 +311,7 @@
 			isa = PBXGroup;
 			children = (
 				3C64C15826BBA85C009BD23B /* XmarkButton.swift */,
+				EDD3CCD6270118DA00AFED4B /* StatusBar.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -778,6 +781,7 @@
 				ED78843826DE3D18006D8787 /* DayHeader.swift in Sources */,
 				EDD43FD626483C9500C866F3 /* SceneDelegate.swift in Sources */,
 				ED5396F326B977920061722F /* UITextField+.swift in Sources */,
+				EDD3CCD7270118DA00AFED4B /* StatusBar.swift in Sources */,
 				3C8CE32926BCBE6B002BBFE5 /* RoutineSetTVC.swift in Sources */,
 				ED78843026DC9D3C006D8787 /* HeaderView.swift in Sources */,
 			);
@@ -945,6 +949,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4QG3GC35LA;
 				INFOPLIST_FILE = "Umpah-iOS WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -967,6 +972,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4QG3GC35LA;
 				INFOPLIST_FILE = "Umpah-iOS WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -992,6 +998,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4QG3GC35LA;
 				IBSC_MODULE = Umpah_iOS_WatchKit_Extension;
 				INFOPLIST_FILE = "Umpah-iOS WatchKit App/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tiekle.Umpah-iOS.watchkitapp";
@@ -1012,6 +1019,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4QG3GC35LA;
 				IBSC_MODULE = Umpah_iOS_WatchKit_Extension;
 				INFOPLIST_FILE = "Umpah-iOS WatchKit App/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.tiekle.Umpah-iOS.watchkitapp";

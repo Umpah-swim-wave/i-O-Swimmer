@@ -37,7 +37,6 @@ class MainVC: UIViewController {
         $0.register(DateTVC.self, forCellReuseIdentifier: DateTVC.identifier)
         $0.backgroundColor = .clear
         $0.separatorStyle = .none
-        $0.contentInset = UIEdgeInsets(top: -30, left: 0, bottom: 0, right: 0)
     }
     
     // MARK: - Properties
@@ -49,6 +48,7 @@ class MainVC: UIViewController {
     }
     let topView = TopView()
     let headerView = HeaderView()
+    let statusBar = StatusBar()
     let normalView = NormalStateView()
     let expandedView = ExpandedStateView()
     
@@ -74,11 +74,17 @@ class MainVC: UIViewController {
     
     // MARK: - Custom Methods
     private func setupLayout() {
-        view.addSubviews([mainTableView, cardView])
+        view.addSubviews([statusBar, mainTableView, cardView])
         cardView.addSubviews([normalView, expandedView])
         
+        statusBar.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
+            $0.height.equalTo(UIApplication.statusBarHeight)
+        }
+        
         mainTableView.snp.makeConstraints {
-            $0.top.leading.trailing.bottom.equalToSuperview()
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
         
         cardView.snp.makeConstraints {
@@ -375,6 +381,32 @@ extension MainVC: UITableViewDelegate {
             return 50
         default:
             return 0
+        }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let y = scrollView.contentOffset.y
+        
+        print(y)
+        
+        if y >= 188 {
+            headerView.backgroundColor = .white
+            statusBar.backgroundColor = .white
+        } else if y < 188 && (y / 188) > 0.3 {
+            headerView.backgroundColor = .white.withAlphaComponent(y / 188)
+            statusBar.backgroundColor = .clear
+        } else {
+            headerView.backgroundColor = .white.withAlphaComponent(0.3)
+        }
+        
+        if y >= 188 {
+            topView.titleLabel.alpha = 0
+        } else if y > 0 {
+            topView.titleLabel.transform = CGAffineTransform(translationX: -y/140, y: 0)
+            topView.titleLabel.alpha = 1 - (y / 95)
+        } else {
+            topView.titleLabel.transform = .identity
+            topView.titleLabel.alpha = 1
         }
     }
 }
