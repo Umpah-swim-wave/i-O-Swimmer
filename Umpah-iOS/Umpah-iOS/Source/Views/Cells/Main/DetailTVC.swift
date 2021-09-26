@@ -15,11 +15,6 @@ class DetailTVC: UITableViewCell {
     static let identifier = "DetailTVC"
     
     // MARK: - Properties
-    let dateLabel = UILabel().then {
-        $0.text = "2021.09.05"
-        $0.font = .boldSystemFont(ofSize: 16)
-        $0.addCharacterSpacing(kernValue: 2)
-    }
     let titleLabel = UILabel().then {
         $0.text = "OVERVIEW"
         $0.textColor = .gray
@@ -48,7 +43,6 @@ class DetailTVC: UITableViewCell {
         sendSubviewToBack(contentView)
         
         addSubviews([titleStack, detailView])
-        titleStack.addArrangedSubview(dateLabel)
         titleStack.addArrangedSubview(titleLabel)
         
         titleStack.snp.makeConstraints {

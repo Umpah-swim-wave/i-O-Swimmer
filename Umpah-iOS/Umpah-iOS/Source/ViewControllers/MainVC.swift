@@ -34,6 +34,7 @@ class MainVC: UIViewController {
         $0.register(DetailTVC.self, forCellReuseIdentifier: DetailTVC.identifier)
         $0.register(FilterTVC.self, forCellReuseIdentifier: FilterTVC.identifier)
         $0.register(StrokeTVC.self, forCellReuseIdentifier: StrokeTVC.identifier)
+        $0.register(DateTVC.self, forCellReuseIdentifier: DateTVC.identifier)
         $0.backgroundColor = .clear
         $0.separatorStyle = .none
         $0.contentInset = UIEdgeInsets(top: -30, left: 0, bottom: 0, right: 0)
@@ -274,7 +275,7 @@ extension MainVC: UITableViewDataSource {
             return 0
         default:
             if currentState != .routine {
-                return 3
+                return 4
             } else {
                 return 10
             }
@@ -290,6 +291,11 @@ extension MainVC: UITableViewDataSource {
                 cell.selectionStyle = .none
                 return cell
             case 1:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: DateTVC.identifier) as? DateTVC else { return UITableViewCell() }
+                cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
+                cell.selectionStyle = .none
+                return cell
+            case 2:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
                 cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
                 cell.selectionStyle = .none
@@ -308,6 +314,11 @@ extension MainVC: UITableViewDataSource {
                 cell.selectionStyle = .none
                 return cell
             case 1:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: DateTVC.identifier) as? DateTVC else { return UITableViewCell() }
+                cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
+                cell.selectionStyle = .none
+                return cell
+            case 2:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: ChartTVC.identifier) as? ChartTVC else { return UITableViewCell() }
                 
                 cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)

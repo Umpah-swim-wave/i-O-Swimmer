@@ -62,6 +62,7 @@
 		EDD7C43E26CBD3EF00D93306 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD7C43D26CBD3EF00D93306 /* UIButton+.swift */; };
 		EDD7C44026CBDB4600D93306 /* DetailTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD7C43F26CBDB4600D93306 /* DetailTVC.swift */; };
 		EDD7C44226CBDCE200D93306 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD7C44126CBDCE200D93306 /* DetailView.swift */; };
+		EDE550BE2700F80D004422CE /* DateTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE550BD2700F80D004422CE /* DateTVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -172,6 +173,7 @@
 		EDD7C43D26CBD3EF00D93306 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		EDD7C43F26CBDB4600D93306 /* DetailTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailTVC.swift; path = "Umpah-iOS/Source/Views/Cells/Main/DetailTVC.swift"; sourceTree = SOURCE_ROOT; };
 		EDD7C44126CBDCE200D93306 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailView.swift; path = "Umpah-iOS/Source/Views/Components/Main/DetailView.swift"; sourceTree = SOURCE_ROOT; };
+		EDE550BD2700F80D004422CE /* DateTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -264,6 +266,7 @@
 				ED2ACAF726E41C7200C5A772 /* FilterCVC.swift */,
 				ED5F1A1926ECF05E003FF801 /* StrokeTVC.swift */,
 				ED5F1A1D26ECFD13003FF801 /* InsideStrokeTVC.swift */,
+				EDE550BD2700F80D004422CE /* DateTVC.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -742,6 +745,7 @@
 				ED5396ED26B977320061722F /* UIApplication+.swift in Sources */,
 				EDD46F5026BEDE4D00FA91F2 /* TypeCell.swift in Sources */,
 				EDD46F5226BEEA3B00FA91F2 /* UILabel+.swift in Sources */,
+				EDE550BE2700F80D004422CE /* DateTVC.swift in Sources */,
 				ED78843C26DE4551006D8787 /* ExpandedWeekTVC.swift in Sources */,
 				ED5396F526B977A20061722F /* UIScreen+.swift in Sources */,
 				EDD7C43C26CB903F00D93306 /* ChartTVC.swift in Sources */,
