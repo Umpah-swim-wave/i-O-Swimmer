@@ -33,6 +33,7 @@ class MainVC: UIViewController {
         $0.register(ChartTVC.self, forCellReuseIdentifier: ChartTVC.identifier)
         $0.register(DetailTVC.self, forCellReuseIdentifier: DetailTVC.identifier)
         $0.register(FilterTVC.self, forCellReuseIdentifier: FilterTVC.identifier)
+        $0.register(StrokeTVC.self, forCellReuseIdentifier: StrokeTVC.identifier)
         $0.backgroundColor = .clear
         $0.separatorStyle = .none
     }
@@ -291,14 +292,11 @@ extension MainVC: UITableViewDataSource {
                 cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
                 cell.selectionStyle = .none
                 return cell
-            case 2:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: ChartTVC.identifier) as? ChartTVC else { return UITableViewCell() }
-                cell.lineChartView.animate(yAxisDuration: 1.0, easingOption: .easeInOutQuint)
+            default:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: "StrokeTVC") as? StrokeTVC else { return UITableViewCell() }
                 cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
                 cell.selectionStyle = .none
                 return cell
-            default:
-                return UITableViewCell()
             }
         } else {
             return UITableViewCell()
@@ -307,7 +305,7 @@ extension MainVC: UITableViewDataSource {
 }
 
 extension MainVC: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
     

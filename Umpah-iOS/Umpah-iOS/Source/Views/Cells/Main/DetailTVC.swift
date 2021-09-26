@@ -59,7 +59,7 @@ class DetailTVC: UITableViewCell {
         detailView.snp.makeConstraints {
             $0.top.equalTo(titleStack.snp.bottom).offset(16)
             $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(49)
+            $0.bottom.equalToSuperview().inset(24)
         }
     }
 }

@@ -29,6 +29,9 @@
 		ED5396F526B977A20061722F /* UIScreen+.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5396F426B977A20061722F /* UIScreen+.swift */; };
 		ED5396F726B977BB0061722F /* UIViewController+.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5396F626B977BB0061722F /* UIViewController+.swift */; };
 		ED5396F926B977D10061722F /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5396F826B977D10061722F /* UIView+.swift */; };
+		ED5F1A1A26ECF05E003FF801 /* StrokeTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5F1A1926ECF05E003FF801 /* StrokeTVC.swift */; };
+		ED5F1A1C26ECF1C7003FF801 /* StrokeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5F1A1B26ECF1C7003FF801 /* StrokeView.swift */; };
+		ED5F1A1E26ECFD13003FF801 /* InsideStrokeTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5F1A1D26ECFD13003FF801 /* InsideStrokeTVC.swift */; };
 		ED78843026DC9D3C006D8787 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED78842F26DC9D3C006D8787 /* HeaderView.swift */; };
 		ED78843426DCA965006D8787 /* TopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED78843326DCA965006D8787 /* TopView.swift */; };
 		ED78843626DE3612006D8787 /* ExpandedDayTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED78843526DE3612006D8787 /* ExpandedDayTVC.swift */; };
@@ -132,6 +135,9 @@
 		ED5396F426B977A20061722F /* UIScreen+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+.swift"; sourceTree = "<group>"; };
 		ED5396F626B977BB0061722F /* UIViewController+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+.swift"; sourceTree = "<group>"; };
 		ED5396F826B977D10061722F /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
+		ED5F1A1926ECF05E003FF801 /* StrokeTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeTVC.swift; sourceTree = "<group>"; };
+		ED5F1A1B26ECF1C7003FF801 /* StrokeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeView.swift; sourceTree = "<group>"; };
+		ED5F1A1D26ECFD13003FF801 /* InsideStrokeTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsideStrokeTVC.swift; sourceTree = "<group>"; };
 		ED78842F26DC9D3C006D8787 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		ED78843326DCA965006D8787 /* TopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopView.swift; sourceTree = "<group>"; };
 		ED78843526DE3612006D8787 /* ExpandedDayTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedDayTVC.swift; sourceTree = "<group>"; };
@@ -256,6 +262,8 @@
 				ED78843B26DE4551006D8787 /* ExpandedWeekTVC.swift */,
 				ED2ACAF526E41A4F00C5A772 /* FilterTVC.swift */,
 				ED2ACAF726E41C7200C5A772 /* FilterCVC.swift */,
+				ED5F1A1926ECF05E003FF801 /* StrokeTVC.swift */,
+				ED5F1A1D26ECFD13003FF801 /* InsideStrokeTVC.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -289,6 +297,7 @@
 				ED78843726DE3D18006D8787 /* DayHeader.swift */,
 				ED78843926DE3F63006D8787 /* WeekMonthHeader.swift */,
 				ED78843D26DE4C50006D8787 /* SelectedStrokeView.swift */,
+				ED5F1A1B26ECF1C7003FF801 /* StrokeView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -738,6 +747,7 @@
 				EDD7C43C26CB903F00D93306 /* ChartTVC.swift in Sources */,
 				EDC1EDDF26BF8FF600DCB215 /* Charts+.swift in Sources */,
 				EDD7C44226CBDCE200D93306 /* DetailView.swift in Sources */,
+				ED5F1A1E26ECFD13003FF801 /* InsideStrokeTVC.swift in Sources */,
 				ED2ACAF826E41C7200C5A772 /* FilterCVC.swift in Sources */,
 				ED78843626DE3612006D8787 /* ExpandedDayTVC.swift in Sources */,
 				EDD7C43E26CBD3EF00D93306 /* UIButton+.swift in Sources */,
@@ -748,6 +758,7 @@
 				EDB91D8826C2A66700F4562D /* UIWindow+.swift in Sources */,
 				ED78843E26DE4C50006D8787 /* SelectedStrokeView.swift in Sources */,
 				3C8CE32F26BCCADD002BBFE5 /* RoutineItemDataModel.swift in Sources */,
+				ED5F1A1C26ECF1C7003FF801 /* StrokeView.swift in Sources */,
 				ED78843426DCA965006D8787 /* TopView.swift in Sources */,
 				3C64C15926BBA85C009BD23B /* XmarkButton.swift in Sources */,
 				EDD43FD426483C9500C866F3 /* AppDelegate.swift in Sources */,
@@ -759,6 +770,7 @@
 				ED5396F926B977D10061722F /* UIView+.swift in Sources */,
 				ED2ACAF626E41A4F00C5A772 /* FilterTVC.swift in Sources */,
 				EDD7C44026CBDB4600D93306 /* DetailTVC.swift in Sources */,
+				ED5F1A1A26ECF05E003FF801 /* StrokeTVC.swift in Sources */,
 				ED78843826DE3D18006D8787 /* DayHeader.swift in Sources */,
 				EDD43FD626483C9500C866F3 /* SceneDelegate.swift in Sources */,
 				ED5396F326B977920061722F /* UITextField+.swift in Sources */,
