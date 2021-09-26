@@ -51,7 +51,7 @@ class MainVC: UIViewController {
     let normalView = NormalStateView()
     let expandedView = ExpandedStateView()
     
-    var currentState: CurrentState = .month
+    var currentState: CurrentState = .week
     var cardViewState: CardViewState = .base
     var cardPanStartingTopConstant : CGFloat = 20.0
     var cardPanMaxVelocity: CGFloat = 1500.0
@@ -282,7 +282,8 @@ extension MainVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if indexPath.section == 1 && currentState != .routine {
+        switch currentState {
+        case .day:
             switch indexPath.row {
             case 0:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: FilterTVC.identifier) as? FilterTVC else { return UITableViewCell() }
@@ -294,12 +295,31 @@ extension MainVC: UITableViewDataSource {
                 cell.selectionStyle = .none
                 return cell
             default:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: "StrokeTVC") as? StrokeTVC else { return UITableViewCell() }
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: StrokeTVC.identifier) as? StrokeTVC else { return UITableViewCell() }
                 cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
                 cell.selectionStyle = .none
                 return cell
             }
-        } else {
+        case .week,
+             .month:
+            switch indexPath.row {
+            case 0:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: FilterTVC.identifier) as? FilterTVC else { return UITableViewCell() }
+                cell.selectionStyle = .none
+                return cell
+            case 1:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: ChartTVC.identifier) as? ChartTVC else { return UITableViewCell() }
+                
+                cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
+                cell.selectionStyle = .none
+                return cell
+            default:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
+                cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
+                cell.selectionStyle = .none
+                return cell
+            }
+        case .routine:
             return UITableViewCell()
         }
     }
