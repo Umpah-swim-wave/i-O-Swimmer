@@ -44,7 +44,7 @@ class StrokeTVC: UITableViewCell {
         strokeView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(16)
             $0.leading.trailing.equalToSuperview().inset(16)
-            $0.bottom.equalToSuperview().inset(118)
+            $0.bottom.equalToSuperview().inset(13)
         }
     }
     

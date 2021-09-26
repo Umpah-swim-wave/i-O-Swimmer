@@ -26,7 +26,7 @@ enum CurrentState {
 
 class MainVC: UIViewController {
     // MARK: - Lazy Properties
-    lazy var mainTableView = UITableView().then {
+    lazy var mainTableView = UITableView(frame: .zero, style: .plain).then {
         $0.delegate = self
         $0.dataSource = self
         $0.estimatedRowHeight = 100
@@ -271,14 +271,14 @@ extension MainVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case 0:
-            return 0
-        default:
+        case 1:
             if currentState != .routine {
-                return 4
+                return 5
             } else {
                 return 10
             }
+        default:
+            return 0
         }
     }
     
@@ -300,8 +300,13 @@ extension MainVC: UITableViewDataSource {
                 cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
                 cell.selectionStyle = .none
                 return cell
-            default:
+            case 3:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: StrokeTVC.identifier) as? StrokeTVC else { return UITableViewCell() }
+                cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
+                cell.selectionStyle = .none
+                return cell
+            default:
+                let cell = UITableViewCell(frame: .zero)
                 cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
                 cell.selectionStyle = .none
                 return cell
@@ -324,8 +329,13 @@ extension MainVC: UITableViewDataSource {
                 cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
                 cell.selectionStyle = .none
                 return cell
-            default:
+            case 3:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
+                cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
+                cell.selectionStyle = .none
+                return cell
+            default:
+                let cell = UITableViewCell(frame: .zero)
                 cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
                 cell.selectionStyle = .none
                 return cell
@@ -338,15 +348,22 @@ extension MainVC: UITableViewDataSource {
 
 extension MainVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+        switch indexPath.row {
+        case 4:
+            return 105
+        default:
+            return UITableView.automaticDimension
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch section {
         case 0:
             return topView
-        default:
+        case 1:
             return headerView
+        default:
+            return UIView()
         }
     }
     
@@ -359,13 +376,5 @@ extension MainVC: UITableViewDelegate {
         default:
             return 0
         }
-    }
-    
-    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return .leastNormalMagnitude
-    }
-    
-    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-            return UIView()
     }
 }
