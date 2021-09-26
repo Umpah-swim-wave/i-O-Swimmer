@@ -36,6 +36,7 @@ class MainVC: UIViewController {
         $0.register(StrokeTVC.self, forCellReuseIdentifier: StrokeTVC.identifier)
         $0.backgroundColor = .clear
         $0.separatorStyle = .none
+        $0.contentInset = UIEdgeInsets(top: -30, left: 0, bottom: 0, right: 0)
     }
     
     // MARK: - Properties
@@ -327,5 +328,13 @@ extension MainVC: UITableViewDelegate {
         default:
             return 0
         }
+    }
+    
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return .leastNormalMagnitude
+    }
+    
+    func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+            return UIView()
     }
 }
