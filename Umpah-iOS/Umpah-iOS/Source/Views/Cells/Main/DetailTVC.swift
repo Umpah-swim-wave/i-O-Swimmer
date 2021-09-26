@@ -21,12 +21,6 @@ class DetailTVC: UITableViewCell {
         $0.font = .boldSystemFont(ofSize: 12)
         $0.addCharacterSpacing(kernValue: 2)
     }
-    let titleStack = UIStackView().then {
-        $0.axis = .vertical
-        $0.alignment = .fill
-        $0.distribution = .fillEqually
-        $0.spacing = 24
-    }
     let detailView = DetailView()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -42,16 +36,15 @@ class DetailTVC: UITableViewCell {
     private func setupLayout() {
         sendSubviewToBack(contentView)
         
-        addSubviews([titleStack, detailView])
-        titleStack.addArrangedSubview(titleLabel)
+        addSubviews([titleLabel, detailView])
         
-        titleStack.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(37)
+        titleLabel.snp.makeConstraints {
+            $0.top.equalToSuperview()
             $0.leading.equalToSuperview().inset(32)
         }
         
         detailView.snp.makeConstraints {
-            $0.top.equalTo(titleStack.snp.bottom).offset(16)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalToSuperview().inset(24)
         }

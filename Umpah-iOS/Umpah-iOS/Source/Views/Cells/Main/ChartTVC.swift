@@ -20,40 +20,10 @@ class ChartTVC: UITableViewCell {
         $0.backgroundColor = .white
         $0.layer.cornerRadius = 16
     }
-    let weekButton = UIButton().then {
-        $0.semanticContentAttribute = .forceRightToLeft
-        $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
-        $0.tintColor = .black
-        $0.setTitleColor(.black, for: .normal)
-        $0.setTitleColor(.gray, for: .highlighted)
-        $0.setTitle("이번 주", for: .normal)
-        $0.setImage(UIImage(systemName: "arrowtriangle.down.fill"), for: .normal)
-        
-        $0.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 5)
-    }
-    let strokeButton = UIButton().then {
-        $0.layer.masksToBounds = true
-        $0.layer.cornerRadius = 8
-        $0.semanticContentAttribute = .forceRightToLeft
-        $0.titleLabel?.font = .systemFont(ofSize: 12, weight: .semibold)
-        $0.setBackgroundColor(.darkGray, for: .normal)
-        $0.setBackgroundColor(.gray, for: .highlighted)
-        $0.tintColor = .white
-        $0.setTitleColor(.white, for: .normal)
-        $0.setTitle("전체", for: .normal)
-        $0.setImage(UIImage(systemName: "arrowtriangle.down.fill"), for: .normal)
-        
-        $0.imageEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 0)
-    }
-    let averageTitleLabel = UILabel().then {
-        $0.text = "AVERAGE"
-        $0.font = .boldSystemFont(ofSize: 8)
-        $0.addCharacterSpacing(kernValue: 2)
-    }
-    let averageLabel = UILabel().then {
-        $0.text = "2.1km"
-        $0.font = .boldSystemFont(ofSize: 24)
-        $0.addCharacterSpacing(kernValue: 2)
+    let titleLabel = UILabel().then {
+        $0.text = "WEEKLY RECORD"
+        $0.font = .boldSystemFont(ofSize: 12)
+        $0.textColor = .lightGray
     }
     
     var numbers: [Double] = [3.0, 2.5, 3.3, 5.5, 2.7, 2.8, 4.1]
@@ -73,42 +43,25 @@ class ChartTVC: UITableViewCell {
     private func setupLayout() {
         sendSubviewToBack(contentView)
         
-        addSubviews([chartBackView, weekButton])
-        chartBackView.addSubviews([lineChartView, strokeButton, averageTitleLabel, averageLabel])
+        addSubviews([titleLabel, chartBackView])
+        chartBackView.addSubviews([lineChartView])
         
-        chartBackView.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(68)
-            $0.leading.trailing.bottom.equalToSuperview().inset(16)
-            $0.height.equalTo(353)
+        titleLabel.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.leading.equalToSuperview().inset(32)
         }
         
-        weekButton.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(24)
-            $0.leading.equalToSuperview().inset(26)
-            $0.height.equalTo(28)
-            $0.width.equalTo(82)
+        chartBackView.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(20)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview().inset(40)
+            $0.height.equalTo(280)
         }
 
         lineChartView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(105)
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalToSuperview().inset(22)
-        }
-        
-        strokeButton.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(30)
-            $0.trailing.equalToSuperview().inset(24)
-            $0.height.equalTo(24)
-            $0.width.equalTo(55)
-        }
-        
-        averageTitleLabel.snp.makeConstraints {
-            $0.top.leading.equalToSuperview().inset(30)
-        }
-        
-        averageLabel.snp.makeConstraints {
-            $0.top.equalTo(averageTitleLabel.snp.bottom).offset(12)
-            $0.leading.equalTo(averageTitleLabel.snp.leading)
         }
     }
     
