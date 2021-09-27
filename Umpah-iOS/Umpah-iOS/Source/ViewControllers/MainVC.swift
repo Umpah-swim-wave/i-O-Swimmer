@@ -43,6 +43,7 @@ class MainVC: UIViewController {
         $0.backgroundColor = .clear
         $0.separatorStyle = .none
     }
+    lazy var dateText: String = dateformatter.string(from: Date())
     
     // MARK: - Properties
     var cardView = UIView().then {
@@ -51,6 +52,7 @@ class MainVC: UIViewController {
         $0.layer.cornerRadius = 32.0
         $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     }
+    
     let topView = TopView()
     let headerView = HeaderView()
     let statusBar = StatusBar()
@@ -62,6 +64,9 @@ class MainVC: UIViewController {
     var cardPanStartingTopConstant : CGFloat = 20.0
     var cardPanMaxVelocity: CGFloat = 1500.0
     var cardViewTopConstraint: NSLayoutConstraint?
+    var dateformatter = DateFormatter().then {
+        $0.dateFormat = "YY/MM/dd"
+    }
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -255,15 +260,11 @@ extension MainVC {
     private func applyExpandedTitle(of state: CurrentState) -> String {
         switch state {
         case .base:
-            return "21/09/27"
-        case .day:
-            return "21/08/31"
-        case .week:
-            return "21/08/29 - 21/09/05"
-        case .month:
-            return "2021/08"
+            return dateformatter.string(from: Date())
         case .routine:
             return "어푸가 추천하는 수영 루틴들"
+        default:
+            return dateText
         }
     }
     
@@ -309,6 +310,7 @@ extension MainVC: UITableViewDataSource {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DateTVC.identifier) as? DateTVC else { return UITableViewCell() }
                 cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
                 cell.selectionStyle = .none
+                cell.dateLabel.text = dateText
                 return cell
             case 2:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
@@ -338,6 +340,7 @@ extension MainVC: UITableViewDataSource {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DateTVC.identifier) as? DateTVC else { return UITableViewCell() }
                 cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
                 cell.selectionStyle = .none
+                cell.dateLabel.text = dateText
                 return cell
             case 2:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: ChartTVC.identifier) as? ChartTVC else { return UITableViewCell() }
@@ -419,12 +422,35 @@ extension MainVC: UITableViewDelegate {
     }
 }
 
-// MARK: - FilterTVC Delegate
+// MARK: - SelectedRange Delegate
 extension MainVC: SelectedRangeDelegate {
     func didClickedRangeButton() {
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "SelectedRangeVC") as? SelectedRangeVC else { return }
         vc.modalPresentationStyle = .overCurrentContext
         vc.modalTransitionStyle = .crossDissolve
+        
+        vc.dayData = { year, month, day in
+            print("dayData : \(year) \(month) \(day)")
+            let transMonth = (month.count == 1) ? "0\(month)" : month
+            let transDay = (day.count == 1) ? "0\(day)" : day
+            self.dateText = "\(year)/\(transMonth)/\(transDay)"
+            self.currentState = .day
+            self.mainTableView.reloadSections(IndexSet(1...1), with: .automatic)
+        }
+        vc.weekData = { week in
+            print("weekData : \(week)")
+            self.dateText = week
+            self.currentState = .week
+            self.mainTableView.reloadSections(IndexSet(1...1), with: .automatic)
+        }
+        vc.monthData = { year, month in
+            print("monthData : \(year) \(month)")
+            let transMonth = (month.count == 1) ? "0\(month)" : month
+            self.dateText = "\(year)/\(transMonth)"
+            self.currentState = .month
+            self.mainTableView.reloadSections(IndexSet(1...1), with: .automatic)
+        }
+        
         present(vc, animated: true, completion: nil)
     }
 }

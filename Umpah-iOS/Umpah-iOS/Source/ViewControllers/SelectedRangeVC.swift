@@ -29,6 +29,13 @@ class SelectedRangeVC: UIViewController {
     }
     
     var state: RangeState = .none
+    var year: String = ""
+    var month: String = ""
+    var day: String = ""
+    var week: String = ""
+    var dayData: ((String, String, String) -> ())?
+    var weekData: ((String) -> ())?
+    var monthData: ((String, String) -> ())?
     
     // MARK: - Lazy Properties
     lazy var pickerView = UIPickerView().then {
@@ -39,6 +46,7 @@ class SelectedRangeVC: UIViewController {
     var years: [String] = ["2021","2020","2019","2018","2017","2016","2015","2014","2013","2012","2011","2010"]
     var months: [String] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
     var days: [String] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"]
+    var weeks: [String] = ["이번주", "지난주", "9/13 ~ 9/19", "9/6 ~ 9/12", "8/30 ~ 8/5"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -129,6 +137,16 @@ class SelectedRangeVC: UIViewController {
     
     @objc
     func donedatePicker(){
+        switch state {
+        case .day:
+            dayData?(year, month, day)
+        case .week:
+            weekData?(week)
+        case .month:
+            monthData?(year, month)
+        case .none:
+            break
+        }
         dismiss(animated: true, completion: nil)
     }
     
@@ -153,34 +171,65 @@ extension SelectedRangeVC: UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        switch component {
-        case 0:
-            return years.count
-        case 1:
-            return months.count
-        case 2:
-            return days.count
+        switch state {
+        case .week:
+            return weeks.count
         default:
-            return 0
+            switch component {
+            case 0:
+                return years.count
+            case 1:
+                return months.count
+            case 2:
+                return days.count
+            default:
+                return 0
+            }
         }
     }
 }
 
 extension SelectedRangeVC: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        switch component {
-        case 0:
-            return years[row]
-        case 1:
-            return months[row]
-        case 2:
-            return days[row]
+        switch state {
+        case .week:
+            return weeks[row]
         default:
-            return ""
+            switch component {
+            case 0:
+                return years[row]
+            case 1:
+                return months[row]
+            case 2:
+                return days[row]
+            default:
+                return ""
+            }
         }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print(row)
+        switch state {
+        case .day:
+            switch component {
+            case 0:
+                year = years[row]
+            case 1:
+                month = months[row]
+            default:
+                day = days[row]
+            }
+        case .week:
+            week = weeks[row]
+        case .month:
+            switch component {
+            case 0:
+                year = years[row]
+            default:
+                month = months[row]
+            }
+        case .none:
+            break
+        }
     }
 }
