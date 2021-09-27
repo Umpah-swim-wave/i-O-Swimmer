@@ -29,7 +29,7 @@ extension CombinedChartView {
         
         extraRightOffset = 22
         extraLeftOffset = 22
-        extraBottomOffset = 46
+        extraBottomOffset = 48
         
         legend.enabled = false
         doubleTapToZoomEnabled = false

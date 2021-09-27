@@ -26,6 +26,11 @@ class ChartTVC: UITableViewCell {
         $0.font = .boldSystemFont(ofSize: 12)
         $0.textColor = .lightGray
     }
+    let dateStackView = UIStackView().then {
+        $0.alignment = .center
+        $0.axis = .horizontal
+        $0.distribution = .equalSpacing
+    }
     
     var numbers: [Double] = [1.5, 1.3, 0.8, 1.6, 1.2, 0.6, 1.4]
     var meters: [Int] = [2000, 3000, 4000, 4500, 3300, 1800, 2400]
@@ -34,6 +39,7 @@ class ChartTVC: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupLayout()
+        setupStackView()
         initCharts()
     }
     
@@ -46,7 +52,7 @@ class ChartTVC: UITableViewCell {
         sendSubviewToBack(contentView)
         
         addSubviews([titleLabel, chartBackView])
-        chartBackView.addSubviews([combineChartView])
+        chartBackView.addSubviews([combineChartView, dateStackView])
         
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview()
@@ -63,7 +69,22 @@ class ChartTVC: UITableViewCell {
         combineChartView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(30)
             $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(22)
+            $0.bottom.equalToSuperview()
+        }
+        
+        dateStackView.snp.makeConstraints {
+            $0.bottom.equalToSuperview().inset(24)
+            $0.leading.equalToSuperview().inset(53)
+            $0.trailing.equalToSuperview().inset(45)
+        }
+    }
+    
+    private func setupStackView() {
+        for day in weeks {
+            let label = UILabel()
+            label.text = day
+            label.font = .boldSystemFont(ofSize: 8)
+            dateStackView.addArrangedSubview(label)
         }
     }
     
