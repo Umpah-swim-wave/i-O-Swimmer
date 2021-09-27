@@ -25,7 +25,8 @@ class FilterTVC: UITableViewCell {
         $0.scrollDirection = .horizontal
     }
     
-    let categorys: [String] = ["일간", "영법"]
+    let categorys: [String] = ["기간", "일간", "주간", "월간", "영법"]
+    var state: CurrentState = .base
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -48,7 +49,12 @@ class FilterTVC: UITableViewCell {
 
 extension FilterTVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        switch state {
+        case .day, .base:
+            return 1
+        default:
+            return 2
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

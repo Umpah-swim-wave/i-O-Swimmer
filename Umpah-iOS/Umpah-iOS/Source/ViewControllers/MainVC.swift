@@ -18,6 +18,7 @@ enum CardViewState {
 }
 
 enum CurrentState {
+    case base
     case day
     case week
     case month
@@ -52,7 +53,7 @@ class MainVC: UIViewController {
     let normalView = NormalStateView()
     let expandedView = ExpandedStateView()
     
-    var currentState: CurrentState = .week
+    var currentState: CurrentState = .base
     var cardViewState: CardViewState = .base
     var cardPanStartingTopConstant : CGFloat = 20.0
     var cardPanMaxVelocity: CGFloat = 1500.0
@@ -235,20 +236,22 @@ extension MainVC {
             return ""
         default:
             switch currentState {
-            case .day:
-                return "랩스 기록 보기"
             case .week:
                 return "요일별 기록 보기"
             case .month:
                 return "주간별 기록 보기"
             case .routine:
                 return "어푸가 추천하는 루틴 보기"
+            default:
+                return "랩스 기록 보기"
             }
         }
     }
     
     private func applyExpandedTitle(of state: CurrentState) -> String {
         switch state {
+        case .base:
+            return "21/09/27"
         case .day:
             return "21/08/31"
         case .week:
@@ -262,7 +265,7 @@ extension MainVC {
     
     private func decideHiddenState(by state: CurrentState) -> Bool {
         switch state {
-        case .day:
+        case .day, .base:
             return false
         default:
             return true
@@ -290,7 +293,8 @@ extension MainVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch currentState {
-        case .day:
+        case .day,
+             .base:
             switch indexPath.row {
             case 0:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: FilterTVC.identifier) as? FilterTVC else { return UITableViewCell() }
