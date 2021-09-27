@@ -11,6 +11,10 @@ import Then
 
 class SelectedRangeVC: UIViewController {
     // MARK: - Properties
+    var backgroundView = UIButton().then {
+        $0.backgroundColor = .black.withAlphaComponent(0.6)
+        $0.addTarget(self, action: #selector(dismissWhenTappedBackView), for: .touchUpInside)
+    }
     let rangeView = RangeView().then {
         $0.layer.cornerRadius = 16
         $0.backgroundColor = .white
@@ -23,16 +27,25 @@ class SelectedRangeVC: UIViewController {
     }
     
     private func configUI() {
-        view.backgroundColor = .black.withAlphaComponent(0.6)
+        view.backgroundColor = .clear.withAlphaComponent(0)
     }
     
     private func setupLayout() {
-        view.addSubview(rangeView)
+        view.addSubviews([backgroundView, rangeView])
+        
+        backgroundView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
         
         rangeView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.height.equalTo(195)
         }
+    }
+    
+    @objc
+    func dismissWhenTappedBackView() {
+        dismiss(animated: true, completion: nil)
     }
 }

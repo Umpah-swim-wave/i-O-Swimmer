@@ -19,6 +19,7 @@ class FilterCVC: UICollectionViewCell {
         $0.tintColor = .init(red: 129/255, green: 151/255, blue: 154/255, alpha: 1.0)
         $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
         $0.semanticContentAttribute = .forceRightToLeft
+        $0.isUserInteractionEnabled = false
     }
     
     override init(frame: CGRect) {
