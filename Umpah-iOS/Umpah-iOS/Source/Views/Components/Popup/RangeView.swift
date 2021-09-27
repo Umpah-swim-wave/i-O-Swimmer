@@ -50,6 +50,9 @@ class RangeView: UIView {
         $0.layer.cornerRadius = 24
         $0.contentEdgeInsets = UIEdgeInsets(top: 13, left: 18, bottom: 13, right: 18)
     }
+    let dayTextField = UITextField()
+    let weekTextField = UITextField()
+    let monthTextField = UITextField()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -62,6 +65,7 @@ class RangeView: UIView {
     
     private func setupLayout() {
         addSubviews([titleLabel, buttonStackView, infoLabel])
+        addSubviews([dayTextField, weekTextField, monthTextField])
         buttonStackView.addArrangedSubview(dayButton)
         buttonStackView.addArrangedSubview(weekButton)
         buttonStackView.addArrangedSubview(monthButton)
