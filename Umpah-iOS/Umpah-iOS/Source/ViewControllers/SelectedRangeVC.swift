@@ -152,6 +152,9 @@ class SelectedRangeVC: UIViewController {
     
     @objc
     func cancelDatePicker(){
+        rangeView.dayButton.isSelected = false
+        rangeView.weekButton.isSelected = false
+        rangeView.monthButton.isSelected = false
         view.endEditing(true)
     }
 }
