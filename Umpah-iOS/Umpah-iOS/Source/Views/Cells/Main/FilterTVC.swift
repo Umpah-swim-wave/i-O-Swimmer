@@ -27,6 +27,7 @@ class FilterTVC: UITableViewCell {
     
     let categorys: [String] = ["기간", "일간", "주간", "월간", "영법"]
     var state: CurrentState = .base
+    var delegate: SelectedRangeDelegate?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -38,6 +39,7 @@ class FilterTVC: UITableViewCell {
     }
     
     fileprivate func setupLayout() {
+        sendSubviewToBack(contentView)
         addSubview(filterCollectionView)
         
         filterCollectionView.snp.makeConstraints {
@@ -79,5 +81,16 @@ extension FilterTVC: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 22, left: 0, bottom: 8, right: 0)
+    }
+}
+
+extension FilterTVC: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch indexPath.item {
+        case 0:
+            delegate?.didClickedRangeButton()
+        default:
+            delegate?.didClickedRangeButton()
+        }
     }
 }

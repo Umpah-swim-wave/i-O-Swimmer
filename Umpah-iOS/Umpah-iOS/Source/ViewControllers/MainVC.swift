@@ -25,6 +25,10 @@ enum CurrentState {
     case routine
 }
 
+protocol SelectedRangeDelegate: class {
+    func didClickedRangeButton()
+}
+
 class MainVC: UIViewController {
     // MARK: - Lazy Properties
     lazy var mainTableView = UITableView(frame: .zero, style: .plain).then {
@@ -299,6 +303,7 @@ extension MainVC: UITableViewDataSource {
             case 0:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: FilterTVC.identifier) as? FilterTVC else { return UITableViewCell() }
                 cell.selectionStyle = .none
+                cell.delegate = self
                 return cell
             case 1:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DateTVC.identifier) as? DateTVC else { return UITableViewCell() }
@@ -327,6 +332,7 @@ extension MainVC: UITableViewDataSource {
             case 0:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: FilterTVC.identifier) as? FilterTVC else { return UITableViewCell() }
                 cell.selectionStyle = .none
+                cell.delegate = self
                 return cell
             case 1:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DateTVC.identifier) as? DateTVC else { return UITableViewCell() }
@@ -410,5 +416,15 @@ extension MainVC: UITableViewDelegate {
             topView.titleLabel.transform = .identity
             topView.titleLabel.alpha = 1
         }
+    }
+}
+
+// MARK: - FilterTVC Delegate
+extension MainVC: SelectedRangeDelegate {
+    func didClickedRangeButton() {
+        guard let vc = storyboard?.instantiateViewController(withIdentifier: "SelectedRangeVC") as? SelectedRangeVC else { return }
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.modalTransitionStyle = .crossDissolve
+        present(vc, animated: true, completion: nil)
     }
 }
