@@ -15,7 +15,8 @@ class ChartTVC: UITableViewCell {
     static let identifier = "ChartTVC"
     
     // MARK: - Properties
-    let lineChartView = LineChartView()
+    let combineChartView = CombinedChartView()
+    
     let chartBackView = UIView().then {
         $0.backgroundColor = .white
         $0.layer.cornerRadius = 16
@@ -26,7 +27,8 @@ class ChartTVC: UITableViewCell {
         $0.textColor = .lightGray
     }
     
-    var numbers: [Double] = [3.0, 2.5, 3.3, 5.5, 2.7, 2.8, 4.1]
+    var numbers: [Double] = [1.5, 1.3, 0.8, 1.6, 1.2, 0.6, 1.4]
+    var meters: [Int] = [2000, 3000, 4000, 4500, 3300, 1800, 2400]
     let weeks: [String] = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -44,7 +46,7 @@ class ChartTVC: UITableViewCell {
         sendSubviewToBack(contentView)
         
         addSubviews([titleLabel, chartBackView])
-        chartBackView.addSubviews([lineChartView])
+        chartBackView.addSubviews([combineChartView])
         
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview()
@@ -58,38 +60,48 @@ class ChartTVC: UITableViewCell {
             $0.height.equalTo(280)
         }
 
-        lineChartView.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(105)
+        combineChartView.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(30)
             $0.leading.trailing.equalToSuperview()
             $0.bottom.equalToSuperview().inset(22)
         }
     }
     
     func initCharts() {
-        lineChartView.setupLineChartView(values: weeks)
+        combineChartView.setupLineChartView(values: weeks)
         
         changeLineChartdata()
     }
     
     func changeLineChartdata(){
+        let data: CombinedChartData = CombinedChartData()
         var lineChartEntry = [ChartDataEntry]()
+        var barChartEntry = [BarChartDataEntry]()
  
         for i in 0..<numbers.count {
             let value = ChartDataEntry(x: Double(i), y: numbers[i])
+            let meterValue = BarChartDataEntry(x: Double(i), y: Double(meters[i]))
             lineChartEntry.append(value)
+            barChartEntry.append(meterValue)
         }
         
         let line1 = LineChartDataSet(entries: lineChartEntry, label: "일주일")
         line1.highlightEnabled = false
-        line1.colors = [.gray]
-        line1.circleColors = [NSUIColor.gray]
-        line1.circleHoleColor = NSUIColor.systemGray5
-        line1.circleRadius = 4.0
-        line1.circleHoleRadius = 1.5
-        line1.lineWidth = 3.0
+        line1.colors = [.systemOrange]
+        line1.lineWidth = 2.0
+        line1.drawCirclesEnabled = false
         line1.mode = .cubicBezier
+        line1.axisDependency = Charts.YAxis.AxisDependency.right
+        line1.drawValuesEnabled = false
         
-        let data = LineChartData(dataSet: line1)
-        lineChartView.data = data
+        let line2 = BarChartDataSet(entries: barChartEntry, label: "일주일")
+        line2.highlightEnabled = false
+        line2.colors = [.systemOrange.withAlphaComponent(0.5)]
+        line2.axisDependency = Charts.YAxis.AxisDependency.left
+        line2.drawValuesEnabled = false
+        
+        data.barData = BarChartData(dataSet: line2)
+        data.lineData = LineChartData(dataSet: line1)
+        combineChartView.data = data
     }
 }

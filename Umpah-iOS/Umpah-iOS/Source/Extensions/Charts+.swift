@@ -8,25 +8,30 @@
 import Foundation
 import Charts
 
-extension LineChartView {
+extension CombinedChartView {
     func setupLineChartView(values: [String]) {
-        xAxis.labelFont = .systemFont(ofSize: 10, weight: .medium)
-        xAxis.labelPosition = .bottom
-        xAxis.valueFormatter = IndexAxisValueFormatter(values: values)
+        xAxis.drawLabelsEnabled = false
         xAxis.setLabelCount(values.count, force: true)
         xAxis.avoidFirstLastClippingEnabled = true
         xAxis.axisLineWidth = 1.0
         xAxis.gridColor = .clear
         xAxis.axisLineColor = .clear
-        rightAxis.enabled = false
-        rightAxis.drawLabelsEnabled = false
+        xAxis.spaceMin = 0.2
+        xAxis.spaceMax = 0.2
+        
+        rightAxis.axisLineColor = .clear
+        rightAxis.axisMinimum = 0.0
+        rightAxis.drawGridLinesEnabled = false
         leftAxis.axisLineWidth = 0.0
         leftAxis.gridColor = .systemGray3
-        leftAxis.drawLabelsEnabled = false
+        leftAxis.axisMinimum = 0.0
+        leftAxis.axisMaximum = 5000
+        
+        extraRightOffset = 22
+        extraLeftOffset = 22
+        extraBottomOffset = 46
+        
         legend.enabled = false
         doubleTapToZoomEnabled = false
-        extraRightOffset = 30
-        extraLeftOffset = 30
-        extraBottomOffset = 10
     }
 }

@@ -52,7 +52,7 @@ class MainVC: UIViewController {
     let normalView = NormalStateView()
     let expandedView = ExpandedStateView()
     
-    var currentState: CurrentState = .day
+    var currentState: CurrentState = .week
     var cardViewState: CardViewState = .base
     var cardPanStartingTopConstant : CGFloat = 20.0
     var cardPanMaxVelocity: CGFloat = 1500.0
@@ -386,9 +386,7 @@ extension MainVC: UITableViewDelegate {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let y = scrollView.contentOffset.y
-        
-        print(y)
-        
+
         if y >= 188 {
             headerView.backgroundColor = .white
             statusBar.backgroundColor = .white
