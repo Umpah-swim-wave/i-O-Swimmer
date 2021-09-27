@@ -8,6 +8,14 @@
 import UIKit
 
 import Then
+import SnapKit
+
+enum RangeState {
+    case day
+    case week
+    case month
+    case none
+}
 
 class SelectedRangeVC: UIViewController {
     // MARK: - Properties
@@ -20,19 +28,17 @@ class SelectedRangeVC: UIViewController {
         $0.backgroundColor = .white
     }
     
+    var state: RangeState = .none
+    
     // MARK: - Lazy Properties
     lazy var pickerView = UIPickerView().then {
         $0.delegate = self
         $0.dataSource = self
     }
-    lazy var datePicker = UIDatePicker().then {
-        $0.preferredDatePickerStyle = .wheels
-        $0.datePickerMode = .date
-        $0.locale = Locale(identifier: "ko-KR")
-        $0.timeZone = .autoupdatingCurrent
-    }
     
-    var secondButtonDataSource = ["White", "Red", "Green", "Blue"];
+    var years: [String] = ["2021","2020","2019","2018","2017","2016","2015","2014","2013","2012","2011","2010"]
+    var months: [String] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+    var days: [String] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"]
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,7 +83,9 @@ class SelectedRangeVC: UIViewController {
     @objc
     func didTappedDay() {
         print("day")
-        rangeView.dayTextField.inputView = datePicker
+        view.endEditing(true)
+        state = .day
+        rangeView.dayTextField.inputView = pickerView
         rangeView.dayTextField.inputAccessoryView = configureToolBar()
         rangeView.dayTextField.becomeFirstResponder()
     }
@@ -85,6 +93,8 @@ class SelectedRangeVC: UIViewController {
     @objc
     func didTappedWeek() {
         print("week")
+        view.endEditing(true)
+        state = .week
         rangeView.weekTextField.inputView = pickerView
         rangeView.weekTextField.inputAccessoryView = configureToolBar()
         rangeView.weekTextField.becomeFirstResponder()
@@ -93,6 +103,8 @@ class SelectedRangeVC: UIViewController {
     @objc
     func didTappedMonth() {
         print("month")
+        view.endEditing(true)
+        state = .month
         rangeView.monthTextField.inputView = pickerView
         rangeView.monthTextField.inputAccessoryView = configureToolBar()
         rangeView.monthTextField.becomeFirstResponder()
@@ -116,14 +128,47 @@ class SelectedRangeVC: UIViewController {
 
 extension SelectedRangeVC: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+        switch state {
+        case .day:
+            return 3
+        case .week:
+            return 1
+        case .month:
+            return 2
+        case .none:
+            return 0
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return 5
+        switch component {
+        case 0:
+            return years.count
+        case 1:
+            return months.count
+        case 2:
+            return days.count
+        default:
+            return 0
+        }
     }
 }
 
 extension SelectedRangeVC: UIPickerViewDelegate {
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        switch component {
+        case 0:
+            return years[row]
+        case 1:
+            return months[row]
+        case 2:
+            return days[row]
+        default:
+            return ""
+        }
+    }
     
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        print(row)
+    }
 }
