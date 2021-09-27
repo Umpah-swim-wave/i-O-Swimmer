@@ -94,6 +94,9 @@ class SelectedRangeVC: UIViewController {
         rangeView.dayButton.isSelected = true
         rangeView.weekButton.isSelected = false
         rangeView.monthButton.isSelected = false
+        year = years[0]
+        month = months[0]
+        day = days[0]
         
         view.endEditing(true)
         state = .day
@@ -108,6 +111,7 @@ class SelectedRangeVC: UIViewController {
         rangeView.dayButton.isSelected = false
         rangeView.weekButton.isSelected = true
         rangeView.monthButton.isSelected = false
+        week = weeks[0]
         
         view.endEditing(true)
         state = .week
@@ -122,6 +126,8 @@ class SelectedRangeVC: UIViewController {
         rangeView.dayButton.isSelected = false
         rangeView.weekButton.isSelected = false
         rangeView.monthButton.isSelected = true
+        year = years[0]
+        month = months[0]
         
         view.endEditing(true)
         state = .month
