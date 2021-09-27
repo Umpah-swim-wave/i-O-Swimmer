@@ -83,6 +83,10 @@ class SelectedRangeVC: UIViewController {
     @objc
     func didTappedDay() {
         print("day")
+        rangeView.dayButton.isSelected = true
+        rangeView.weekButton.isSelected = false
+        rangeView.monthButton.isSelected = false
+        
         view.endEditing(true)
         state = .day
         rangeView.dayTextField.inputView = pickerView
@@ -93,6 +97,10 @@ class SelectedRangeVC: UIViewController {
     @objc
     func didTappedWeek() {
         print("week")
+        rangeView.dayButton.isSelected = false
+        rangeView.weekButton.isSelected = true
+        rangeView.monthButton.isSelected = false
+        
         view.endEditing(true)
         state = .week
         rangeView.weekTextField.inputView = pickerView
@@ -103,6 +111,10 @@ class SelectedRangeVC: UIViewController {
     @objc
     func didTappedMonth() {
         print("month")
+        rangeView.dayButton.isSelected = false
+        rangeView.weekButton.isSelected = false
+        rangeView.monthButton.isSelected = true
+        
         view.endEditing(true)
         state = .month
         rangeView.monthTextField.inputView = pickerView

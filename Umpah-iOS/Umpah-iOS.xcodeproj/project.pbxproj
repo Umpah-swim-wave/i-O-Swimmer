@@ -74,6 +74,7 @@
 		EDD7C44026CBDB4600D93306 /* DetailTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD7C43F26CBDB4600D93306 /* DetailTVC.swift */; };
 		EDD7C44226CBDCE200D93306 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD7C44126CBDCE200D93306 /* DetailView.swift */; };
 		EDE550BE2700F80D004422CE /* DateTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE550BD2700F80D004422CE /* DateTVC.swift */; };
+		EDFC6EE72702387500B718C6 /* RangeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFC6EE62702387500B718C6 /* RangeButton.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -196,6 +197,7 @@
 		EDD7C43F26CBDB4600D93306 /* DetailTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailTVC.swift; path = "Umpah-iOS/Source/Views/Cells/Main/DetailTVC.swift"; sourceTree = SOURCE_ROOT; };
 		EDD7C44126CBDCE200D93306 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailView.swift; path = "Umpah-iOS/Source/Views/Components/Main/DetailView.swift"; sourceTree = SOURCE_ROOT; };
 		EDE550BD2700F80D004422CE /* DateTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTVC.swift; sourceTree = "<group>"; };
+		EDFC6EE62702387500B718C6 /* RangeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -341,6 +343,7 @@
 			isa = PBXGroup;
 			children = (
 				EDD3CCDB27019A7200AFED4B /* RangeView.swift */,
+				EDFC6EE62702387500B718C6 /* RangeButton.swift */,
 			);
 			path = Popup;
 			sourceTree = "<group>";
@@ -838,6 +841,7 @@
 				EDD43FD626483C9500C866F3 /* SceneDelegate.swift in Sources */,
 				ED5396F326B977920061722F /* UITextField+.swift in Sources */,
 				EDD3CCD7270118DA00AFED4B /* StatusBar.swift in Sources */,
+				EDFC6EE72702387500B718C6 /* RangeButton.swift in Sources */,
 				3C8CE32926BCBE6B002BBFE5 /* RoutineSetTVC.swift in Sources */,
 				ED78843026DC9D3C006D8787 /* HeaderView.swift in Sources */,
 			);

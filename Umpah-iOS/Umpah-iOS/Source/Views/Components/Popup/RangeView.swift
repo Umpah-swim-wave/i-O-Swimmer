@@ -23,33 +23,9 @@ class RangeView: UIView {
         $0.distribution = .fillEqually
         $0.spacing = 12
     }
-    let dayButton = UIButton().then {
-        $0.setTitle("일간", for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
-        $0.setTitleColor(.systemTeal, for: .normal)
-        $0.layer.borderColor = UIColor.systemTeal.withAlphaComponent(0.3).cgColor
-        $0.layer.borderWidth = 2
-        $0.layer.cornerRadius = 24
-        $0.contentEdgeInsets = UIEdgeInsets(top: 13, left: 18, bottom: 13, right: 18)
-    }
-    let weekButton = UIButton().then {
-        $0.setTitle("주간", for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
-        $0.setTitleColor(.systemTeal, for: .normal)
-        $0.layer.borderColor = UIColor.systemTeal.withAlphaComponent(0.3).cgColor
-        $0.layer.borderWidth = 2
-        $0.layer.cornerRadius = 24
-        $0.contentEdgeInsets = UIEdgeInsets(top: 13, left: 18, bottom: 13, right: 18)
-    }
-    let monthButton = UIButton().then {
-        $0.setTitle("월간", for: .normal)
-        $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
-        $0.setTitleColor(.systemTeal, for: .normal)
-        $0.layer.borderColor = UIColor.systemTeal.withAlphaComponent(0.3).cgColor
-        $0.layer.borderWidth = 2
-        $0.layer.cornerRadius = 24
-        $0.contentEdgeInsets = UIEdgeInsets(top: 13, left: 18, bottom: 13, right: 18)
-    }
+    let dayButton = RangeButton(title: "일간")
+    let weekButton = RangeButton(title: "주간")
+    let monthButton = RangeButton(title: "월간")
     let dayTextField = UITextField()
     let weekTextField = UITextField()
     let monthTextField = UITextField()
