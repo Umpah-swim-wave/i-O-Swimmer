@@ -8,11 +8,12 @@
 import UIKit
 
 struct AppFontName {
-    static let IBMFlexSansRegular = "IBMPlexSans-Regular"
-    static let IBMFlexSansText = "IBMPlexSans-Text"
-    static let IBMFlexSansSemiBold = "IBMPlexSans-SemiBold"
-    static let IBMFlexSansBold = "IBMPlexSans-Bold"
-    static let nexaBold = "Nexa-Bold"
+    static let IBMPlexSansText = "IBMPlexSansKR-Text"
+    static let IBMPlexSansSemiBold = "IBMPlexSansKR-SemiBold"
+    static let IBMPlexSansBold = "IBMPlexSansKR-Bold"
+    static let IBMPlexSansRegular = "IBMPlexSansKR"
+    static let IBMPlexSansMedium = "IBMPlexSansKR-Medium"
+    static let nexaBold = "Nexa Bold"
 }
 
 extension UIFontDescriptor.AttributeName {
@@ -20,24 +21,28 @@ extension UIFontDescriptor.AttributeName {
 }
 
 extension UIFont {
-    @objc class func IBMFlexSansRegular(ofSize size: CGFloat) -> UIFont {
-        return UIFont(name: AppFontName.IBMFlexSansRegular, size: size)!
+    @objc class func IBMPlexSansRegular(ofSize size: CGFloat) -> UIFont {
+        return UIFont(name: AppFontName.IBMPlexSansRegular, size: size)!
     }
     
-    @objc class func IBMFlexSansText(ofSize size: CGFloat) -> UIFont {
-        return UIFont(name: AppFontName.IBMFlexSansText, size: size)!
+    @objc class func IBMPlexSansText(ofSize size: CGFloat) -> UIFont {
+        return UIFont(name: AppFontName.IBMPlexSansText, size: size)!
     }
     
-    @objc class func IBMFlexSansSemiBold(ofSize size: CGFloat) -> UIFont {
-        return UIFont(name: AppFontName.IBMFlexSansSemiBold, size: size)!
+    @objc class func IBMPlexSansSemiBold(ofSize size: CGFloat) -> UIFont {
+        return UIFont(name: AppFontName.IBMPlexSansSemiBold, size: size)!
     }
     
-    @objc class func IBMFlexSansBold(ofSize size: CGFloat) -> UIFont {
-        return UIFont(name: AppFontName.IBMFlexSansBold, size: size)!
+    @objc class func IBMPlexSansBold(ofSize size: CGFloat) -> UIFont {
+        return UIFont(name: AppFontName.IBMPlexSansBold, size: size)!
     }
     
     @objc class func nexaBold(ofSize size: CGFloat) -> UIFont {
         return UIFont(name: AppFontName.nexaBold, size: size)!
+    }
+    
+    @objc class func IBMPlexSansMedium(ofSize size: CGFloat) -> UIFont {
+        return UIFont(name: AppFontName.IBMPlexSansMedium, size: size)!
     }
 
     @objc convenience init(myCoder aDecoder: NSCoder) {
@@ -46,13 +51,13 @@ extension UIFont {
                 var fontName = ""
                 switch fontAttribute {
                 case "CTFontRegularUsage":
-                    fontName = AppFontName.IBMFlexSansRegular
+                    fontName = AppFontName.IBMPlexSansRegular
                 case "CTFontEmphasizedUsage", "CTFontBoldUsage":
-                    fontName = AppFontName.IBMFlexSansBold
+                    fontName = AppFontName.IBMPlexSansBold
                 case "CTFontObliqueUsage":
-                    fontName = AppFontName.IBMFlexSansText
+                    fontName = AppFontName.IBMPlexSansText
                 default:
-                    fontName = AppFontName.IBMFlexSansRegular
+                    fontName = AppFontName.IBMPlexSansRegular
                 }
                 self.init(name: fontName, size: fontDescriptor.pointSize)!
             }
@@ -68,15 +73,15 @@ extension UIFont {
     class func overrideInitialize() {
         if self == UIFont.self {
             let systemFontMethod = class_getClassMethod(self, #selector(systemFont(ofSize:)))
-            let mySystemFontMethod = class_getClassMethod(self, #selector(IBMFlexSansRegular(ofSize:)))
+            let mySystemFontMethod = class_getClassMethod(self, #selector(IBMPlexSansRegular(ofSize:)))
             method_exchangeImplementations(systemFontMethod!, mySystemFontMethod!)
             
             let boldSystemFontMethod = class_getClassMethod(self, #selector(boldSystemFont(ofSize:)))
-            let myBoldSystemFontMethod = class_getClassMethod(self, #selector(IBMFlexSansBold(ofSize:)))
+            let myBoldSystemFontMethod = class_getClassMethod(self, #selector(IBMPlexSansBold(ofSize:)))
             method_exchangeImplementations(boldSystemFontMethod!, myBoldSystemFontMethod!)
             
             let italicSystemFontMethod = class_getClassMethod(self, #selector(italicSystemFont(ofSize:)))
-            let myItalicSystemFontMethod = class_getClassMethod(self, #selector(IBMFlexSansText(ofSize:)))
+            let myItalicSystemFontMethod = class_getClassMethod(self, #selector(IBMPlexSansText(ofSize:)))
             method_exchangeImplementations(italicSystemFontMethod!, myItalicSystemFontMethod!)
             
             let initCoderMethod = class_getInstanceMethod(self, #selector(UIFontDescriptor.init(coder:))) // Trick to get over the lack of UIFont.init(coder:))
