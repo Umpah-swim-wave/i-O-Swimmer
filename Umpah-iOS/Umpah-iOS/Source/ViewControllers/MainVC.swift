@@ -433,6 +433,7 @@ extension MainVC: SelectedRangeDelegate {
             self.currentState = (self.dateText == self.dateformatter.string(from: Date())) ? .base : .day
             self.strokeState = .none
             self.mainTableView.reloadSections(IndexSet(1...1), with: .fade)
+            self.normalView.titleLabel.text = self.decideTitle(of: .normal)
         }
         vc.weekData = { week in
             print("weekData : \(week)")
@@ -440,6 +441,7 @@ extension MainVC: SelectedRangeDelegate {
             self.currentState = .week
             self.strokeState = .none
             self.mainTableView.reloadSections(IndexSet(1...1), with: .automatic)
+            self.normalView.titleLabel.text = self.decideTitle(of: .normal)
         }
         vc.monthData = { year, month in
             print("monthData : \(year) \(month)")
@@ -448,6 +450,7 @@ extension MainVC: SelectedRangeDelegate {
             self.currentState = .month
             self.strokeState = .none
             self.mainTableView.reloadSections(IndexSet(1...1), with: .automatic)
+            self.normalView.titleLabel.text = self.decideTitle(of: .normal)
         }
         
         present(vc, animated: true, completion: nil)
