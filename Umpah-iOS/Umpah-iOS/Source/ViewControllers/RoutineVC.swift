@@ -23,6 +23,7 @@ class RoutineVC: UIViewController {
     private var tableSetTitleList : [String] = ["warm-up", "main", "cool-down"]
     
     private let upuhGreen = UIColor(red: 0.965, green: 0.98, blue: 0.988, alpha: 1)
+    
     //MARK: - UI Component
     private let navigationView = UIView()
     private var tableView = UITableView().then{
@@ -142,13 +143,13 @@ class RoutineVC: UIViewController {
     }
     
     private func initRoutineSetCells(){
-        tableSetTitleList.forEach{
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineSetTVC.identifier) as? RoutineSetTVC else { return }
-            cell.setRoutineContent(title: $0, itemList: routineList[$0] ?? [])
-            cell.cellDelegate = self
-            //cell.viewModel = viewModel
-            tableCellList.append(cell)
-        }
+//        tableSetTitleList.forEach{
+//            guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineSetTVC.identifier) as? RoutineSetTVC else { return }
+//            cell.setRoutineContent(title: $0, itemList: routineList[$0] ?? [])
+//            cell.cellDelegate = self
+//            //cell.viewModel = viewModel
+//            tableCellList.append(cell)
+//        }
     }
     private func addActions(){
         bottomButton.addTarget(self, action: #selector(changeTableViewEditingMode), for: .touchUpInside)
