@@ -346,6 +346,7 @@ extension MainVC: UITableViewDataSource {
                 return cell
             case 2:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: ChartTVC.identifier) as? ChartTVC else { return UITableViewCell() }
+                cell.combineChartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .linear)
                 return cell
             case 3:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
@@ -433,6 +434,7 @@ extension MainVC: SelectedRangeDelegate {
             let transDay = (day.count == 1) ? "0\(day)" : day
             self.dateText = "\(transYear)/\(transMonth)/\(transDay)"
             self.currentState = (self.dateText == self.dateformatter.string(from: Date())) ? .base : .day
+            self.strokeState = .none
             self.mainTableView.reloadSections(IndexSet(1...1), with: .fade)
         }
         vc.weekData = { week in
