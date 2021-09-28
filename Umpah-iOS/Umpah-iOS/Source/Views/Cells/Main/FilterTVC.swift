@@ -95,7 +95,8 @@ extension FilterTVC: UICollectionViewDataSource {
             return cell
         default:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FilterCVC.identifier, for: indexPath) as? FilterCVC else { return UICollectionViewCell() }
-            cell.filterButton.setTitle(strokes[indexPath.item], for: .normal)
+            cell.filterButton.setTitle(strokes[0], for: .normal)
+            cell.filterButton.setImage(UIImage(systemName: "plus"), for: .normal)
             return cell
         }
     }
