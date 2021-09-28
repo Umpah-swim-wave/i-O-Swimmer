@@ -8,18 +8,19 @@
 import Foundation
 import RxSwift
 
-protocol SwimmingStorageType {
+protocol RoutineStorageType {
     
     @discardableResult
-    func createMemo(content: String) -> Observable<Memo>
+    func createRoutine(setTitle: String) -> Observable<RoutineItemData>
     
     @discardableResult
-    func memoList() -> Observable<[Memo]>
+    func getRoutineList() -> Observable<[String: [RoutineItemData]]>
     
     @discardableResult
-    func update(memo: Memo, content: String) -> Observable<Memo>
+    func update(setTitle: String, index: Int, newItem: RoutineItemData) -> Observable<RoutineItemData>
     
-    @discardableResult
-    func delete(memo: Memo) -> Observable<Memo>
+    func swapRoutineItems(setTitle: String, sourceIndex: Int, destinationIndex: Int)
+    
+    func delete(setTitle: String, index: Int)
 }
 
