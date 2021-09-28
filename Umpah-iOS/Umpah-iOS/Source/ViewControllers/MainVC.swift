@@ -49,6 +49,7 @@ class MainVC: UIViewController {
     var cardViewTopConstraint: NSLayoutConstraint?
     var dateformatter = DateFormatter().then {
         $0.dateFormat = "YY/MM/dd"
+        $0.locale = Locale.init(identifier: "ko-KR")
     }
     
     // MARK: - Life Cycle
