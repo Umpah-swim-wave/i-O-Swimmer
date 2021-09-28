@@ -25,7 +25,8 @@ class FilterTVC: UITableViewCell {
         $0.scrollDirection = .horizontal
     }
     
-    let categorys: [String] = ["기간", "일간", "주간", "월간", "영법"]
+    let categorys: [String] = ["기간", "일간", "주간", "월간"]
+    let strokes: [String] = ["영법", "자유형", "평영", "배영", "접영"]
     var state: CurrentState = .base
     var delegate: SelectedRangeDelegate?
 
@@ -60,9 +61,16 @@ extension FilterTVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FilterCVC.identifier, for: indexPath) as? FilterCVC else { return UICollectionViewCell() }
-        cell.filterButton.setTitle(categorys[indexPath.item], for: .normal)
-        return cell
+        switch indexPath.item {
+        case 0:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FilterCVC.identifier, for: indexPath) as? FilterCVC else { return UICollectionViewCell() }
+            cell.filterButton.setTitle(categorys[indexPath.item], for: .normal)
+            return cell
+        default:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FilterCVC.identifier, for: indexPath) as? FilterCVC else { return UICollectionViewCell() }
+            cell.filterButton.setTitle(categorys[indexPath.item], for: .normal)
+            return cell
+        }
     }
 }
 

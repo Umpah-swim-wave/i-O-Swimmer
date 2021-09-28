@@ -305,6 +305,7 @@ extension MainVC: UITableViewDataSource {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: FilterTVC.identifier) as? FilterTVC else { return UITableViewCell() }
                 cell.selectionStyle = .none
                 cell.delegate = self
+                cell.state = currentState
                 return cell
             case 1:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DateTVC.identifier) as? DateTVC else { return UITableViewCell() }
@@ -335,6 +336,7 @@ extension MainVC: UITableViewDataSource {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: FilterTVC.identifier) as? FilterTVC else { return UITableViewCell() }
                 cell.selectionStyle = .none
                 cell.delegate = self
+                cell.state = currentState
                 return cell
             case 1:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DateTVC.identifier) as? DateTVC else { return UITableViewCell() }
@@ -344,7 +346,6 @@ extension MainVC: UITableViewDataSource {
                 return cell
             case 2:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: ChartTVC.identifier) as? ChartTVC else { return UITableViewCell() }
-                
                 cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
                 cell.selectionStyle = .none
                 return cell
@@ -431,10 +432,11 @@ extension MainVC: SelectedRangeDelegate {
         
         vc.dayData = { year, month, day in
             print("dayData : \(year) \(month) \(day)")
+            let transYear = year[year.index(year.startIndex, offsetBy: 2)..<year.endIndex]
             let transMonth = (month.count == 1) ? "0\(month)" : month
             let transDay = (day.count == 1) ? "0\(day)" : day
-            self.dateText = "\(year)/\(transMonth)/\(transDay)"
-            self.currentState = .day
+            self.dateText = "\(transYear)/\(transMonth)/\(transDay)"
+            self.currentState = (self.dateText == dateformatter.string(from: Date())) ? .base : .day
             self.mainTableView.reloadSections(IndexSet(1...1), with: .automatic)
         }
         vc.weekData = { week in
@@ -445,8 +447,9 @@ extension MainVC: SelectedRangeDelegate {
         }
         vc.monthData = { year, month in
             print("monthData : \(year) \(month)")
+            let transYear = year[year.index(year.startIndex, offsetBy: 2)..<year.endIndex]
             let transMonth = (month.count == 1) ? "0\(month)" : month
-            self.dateText = "\(year)/\(transMonth)"
+            self.dateText = "\(transYear)/\(transMonth)"
             self.currentState = .month
             self.mainTableView.reloadSections(IndexSet(1...1), with: .automatic)
         }
