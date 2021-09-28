@@ -18,6 +18,7 @@ class RoutineItemTVC: UITableViewCell {
         $0.semanticContentAttribute = .forceRightToLeft
         $0.imageEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: 0)
         $0.setTitleColor(.upuhBlack, for: .normal)
+        $0.contentHorizontalAlignment = .left
         $0.titleLabel?.font = .systemFont(ofSize: 14)
     }
     
@@ -49,7 +50,6 @@ class RoutineItemTVC: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         setupLayout()
-        setContentText()
         selectionStyle = .none
     }
 
@@ -57,7 +57,6 @@ class RoutineItemTVC: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-
     public func setRoutineItem(item: RoutineItemData){
         routineItem = item
         print("routineItem = \(routineItem)")
@@ -87,18 +86,20 @@ extension RoutineItemTVC {
                      lineView])
 
         strokeButton.snp.makeConstraints{
-            $0.top.bottom.equalToSuperview().inset(15)
-            $0.leading.equalToSuperview().inset(24)
+            $0.top.equalToSuperview().offset(15)
+            $0.bottom.equalToSuperview().offset(-15)
+            $0.leading.equalToSuperview().offset(24)
+            $0.width.equalTo(108)
         }
         
         distanceLabel.snp.makeConstraints{
             $0.centerY.equalTo(strokeButton.snp.centerY)
-            $0.trailing.equalToSuperview().inset(107)
+            $0.trailing.equalTo(timeLabel.snp.leading).offset(-37)
         }
         
         timeLabel.snp.makeConstraints {
             $0.centerY.equalTo(strokeButton.snp.centerY)
-            $0.trailing.equalToSuperview().inset(32)
+            $0.trailing.equalToSuperview().offset(-32)
         }
         
         lineView.snp.makeConstraints {
@@ -114,26 +115,25 @@ extension RoutineItemTVC {
         }else{
             turnToInitLayout()
         }
-        
     }
     
     public func changeLayoutAtEditingMode(){
-        strokeButton.snp.updateConstraints {
-            $0.leading.equalToSuperview().inset(46)
+        strokeButton.snp.updateConstraints{
+            $0.leading.equalToSuperview().offset(46)
         }
         
         timeLabel.snp.updateConstraints {
-            $0.trailing.equalToSuperview().inset(50)
+            $0.trailing.equalToSuperview().offset(-50)
         }
     }
     
     public func turnToInitLayout(){
         strokeButton.snp.updateConstraints {
-            $0.leading.equalToSuperview().inset(24)
+            $0.leading.equalToSuperview().offset(24)
         }
         
         timeLabel.snp.updateConstraints {
-            $0.trailing.equalToSuperview().inset(32)
+            $0.trailing.equalToSuperview().offset(-32)
         }
     }
 }
