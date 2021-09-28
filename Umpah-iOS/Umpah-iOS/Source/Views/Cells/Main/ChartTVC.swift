@@ -15,53 +15,33 @@ class ChartTVC: UITableViewCell {
     static let identifier = "ChartTVC"
     
     // MARK: - Properties
-    let lineChartView = LineChartView()
+    let combineChartView = CombinedChartView()
+    
     let chartBackView = UIView().then {
         $0.backgroundColor = .white
         $0.layer.cornerRadius = 16
     }
-    let weekButton = UIButton().then {
-        $0.semanticContentAttribute = .forceRightToLeft
-        $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
-        $0.tintColor = .black
-        $0.setTitleColor(.black, for: .normal)
-        $0.setTitleColor(.gray, for: .highlighted)
-        $0.setTitle("이번 주", for: .normal)
-        $0.setImage(UIImage(systemName: "arrowtriangle.down.fill"), for: .normal)
-        
-        $0.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 5)
+    let titleLabel = UILabel().then {
+        $0.text = "WEEKLY RECORD"
+        $0.font = .boldSystemFont(ofSize: 12)
+        $0.textColor = .lightGray
     }
-    let strokeButton = UIButton().then {
-        $0.layer.masksToBounds = true
-        $0.layer.cornerRadius = 8
-        $0.semanticContentAttribute = .forceRightToLeft
-        $0.titleLabel?.font = .systemFont(ofSize: 12, weight: .semibold)
-        $0.setBackgroundColor(.darkGray, for: .normal)
-        $0.setBackgroundColor(.gray, for: .highlighted)
-        $0.tintColor = .white
-        $0.setTitleColor(.white, for: .normal)
-        $0.setTitle("전체", for: .normal)
-        $0.setImage(UIImage(systemName: "arrowtriangle.down.fill"), for: .normal)
-        
-        $0.imageEdgeInsets = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 0)
-    }
-    let averageTitleLabel = UILabel().then {
-        $0.text = "AVERAGE"
-        $0.font = .boldSystemFont(ofSize: 8)
-        $0.addCharacterSpacing(kernValue: 2)
-    }
-    let averageLabel = UILabel().then {
-        $0.text = "2.1km"
-        $0.font = .boldSystemFont(ofSize: 24)
-        $0.addCharacterSpacing(kernValue: 2)
+    let dateStackView = UIStackView().then {
+        $0.alignment = .center
+        $0.axis = .horizontal
+        $0.distribution = .equalSpacing
     }
     
-    var numbers: [Double] = [3.0, 2.5, 3.3, 5.5, 2.7, 2.8, 4.1]
+    var numbers: [Double] = [1.5, 1.3, 0.8, 1.6, 1.2, 0.6, 1.4]
+    var meters: [Int] = [2000, 3000, 4000, 4500, 3300, 1800, 2400]
     let weeks: [String] = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
+        selectionStyle = .none
         setupLayout()
+        setupStackView()
         initCharts()
     }
     
@@ -73,70 +53,78 @@ class ChartTVC: UITableViewCell {
     private func setupLayout() {
         sendSubviewToBack(contentView)
         
-        addSubviews([chartBackView, weekButton])
-        chartBackView.addSubviews([lineChartView, strokeButton, averageTitleLabel, averageLabel])
+        addSubviews([titleLabel, chartBackView])
+        chartBackView.addSubviews([combineChartView, dateStackView])
+        
+        titleLabel.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.leading.equalToSuperview().inset(32)
+        }
         
         chartBackView.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(68)
-            $0.leading.trailing.bottom.equalToSuperview().inset(16)
-            $0.height.equalTo(353)
-        }
-        
-        weekButton.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(24)
-            $0.leading.equalToSuperview().inset(26)
-            $0.height.equalTo(28)
-            $0.width.equalTo(82)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(20)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview().inset(40)
+            $0.height.equalTo(280)
         }
 
-        lineChartView.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(105)
-            $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(22)
-        }
-        
-        strokeButton.snp.makeConstraints {
+        combineChartView.snp.makeConstraints {
             $0.top.equalToSuperview().inset(30)
-            $0.trailing.equalToSuperview().inset(24)
-            $0.height.equalTo(24)
-            $0.width.equalTo(55)
+            $0.leading.trailing.equalToSuperview()
+            $0.bottom.equalToSuperview()
         }
         
-        averageTitleLabel.snp.makeConstraints {
-            $0.top.leading.equalToSuperview().inset(30)
+        dateStackView.snp.makeConstraints {
+            $0.bottom.equalToSuperview().inset(24)
+            $0.leading.equalToSuperview().inset(53)
+            $0.trailing.equalToSuperview().inset(45)
         }
-        
-        averageLabel.snp.makeConstraints {
-            $0.top.equalTo(averageTitleLabel.snp.bottom).offset(12)
-            $0.leading.equalTo(averageTitleLabel.snp.leading)
+    }
+    
+    private func setupStackView() {
+        for day in weeks {
+            let label = UILabel()
+            label.text = day
+            label.font = .boldSystemFont(ofSize: 8)
+            dateStackView.addArrangedSubview(label)
         }
     }
     
     func initCharts() {
-        lineChartView.setupLineChartView(values: weeks)
+        combineChartView.setupLineChartView(values: weeks)
         
         changeLineChartdata()
     }
     
     func changeLineChartdata(){
+        let data: CombinedChartData = CombinedChartData()
         var lineChartEntry = [ChartDataEntry]()
+        var barChartEntry = [BarChartDataEntry]()
  
         for i in 0..<numbers.count {
             let value = ChartDataEntry(x: Double(i), y: numbers[i])
+            let meterValue = BarChartDataEntry(x: Double(i), y: Double(meters[i]))
             lineChartEntry.append(value)
+            barChartEntry.append(meterValue)
         }
         
         let line1 = LineChartDataSet(entries: lineChartEntry, label: "일주일")
         line1.highlightEnabled = false
-        line1.colors = [.gray]
-        line1.circleColors = [NSUIColor.gray]
-        line1.circleHoleColor = NSUIColor.systemGray5
-        line1.circleRadius = 4.0
-        line1.circleHoleRadius = 1.5
-        line1.lineWidth = 3.0
+        line1.colors = [.systemOrange]
+        line1.lineWidth = 2.0
+        line1.drawCirclesEnabled = false
         line1.mode = .cubicBezier
+        line1.axisDependency = Charts.YAxis.AxisDependency.right
+        line1.drawValuesEnabled = false
         
-        let data = LineChartData(dataSet: line1)
-        lineChartView.data = data
+        let line2 = BarChartDataSet(entries: barChartEntry, label: "일주일")
+        line2.highlightEnabled = false
+        line2.colors = [.systemOrange.withAlphaComponent(0.5)]
+        line2.axisDependency = Charts.YAxis.AxisDependency.left
+        line2.drawValuesEnabled = false
+        
+        data.barData = BarChartData(dataSet: line2)
+        data.lineData = LineChartData(dataSet: line1)
+        combineChartView.data = data
     }
 }

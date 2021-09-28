@@ -18,20 +18,28 @@ enum CardViewState {
 }
 
 enum CurrentState {
+    case base
     case day
     case week
     case month
     case routine
 }
 
+protocol SelectedRangeDelegate: class {
+    func didClickedRangeButton()
+}
+
 class MainVC: UIViewController {
     // MARK: - Lazy Properties
-    lazy var mainTableView = UITableView().then {
+    lazy var mainTableView = UITableView(frame: .zero, style: .plain).then {
         $0.delegate = self
         $0.dataSource = self
         $0.estimatedRowHeight = 100
         $0.register(ChartTVC.self, forCellReuseIdentifier: ChartTVC.identifier)
         $0.register(DetailTVC.self, forCellReuseIdentifier: DetailTVC.identifier)
+        $0.register(FilterTVC.self, forCellReuseIdentifier: FilterTVC.identifier)
+        $0.register(StrokeTVC.self, forCellReuseIdentifier: StrokeTVC.identifier)
+        $0.register(DateTVC.self, forCellReuseIdentifier: DateTVC.identifier)
         $0.backgroundColor = .clear
         $0.separatorStyle = .none
     }
@@ -45,10 +53,11 @@ class MainVC: UIViewController {
     }
     let topView = TopView()
     let headerView = HeaderView()
+    let statusBar = StatusBar()
     let normalView = NormalStateView()
     let expandedView = ExpandedStateView()
     
-    var currentState: CurrentState = .month
+    var currentState: CurrentState = .base
     var cardViewState: CardViewState = .base
     var cardPanStartingTopConstant : CGFloat = 20.0
     var cardPanMaxVelocity: CGFloat = 1500.0
@@ -70,11 +79,17 @@ class MainVC: UIViewController {
     
     // MARK: - Custom Methods
     private func setupLayout() {
-        view.addSubviews([mainTableView, cardView])
+        view.addSubviews([statusBar, mainTableView, cardView])
         cardView.addSubviews([normalView, expandedView])
         
+        statusBar.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
+            $0.height.equalTo(UIApplication.statusBarHeight)
+        }
+        
         mainTableView.snp.makeConstraints {
-            $0.top.leading.trailing.bottom.equalToSuperview()
+            $0.top.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
         
         cardView.snp.makeConstraints {
@@ -225,20 +240,22 @@ extension MainVC {
             return ""
         default:
             switch currentState {
-            case .day:
-                return "랩스 기록 보기"
             case .week:
                 return "요일별 기록 보기"
             case .month:
                 return "주간별 기록 보기"
             case .routine:
                 return "어푸가 추천하는 루틴 보기"
+            default:
+                return "랩스 기록 보기"
             }
         }
     }
     
     private func applyExpandedTitle(of state: CurrentState) -> String {
         switch state {
+        case .base:
+            return "21/09/27"
         case .day:
             return "21/08/31"
         case .week:
@@ -252,7 +269,7 @@ extension MainVC {
     
     private func decideHiddenState(by state: CurrentState) -> Bool {
         switch state {
-        case .day:
+        case .day, .base:
             return false
         default:
             return true
@@ -262,48 +279,99 @@ extension MainVC {
 
 extension MainVC: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
+        return 2
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
-        case 0:
-            return 0
+        case 1:
+            if currentState != .routine {
+                return 5
+            } else {
+                return 10
+            }
         default:
-            return 1
+            return 0
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch indexPath.section {
-        case 1:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
-            cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
-            cell.selectionStyle = .none
-            return cell
-        case 2:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: ChartTVC.identifier) as? ChartTVC else { return UITableViewCell() }
-            cell.lineChartView.animate(yAxisDuration: 1.0, easingOption: .easeInOutQuint)
-            cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
-            cell.selectionStyle = .none
-            return cell
-        default:
+        switch currentState {
+        case .day,
+             .base:
+            switch indexPath.row {
+            case 0:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: FilterTVC.identifier) as? FilterTVC else { return UITableViewCell() }
+                cell.selectionStyle = .none
+                cell.delegate = self
+                return cell
+            case 1:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: DateTVC.identifier) as? DateTVC else { return UITableViewCell() }
+                cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
+                cell.selectionStyle = .none
+                return cell
+            case 2:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
+                cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
+                cell.selectionStyle = .none
+                return cell
+            case 3:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: StrokeTVC.identifier) as? StrokeTVC else { return UITableViewCell() }
+                cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
+                cell.selectionStyle = .none
+                return cell
+            default:
+                let cell = UITableViewCell(frame: .zero)
+                cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
+                cell.selectionStyle = .none
+                return cell
+            }
+        case .week,
+             .month:
+            switch indexPath.row {
+            case 0:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: FilterTVC.identifier) as? FilterTVC else { return UITableViewCell() }
+                cell.delegate = self
+                return cell
+            case 1:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: DateTVC.identifier) as? DateTVC else { return UITableViewCell() }
+                return cell
+            case 2:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: ChartTVC.identifier) as? ChartTVC else { return UITableViewCell() }
+                return cell
+            case 3:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
+                return cell
+            default:
+                let cell = UITableViewCell(frame: .zero)
+                cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
+                cell.selectionStyle = .none
+                return cell
+            }
+        case .routine:
             return UITableViewCell()
         }
     }
 }
 
 extension MainVC: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableView.automaticDimension
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        switch indexPath.row {
+        case 4:
+            return 105
+        default:
+            return UITableView.automaticDimension
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch section {
         case 0:
             return topView
-        default:
+        case 1:
             return headerView
+        default:
+            return UIView()
         }
     }
     
@@ -316,5 +384,39 @@ extension MainVC: UITableViewDelegate {
         default:
             return 0
         }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let y = scrollView.contentOffset.y
+
+        if y >= 188 {
+            headerView.backgroundColor = .white
+            statusBar.backgroundColor = .white
+        } else if y < 188 && (y / 188) > 0.3 {
+            headerView.backgroundColor = .white.withAlphaComponent(y / 188)
+            statusBar.backgroundColor = .clear
+        } else {
+            headerView.backgroundColor = .white.withAlphaComponent(0.3)
+        }
+        
+        if y >= 188 {
+            topView.titleLabel.alpha = 0
+        } else if y > 0 {
+            topView.titleLabel.transform = CGAffineTransform(translationX: -y/140, y: 0)
+            topView.titleLabel.alpha = 1 - (y / 95)
+        } else {
+            topView.titleLabel.transform = .identity
+            topView.titleLabel.alpha = 1
+        }
+    }
+}
+
+// MARK: - FilterTVC Delegate
+extension MainVC: SelectedRangeDelegate {
+    func didClickedRangeButton() {
+        guard let vc = storyboard?.instantiateViewController(withIdentifier: "SelectedRangeVC") as? SelectedRangeVC else { return }
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.modalTransitionStyle = .crossDissolve
+        present(vc, animated: true, completion: nil)
     }
 }

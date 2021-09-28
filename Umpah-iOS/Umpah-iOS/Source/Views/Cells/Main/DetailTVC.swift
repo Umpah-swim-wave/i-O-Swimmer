@@ -16,7 +16,7 @@ class DetailTVC: UITableViewCell {
     
     // MARK: - Properties
     let titleLabel = UILabel().then {
-        $0.text = "THIS WEEK"
+        $0.text = "OVERVIEW"
         $0.textColor = .gray
         $0.font = .boldSystemFont(ofSize: 12)
         $0.addCharacterSpacing(kernValue: 2)
@@ -25,6 +25,8 @@ class DetailTVC: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
+        selectionStyle = .none
         setupLayout()
     }
     
@@ -39,14 +41,14 @@ class DetailTVC: UITableViewCell {
         addSubviews([titleLabel, detailView])
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(40)
+            $0.top.equalToSuperview()
             $0.leading.equalToSuperview().inset(32)
         }
         
         detailView.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(16)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(49)
+            $0.bottom.equalToSuperview().inset(24)
         }
     }
 }
