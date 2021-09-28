@@ -7,6 +7,9 @@
 
 import UIKit
 
+import Then
+import SnapKit
+
 class RangeView: UIView {
     // MARK: - Properties
     let titleLabel = UILabel().then {

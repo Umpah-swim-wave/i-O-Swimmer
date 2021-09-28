@@ -7,6 +7,9 @@
 
 import UIKit
 
+import Then
+import SnapKit
+
 class DateTVC: UITableViewCell {
     static let identifier = "DateTVC"
     

@@ -10,13 +10,6 @@ import UIKit
 import Then
 import SnapKit
 
-enum RangeState {
-    case day
-    case week
-    case month
-    case none
-}
-
 class SelectedRangeVC: UIViewController {
     // MARK: - Properties
     var backgroundView = UIButton().then {

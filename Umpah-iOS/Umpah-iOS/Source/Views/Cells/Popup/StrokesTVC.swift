@@ -10,14 +10,6 @@ import UIKit
 import Then
 import SnapKit
 
-enum Stroke {
-    case freestyle
-    case breaststroke
-    case backstroke
-    case butterfly
-    case none
-}
-
 class StrokesTVC: UITableViewCell {
     static let identifier = "StrokesTVC"
     

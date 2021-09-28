@@ -11,25 +11,6 @@ import Then
 import SnapKit
 import Charts
 
-enum CardViewState {
-    case base
-    case expanded
-    case normal
-}
-
-enum CurrentState {
-    case base
-    case day
-    case week
-    case month
-    case routine
-}
-
-protocol SelectedRangeDelegate: class {
-    func didClickedRangeButton()
-    func didClickedStrokeButton()
-}
-
 class MainVC: UIViewController {
     // MARK: - Lazy Properties
     lazy var mainTableView = UITableView(frame: .zero, style: .plain).then {

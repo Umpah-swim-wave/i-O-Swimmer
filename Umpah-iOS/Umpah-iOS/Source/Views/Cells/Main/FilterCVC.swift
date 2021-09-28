@@ -8,6 +8,7 @@
 import UIKit
 
 import Then
+import SnapKit
 
 class FilterCVC: UICollectionViewCell {
     static let identifier = "FilterCVC"

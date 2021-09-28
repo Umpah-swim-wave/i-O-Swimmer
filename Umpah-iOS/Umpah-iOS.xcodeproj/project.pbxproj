@@ -42,6 +42,8 @@
 		ED8AB6A12702E55D0066CD02 /* SelectedStrokeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8AB6A02702E55D0066CD02 /* SelectedStrokeVC.swift */; };
 		ED8AB6A32702E73F0066CD02 /* StrokesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8AB6A22702E73F0066CD02 /* StrokesView.swift */; };
 		ED8AB6A62702EDC20066CD02 /* StrokesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8AB6A52702EDC20066CD02 /* StrokesTVC.swift */; };
+		ED8AB6A92703157A0066CD02 /* SelectedRangeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8AB6A82703157A0066CD02 /* SelectedRangeDelegate.swift */; };
+		ED8AB6AB2703158F0066CD02 /* States.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8AB6AA2703158F0066CD02 /* States.swift */; };
 		EDB91D8626C2A4F300F4562D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EDB91D8526C2A4F300F4562D /* GoogleService-Info.plist */; };
 		EDB91D8826C2A66700F4562D /* UIWindow+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB91D8726C2A66700F4562D /* UIWindow+.swift */; };
 		EDC1EDDF26BF8FF600DCB215 /* Charts+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC1EDDE26BF8FF600DCB215 /* Charts+.swift */; };
@@ -164,6 +166,8 @@
 		ED8AB6A02702E55D0066CD02 /* SelectedStrokeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedStrokeVC.swift; sourceTree = "<group>"; };
 		ED8AB6A22702E73F0066CD02 /* StrokesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokesView.swift; sourceTree = "<group>"; };
 		ED8AB6A52702EDC20066CD02 /* StrokesTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokesTVC.swift; sourceTree = "<group>"; };
+		ED8AB6A82703157A0066CD02 /* SelectedRangeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedRangeDelegate.swift; sourceTree = "<group>"; };
+		ED8AB6AA2703158F0066CD02 /* States.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = States.swift; sourceTree = "<group>"; };
 		EDB91D8526C2A4F300F4562D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EDB91D8726C2A66700F4562D /* UIWindow+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+.swift"; sourceTree = "<group>"; };
 		EDC1EDDE26BF8FF600DCB215 /* Charts+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Charts+.swift"; sourceTree = "<group>"; };
@@ -354,6 +358,15 @@
 			path = Popup;
 			sourceTree = "<group>";
 		};
+		ED8AB6A7270315640066CD02 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				ED8AB6A82703157A0066CD02 /* SelectedRangeDelegate.swift */,
+				ED8AB6AA2703158F0066CD02 /* States.swift */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
 		EDD3CCDA27019A5200AFED4B /* Popup */ = {
 			isa = PBXGroup;
 			children = (
@@ -432,6 +445,7 @@
 		EDD4400F26483CBC00C866F3 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				ED8AB6A7270315640066CD02 /* Classes */,
 				ED78842726DC9B96006D8787 /* Views */,
 				EDD4401626483D1A00C866F3 /* Models */,
 				EDD4401526483D1600C866F3 /* ViewModels */,
@@ -824,6 +838,7 @@
 				ED78843C26DE4551006D8787 /* ExpandedWeekTVC.swift in Sources */,
 				ED5396F526B977A20061722F /* UIScreen+.swift in Sources */,
 				EDD7C43C26CB903F00D93306 /* ChartTVC.swift in Sources */,
+				ED8AB6A92703157A0066CD02 /* SelectedRangeDelegate.swift in Sources */,
 				EDD3CCDC27019A7200AFED4B /* RangeView.swift in Sources */,
 				EDC1EDDF26BF8FF600DCB215 /* Charts+.swift in Sources */,
 				EDD7C44226CBDCE200D93306 /* DetailView.swift in Sources */,
@@ -853,6 +868,7 @@
 				EDD46F4B26BE99F900FA91F2 /* NormalStateView.swift in Sources */,
 				ED5396F926B977D10061722F /* UIView+.swift in Sources */,
 				ED2ACAF626E41A4F00C5A772 /* FilterTVC.swift in Sources */,
+				ED8AB6AB2703158F0066CD02 /* States.swift in Sources */,
 				EDD7C44026CBDB4600D93306 /* DetailTVC.swift in Sources */,
 				ED5F1A1A26ECF05E003FF801 /* StrokeTVC.swift in Sources */,
 				ED78843826DE3D18006D8787 /* DayHeader.swift in Sources */,
