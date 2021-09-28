@@ -45,6 +45,14 @@
 		EDD3CCD7270118DA00AFED4B /* StatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3CCD6270118DA00AFED4B /* StatusBar.swift */; };
 		EDD3CCD9270192D200AFED4B /* SelectedRangeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3CCD8270192D200AFED4B /* SelectedRangeVC.swift */; };
 		EDD3CCDC27019A7200AFED4B /* RangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3CCDB27019A7200AFED4B /* RangeView.swift */; };
+		EDD3CCDE2701B16A00AFED4B /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3CCDD2701B16A00AFED4B /* UIFont+.swift */; };
+		EDD3CCE62701B4EE00AFED4B /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3CCE52701B4EE00AFED4B /* UIColor+.swift */; };
+		EDD3CCEB2701B77D00AFED4B /* IBMPlexSansKR-Text.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EDD3CCE72701B77D00AFED4B /* IBMPlexSansKR-Text.ttf */; };
+		EDD3CCED2701B77D00AFED4B /* IBMPlexSansKR-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EDD3CCE92701B77D00AFED4B /* IBMPlexSansKR-Bold.ttf */; };
+		EDD3CCEE2701B77D00AFED4B /* IBMPlexSansKR-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EDD3CCEA2701B77D00AFED4B /* IBMPlexSansKR-SemiBold.ttf */; };
+		EDD3CCF02701B79F00AFED4B /* Nexa Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = EDD3CCEF2701B79F00AFED4B /* Nexa Bold.otf */; };
+		EDD3CCF52701CFD100AFED4B /* IBMPlexSansKR-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EDD3CCF42701CFD100AFED4B /* IBMPlexSansKR-Regular.ttf */; };
+		EDD3CCF72701D1F100AFED4B /* IBMPlexSansKR-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EDD3CCF62701D1F100AFED4B /* IBMPlexSansKR-Medium.ttf */; };
 		EDD43FD426483C9500C866F3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD43FD326483C9500C866F3 /* AppDelegate.swift */; };
 		EDD43FD626483C9500C866F3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD43FD526483C9500C866F3 /* SceneDelegate.swift */; };
 		EDD43FDD26483C9600C866F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDD43FDC26483C9600C866F3 /* Assets.xcassets */; };
@@ -155,6 +163,14 @@
 		EDD3CCD6270118DA00AFED4B /* StatusBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBar.swift; sourceTree = "<group>"; };
 		EDD3CCD8270192D200AFED4B /* SelectedRangeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedRangeVC.swift; sourceTree = "<group>"; };
 		EDD3CCDB27019A7200AFED4B /* RangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeView.swift; sourceTree = "<group>"; };
+		EDD3CCDD2701B16A00AFED4B /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
+		EDD3CCE52701B4EE00AFED4B /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
+		EDD3CCE72701B77D00AFED4B /* IBMPlexSansKR-Text.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSansKR-Text.ttf"; sourceTree = "<group>"; };
+		EDD3CCE92701B77D00AFED4B /* IBMPlexSansKR-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSansKR-Bold.ttf"; sourceTree = "<group>"; };
+		EDD3CCEA2701B77D00AFED4B /* IBMPlexSansKR-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSansKR-SemiBold.ttf"; sourceTree = "<group>"; };
+		EDD3CCEF2701B79F00AFED4B /* Nexa Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Nexa Bold.otf"; sourceTree = "<group>"; };
+		EDD3CCF42701CFD100AFED4B /* IBMPlexSansKR-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSansKR-Regular.ttf"; sourceTree = "<group>"; };
+		EDD3CCF62701D1F100AFED4B /* IBMPlexSansKR-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSansKR-Medium.ttf"; sourceTree = "<group>"; };
 		EDD43FD026483C9500C866F3 /* Umpah-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Umpah-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDD43FD326483C9500C866F3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EDD43FD526483C9500C866F3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -329,6 +345,19 @@
 			path = Popup;
 			sourceTree = "<group>";
 		};
+		EDD3CCF32701BE9100AFED4B /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				EDD3CCEF2701B79F00AFED4B /* Nexa Bold.otf */,
+				EDD3CCF62701D1F100AFED4B /* IBMPlexSansKR-Medium.ttf */,
+				EDD3CCF42701CFD100AFED4B /* IBMPlexSansKR-Regular.ttf */,
+				EDD3CCE92701B77D00AFED4B /* IBMPlexSansKR-Bold.ttf */,
+				EDD3CCEA2701B77D00AFED4B /* IBMPlexSansKR-SemiBold.ttf */,
+				EDD3CCE72701B77D00AFED4B /* IBMPlexSansKR-Text.ttf */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
 		EDD43FC726483C9500C866F3 = {
 			isa = PBXGroup;
 			children = (
@@ -400,6 +429,7 @@
 			children = (
 				EDD43FDC26483C9600C866F3 /* Assets.xcassets */,
 				EDD43FE126483C9600C866F3 /* Info.plist */,
+				EDD3CCF32701BE9100AFED4B /* Font */,
 				EDD4401A26483D4900C866F3 /* Xibs */,
 				EDD4401926483D2F00C866F3 /* Storyboards */,
 			);
@@ -420,6 +450,8 @@
 				EDC1EDDE26BF8FF600DCB215 /* Charts+.swift */,
 				EDB91D8726C2A66700F4562D /* UIWindow+.swift */,
 				EDD7C43D26CBD3EF00D93306 /* UIButton+.swift */,
+				EDD3CCDD2701B16A00AFED4B /* UIFont+.swift */,
+				EDD3CCE52701B4EE00AFED4B /* UIColor+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -640,12 +672,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				3CB4B33226BBB396003C578D /* RoutineItemTVC.xib in Resources */,
+				EDD3CCF02701B79F00AFED4B /* Nexa Bold.otf in Resources */,
 				ED5396E226B975AD0061722F /* Main.storyboard in Resources */,
+				EDD3CCF72701D1F100AFED4B /* IBMPlexSansKR-Medium.ttf in Resources */,
 				EDD43FE026483C9600C866F3 /* LaunchScreen.storyboard in Resources */,
 				EDD43FDD26483C9600C866F3 /* Assets.xcassets in Resources */,
 				ED5396E626B975E70061722F /* Routine.storyboard in Resources */,
+				EDD3CCEE2701B77D00AFED4B /* IBMPlexSansKR-SemiBold.ttf in Resources */,
 				EDB91D8626C2A4F300F4562D /* GoogleService-Info.plist in Resources */,
+				EDD3CCED2701B77D00AFED4B /* IBMPlexSansKR-Bold.ttf in Resources */,
 				3C8CE32A26BCBE6B002BBFE5 /* RoutineSetTVC.xib in Resources */,
+				EDD3CCEB2701B77D00AFED4B /* IBMPlexSansKR-Text.ttf in Resources */,
+				EDD3CCF52701CFD100AFED4B /* IBMPlexSansKR-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -769,6 +807,7 @@
 				EDD3CCDC27019A7200AFED4B /* RangeView.swift in Sources */,
 				EDC1EDDF26BF8FF600DCB215 /* Charts+.swift in Sources */,
 				EDD7C44226CBDCE200D93306 /* DetailView.swift in Sources */,
+				EDD3CCDE2701B16A00AFED4B /* UIFont+.swift in Sources */,
 				ED5F1A1E26ECFD13003FF801 /* InsideStrokeTVC.swift in Sources */,
 				ED2ACAF826E41C7200C5A772 /* FilterCVC.swift in Sources */,
 				ED78843626DE3612006D8787 /* ExpandedDayTVC.swift in Sources */,
@@ -795,6 +834,7 @@
 				EDD7C44026CBDB4600D93306 /* DetailTVC.swift in Sources */,
 				ED5F1A1A26ECF05E003FF801 /* StrokeTVC.swift in Sources */,
 				ED78843826DE3D18006D8787 /* DayHeader.swift in Sources */,
+				EDD3CCE62701B4EE00AFED4B /* UIColor+.swift in Sources */,
 				EDD43FD626483C9500C866F3 /* SceneDelegate.swift in Sources */,
 				ED5396F326B977920061722F /* UITextField+.swift in Sources */,
 				EDD3CCD7270118DA00AFED4B /* StatusBar.swift in Sources */,
