@@ -15,7 +15,7 @@ class StrokesView: UIView {
     lazy var strokeTableView = UITableView().then {
         $0.delegate = self
         $0.dataSource = self
-        $0.separatorColor = .clear
+        $0.isScrollEnabled = false
         $0.register(StrokesTVC.self, forCellReuseIdentifier: StrokesTVC.identifier)
     }
     
@@ -24,6 +24,8 @@ class StrokesView: UIView {
         $0.text = "영법 선택"
         $0.font = .systemFont(ofSize: 18, weight: .semibold)
     }
+    
+    let strokes: [String] = ["자유형", "평영", "배영", "접영"]
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -57,6 +59,7 @@ extension StrokesView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: StrokesTVC.identifier) as? StrokesTVC else { return UITableViewCell() }
+        cell.strokeLabel.text = strokes[indexPath.row]
         return cell
     }
 }
@@ -65,4 +68,10 @@ extension StrokesView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 40
     }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        strokeTableView.separatorStyle = .none
+        strokeTableView.separatorInset = UIEdgeInsets(top: 0, left: (UIScreen.main.bounds.size.width - 32) / 2, bottom: 0, right: (UIScreen.main.bounds.size.width - 32) / 2)
+    }
+    
 }
