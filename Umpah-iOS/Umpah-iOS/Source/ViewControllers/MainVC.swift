@@ -319,11 +319,13 @@ extension MainVC: UITableViewDataSource {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
                 cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
                 cell.selectionStyle = .none
+                cell.titleLabel.text = "OVERVIEW"
                 return cell
             case 3:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: StrokeTVC.identifier) as? StrokeTVC else { return UITableViewCell() }
                 cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
                 cell.selectionStyle = .none
+                cell.titleLabel.text = "TOTAL"
                 return cell
             default:
                 let cell = UITableViewCell(frame: .zero)
@@ -347,9 +349,23 @@ extension MainVC: UITableViewDataSource {
             case 2:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: ChartTVC.identifier) as? ChartTVC else { return UITableViewCell() }
                 cell.combineChartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .linear)
+                
+                if currentState == .week {
+                    cell.titleLabel.text = "WEEKLY RECORD"
+                } else {
+                    cell.titleLabel.text = "MONTHLY RECORD"
+                }
+                
                 return cell
             case 3:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
+                
+                if currentState == .week {
+                    cell.titleLabel.text = "WEEKLY OVERVIEW"
+                } else {
+                    cell.titleLabel.text = "MONTHLY OVERVIEW"
+                }
+                
                 return cell
             default:
                 let cell = UITableViewCell(frame: .zero)

@@ -15,7 +15,6 @@ class StrokeTVC: UITableViewCell {
     
     // MARK: - Properties
     let titleLabel = UILabel().then {
-        $0.text = "TOTAL"
         $0.font = .boldSystemFont(ofSize: 12)
         $0.textColor = .gray
     }
