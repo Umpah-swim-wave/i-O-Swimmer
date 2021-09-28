@@ -39,6 +39,10 @@ class FilterTVC: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        filterCollectionView.reloadData()
+    }
+    
     fileprivate func setupLayout() {
         sendSubviewToBack(contentView)
         addSubview(filterCollectionView)
@@ -64,11 +68,33 @@ extension FilterTVC: UICollectionViewDataSource {
         switch indexPath.item {
         case 0:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FilterCVC.identifier, for: indexPath) as? FilterCVC else { return UICollectionViewCell() }
-            cell.filterButton.setTitle(categorys[indexPath.item], for: .normal)
+            
+            print(state)
+            switch state {
+            case .base:
+                cell.filterButton.setTitle(categorys[0], for: .normal)
+                cell.filterButton.setImage(UIImage(systemName: "plus"), for: .normal)
+                cell.backgroundColor = .clear
+            case .day:
+                cell.filterButton.setTitle(categorys[1], for: .normal)
+                cell.filterButton.setImage(UIImage(systemName: "xmark"), for: .normal)
+                cell.backgroundColor = .white
+            case .week:
+                cell.filterButton.setTitle(categorys[2], for: .normal)
+                cell.filterButton.setImage(UIImage(systemName: "xmark"), for: .normal)
+                cell.backgroundColor = .white
+            case .month:
+                cell.filterButton.setTitle(categorys[3], for: .normal)
+                cell.filterButton.setImage(UIImage(systemName: "xmark"), for: .normal)
+                cell.backgroundColor = .white
+            case .routine:
+                break
+            }
+            
             return cell
         default:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FilterCVC.identifier, for: indexPath) as? FilterCVC else { return UICollectionViewCell() }
-            cell.filterButton.setTitle(categorys[indexPath.item], for: .normal)
+            cell.filterButton.setTitle(strokes[indexPath.item], for: .normal)
             return cell
         }
     }

@@ -436,8 +436,8 @@ extension MainVC: SelectedRangeDelegate {
             let transMonth = (month.count == 1) ? "0\(month)" : month
             let transDay = (day.count == 1) ? "0\(day)" : day
             self.dateText = "\(transYear)/\(transMonth)/\(transDay)"
-            self.currentState = (self.dateText == dateformatter.string(from: Date())) ? .base : .day
-            self.mainTableView.reloadSections(IndexSet(1...1), with: .automatic)
+            self.currentState = (self.dateText == self.dateformatter.string(from: Date())) ? .base : .day
+            self.mainTableView.reloadSections(IndexSet(1...1), with: .fade)
         }
         vc.weekData = { week in
             print("weekData : \(week)")
