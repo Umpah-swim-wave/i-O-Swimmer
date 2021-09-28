@@ -12,6 +12,8 @@
 		3C7479E12702E577006752EE /* RoutineItemTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7479DF2702E577006752EE /* RoutineItemTVC.swift */; };
 		3C7479E22702E577006752EE /* RoutineSetTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7479E02702E577006752EE /* RoutineSetTVC.swift */; };
 		3C7479E42702E666006752EE /* XmarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7479E32702E666006752EE /* XmarkButton.swift */; };
+		3C7479E92702EDB5006752EE /* RoutineStorageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7479E82702EDB5006752EE /* RoutineStorageType.swift */; };
+		3C7479EB2702EFAE006752EE /* RoutineStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7479EA2702EFAE006752EE /* RoutineStorage.swift */; };
 		3C8CE32A26BCBE6B002BBFE5 /* RoutineSetTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C8CE32826BCBE6B002BBFE5 /* RoutineSetTVC.xib */; };
 		3C8CE32D26BCC318002BBFE5 /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8CE32C26BCC318002BBFE5 /* UITableView+.swift */; };
 		3C8CE32F26BCCADD002BBFE5 /* RoutineItemDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8CE32E26BCCADD002BBFE5 /* RoutineItemDataModel.swift */; };
@@ -134,6 +136,8 @@
 		3C7479DF2702E577006752EE /* RoutineItemTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutineItemTVC.swift; sourceTree = "<group>"; };
 		3C7479E02702E577006752EE /* RoutineSetTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutineSetTVC.swift; sourceTree = "<group>"; };
 		3C7479E32702E666006752EE /* XmarkButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XmarkButton.swift; sourceTree = "<group>"; };
+		3C7479E82702EDB5006752EE /* RoutineStorageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStorageType.swift; sourceTree = "<group>"; };
+		3C7479EA2702EFAE006752EE /* RoutineStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStorage.swift; sourceTree = "<group>"; };
 		3C8CE32826BCBE6B002BBFE5 /* RoutineSetTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RoutineSetTVC.xib; path = "Umpah-iOS/Resource/Xibs/RoutineScene/RoutineSetTVC.xib"; sourceTree = SOURCE_ROOT; };
 		3C8CE32C26BCC318002BBFE5 /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
 		3C8CE32E26BCCADD002BBFE5 /* RoutineItemDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RoutineItemDataModel.swift; path = "Umpah-iOS/Source/Models/RoutineItemDataModel.swift"; sourceTree = SOURCE_ROOT; };
@@ -250,6 +254,15 @@
 				7C521171D608E01D7F8B2492 /* Pods_Umpah_iOS_WatchKit_Extension.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3C7479E72702ED62006752EE /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				3C7479E82702EDB5006752EE /* RoutineStorageType.swift */,
+				3C7479EA2702EFAE006752EE /* RoutineStorage.swift */,
+			);
+			path = Service;
 			sourceTree = "<group>";
 		};
 		3C8CE32B26BCBE73002BBFE5 /* RoutineScene */ = {
@@ -442,7 +455,7 @@
 				EDD4401626483D1A00C866F3 /* Models */,
 				EDD4401526483D1600C866F3 /* ViewModels */,
 				EDD4401726483D2100C866F3 /* ViewControllers */,
-				EDD4401326483CD600C866F3 /* Services */,
+				3C7479E72702ED62006752EE /* Service */,
 				EDD4401226483CD100C866F3 /* Supports */,
 				EDD4401126483CCD00C866F3 /* Extensions */,
 			);
@@ -490,13 +503,6 @@
 				EDD43FD526483C9500C866F3 /* SceneDelegate.swift */,
 			);
 			path = Supports;
-			sourceTree = "<group>";
-		};
-		EDD4401326483CD600C866F3 /* Services */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Services;
 			sourceTree = "<group>";
 		};
 		EDD4401526483D1600C866F3 /* ViewModels */ = {
@@ -835,7 +841,9 @@
 				3C7479E12702E577006752EE /* RoutineItemTVC.swift in Sources */,
 				ED5396ED26B977320061722F /* UIApplication+.swift in Sources */,
 				3C7479E22702E577006752EE /* RoutineSetTVC.swift in Sources */,
+				3C7479E92702EDB5006752EE /* RoutineStorageType.swift in Sources */,
 				EDD46F5026BEDE4D00FA91F2 /* TypeCell.swift in Sources */,
+				3C7479EB2702EFAE006752EE /* RoutineStorage.swift in Sources */,
 				EDD46F5226BEEA3B00FA91F2 /* UILabel+.swift in Sources */,
 				EDE550BE2700F80D004422CE /* DateTVC.swift in Sources */,
 				ED78843C26DE4551006D8787 /* ExpandedWeekTVC.swift in Sources */,
@@ -979,6 +987,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1032,6 +1041,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
