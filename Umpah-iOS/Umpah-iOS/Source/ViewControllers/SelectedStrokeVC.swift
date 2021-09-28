@@ -7,23 +7,41 @@
 
 import UIKit
 
+import Then
+import SnapKit
+
 class SelectedStrokeVC: UIViewController {
+    // MARK: - Properties
+    var backgroundView = UIButton().then {
+        $0.backgroundColor = .black.withAlphaComponent(0.6)
+        $0.addTarget(self, action: #selector(dismissWhenTappedBackView), for: .touchUpInside)
+    }
+    let strokeView = StrokesView().then {
+        $0.layer.cornerRadius = 16
+        $0.backgroundColor = .white
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        configUI()
+        setupLayout()
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func configUI() {
+        view.backgroundColor = .clear.withAlphaComponent(0)
     }
-    */
-
+    
+    private func setupLayout() {
+        view.addSubviews([backgroundView, strokeView])
+        
+        backgroundView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
+        strokeView.snp.makeConstraints {
+            $0.centerY.equalTo(view.safeAreaLayoutGuide)
+            $0.leading.trailing.equalToSuperview().inset(16)
+            $0.height.equalTo(268)
+        }
+    }
 }

@@ -19,6 +19,11 @@ extension UIViewController {
         view.endEditing(true)
     }
     
+    @objc
+    func dismissWhenTappedBackView() {
+        dismiss(animated: true, completion: nil)
+    }
+    
     func setupStatusBar(_ color: UIColor) {
         if #available(iOS 13.0, *) {
             let margin = view.layoutMarginsGuide

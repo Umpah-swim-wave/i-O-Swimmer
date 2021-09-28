@@ -137,11 +137,6 @@ class SelectedRangeVC: UIViewController {
     }
     
     @objc
-    func dismissWhenTappedBackView() {
-        dismiss(animated: true, completion: nil)
-    }
-    
-    @objc
     func donedatePicker(){
         switch state {
         case .day:
