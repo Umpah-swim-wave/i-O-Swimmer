@@ -27,6 +27,7 @@ enum CurrentState {
 
 protocol SelectedRangeDelegate: class {
     func didClickedRangeButton()
+    func didClickedStrokeButton()
 }
 
 class MainVC: UIViewController {
@@ -447,6 +448,13 @@ extension MainVC: SelectedRangeDelegate {
             self.mainTableView.reloadSections(IndexSet(1...1), with: .automatic)
         }
         
+        present(vc, animated: true, completion: nil)
+    }
+    
+    func didClickedStrokeButton() {
+        guard let vc = storyboard?.instantiateViewController(withIdentifier: "SelectedStrokeVC") as? SelectedStrokeVC else { return }
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.modalTransitionStyle = .crossDissolve
         present(vc, animated: true, completion: nil)
     }
 }

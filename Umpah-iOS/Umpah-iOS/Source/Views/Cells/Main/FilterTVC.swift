@@ -126,7 +126,7 @@ extension FilterTVC: UICollectionViewDelegate {
         case 0:
             delegate?.didClickedRangeButton()
         default:
-            delegate?.didClickedRangeButton()
+            delegate?.didClickedStrokeButton()
         }
     }
 }
