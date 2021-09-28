@@ -441,14 +441,15 @@ extension MainVC: SelectedRangeDelegate {
             print("weekData : \(week)")
             self.dateText = week
             self.currentState = .week
+            self.strokeState = .none
             self.mainTableView.reloadSections(IndexSet(1...1), with: .automatic)
         }
         vc.monthData = { year, month in
             print("monthData : \(year) \(month)")
-            let transYear = year[year.index(year.startIndex, offsetBy: 2)..<year.endIndex]
             let transMonth = (month.count == 1) ? "0\(month)" : month
-            self.dateText = "\(transYear)/\(transMonth)"
+            self.dateText = "\(year)/\(transMonth)"
             self.currentState = .month
+            self.strokeState = .none
             self.mainTableView.reloadSections(IndexSet(1...1), with: .automatic)
         }
         
