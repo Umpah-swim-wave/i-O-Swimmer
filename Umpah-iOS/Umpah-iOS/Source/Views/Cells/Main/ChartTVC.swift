@@ -38,6 +38,8 @@ class ChartTVC: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
+        selectionStyle = .none
         setupLayout()
         setupStackView()
         initCharts()
