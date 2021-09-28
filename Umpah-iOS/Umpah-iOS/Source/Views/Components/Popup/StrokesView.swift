@@ -26,9 +26,12 @@ class StrokesView: UIView {
     }
     
     let strokes: [String] = ["자유형", "평영", "배영", "접영"]
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    var style: Stroke = .none
+    var rootVC: SelectedStrokeVC?
+    
+    init(_ vc: SelectedStrokeVC) {
+        super.init(frame: .zero)
+        rootVC = vc
         setupLayout()
     }
     
@@ -74,4 +77,23 @@ extension StrokesView: UITableViewDelegate {
         strokeTableView.separatorInset = UIEdgeInsets(top: 0, left: (UIScreen.main.bounds.size.width - 32) / 2, bottom: 0, right: (UIScreen.main.bounds.size.width - 32) / 2)
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? StrokesTVC else { return }
+        cell.isSelected = true
+        switch indexPath.row {
+        case 0:
+            style = .freestyle
+        case 1:
+            style = .breaststroke
+        case 2:
+            style = .backstroke
+        case 3:
+            style = .butterfly
+        default:
+            style = .none
+        }
+        
+        rootVC?.strokeData?(style)
+        rootVC?.dismiss(animated: true, completion: nil)
+    }
 }

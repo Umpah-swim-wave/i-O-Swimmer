@@ -7,8 +7,30 @@
 
 import UIKit
 
+import Then
+import SnapKit
+
+enum Stroke {
+    case freestyle
+    case breaststroke
+    case backstroke
+    case butterfly
+    case none
+}
+
 class StrokesTVC: UITableViewCell {
     static let identifier = "StrokesTVC"
+    
+    override var isSelected: Bool {
+        willSet {
+            checkButton.isHidden = !isSelected
+            if #available(iOS 15.0, *) {
+                strokeLabel.textColor = isSelected ? .systemMint : .black
+            } else {
+                strokeLabel.textColor = isSelected ? .systemTeal : .black
+            }
+        }
+    }
     
     // MARK: - Properties
     let strokeLabel = UILabel().then {
@@ -17,6 +39,7 @@ class StrokesTVC: UITableViewCell {
     let checkButton = UIButton().then {
         $0.setImage(UIImage(systemName: "checkmark"), for: .normal)
         $0.tintColor = .blue
+        $0.isHidden = true
     }
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

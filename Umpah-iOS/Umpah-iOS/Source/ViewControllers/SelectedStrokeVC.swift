@@ -11,15 +11,18 @@ import Then
 import SnapKit
 
 class SelectedStrokeVC: UIViewController {
+    // MARK: - Lazy Properties
+    lazy var strokeView = StrokesView(self).then {
+        $0.layer.cornerRadius = 16
+        $0.backgroundColor = .white
+    }
+    
     // MARK: - Properties
     var backgroundView = UIButton().then {
         $0.backgroundColor = .black.withAlphaComponent(0.6)
         $0.addTarget(self, action: #selector(dismissWhenTappedBackView), for: .touchUpInside)
     }
-    let strokeView = StrokesView().then {
-        $0.layer.cornerRadius = 16
-        $0.backgroundColor = .white
-    }
+    var strokeData: ((Stroke) -> ())?
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -62,6 +62,7 @@ class MainVC: UIViewController {
     
     var currentState: CurrentState = .base
     var cardViewState: CardViewState = .base
+    var strokeState: Stroke = .none
     var cardPanStartingTopConstant : CGFloat = 20.0
     var cardPanMaxVelocity: CGFloat = 1500.0
     var cardViewTopConstraint: NSLayoutConstraint?
@@ -337,6 +338,7 @@ extension MainVC: UITableViewDataSource {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: FilterTVC.identifier) as? FilterTVC else { return UITableViewCell() }
                 cell.delegate = self
                 cell.state = currentState
+                cell.stroke = strokeState
                 return cell
             case 1:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DateTVC.identifier) as? DateTVC else { return UITableViewCell() }
@@ -455,6 +457,13 @@ extension MainVC: SelectedRangeDelegate {
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "SelectedStrokeVC") as? SelectedStrokeVC else { return }
         vc.modalPresentationStyle = .overCurrentContext
         vc.modalTransitionStyle = .crossDissolve
+        
+        vc.strokeData = { style in
+            print(style)
+            self.strokeState = style
+            self.mainTableView.reloadSections(IndexSet(1...1), with: .automatic)
+        }
+        
         present(vc, animated: true, completion: nil)
     }
 }
