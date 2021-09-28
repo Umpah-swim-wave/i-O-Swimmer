@@ -8,6 +8,7 @@
 import UIKit
 import SnapKit
 import Then
+import Charts
 
 protocol RoutineCellDelegate{
     func routineItemCellForAdding(cell: RoutineSetTVC)
@@ -17,6 +18,7 @@ protocol RoutineCellDelegate{
 class RoutineSetTVC: UITableViewCell {
     static let identifier = "RoutineSetTVC"
     public var viewModel: RoutineViewModel?
+    private var routineListInSet : [RoutineItemData] = []
     public var routineItemCellList: [RoutineItemTVC] = []
     public var routineAddAction: (() -> ())?
     public var cellDelegate : RoutineCellDelegate?
@@ -63,6 +65,7 @@ class RoutineSetTVC: UITableViewCell {
         
     public var isEditingMode: Bool = false {
         didSet{
+            print("routine set에서 바뀔꺼임 \(isEditingMode)")
             if isEditingMode{
                 changeLayoutAtEditingMode()
                 tableView.tableFooterView = setTableViewFooter()
@@ -71,6 +74,7 @@ class RoutineSetTVC: UITableViewCell {
                 tableView.tableFooterView = nil
             }
             routineItemCellList.forEach{
+                print("item에 넣어줄 editing mode \(isEditingMode)")
                 $0.isEditingMode = isEditingMode
             }
         }
@@ -91,48 +95,44 @@ class RoutineSetTVC: UITableViewCell {
     
     
     private func setTableViewAttribute(){
-        tableView.rowHeight = UITableView.automaticDimension
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
         tableView.isScrollEnabled = false
-    }
-
-    public func setRoutineContent(title: String, itemList: [RoutineItemData]){
-        routineSetTitle = title
-        titleLabel.text = routineSetTitle.uppercased() + " SET"
-        initRoutineItemCells()
     }
     
     public func setRoutineContent(title: String, viewModel: RoutineViewModel){
         routineSetTitle = title
         titleLabel.text = routineSetTitle.uppercased() + " SET"
         self.viewModel = viewModel
+        routineListInSet = viewModel.routineStorage.routineList[title] ?? []
+        print("routineListInSet = \(routineListInSet)")
         initRoutineItemCells()
     }
     
     private func initRoutineItemCells(){
         var list: [RoutineItemTVC] = []
-        let datalist = viewModel?.getRoutineDataList(title: routineSetTitle) ?? []
-        datalist.forEach{
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineItemTVC.identifier) as? RoutineItemTVC else{
-                return
-            }
-            cell.setRoutineItem(item: $0)
+        routineListInSet.forEach{
+            let cell = self.getRoutineItemCell(item: $0)
             list.append(cell)
         }
         routineItemCellList = list
     }
-    
-    private func bindToViewModel(){
-        
+
+    private func getRoutineItemCell(item: RoutineItemData) -> RoutineItemTVC {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineItemTVC.identifier) as? RoutineItemTVC else{
+            return RoutineItemTVC()
+        }
+        cell.setRoutineItem(item: item)
+        cell.isEditingMode = isEditingMode
+        print("cell.isEditingMode = \(cell.isEditingMode)")
+        return cell
     }
 }
 
 extension RoutineSetTVC: UITableViewDelegate{
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let datalist = viewModel?.getRoutineDataList(title: routineSetTitle) ?? []
-        return indexPath.row == datalist.count ? 68 : 44
+        return indexPath.row == routineItemCellList.count ? 68 : 44
     }
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
@@ -140,8 +140,9 @@ extension RoutineSetTVC: UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        viewModel?.swapRutineItems(routineSetTitle, sourceIndexPath.row, destinationIndexPath.row)
-        routineItemCellList.swapAt(sourceIndexPath.row, destinationIndexPath.row)
+        viewModel?.routineStorage.swapRoutineItems(setTitle: routineSetTitle,
+                                                   sourceIndex: sourceIndexPath.row,
+                                                   destinationIndex: destinationIndexPath.row)
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
@@ -149,22 +150,24 @@ extension RoutineSetTVC: UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete{
-            viewModel?.deleteRoutineItem(title: routineSetTitle, index: indexPath.row)
-            routineItemCellList.remove(at: indexPath.row)
-            cellDelegate?.routineItemCellForDeleting(cell: self, index: indexPath.row)
-            tableView.reloadData()
-        }
+//        if editingStyle == .delete{
+//            viewModel?.deleteRoutineItem(title: routineSetTitle, index: indexPath.row)
+//            routineItemCellList.remove(at: indexPath.row)
+//            cellDelegate?.routineItemCellForDeleting(cell: self, index: indexPath.row)
+//            tableView.reloadData()
+//        }
     }
 }
 
 extension RoutineSetTVC: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return routineItemCellList.count
+        print("routineListInSet.count = \(routineListInSet.count)")
+        return viewModel?.routineStorage.routineList[routineSetTitle]?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         return routineItemCellList[indexPath.row]
+
     }
     
     public func setTableViewFooter() -> UIView{
@@ -178,7 +181,7 @@ extension RoutineSetTVC: UITableViewDataSource{
             $0.setTitleColor(.gray, for: .normal)
             $0.addTarget(self, action: #selector(addInitRoutineItem), for: .touchUpInside)
         }
-    
+        
         let titleUnderline = UIView().then{
             $0.backgroundColor = .gray
         }
@@ -199,19 +202,24 @@ extension RoutineSetTVC: UITableViewDataSource{
     }
     
     @objc func addInitRoutineItem(){
-        addRoutineItemCell()
-        cellDelegate?.routineItemCellForAdding(cell: self)
-        tableView.reloadData()
+        print("addInitRoutineItem 눌림")
+        viewModel?.routineStorage.createRoutine(setTitle: routineSetTitle)
+        
+//        addRoutineItemCell()
+//        cellDelegate?.routineItemCellForAdding(cell: self)
+//        tableView.reloadData()
     }
+    
+    
     
     private func addRoutineItemCell(){
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineItemTVC.identifier) as? RoutineItemTVC else{
             return
         }
-        cell.setRoutineItem(item: RoutineItemData())
-        viewModel?.addRoutineItem(title: routineSetTitle, item: RoutineItemData())
-        routineItemCellList.append(cell)
-        routineItemCellList.last?.isEditingMode = true
+//        cell.setRoutineItem(item: RoutineItemData())
+//        viewModel?.addRoutineItem(title: routineSetTitle, item: RoutineItemData())
+//        routineItemCellList.append(cell)
+//        routineItemCellList.last?.isEditingMode = true
     }
 }
 
@@ -244,7 +252,7 @@ extension RoutineSetTVC {
                 
         distanceLabel.snp.makeConstraints{
             $0.centerY.equalTo(strokeLabel.snp.centerY)
-            $0.leading.equalToSuperview().offset(191)
+            $0.trailing.equalTo(timeLabel.snp.leading).offset(-51)
         }
         
         timeLabel.snp.makeConstraints{
@@ -261,21 +269,21 @@ extension RoutineSetTVC {
     
     public func changeLayoutAtEditingMode(){
         strokeLabel.snp.updateConstraints {
-            $0.leading.equalToSuperview().inset(46)
+            $0.leading.equalToSuperview().offset(46)
         }
         
         timeLabel.snp.updateConstraints {
-            $0.trailing.equalToSuperview().inset(63)
+            $0.trailing.equalToSuperview().offset(-63)
         }
     }
     
     public func turnToInitLayout(){
         strokeLabel.snp.updateConstraints {
-            $0.leading.equalToSuperview().inset(24)
+            $0.leading.equalToSuperview().offset(24)
         }
         
         timeLabel.snp.updateConstraints {
-            $0.trailing.equalToSuperview().inset(47)
+            $0.trailing.equalToSuperview().offset(-47)
         }
     }
 }
