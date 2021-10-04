@@ -22,23 +22,6 @@ class ExpandedDayTVC: UITableViewCell {
         $0.font = .systemFont(ofSize: 14)
     }
     let strokeButton = UIButton().then {
-        if #available(iOS 15, *) {
-            var configuration = UIButton.Configuration.plain()
-            configuration.image = UIImage(systemName: "chevron.down")
-            configuration.titlePadding = 0
-            configuration.imagePadding = 2
-            configuration.baseForegroundColor = .black
-            configuration.attributedTitle = AttributedString("자유형", attributes: AttributeContainer([NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)]))
-            configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-            $0.configuration = configuration
-        } else {
-            $0.setImage(UIImage(systemName: "chevron.down"), for: .normal)
-            $0.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: 0)
-            $0.titleLabel?.font = .systemFont(ofSize: 14)
-            $0.setTitleColor(.black, for: .normal)
-            $0.sizeToFit()
-        }
-        
         $0.semanticContentAttribute = .forceRightToLeft
         $0.isHidden = true
         $0.addTarget(self, action: #selector(touchUpChangeStroke), for: .touchUpInside)
@@ -66,6 +49,8 @@ class ExpandedDayTVC: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        backgroundColor = .clear
+        selectionStyle = .none
         setupLayout()
     }
     

@@ -14,16 +14,18 @@ class HeaderView: UIView {
     // MARK: - Properties
     var recordButton = UIButton().then {
         $0.setTitle("기록", for: .normal)
-        $0.setTitleColor(.black, for: .normal)
+        $0.setTitleColor(.upuhBlack, for: .normal)
+        $0.titleLabel?.font = .IBMPlexSansSemiBold(ofSize: 16)
         $0.addTarget(self, action: #selector(touchupRecord), for: .touchUpInside)
     }
     var routineButton = UIButton().then {
         $0.setTitle("루틴", for: .normal)
-        $0.setTitleColor(.gray, for: .normal)
+        $0.setTitleColor(.upuhGreen, for: .normal)
+        $0.titleLabel?.font = .IBMPlexSansSemiBold(ofSize: 16)
         $0.addTarget(self, action: #selector(touchupRoutine), for: .touchUpInside)
     }
     var bottomView = UIView().then {
-        $0.backgroundColor = .black
+        $0.backgroundColor = .upuhBlack
     }
 
     override init(frame: CGRect) {
@@ -65,16 +67,16 @@ class HeaderView: UIView {
     @objc
     func touchupRecord() {
         print("Record - ing")
-        recordButton.setTitleColor(.black, for: .normal)
-        routineButton.setTitleColor(.gray, for: .normal)
+        recordButton.setTitleColor(.upuhBlack, for: .normal)
+        routineButton.setTitleColor(.upuhGreen, for: .normal)
         moveRecordDirection()
     }
     
     @objc
     func touchupRoutine() {
         print("Routine - ing")
-        routineButton.setTitleColor(.black, for: .normal)
-        recordButton.setTitleColor(.gray, for: .normal)
+        routineButton.setTitleColor(.upuhBlack, for: .normal)
+        recordButton.setTitleColor(.upuhGreen, for: .normal)
         moveRoutineDirection()
     }
 }

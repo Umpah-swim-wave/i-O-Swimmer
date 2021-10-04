@@ -97,14 +97,14 @@ class MainVC: UIViewController {
     }
     
     private func initUpperView() {
-        view.backgroundColor = .init(red: 166/255, green: 226/255, blue: 226/255, alpha: 1.0)
+        view.backgroundColor = .upuhBlue
     }
     
     private func initCardView() {
         expandedView.alpha = 0.0
         
         let handleView = UIView()
-        handleView.backgroundColor = .lightGray
+        handleView.backgroundColor = UIColor.init(red: 224/255, green: 224/255, blue: 224/255, alpha: 1.0)
         handleView.layer.cornerRadius = 3
         cardView.addSubview(handleView)
         handleView.snp.makeConstraints {
@@ -288,31 +288,24 @@ extension MainVC: UITableViewDataSource {
             switch indexPath.row {
             case 0:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: FilterTVC.identifier) as? FilterTVC else { return UITableViewCell() }
-                cell.selectionStyle = .none
                 cell.delegate = self
                 cell.state = currentState
                 return cell
             case 1:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DateTVC.identifier) as? DateTVC else { return UITableViewCell() }
-                cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
-                cell.selectionStyle = .none
                 cell.dateLabel.text = dateText
                 return cell
             case 2:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
-                cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
-                cell.selectionStyle = .none
                 cell.titleLabel.text = "OVERVIEW"
                 return cell
             case 3:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: StrokeTVC.identifier) as? StrokeTVC else { return UITableViewCell() }
-                cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
-                cell.selectionStyle = .none
                 cell.titleLabel.text = "TOTAL"
                 return cell
             default:
                 let cell = UITableViewCell(frame: .zero)
-                cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
+                cell.backgroundColor = .upuhBackground
                 cell.selectionStyle = .none
                 return cell
             }
@@ -352,7 +345,7 @@ extension MainVC: UITableViewDataSource {
                 return cell
             default:
                 let cell = UITableViewCell(frame: .zero)
-                cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
+                cell.backgroundColor = .upuhBackground
                 cell.selectionStyle = .none
                 return cell
             }

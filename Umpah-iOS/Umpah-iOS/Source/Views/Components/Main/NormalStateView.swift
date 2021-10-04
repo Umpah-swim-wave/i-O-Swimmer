@@ -13,8 +13,8 @@ import SnapKit
 class NormalStateView: UIView {
     // MARK: - Properties
     let titleLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 16, weight: .semibold)
-        $0.textColor = .systemGray
+        $0.font = .IBMPlexSansSemiBold(ofSize: 16)
+        $0.textColor = .upuhGreen
     }
     
     override init(frame: CGRect) {
