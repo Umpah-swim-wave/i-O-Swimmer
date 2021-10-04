@@ -120,11 +120,15 @@ class ExpandedDayTVC: UITableViewCell {
         }
     }
 
-    func changeCellConfiguration(_ isModified: Bool) {
-        if isModified {
+    func changeCellConfiguration(_ isModified: Bool,_ compareStroke: Bool) {
+        if isModified && compareStroke {
             strokeLabel.isHidden = true
             strokeButton.isHidden = false
             mergeButton.isHidden = false
+        } else if isModified && !compareStroke {
+            strokeLabel.isHidden = true
+            strokeButton.isHidden = false
+            mergeButton.isHidden = true
         } else {
             strokeLabel.isHidden = false
             strokeButton.isHidden = true

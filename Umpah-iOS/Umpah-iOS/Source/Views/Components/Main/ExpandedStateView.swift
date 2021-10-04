@@ -26,7 +26,7 @@ class ExpandedStateView: UIView {
         $0.textColor = .systemGray
     }
     
-    var strokes: [String] = ["자유형", "자유형", "자유형", "자유형", "자유형", "자유형", "배영", "배영", "평영", "평영", "접영", "자유형", "접영"]
+    var strokes: [String] = ["자유형", "접영", "자유형", "자유형", "자유형", "자유형", "배영", "배영", "평영", "평영", "접영", "자유형", "접영"]
     let days: [String] = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
     let weeks: [String] = ["WEEK1", "WEEK2", "WEEK3", "WEEK4", "WEEK5"]
         
@@ -127,7 +127,11 @@ extension ExpandedStateView: UITableViewDataSource {
             }
             
             cell.delegate = self
-            cell.changeCellConfiguration(isModified)
+            
+            if indexPath.row < strokes.count - 1 {
+                cell.changeCellConfiguration(isModified, strokes[indexPath.row] == strokes[indexPath.row + 1])
+            }
+            
             return cell
         case .week:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ExpandedWeekTVC.identifier) as? ExpandedWeekTVC else { return UITableViewCell() }
