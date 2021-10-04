@@ -13,23 +13,28 @@ import SnapKit
 class WeekMonthHeader: UIView {
     // MARK: - Properties
     let dateTitle = UILabel().then {
-        $0.font = .systemFont(ofSize: 12)
+        $0.font = .IBMPlexSansRegular(ofSize: 12)
+        $0.textColor = .upuhHeaderGray
     }
     let distanceTitle = UILabel().then {
         $0.text = "거리"
-        $0.font = .systemFont(ofSize: 12)
+        $0.font = .IBMPlexSansRegular(ofSize: 12)
+        $0.textColor = .upuhHeaderGray
     }
     let velocityTitle = UILabel().then {
         $0.text = "속도"
-        $0.font = .systemFont(ofSize: 12)
+        $0.font = .IBMPlexSansRegular(ofSize: 12)
+        $0.textColor = .upuhHeaderGray
     }
     let timeTitle = UILabel().then {
         $0.text = "시간"
-        $0.font = .systemFont(ofSize: 12)
+        $0.font = .IBMPlexSansRegular(ofSize: 12)
+        $0.textColor = .upuhHeaderGray
     }
     let kcalTitle = UILabel().then {
         $0.text = "칼로리"
-        $0.font = .systemFont(ofSize: 12)
+        $0.font = .IBMPlexSansRegular(ofSize: 12)
+        $0.textColor = .upuhHeaderGray
     }
 
     override init(frame: CGRect) {
@@ -51,7 +56,7 @@ class WeekMonthHeader: UIView {
         
         dateTitle.snp.makeConstraints {
             $0.top.bottom.equalToSuperview().inset(20)
-            $0.leading.equalToSuperview().inset(50)
+            $0.leading.equalToSuperview().inset(34)
         }
         
         distanceTitle.snp.makeConstraints {

@@ -14,19 +14,23 @@ class DayHeader: UIView {
     // MARK: - Properties
     let strokeTitle = UILabel().then {
         $0.text = "영법"
-        $0.font = .systemFont(ofSize: 12)
+        $0.font = .IBMPlexSansRegular(ofSize: 12)
+        $0.textColor = .upuhHeaderGray
     }
     let distanceTitle = UILabel().then {
         $0.text = "거리"
-        $0.font = .systemFont(ofSize: 12)
+        $0.font = .IBMPlexSansRegular(ofSize: 12)
+        $0.textColor = .upuhHeaderGray
     }
     let velocityTitle = UILabel().then {
         $0.text = "속도"
-        $0.font = .systemFont(ofSize: 12)
+        $0.font = .IBMPlexSansRegular(ofSize: 12)
+        $0.textColor = .upuhHeaderGray
     }
     let timeTitle = UILabel().then {
         $0.text = "시간"
-        $0.font = .systemFont(ofSize: 12)
+        $0.font = .IBMPlexSansRegular(ofSize: 12)
+        $0.textColor = .upuhHeaderGray
     }
 
     override init(frame: CGRect) {

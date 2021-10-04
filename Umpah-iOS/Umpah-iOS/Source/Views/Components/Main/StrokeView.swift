@@ -64,18 +64,18 @@ extension StrokeView: UITableViewDelegate {
         let view = UIView()
         let strokeLabel = UILabel().then {
             $0.text = "영법"
-            $0.font = .systemFont(ofSize: 12)
-            $0.textColor = .gray
+            $0.font = .IBMPlexSansRegular(ofSize: 12)
+            $0.textColor = .upuhHeaderGray
         }
         let distanceLabel = UILabel().then {
             $0.text = "거리"
-            $0.font = .systemFont(ofSize: 12)
-            $0.textColor = .gray
+            $0.font = .IBMPlexSansRegular(ofSize: 12)
+            $0.textColor = .upuhHeaderGray
         }
         let speedLabel = UILabel().then {
             $0.text = "평균속도"
-            $0.font = .systemFont(ofSize: 12)
-            $0.textColor = .gray
+            $0.font = .IBMPlexSansRegular(ofSize: 12)
+            $0.textColor = .upuhHeaderGray
         }
         view.addSubviews([strokeLabel, distanceLabel, speedLabel])
         strokeLabel.snp.makeConstraints {
