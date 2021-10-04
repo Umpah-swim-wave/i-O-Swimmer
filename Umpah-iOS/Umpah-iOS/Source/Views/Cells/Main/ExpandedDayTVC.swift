@@ -59,6 +59,7 @@ class ExpandedDayTVC: UITableViewCell {
         $0.setImage(UIImage(systemName: "arrow.down.circle"), for: .normal)
         $0.tintColor = .black
         $0.isHidden = true
+        $0.addTarget(self, action: #selector(touchUpMerge), for: .touchUpInside)
     }
     
     weak var delegate: SelectedRangeDelegate?
@@ -139,5 +140,11 @@ class ExpandedDayTVC: UITableViewCell {
     @objc
     private func touchUpChangeStroke() {
         delegate?.didClickedStrokeButton(indexPath: getTableCellIndexPath())
+    }
+    
+    @objc
+    private func touchUpMerge() {
+        print("can merge")
+        delegate?.didClickedMergeButton(indexPath: getTableCellIndexPath())
     }
 }

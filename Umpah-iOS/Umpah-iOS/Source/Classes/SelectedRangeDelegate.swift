@@ -10,10 +10,15 @@ import Foundation
 protocol SelectedRangeDelegate: class {
     func didClickedRangeButton()
     func didClickedStrokeButton(indexPath: Int)
+    func didClickedMergeButton(indexPath: Int)
 }
 
 extension SelectedRangeDelegate {
     func didClickedRangeButton() {
+        
+    }
+    
+    func didClickedMergeButton(indexPath: Int = 0) {
         
     }
 }

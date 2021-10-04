@@ -89,7 +89,7 @@ extension ExpandedStateView: UITableViewDataSource {
         switch state {
         case .day,
              .base:
-            return 10
+            return strokes.count
         case .week:
             return 7
         case .month:
@@ -135,6 +135,8 @@ extension ExpandedStateView: UITableViewDataSource {
             
             if indexPath.row < strokes.count - 1 {
                 cell.changeCellConfiguration(isModified, strokes[indexPath.row] == strokes[indexPath.row + 1])
+            } else {
+                cell.changeCellConfiguration(isModified, false)
             }
             
             return cell
@@ -232,5 +234,13 @@ extension ExpandedStateView: SelectedRangeDelegate {
         }
         
         root?.present(vc, animated: true, completion: nil)
+    }
+    
+    func didClickedMergeButton(indexPath: Int) {
+        let indexPathRow = IndexPath(row: indexPath, section: 0)
+        print(indexPathRow)
+        
+        strokes.remove(at: indexPath)
+        listTableView.reloadSections(IndexSet(0...0), with: .fade)
     }
 }
