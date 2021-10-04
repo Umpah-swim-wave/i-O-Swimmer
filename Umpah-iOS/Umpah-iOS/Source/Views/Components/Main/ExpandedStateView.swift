@@ -255,7 +255,6 @@ extension ExpandedStateView: SelectedRangeDelegate {
     
     func didClickedMergeButton(indexPath: Int) {
         let indexPathRow = IndexPath(row: indexPath, section: 0)
-        print(indexPathRow)
         
         strokes.remove(at: indexPath)
         listTableView.reloadSections(IndexSet(0...0), with: .fade)
