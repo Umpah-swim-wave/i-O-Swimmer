@@ -14,8 +14,7 @@ class ExpandedDayTVC: UITableViewCell {
     static let identifier = "ExpandedDayTVC"
     
     // MARK: - UI
-    let rowLabel = UILabel().then {
-        $0.text = "01"
+    var rowLabel = UILabel().then {
         $0.font = .boldSystemFont(ofSize: 12)
         $0.textColor = .orange
     }

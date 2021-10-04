@@ -107,6 +107,11 @@ extension ExpandedStateView: UITableViewDataSource {
             cell.backgroundColor = .clear
             cell.selectionStyle = .none
             cell.strokeLabel.text = strokes[indexPath.row]
+            if indexPath.row >= 9 {
+                cell.rowLabel.text = "\(indexPath.row + 1)"
+            } else {
+                cell.rowLabel.text = "0\(indexPath.row + 1)"
+            }
             
             if #available(iOS 15, *) {
                 var configuration = UIButton.Configuration.plain()
