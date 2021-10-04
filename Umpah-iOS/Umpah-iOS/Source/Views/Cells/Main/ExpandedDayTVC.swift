@@ -19,8 +19,7 @@ class ExpandedDayTVC: UITableViewCell {
         $0.font = .boldSystemFont(ofSize: 12)
         $0.textColor = .orange
     }
-    let strokeLable = UILabel().then {
-        $0.text  = "자유형"
+    var strokeLabel = UILabel().then {
         $0.font = .systemFont(ofSize: 14)
     }
     let strokeButton = UIButton().then {
@@ -36,7 +35,6 @@ class ExpandedDayTVC: UITableViewCell {
         } else {
             $0.setImage(UIImage(systemName: "chevron.down"), for: .normal)
             $0.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: 0)
-            $0.setTitle("자유형", for: .normal)
             $0.titleLabel?.font = .systemFont(ofSize: 14)
             $0.setTitleColor(.black, for: .normal)
             $0.sizeToFit()
@@ -44,6 +42,7 @@ class ExpandedDayTVC: UITableViewCell {
         
         $0.semanticContentAttribute = .forceRightToLeft
         $0.isHidden = true
+        $0.addTarget(self, action: #selector(touchUpChangeStroke), for: .touchUpInside)
     }
     let distanceLabel = UILabel().then {
         $0.text = "999m"
@@ -62,6 +61,8 @@ class ExpandedDayTVC: UITableViewCell {
         $0.tintColor = .black
         $0.isHidden = true
     }
+    
+    weak var delegate: SelectedRangeDelegate?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -73,9 +74,10 @@ class ExpandedDayTVC: UITableViewCell {
     }
     
     fileprivate func setupLayout() {
+        sendSubviewToBack(contentView)
         addSubviews([rowLabel,
                      strokeButton,
-                     strokeLable,
+                     strokeLabel,
                      distanceLabel,
                      velocityLabel,
                      timeLabel,
@@ -91,7 +93,7 @@ class ExpandedDayTVC: UITableViewCell {
             $0.centerY.equalToSuperview()
         }
         
-        strokeLable.snp.makeConstraints {
+        strokeLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().inset(46)
             $0.centerY.equalToSuperview()
         }
@@ -120,15 +122,19 @@ class ExpandedDayTVC: UITableViewCell {
 
     func changeCellConfiguration(_ isModified: Bool) {
         if isModified {
-            strokeLable.isHidden = true
+            strokeLabel.isHidden = true
             strokeButton.isHidden = false
             mergeButton.isHidden = false
         } else {
-            strokeLable.isHidden = false
+            strokeLabel.isHidden = false
             strokeButton.isHidden = true
             mergeButton.isHidden = true
         }
-        
-        print(isModified)
+    }
+    
+    // MARK: - @objc
+    @objc
+    private func touchUpChangeStroke() {
+        delegate?.didClickedStrokeButton(indexPath: getTableCellIndexPath())
     }
 }

@@ -26,16 +26,23 @@ class ExpandedStateView: UIView {
         $0.textColor = .systemGray
     }
     
+    var strokes: [String] = ["자유형", "자유형", "자유형", "자유형", "자유형", "자유형", "배영", "배영", "평영", "평영", "접영", "자유형", "접영"]
     let days: [String] = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
     let weeks: [String] = ["WEEK1", "WEEK2", "WEEK3", "WEEK4", "WEEK5"]
         
     var state: CurrentState?
     private var isModified = false
+    private var root: UIViewController?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
         setupModifyButton()
+    }
+    
+    convenience init(root: UIViewController) {
+        self.init(frame: .zero)
+        self.root = root
     }
     
     required init?(coder: NSCoder) {
@@ -99,6 +106,27 @@ extension ExpandedStateView: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ExpandedDayTVC.identifier) as? ExpandedDayTVC else { return UITableViewCell() }
             cell.backgroundColor = .clear
             cell.selectionStyle = .none
+            cell.strokeLabel.text = strokes[indexPath.row]
+            
+            if #available(iOS 15, *) {
+                var configuration = UIButton.Configuration.plain()
+                configuration.image = UIImage(systemName: "chevron.down")
+                configuration.titlePadding = 0
+                configuration.imagePadding = 2
+                configuration.baseForegroundColor = .black
+                configuration.attributedTitle = AttributedString(strokes[indexPath.row], attributes: AttributeContainer([NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)]))
+                configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+                cell.strokeButton.configuration = configuration
+            } else {
+                cell.strokeButton.setImage(UIImage(systemName: "chevron.down"), for: .normal)
+                cell.strokeButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: 0)
+                cell.strokeButton.setTitle(strokes[indexPath.row], for: .normal)
+                cell.strokeButton.titleLabel?.font = .systemFont(ofSize: 14)
+                cell.strokeButton.setTitleColor(.black, for: .normal)
+                cell.strokeButton.sizeToFit()
+            }
+            
+            cell.delegate = self
             cell.changeCellConfiguration(isModified)
             return cell
         case .week:
@@ -164,5 +192,36 @@ extension ExpandedStateView: UITableViewDelegate {
         default:
             return UIView()
         }
+    }
+}
+
+// MARK: - SelectedRangeDelegate
+extension ExpandedStateView: SelectedRangeDelegate {
+    func didClickedStrokeButton(indexPath: Int) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "SelectedStrokeVC") as? SelectedStrokeVC else { return }
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.modalTransitionStyle = .crossDissolve
+        
+        vc.strokeData = { style in
+            let indexPathRow = IndexPath(row: indexPath, section: 0)
+
+            switch style {
+            case .freestyle:
+                self.strokes[indexPath] = "자유형"
+            case .butterfly:
+                self.strokes[indexPath] = "접영"
+            case .backstroke:
+                self.strokes[indexPath] = "배영"
+            case .breaststroke:
+                self.strokes[indexPath] = "평영"
+            default:
+                break
+            }
+            
+            self.listTableView.reloadRows(at: [indexPathRow], with: .fade)
+        }
+        
+        root?.present(vc, animated: true, completion: nil)
     }
 }

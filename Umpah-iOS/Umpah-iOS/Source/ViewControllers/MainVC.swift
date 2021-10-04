@@ -35,11 +35,11 @@ class MainVC: UIViewController {
         $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     }
     
+    lazy var expandedView = ExpandedStateView(root: self)
     let topView = TopView()
     let headerView = HeaderView()
     let statusBar = StatusBar()
     let normalView = NormalStateView()
-    let expandedView = ExpandedStateView()
     
     var currentState: CurrentState = .base
     var cardViewState: CardViewState = .base
@@ -456,7 +456,7 @@ extension MainVC: SelectedRangeDelegate {
         present(vc, animated: true, completion: nil)
     }
     
-    func didClickedStrokeButton() {
+    func didClickedStrokeButton(indexPath: Int = 0) {
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "SelectedStrokeVC") as? SelectedStrokeVC else { return }
         vc.modalPresentationStyle = .overCurrentContext
         vc.modalTransitionStyle = .crossDissolve

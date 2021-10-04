@@ -9,5 +9,11 @@ import Foundation
 
 protocol SelectedRangeDelegate: class {
     func didClickedRangeButton()
-    func didClickedStrokeButton()
+    func didClickedStrokeButton(indexPath: Int)
+}
+
+extension SelectedRangeDelegate {
+    func didClickedRangeButton() {
+        
+    }
 }
