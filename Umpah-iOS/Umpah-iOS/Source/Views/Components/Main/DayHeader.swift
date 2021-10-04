@@ -49,19 +49,19 @@ class DayHeader: UIView {
             $0.leading.equalToSuperview().inset(50)
         }
         
-        distanceTitle.snp.makeConstraints {
+        timeTitle.snp.makeConstraints {
             $0.top.bottom.equalToSuperview().inset(20)
-            $0.trailing.equalToSuperview().inset(34)
+            $0.trailing.equalToSuperview().inset(58)
         }
         
         velocityTitle.snp.makeConstraints {
             $0.top.bottom.equalToSuperview().inset(20)
-            $0.trailing.equalTo(distanceTitle.snp.leading).offset(-40)
+            $0.trailing.equalTo(timeTitle.snp.leading).offset(-30)
         }
         
-        timeTitle.snp.makeConstraints {
+        distanceTitle.snp.makeConstraints {
             $0.top.bottom.equalToSuperview().inset(20)
-            $0.trailing.equalTo(velocityTitle.snp.leading).offset(-40)
+            $0.trailing.equalTo(velocityTitle.snp.leading).offset(-31)
         }
     }
 }
