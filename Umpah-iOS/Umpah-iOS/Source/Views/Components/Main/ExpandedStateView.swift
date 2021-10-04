@@ -73,6 +73,23 @@ class ExpandedStateView: UIView {
         bottomView.selectButton.addTarget(self, action: #selector(touchUpModify), for: .touchUpInside)
     }
     
+    func changeTableViewLayout() {
+        switch state {
+        case .base,
+             .day:
+            listTableView.snp.updateConstraints {
+                $0.top.equalTo(titleLabel.snp.bottom).offset(36)
+                $0.leading.trailing.equalToSuperview()
+                $0.bottom.equalToSuperview().inset(UIScreen.main.hasNotch ? 93 : 49)
+            }
+        default:
+            listTableView.snp.updateConstraints {
+                $0.top.equalTo(titleLabel.snp.bottom).offset(36)
+                $0.leading.trailing.bottom.equalToSuperview()
+            }
+        }
+    }
+    
     // MARK: - @objc
     @objc
     private func touchUpModify() {

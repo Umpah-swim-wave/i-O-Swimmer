@@ -156,6 +156,8 @@ extension MainVC {
             normalView.fadeOut()
             startAnimation()
         }
+        
+        expandedView.changeTableViewLayout()
     }
     
     private func startAnimation() {
