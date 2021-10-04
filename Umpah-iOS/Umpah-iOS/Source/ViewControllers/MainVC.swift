@@ -422,6 +422,8 @@ extension MainVC: UITableViewDelegate {
 // MARK: - SelectedRange Delegate
 extension MainVC: SelectedRangeDelegate {
     func didClickedRangeButton() {
+        showCard()
+        
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "SelectedRangeVC") as? SelectedRangeVC else { return }
         vc.modalPresentationStyle = .overCurrentContext
         vc.modalTransitionStyle = .crossDissolve
@@ -459,6 +461,8 @@ extension MainVC: SelectedRangeDelegate {
     }
     
     func didClickedStrokeButton(indexPath: Int = 0) {
+        showCard()
+        
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "SelectedStrokeVC") as? SelectedStrokeVC else { return }
         vc.modalPresentationStyle = .overCurrentContext
         vc.modalTransitionStyle = .crossDissolve
