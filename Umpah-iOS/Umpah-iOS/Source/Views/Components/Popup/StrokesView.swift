@@ -22,7 +22,8 @@ class StrokesView: UIView {
     // MARK: - Properties
     let titleLabel = UILabel().then {
         $0.text = "영법 선택"
-        $0.font = .systemFont(ofSize: 18, weight: .semibold)
+        $0.textColor = .upuhBlack
+        $0.font = .IBMPlexSansSemiBold(ofSize: 18)
     }
     
     let strokes: [String] = ["자유형", "평영", "배영", "접영"]

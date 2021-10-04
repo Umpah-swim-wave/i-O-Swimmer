@@ -40,4 +40,9 @@ extension UIView {
                         self.alpha = 0.0
                        }, completion: completion)
     }
+    
+    func constraint(_ anchor: NSLayoutDimension, constant: CGFloat) {
+        self.translatesAutoresizingMaskIntoConstraints = false
+        anchor.constraint(equalToConstant: constant).isActive = true
+    }
 }
