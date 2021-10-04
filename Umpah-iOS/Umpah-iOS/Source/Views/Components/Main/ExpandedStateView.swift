@@ -30,10 +30,12 @@ class ExpandedStateView: UIView {
     let weeks: [String] = ["WEEK1", "WEEK2", "WEEK3", "WEEK4", "WEEK5"]
         
     var state: CurrentState?
+    private var isModified = false
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
+        setupModifyButton()
     }
     
     required init?(coder: NSCoder) {
@@ -58,6 +60,17 @@ class ExpandedStateView: UIView {
             $0.leading.trailing.bottom.equalToSuperview()
             $0.height.equalTo(UIScreen.main.hasNotch ? 93 : 49)
         }
+    }
+    
+    private func setupModifyButton() {
+        bottomView.selectButton.addTarget(self, action: #selector(touchUpModify), for: .touchUpInside)
+    }
+    
+    // MARK: - @objc
+    @objc
+    private func touchUpModify() {
+        isModified.toggle()
+        listTableView.reloadSections(IndexSet(0...0), with: .fade)
     }
 }
 
@@ -84,6 +97,7 @@ extension ExpandedStateView: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ExpandedDayTVC.identifier) as? ExpandedDayTVC else { return UITableViewCell() }
             cell.backgroundColor = .clear
             cell.selectionStyle = .none
+            cell.changeCellConfiguration(isModified)
             return cell
         case .week:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ExpandedWeekTVC.identifier) as? ExpandedWeekTVC else { return UITableViewCell() }
