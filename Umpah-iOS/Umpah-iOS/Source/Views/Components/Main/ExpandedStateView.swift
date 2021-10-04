@@ -65,7 +65,8 @@ class ExpandedStateView: UIView {
 extension ExpandedStateView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch state {
-        case .day:
+        case .day,
+             .base:
             return 10
         case .week:
             return 7
@@ -78,7 +79,8 @@ extension ExpandedStateView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch state {
-        case .day:
+        case .day,
+             .base:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ExpandedDayTVC.identifier) as? ExpandedDayTVC else { return UITableViewCell() }
             cell.backgroundColor = .clear
             cell.selectionStyle = .none
@@ -128,7 +130,8 @@ extension ExpandedStateView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch state {
-        case .day:
+        case .day,
+             .base:
             let header = DayHeader()
             header.backgroundColor = .white
             return header
