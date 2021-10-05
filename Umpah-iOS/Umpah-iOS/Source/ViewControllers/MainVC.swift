@@ -263,6 +263,7 @@ extension MainVC {
     }
 }
 
+// MARK: - UITableViewDataSource
 extension MainVC: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -294,14 +295,17 @@ extension MainVC: UITableViewDataSource {
             case 1:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DateTVC.identifier) as? DateTVC else { return UITableViewCell() }
                 cell.dateLabel.text = dateText
+                cell.dateLabel.addCharacterSpacing(kernValue: 2)
                 return cell
             case 2:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
                 cell.titleLabel.text = "OVERVIEW"
+                cell.titleLabel.addCharacterSpacing(kernValue: 2)
                 return cell
             case 3:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: StrokeTVC.identifier) as? StrokeTVC else { return UITableViewCell() }
                 cell.titleLabel.text = "TOTAL"
+                cell.titleLabel.addCharacterSpacing(kernValue: 2)
                 return cell
             default:
                 let cell = UITableViewCell(frame: .zero)
@@ -328,8 +332,10 @@ extension MainVC: UITableViewDataSource {
                 
                 if currentState == .week {
                     cell.titleLabel.text = "WEEKLY RECORD"
+                    cell.titleLabel.addCharacterSpacing(kernValue: 2)
                 } else {
                     cell.titleLabel.text = "MONTHLY RECORD"
+                    cell.titleLabel.addCharacterSpacing(kernValue: 2)
                 }
                 
                 return cell
@@ -338,8 +344,10 @@ extension MainVC: UITableViewDataSource {
                 
                 if currentState == .week {
                     cell.titleLabel.text = "WEEKLY OVERVIEW"
+                    cell.titleLabel.addCharacterSpacing(kernValue: 2)
                 } else {
                     cell.titleLabel.text = "MONTHLY OVERVIEW"
+                    cell.titleLabel.addCharacterSpacing(kernValue: 2)
                 }
                 
                 return cell
@@ -355,6 +363,7 @@ extension MainVC: UITableViewDataSource {
     }
 }
 
+// MARK: - UITableViewDelegate
 extension MainVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {

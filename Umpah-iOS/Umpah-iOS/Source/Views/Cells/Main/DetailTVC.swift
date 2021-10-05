@@ -16,9 +16,8 @@ class DetailTVC: UITableViewCell {
     
     // MARK: - Properties
     let titleLabel = UILabel().then {
-        $0.textColor = .gray
-        $0.font = .boldSystemFont(ofSize: 12)
-        $0.addCharacterSpacing(kernValue: 2)
+        $0.textColor = .upuhGray
+        $0.font = .nexaBold(ofSize: 12)
     }
     let detailView = DetailView()
 

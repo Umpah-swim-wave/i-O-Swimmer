@@ -37,7 +37,7 @@ class StrokeView: UIView {
         addSubview(strokeTableView)
         strokeTableView.snp.makeConstraints {
             $0.edges.equalToSuperview()
-            $0.height.equalTo(300)
+            $0.height.equalTo(310)
         }
     }
 }

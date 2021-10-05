@@ -22,9 +22,8 @@ class ChartTVC: UITableViewCell {
         $0.layer.cornerRadius = 16
     }
     let titleLabel = UILabel().then {
-        $0.text = "WEEKLY RECORD"
-        $0.font = .boldSystemFont(ofSize: 12)
-        $0.textColor = .lightGray
+        $0.font = .nexaBold(ofSize: 12)
+        $0.textColor = .upuhGray
     }
     let dateStackView = UIStackView().then {
         $0.alignment = .center
@@ -38,7 +37,7 @@ class ChartTVC: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
+        backgroundColor = .upuhBackground
         selectionStyle = .none
         setupLayout()
         setupStackView()
@@ -85,7 +84,8 @@ class ChartTVC: UITableViewCell {
         for day in weeks {
             let label = UILabel()
             label.text = day
-            label.font = .boldSystemFont(ofSize: 8)
+            label.font = .nexaBold(ofSize: 8)
+            label.textColor = .upuhBlack
             dateStackView.addArrangedSubview(label)
         }
     }
@@ -110,7 +110,7 @@ class ChartTVC: UITableViewCell {
         
         let line1 = LineChartDataSet(entries: lineChartEntry, label: "일주일")
         line1.highlightEnabled = false
-        line1.colors = [.systemOrange]
+        line1.colors = [.upuhDarkOrange]
         line1.lineWidth = 2.0
         line1.drawCirclesEnabled = false
         line1.mode = .cubicBezier
@@ -119,7 +119,7 @@ class ChartTVC: UITableViewCell {
         
         let line2 = BarChartDataSet(entries: barChartEntry, label: "일주일")
         line2.highlightEnabled = false
-        line2.colors = [.systemOrange.withAlphaComponent(0.5)]
+        line2.colors = [.upuhSubOrange]
         line2.axisDependency = Charts.YAxis.AxisDependency.left
         line2.drawValuesEnabled = false
         

@@ -159,6 +159,7 @@ extension ExpandedStateView: UITableViewDataSource {
         case .week:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ExpandedWeekTVC.identifier) as? ExpandedWeekTVC else { return UITableViewCell() }
             cell.dayLabel.text = days[indexPath.row]
+            cell.dayLabel.addCharacterSpacing(kernValue: 1)
             return cell
         case .month:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ExpandedWeekTVC.identifier) as? ExpandedWeekTVC else { return UITableViewCell() }

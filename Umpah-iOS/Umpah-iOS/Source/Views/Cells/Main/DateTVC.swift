@@ -15,8 +15,8 @@ class DateTVC: UITableViewCell {
     
     // MARK: - Properties
     let dateLabel = UILabel().then {
-        $0.font = .boldSystemFont(ofSize: 16)
-        $0.addCharacterSpacing(kernValue: 2)
+        $0.textColor = .upuhGreen
+        $0.font = .nexaBold(ofSize: 16)
     }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {

@@ -15,11 +15,12 @@ class ExpandedDayTVC: UITableViewCell {
     
     // MARK: - UI
     var rowLabel = UILabel().then {
-        $0.font = .boldSystemFont(ofSize: 12)
-        $0.textColor = .orange
+        $0.font = .nexaBold(ofSize: 13)
+        $0.textColor = .upuhBadgeOrange
     }
     var strokeLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 14)
+        $0.font = .IBMPlexSansText(ofSize: 14)
+        $0.textColor = .upuhBlack
     }
     let strokeButton = UIButton().then {
         $0.semanticContentAttribute = .forceRightToLeft
@@ -28,19 +29,24 @@ class ExpandedDayTVC: UITableViewCell {
     }
     let distanceLabel = UILabel().then {
         $0.text = "999m"
-        $0.font = .systemFont(ofSize: 14)
+        $0.font = .IBMPlexSansText(ofSize: 14)
+        $0.textColor = .upuhBlack
+        $0.addCharacterSpacing(kernValue: -1)
     }
     let velocityLabel = UILabel().then {
         $0.text = "1.7m/s"
-        $0.font = .systemFont(ofSize: 14)
+        $0.font = .IBMPlexSansText(ofSize: 14)
+        $0.textColor = .upuhBlack
+        $0.addCharacterSpacing(kernValue: -1)
     }
     let timeLabel = UILabel().then {
         $0.text = "99:99"
-        $0.font = .systemFont(ofSize: 14)
+        $0.font = .IBMPlexSansText(ofSize: 14)
+        $0.textColor = .upuhBlack
+        $0.addCharacterSpacing(kernValue: -1)
     }
     let mergeButton = UIButton().then {
-        $0.setImage(UIImage(systemName: "arrow.down.circle"), for: .normal)
-        $0.tintColor = .black
+        $0.setImage(UIImage(named: "ic_merge"), for: .normal)
         $0.isHidden = true
         $0.addTarget(self, action: #selector(touchUpMerge), for: .touchUpInside)
     }

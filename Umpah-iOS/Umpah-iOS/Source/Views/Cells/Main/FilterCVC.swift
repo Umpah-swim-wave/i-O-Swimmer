@@ -15,9 +15,9 @@ class FilterCVC: UICollectionViewCell {
     
     // MARK: - Properties
     let filterButton = UIButton().then {
-        $0.setTitleColor(.init(red: 129/255, green: 151/255, blue: 154/255, alpha: 1.0), for: .normal)
-        $0.tintColor = .init(red: 129/255, green: 151/255, blue: 154/255, alpha: 1.0)
-        $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
+        $0.setTitleColor(.upuhGreen, for: .normal)
+        $0.titleLabel?.font = .IBMPlexSansSemiBold(ofSize: 14)
+        $0.titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 0)
         $0.semanticContentAttribute = .forceRightToLeft
         $0.isUserInteractionEnabled = false
     }
@@ -31,10 +31,6 @@ class FilterCVC: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    override func prepareForReuse() {
-        filterButton.setTitle("", for: .normal)
-    }
-    
     override func layoutSubviews() {
         filterButton.snp.makeConstraints {
             $0.center.equalToSuperview()
@@ -44,7 +40,7 @@ class FilterCVC: UICollectionViewCell {
     private func configUI() {
         backgroundColor = .clear
         layer.cornerRadius = 22
-        layer.borderColor = UIColor.init(red: 78/255, green: 149/255, blue: 185/255, alpha: 0.15).cgColor
+        layer.borderColor = UIColor.upuhBlue.withAlphaComponent(0.15).cgColor
         layer.borderWidth = 2
         
         addSubview(filterButton)
