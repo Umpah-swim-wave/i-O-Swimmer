@@ -64,6 +64,15 @@ class RoutineStorage: RoutineStorageType{
         return Observable.just(newItem)
     }
     
+    func update(stroke: String, setTitle: String, index: Int){
+        let origin = routineList[setTitle]?[index] ?? RoutineItemData()
+        let newItem = RoutineItemData(stroke: stroke, distance: origin.distance, time: origin.time)
+        
+        routineList[setTitle]?.remove(at: index)
+        routineList[setTitle]?.insert(newItem, at: index)
+        displayCurrentRoutineItems(setTitle: setTitle)
+    }
+    
     func swapRoutineItems(setTitle: String, sourceIndex: Int, destinationIndex: Int) {
         routineList[setTitle]?.swapAt(sourceIndex, destinationIndex)
         store.onNext(routineList)
