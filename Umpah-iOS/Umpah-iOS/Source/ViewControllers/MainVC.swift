@@ -296,6 +296,7 @@ extension MainVC: UITableViewDataSource {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DateTVC.identifier) as? DateTVC else { return UITableViewCell() }
                 cell.dateLabel.text = dateText
                 cell.dateLabel.addCharacterSpacing(kernValue: 2)
+                cell.dateLabel.font = .nexaBold(ofSize: 16)
                 return cell
             case 2:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
@@ -326,6 +327,11 @@ extension MainVC: UITableViewDataSource {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DateTVC.identifier) as? DateTVC else { return UITableViewCell() }
                 cell.dateLabel.text = dateText
                 cell.dateLabel.addCharacterSpacing(kernValue: 2)
+                if dateText == "이번주" || dateText == "지난주" {
+                    cell.dateLabel.font = .IBMPlexSansSemiBold(ofSize: 16)
+                } else {
+                    cell.dateLabel.font = .nexaBold(ofSize: 16)
+                }
                 return cell
             case 2:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: ChartTVC.identifier) as? ChartTVC else { return UITableViewCell() }
