@@ -202,11 +202,11 @@ extension ExpandedStateView: UITableViewDelegate {
             switch state {
             case .base,
                  .day:
-                tableView.separatorInset = .init(top: 0, left: 40, bottom: 0, right: 20)
+                cell.separatorInset = .init(top: 0, left: 40, bottom: 0, right: 20)
             case .week:
-                tableView.separatorInset = .init(top: 0, left: 80, bottom: 0, right: 20)
+                cell.separatorInset = .init(top: 0, left: 80, bottom: 0, right: 20)
             case .month:
-                tableView.separatorInset = .init(top: 0, left: 90, bottom: 0, right: 20)
+                cell.separatorInset = .init(top: 0, left: 90, bottom: 0, right: 20)
             default:
                 break
             }
