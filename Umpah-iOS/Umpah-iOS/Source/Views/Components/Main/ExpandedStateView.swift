@@ -223,8 +223,6 @@ extension ExpandedStateView: SelectedRangeDelegate {
         vc.modalTransitionStyle = .crossDissolve
         
         vc.strokeData = { style in
-            let indexPathRow = IndexPath(row: indexPath, section: 0)
-
             switch style {
             case .freestyle:
                 self.strokes[indexPath] = "자유형"
@@ -238,7 +236,7 @@ extension ExpandedStateView: SelectedRangeDelegate {
                 break
             }
             
-            self.listTableView.reloadRows(at: [indexPathRow], with: .fade)
+            self.listTableView.reloadSections(IndexSet(0...0), with: .fade)
         }
         
         root?.present(vc, animated: true, completion: nil)
