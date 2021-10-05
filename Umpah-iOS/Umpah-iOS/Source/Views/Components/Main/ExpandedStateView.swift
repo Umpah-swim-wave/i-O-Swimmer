@@ -17,6 +17,10 @@ class ExpandedStateView: UIView {
         $0.dataSource = self
         $0.register(ExpandedDayTVC.self, forCellReuseIdentifier: ExpandedDayTVC.identifier)
         $0.register(ExpandedWeekTVC.self, forCellReuseIdentifier: ExpandedWeekTVC.identifier)
+        
+        if #available(iOS 15.0, *) {
+            $0.sectionHeaderTopPadding = 0
+        }
     }
     lazy var bottomView = SelectedStrokeView().then {
         $0.backgroundColor = .white
@@ -191,7 +195,22 @@ extension ExpandedStateView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         tableView.backgroundColor = .white
-        tableView.separatorInset = .init(top: 0, left: 30, bottom: 0, right: 30)
+        
+        if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
+            cell.separatorInset.left = cell.bounds.size.width
+        } else {
+            switch state {
+            case .base,
+                 .day:
+                tableView.separatorInset = .init(top: 0, left: 40, bottom: 0, right: 20)
+            case .week:
+                tableView.separatorInset = .init(top: 0, left: 80, bottom: 0, right: 20)
+            case .month:
+                tableView.separatorInset = .init(top: 0, left: 90, bottom: 0, right: 20)
+            default:
+                break
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
