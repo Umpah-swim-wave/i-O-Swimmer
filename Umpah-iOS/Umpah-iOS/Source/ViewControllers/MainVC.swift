@@ -438,6 +438,12 @@ extension MainVC: UITableViewDelegate {
             topView.nameLabel.alpha = 1
         }
     }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        if cardViewState == .expanded {
+            showCard(atState: .normal)
+        }
+    }
 }
 
 // MARK: - SelectedRange Delegate
