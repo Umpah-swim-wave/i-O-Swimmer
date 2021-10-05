@@ -13,6 +13,7 @@ import Charts
 protocol RoutineCellDelegate{
     func routineItemCellForAdding(cell: RoutineSetTVC, index: Int)
     func routineItemCellForDeleting(cell: RoutineSetTVC, index: Int)
+    func routineItenCellForSwapping(cell: RoutineSetTVC, source: Int, destination: Int)
 }
 
 class RoutineSetTVC: UITableViewCell {
@@ -24,7 +25,7 @@ class RoutineSetTVC: UITableViewCell {
     public var cellDelegate : RoutineCellDelegate?
     public var routineSetTitle = ""
     public var titleLabel = UILabel().then{
-        $0.font = .boldSystemFont(ofSize: 15)
+        $0.font = .nexaBold(ofSize: 14)
         $0.textColor = .black
     }
     private var tableBackgroundView = UIView().then{
@@ -33,20 +34,20 @@ class RoutineSetTVC: UITableViewCell {
     }
     
     private var strokeLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 12)
-        $0.textColor = .lightGray
+        $0.font = .IBMPlexSansRegular(ofSize: 12)
+        $0.textColor = .upuhGreen
         $0.text = "영법"
     }
     
     private var distanceLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 12)
-        $0.textColor = .lightGray
+        $0.font = .IBMPlexSansRegular(ofSize: 12)
+        $0.textColor = .upuhGreen
         $0.text = "거리(m)"
     }
     
     private var timeLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 12)
-        $0.textColor = .lightGray
+        $0.font = .IBMPlexSansRegular(ofSize: 12)
+        $0.textColor = .upuhGreen
         $0.text = "시간"
     }
     
@@ -143,6 +144,9 @@ extension RoutineSetTVC: UITableViewDelegate{
                                                    sourceIndex: sourceIndexPath.row,
                                                    destinationIndex: destinationIndexPath.row)
         routineItemCellList.swapAt(sourceIndexPath.row, destinationIndexPath.row)
+        cellDelegate?.routineItenCellForSwapping(cell: self,
+                                                 source: sourceIndexPath.row,
+                                                 destination: destinationIndexPath.row)
         tableView.reloadData()
     }
     
@@ -177,13 +181,13 @@ extension RoutineSetTVC: UITableViewDataSource{
         
         let titleButton = UIButton().then{
             $0.setTitle("영법 추가하기", for: .normal)
-            $0.titleLabel?.font = .systemFont(ofSize: 12)
-            $0.setTitleColor(.gray, for: .normal)
+            $0.titleLabel?.font = .IBMPlexSansSemiBold(ofSize: 12)
+            $0.setTitleColor(.upuhGreen, for: .normal)
             $0.addTarget(self, action: #selector(addInitRoutineItem), for: .touchUpInside)
         }
         
         let titleUnderline = UIView().then{
-            $0.backgroundColor = .gray
+            $0.backgroundColor = .upuhGreen
         }
         
         view.addSubviews([titleButton,
@@ -193,7 +197,7 @@ extension RoutineSetTVC: UITableViewDataSource{
         }
         
         titleUnderline.snp.makeConstraints{
-            $0.top.equalTo(titleButton.snp.bottom).offset(-3)
+            $0.top.equalTo(titleButton.snp.bottom).offset(-8)
             $0.centerX.equalTo(titleButton.snp.centerX)
             $0.width.equalTo(titleButton.snp.width)
             $0.height.equalTo(1)
@@ -251,12 +255,13 @@ extension RoutineSetTVC {
         
         timeLabel.snp.makeConstraints{
             $0.centerY.equalTo(strokeLabel.snp.centerY)
-            $0.trailing.equalToSuperview().inset(47)
+            $0.trailing.equalToSuperview().inset(40)
         }
         
         tableView.snp.makeConstraints{
             $0.top.equalTo(strokeLabel.snp.bottom).offset(16)
-            $0.leading.trailing.equalToSuperview()
+            $0.leading.equalToSuperview()
+            $0.trailing.equalToSuperview().offset(-12)
             $0.bottom.equalToSuperview().inset(16)
         }
     }
@@ -266,8 +271,12 @@ extension RoutineSetTVC {
             $0.leading.equalToSuperview().offset(46)
         }
         
+        distanceLabel.snp.updateConstraints{
+            $0.trailing.equalTo(timeLabel.snp.leading).offset(-32)
+        }
+        
         timeLabel.snp.updateConstraints {
-            $0.trailing.equalToSuperview().offset(-63)
+            $0.trailing.equalToSuperview().offset(-82)
         }
     }
     
@@ -276,8 +285,12 @@ extension RoutineSetTVC {
             $0.leading.equalToSuperview().offset(24)
         }
         
+        distanceLabel.snp.updateConstraints{
+            $0.trailing.equalTo(timeLabel.snp.leading).offset(-51)
+        }
+        
         timeLabel.snp.updateConstraints {
-            $0.trailing.equalToSuperview().offset(-47)
+            $0.trailing.equalToSuperview().offset(-40)
         }
     }
 }
