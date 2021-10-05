@@ -24,6 +24,7 @@ class MainVC: UIViewController {
         $0.register(DateTVC.self, forCellReuseIdentifier: DateTVC.identifier)
         $0.backgroundColor = .clear
         $0.separatorStyle = .none
+        $0.showsVerticalScrollIndicator = false
         
         if #available(iOS 15.0, *) {
             $0.sectionHeaderTopPadding = 0

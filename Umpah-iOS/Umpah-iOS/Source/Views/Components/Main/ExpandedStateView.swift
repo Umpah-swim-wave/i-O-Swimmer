@@ -17,6 +17,7 @@ class ExpandedStateView: UIView {
         $0.dataSource = self
         $0.register(ExpandedDayTVC.self, forCellReuseIdentifier: ExpandedDayTVC.identifier)
         $0.register(ExpandedWeekTVC.self, forCellReuseIdentifier: ExpandedWeekTVC.identifier)
+        $0.showsVerticalScrollIndicator = false
         
         if #available(iOS 15.0, *) {
             $0.sectionHeaderTopPadding = 0
