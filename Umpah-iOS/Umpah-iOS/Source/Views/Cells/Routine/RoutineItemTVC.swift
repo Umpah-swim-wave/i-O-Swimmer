@@ -12,6 +12,7 @@ import Then
 class RoutineItemTVC: UITableViewCell {
     static let identifier = "RoutineItemTVC"
     
+    public var selectStorke: (() -> ())?
     private var routineItem: RoutineItemData?
     
     public var strokeButton = UIButton().then{
@@ -50,6 +51,7 @@ class RoutineItemTVC: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         setupLayout()
+        addActions()
         selectionStyle = .none
     }
 
@@ -57,12 +59,12 @@ class RoutineItemTVC: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    public func setRoutineItem(item: RoutineItemData){
+    public func setRoutineItem(item: RoutineItemData, isEditing: Bool){
         routineItem = item
-        print("routineItem = \(routineItem)")
         strokeButton.setTitle(item.stroke, for: .normal)
         distanceLabel.text = item.distance + "m"
         timeLabel.text = item.getTimeToString()
+        isEditingMode = isEditing
     }
     
     private func setContentText(){
@@ -73,6 +75,16 @@ class RoutineItemTVC: UITableViewCell {
         strokeButton.setTitle(item.stroke, for: .normal)
         distanceLabel.text = item.distance + "m"
         timeLabel.text = item.getTimeToString()
+    }
+    
+    func addActions(){
+        strokeButton.addTarget(self, action: #selector(touchUpToselectStorke), for: .touchUpInside)
+    }
+    
+    @objc
+    func touchUpToselectStorke(){
+        print("touchUpToselectStorke")
+        selectStorke?()
     }
 }
 
