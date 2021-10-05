@@ -11,7 +11,7 @@ import Then
 import Charts
 
 protocol RoutineCellDelegate{
-    func routineItemCellForAdding(cell: RoutineSetTVC)
+    func routineItemCellForAdding(cell: RoutineSetTVC, index: Int)
     func routineItemCellForDeleting(cell: RoutineSetTVC, index: Int)
 }
 
@@ -204,11 +204,10 @@ extension RoutineSetTVC: UITableViewDataSource{
     @objc func addInitRoutineItem(){
         print("addInitRoutineItem 눌림")
         viewModel?.routineStorage.createRoutine(setTitle: routineSetTitle)
-        cellDelegate?.routineItemCellForAdding(cell: self)
         addRoutineItemCell()
+        print("cellDelegate = \(cellDelegate)")
+        cellDelegate?.routineItemCellForAdding(cell: self, index: routineItemCellList.count - 1)
         tableView.reloadData()
-// cellDelegate?.routineItemCellForAdding(cell: self)
-//        tableView.reloadData()
     }
     
     private func addRoutineItemCell(){
