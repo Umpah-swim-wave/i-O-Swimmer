@@ -87,6 +87,8 @@ class RoutineVC: UIViewController {
         $0.backgroundColor = .lightGray
     }
     
+    //MARK: abouy Modify element
+    //var presentedRoutineitem
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -140,15 +142,19 @@ class RoutineVC: UIViewController {
         cell.setRoutineContent(title: setTitle, viewModel: viewModel)
         cell.cellDelegate = self
         cell.isEditingMode = tableView.isEditing
-        cell.routineItemCellList.forEach{
-            $0.selectStorke = { self.presentSetSelectionView()}
+        for index in 0..<cell.routineItemCellList.count {
+            cell.routineItemCellList[index].selectStorke = {
+                self.presentModifyElementView(elementType: .stroke,
+                                              setTitle: setTitle,
+                                              index: index)
+            }
         }
         return cell
     }
     
     private func addActions(){
         bottomButton.addTarget(self, action: #selector(changeTableViewEditingMode), for: .touchUpInside)
-        distanceButton.addTarget(self, action: #selector(presentSetSelectionView), for: .touchUpInside)
+        //distanceButton.addTarget(self, action: #selector(presentSetSelectionView), for: .touchUpInside)
     }
     
     @objc
@@ -171,26 +177,6 @@ class RoutineVC: UIViewController {
             }
         }
     }
-    
-    @objc
-    func presentSetSelectionView(){
-        print("presentSetSelectionView")
-        let storyboard = UIStoryboard(name: "ModifyElement", bundle: nil)
-        guard let nextVC = storyboard.instantiateViewController(identifier: ModifyElementVC.identifier) as? ModifyElementVC else {
-            return
-        }
-        nextVC.elementList = ["WARM-UP SET", "PRE SET", "MAIN SET", "KICK SET", "PULL SET", "DRILL SET", "COOL DOWN SET"]
-        nextVC.titleLabel.text = "세트 선택"
-        
-        nextVC.modalPresentationStyle = .fullScreen
-
-         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1 , execute: {
-            nextVC.backgroundImage = self.view.asImage()
-            dump(self.view.asImage())
-           self.present(nextVC, animated: false, completion: nil)
-         })
-    }
-
 }
 
 extension RoutineVC: UITableViewDelegate{
@@ -227,8 +213,14 @@ extension RoutineVC: UITableViewDataSource{
 }
 
 extension RoutineVC: RoutineCellDelegate{
-    func routineItemCellForAdding(cell: RoutineSetTVC) {
-        let index = cell.getTableCellIndexPathRow()
+    func routineItemCellForAdding(cell: RoutineSetTVC, index: Int) {
+        print("왜 여기 안눌려??")
+        //let cellIndex = cell.getTableCellIndexPathRow()
+        cell.routineItemCellList[index].selectStorke = {
+            self.presentModifyElementView(elementType: .stroke,
+                                          setTitle: cell.routineSetTitle,
+                                          index: index)
+        }
         print("current selected index = \(index)")
         tableView.beginUpdates()
         tableView.reloadData()
@@ -257,6 +249,42 @@ extension RoutineVC: UITextFieldDelegate {
         textField.resignFirstResponder()
         return true
     }
+}
+
+extension RoutineVC {
+    func presentModifyElementView(elementType: ModifyElementType, setTitle: String, index: Int){
+        print("presentSetSelectionView")
+        let storyboard = UIStoryboard(name: "ModifyElement", bundle: nil)
+        guard let nextVC = storyboard.instantiateViewController(identifier: ModifyElementVC.identifier) as? ModifyElementVC else {
+            return
+        }
+        print("present = \(setTitle), index = \(index)")
+        
+        nextVC.elementType = elementType
+        nextVC.presentingSetTitle = setTitle
+        nextVC.presentingItemIndex = index
+        nextVC.modalPresentationStyle = .fullScreen
+         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1 , execute: {
+            nextVC.backgroundImage = self.view.asImage()
+           self.present(nextVC, animated: false, completion: nil)
+         })
+    }
+    
+    func updateRoutineItem(stroke: String, setTitle: String, index: Int){
+        print("updateRoutineItem 불림")
+        print("변화될 settitle = \(setTitle) index = \(index)")
+        viewModel.routineStorage.update(stroke: stroke, setTitle: setTitle, index: index)
+        let origin = viewModel.routineStorage.routineList[setTitle]?[index] ?? RoutineItemData()
+        let newItem = RoutineItemData(stroke: stroke, distance: origin.distance, time: origin.time)
+        print("newItem is = \(newItem)")
+        routineSetCellList.forEach{
+            if $0.routineSetTitle == setTitle {
+                $0.routineItemCellList[index].setRoutineItem(item: newItem, isEditing: true)
+                $0.tableView.reloadData()
+            }
+        }
+    }
+    
 }
 
 extension RoutineVC {
