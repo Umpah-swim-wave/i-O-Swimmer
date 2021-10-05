@@ -20,20 +20,22 @@ class RoutineItemTVC: UITableViewCell {
         $0.imageEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: 0)
         $0.setTitleColor(.upuhBlack, for: .normal)
         $0.contentHorizontalAlignment = .left
-        $0.titleLabel?.font = .systemFont(ofSize: 14)
+        $0.titleLabel?.font = .IBMPlexSansRegular(ofSize: 14)
     }
     
     private var distanceLabel = UILabel().then{
-        $0.font = .systemFont(ofSize: 14)
-        $0.textColor = .black
+        $0.font = .IBMPlexSansRegular(ofSize: 14)
+        $0.textColor = .upuhBlack
     }
+ 
+    
     private var timeLabel = UILabel().then{
-        $0.font = .systemFont(ofSize: 14)
-        $0.textColor = .black
+        $0.font = .IBMPlexSansRegular(ofSize: 14)
+        $0.textColor = .upuhBlack
     }
     
     public var lineView = UIView().then {
-        $0.backgroundColor = .lightGray
+        $0.backgroundColor = .upuhSubGray
     }
     
     public var isEditingMode: Bool = false {
@@ -111,13 +113,13 @@ extension RoutineItemTVC {
         
         timeLabel.snp.makeConstraints {
             $0.centerY.equalTo(strokeButton.snp.centerY)
-            $0.trailing.equalToSuperview().offset(-32)
+            $0.trailing.equalToSuperview().offset(-16)
         }
         
         lineView.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.bottom.equalToSuperview()
-            $0.height.equalTo(1)
+            $0.height.equalTo(0.5)
         }
         
         print("Editing = \(isEditingMode)")
@@ -135,7 +137,7 @@ extension RoutineItemTVC {
         }
         
         timeLabel.snp.updateConstraints {
-            $0.trailing.equalToSuperview().offset(-50)
+            $0.trailing.equalToSuperview().offset(-55)
         }
     }
     
@@ -145,7 +147,7 @@ extension RoutineItemTVC {
         }
         
         timeLabel.snp.updateConstraints {
-            $0.trailing.equalToSuperview().offset(-32)
+            $0.trailing.equalToSuperview().offset(-16)
         }
     }
 }
