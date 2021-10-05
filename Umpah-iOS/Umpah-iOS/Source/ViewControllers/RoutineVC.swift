@@ -14,36 +14,33 @@ import RxCocoa
 class RoutineVC: UIViewController {
 
     static let identifier = "RoutineVC"
-    //private var viewModel = RoutineViewModel()
+    private var viewModel = RoutineViewModel()
     private var disposeBag = DisposeBag()
     
     //MARK: TableView data
-    private var routineList: [String : [RoutineItemData]] = [:]
-    private var tableCellList : [RoutineSetTVC] = []
-    private var tableSetTitleList : [String] = ["warm-up", "main", "cool-down"]
-    
+    private var routineSetCellList : [RoutineSetTVC] = []
+      
     private let upuhGreen = UIColor(red: 0.965, green: 0.98, blue: 0.988, alpha: 1)
     
     //MARK: - UI Component
     private let navigationView = UIView()
-    private var tableView = UITableView().then{
-        $0.registerCustomXib(name: RoutineSetTVC.identifier)
-    }
+    private var tableView = UITableView()
+    private let tableViewHeader = UIView()
     
-    private var bottomButton = UIButton().then {
+    private lazy var bottomButton = UIButton().then {
         $0.layer.cornerRadius = 16
         $0.backgroundColor = .blue
         $0.setTitle("어푸님만의 루틴 만들기", for: .normal)
         $0.titleLabel?.textColor = .white
+        $0.addTarget(self, action: #selector(changeTableViewEditingMode), for: .touchUpInside)
     }
     
-    private let tableViewHeader = UIView()
-    
-    private let titleTextField = UITextField().then{
+    private lazy var titleTextField = UITextField().then{
         $0.font = .boldSystemFont(ofSize: 20)
         $0.isUserInteractionEnabled = false
         $0.text = "1km 기본루틴"
         $0.returnKeyType = .done
+        $0.delegate = self
     }
     private let titleUnderlineView = UIView()
     
@@ -79,9 +76,8 @@ class RoutineVC: UIViewController {
     private let descriptionTextView = UITextView().then{
         $0.text = "설명이 들어갑니다 오랜만에 수영을 하면 몸이 굳으니까 이걸로 몸을 푸는거라고 합니다 그렇다네요 최대두줄까지 들어가나요?"
         $0.font = .systemFont(ofSize: 13)
-        $0.textColor = .black
-        $0.backgroundColor = UIColor(red: 0.965, green: 0.98, blue: 0.988, alpha: 1)
-        //$0.isScrollEnabled = false
+        $0.textColor = .upuhBlack
+        $0.backgroundColor = .clear
         $0.textContainer.maximumNumberOfLines = 2
         $0.textContainer.lineBreakMode = .byTruncatingTail
         $0.isUserInteractionEnabled = false
@@ -91,12 +87,12 @@ class RoutineVC: UIViewController {
         $0.backgroundColor = .lightGray
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupConstraints()
-        initRoutineItem()
-        initRoutineSetCells()
         setTableViewAttribute()
+        initRoutineSetCells()
         addActions()
         view.backgroundColor = upuhGreen
     }
@@ -116,41 +112,40 @@ class RoutineVC: UIViewController {
 
     private func setTableViewAttribute(){
         tableView.rowHeight = UITableView.automaticDimension
+        tableView.registerCustomXib(name: RoutineSetTVC.identifier)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
         tableView.backgroundColor = upuhGreen
     }
     
-    private func initTableViewHeader(title: String, level: String, description: String){
-        let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.getDeviceWidth(), height: 164))
-    }
-    
-    //MARK: TODO - 나중에 서버 통신 연결 후 변경
-    private func initRoutineItem(){
-        routineList = ["warm-up" : [RoutineItemData(stroke: "자유영", distance: "90", time: 135),
-                                    RoutineItemData(stroke: "자유영", distance: "250", time: 235),
-                                    RoutineItemData(stroke: "자유영", distance: "1275", time: 335)] ,
-                       "main" : [RoutineItemData(stroke: "배형", distance: "1225", time: 130),
-                                 RoutineItemData(stroke: "배형", distance: "1250", time: 131),
-                                 RoutineItemData(stroke: "배형", distance: "1275", time: 132),
-                                 RoutineItemData(stroke: "배형", distance: "1300", time: 133),
-                                 RoutineItemData(stroke: "배형", distance: "1225", time: 134)],
-                       "cool-down" : [RoutineItemData(stroke: "접형", distance: "1200", time: 100),
-                                 RoutineItemData(stroke: "접형", distance: "1225", time: 200),
-                                 RoutineItemData(stroke: "접형", distance: "1250", time: 300),
-                                 RoutineItemData(stroke: "접형", distance: "1275", time: 400)]]
-    }
+//    private func initTableViewHeader(title: String, level: String, description: String){
+//        let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.getDeviceWidth(), height: 164))
+//    }
+//
     
     private func initRoutineSetCells(){
-//        tableSetTitleList.forEach{
-//            guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineSetTVC.identifier) as? RoutineSetTVC else { return }
-//            cell.setRoutineContent(title: $0, itemList: routineList[$0] ?? [])
-//            cell.cellDelegate = self
-//            //cell.viewModel = viewModel
-//            tableCellList.append(cell)
-//        }
+        viewModel.routineStorage.routineSetTitleList.forEach{
+            print("setTitle = \($0)")
+            let cell = getInitRoutineSetCell(setTitle: $0)
+            routineSetCellList.append(cell)
+        }
+        print(routineSetCellList.count)
     }
+    
+    private func getInitRoutineSetCell(setTitle: String) -> RoutineSetTVC{
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineSetTVC.identifier) as? RoutineSetTVC else {
+            return RoutineSetTVC() }
+        cell.setRoutineContent(title: setTitle, viewModel: viewModel)
+        cell.cellDelegate = self
+        cell.isEditingMode = tableView.isEditing
+        cell.routineItemCellList.forEach{
+            $0.selectStorke = { self.presentSetSelectionView()}
+        }
+        return cell
+    }
+    
     private func addActions(){
         bottomButton.addTarget(self, action: #selector(changeTableViewEditingMode), for: .touchUpInside)
         distanceButton.addTarget(self, action: #selector(presentSetSelectionView), for: .touchUpInside)
@@ -162,12 +157,12 @@ class RoutineVC: UIViewController {
         tableView.isEditing = mode
         tableView.tableFooterView = mode ? getFooterViewLayout() : nil
         updateHeaderLayout(atEditMode: mode)
-        tableCellList.forEach{
+        routineSetCellList.forEach{
             $0.tableView.setEditing(mode, animated: true)
             $0.isEditingMode = mode
         }
         tableView.reloadData()
-        tableCellList.forEach{
+        routineSetCellList.forEach{
             if $0.showsReorderControl {
                 //$0.reorderControlImageView?.frame = CGRect(x: 0, y: 0, width: 25, height: 13)
                 print("---------------------------------")
@@ -179,6 +174,7 @@ class RoutineVC: UIViewController {
     
     @objc
     func presentSetSelectionView(){
+        print("presentSetSelectionView")
         let storyboard = UIStoryboard(name: "ModifyElement", bundle: nil)
         guard let nextVC = storyboard.instantiateViewController(identifier: ModifyElementVC.identifier) as? ModifyElementVC else {
             return
@@ -194,25 +190,14 @@ class RoutineVC: UIViewController {
            self.present(nextVC, animated: false, completion: nil)
          })
     }
-    
-//    private func bindViewModel(){
-//
-//        for title in viewModel.routineSetTitleList {
-//            viewModel.routineSubjectList[title]?.bind(to: tableView.rx.items){ (tableView, row, item) -> UITableViewCell in
-//                guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineSetTVC.identifier) as? RoutineSetTVC else { return UITableViewCell()}
-//                cell.setRoutineContent(title: title)
-//                cell.viewModel = self.viewModel
-//                return cell
-//            }.disposed(by: disposeBag)
-//        }
-//    }
+
 }
 
 extension RoutineVC: UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let setTitle = tableSetTitleList[indexPath.row]
-        let routineCount = routineList[setTitle]?.count ?? 0
+        let routineCount = viewModel.getRoutineItemCount(index: indexPath.row)
+        print("routineCount = \(routineCount)")
         return tableView.isEditing ? CGFloat(170 + routineCount * 44) : CGFloat(120 + routineCount * 44)
     }
     
@@ -221,7 +206,7 @@ extension RoutineVC: UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        tableCellList.swapAt(sourceIndexPath.row, destinationIndexPath.row)
+        routineSetCellList.swapAt(sourceIndexPath.row, destinationIndexPath.row)
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
@@ -232,26 +217,26 @@ extension RoutineVC: UITableViewDelegate{
 extension RoutineVC: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableSetTitleList.count
+        print("routineSetCellList.count = \(routineSetCellList.count)")
+        return routineSetCellList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return tableCellList[indexPath.row]
+        return routineSetCellList[indexPath.row]
     }
 }
 
 extension RoutineVC: RoutineCellDelegate{
     func routineItemCellForAdding(cell: RoutineSetTVC) {
-        print("이거 왜 안눌려??")
         let index = cell.getTableCellIndexPathRow()
-//        routineList[cell.setTitle]?.append(RoutineItemData())
-//        tableCellList[index].routineItemList = routineList[cell.setTitle] ?? []
-        updateTableView()
+        print("current selected index = \(index)")
+        tableView.beginUpdates()
+        tableView.reloadData()
+        tableView.endUpdates()
     }
     
     func routineItemCellForDeleting(cell: RoutineSetTVC, index: Int) {
         let index = cell.getTableCellIndexPathRow()
-       // routineList[cell.setTitle]?.remove(at: index)
         updateTableView()
     }
     
@@ -259,6 +244,18 @@ extension RoutineVC: RoutineCellDelegate{
         tableView.beginUpdates()
         tableView.reloadData()
         tableView.endUpdates()
+    }
+}
+
+extension RoutineVC: UITextFieldDelegate {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
+        self.view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool{
+        textField.resignFirstResponder()
+        return true
     }
 }
 
