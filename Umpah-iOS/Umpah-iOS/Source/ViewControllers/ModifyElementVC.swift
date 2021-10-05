@@ -19,6 +19,7 @@ class ModifyElementVC: UIViewController{
 
     static let identifier = "ModifyElementVC"
     private var disposeBag = DisposeBag()
+    private let maxLength = 9
     
     public var elementList: [String] = []
     public var elementType: ModifyElementType?
@@ -49,10 +50,23 @@ class ModifyElementVC: UIViewController{
     
     private lazy var tableView = UITableView().then {
         $0.registerCustomXib(name: ModifyElementTVC.identifier)
-        $0.rowHeight = 50
+        $0.rowHeight = 40
         $0.layer.cornerRadius = 16
         $0.separatorStyle = .none
         $0.isScrollEnabled = false
+    }
+    
+    lazy var checkImageView = UIImageView().then{
+        $0.image = UIImage(named: "checkIcon")
+        $0.isHidden = true
+    }
+    
+    lazy var storkeTextField = UITextField().then{
+        $0.textColor = .upuhBlack
+        $0.font = .IBMPlexSansRegular(ofSize: 16)
+        $0.text = "직접 등록하기"
+        $0.placeholder = "원하는 영법을 입력해보세요"
+        $0.delegate = self
     }
     
     override func viewDidLoad() {
@@ -71,15 +85,6 @@ class ModifyElementVC: UIViewController{
             if isBackgroundTouched(point: position) {
                 changeDataInPresentingVC()
                 dismiss(animated: true, completion: nil)
-                
-//                presentingViewController?.dismiss(animated: true) {
-//                    print("self.presentingViewController = \(self.presentingViewController)")
-//                    let presentingVC = self.presentingViewController as? RoutineVC
-//                    print("presentingVC = \(presentingVC)")
-//                    presentingVC?.updateRoutineItem(stroke: self.selectedStroke ?? "잘못넘어옴",
-//                                                    setTitle: self.presentingSetTitle ?? "",
-//                                                    index: self.presentingItemIndex ?? 0)
-//                }
             }
         }
     }
@@ -93,6 +98,7 @@ class ModifyElementVC: UIViewController{
                 elementList = ["자유형", "평영", "배영", "접영"]
                 titleLabel.text = "영법 선택"
             case .stroke:
+                print("selectedStroke = \(selectedStroke)")
                 let presentingVC = presentingViewController as? RoutineVC
                 presentingVC?.updateRoutineItem(stroke: self.selectedStroke ?? "잘못넘어옴",
                                             setTitle: self.presentingSetTitle ?? "",
@@ -113,7 +119,12 @@ class ModifyElementVC: UIViewController{
     }
     
     func calculateContentViewHeight(){
-        contentViewHeight = elementList.count * 50 + 98
+        if elementType == .stroke {
+            contentViewHeight = (elementList.count + 1) * 40 + 98
+        }else{
+            contentViewHeight = elementList.count * 40 + 98
+        }
+        
     }
     
     func bindDataToTableView(){
@@ -143,6 +154,7 @@ class ModifyElementVC: UIViewController{
         case .stroke:
             elementList = ["자유형", "평영", "배영", "접영"]
             titleLabel.text = "영법 선택"
+            regiserTableViewFooterToWriteStroke()
         case .none:
             elementList = []
         }
@@ -192,4 +204,64 @@ extension ModifyElementVC {
             $0.bottom.equalToSuperview().inset(24)
         }
     }
+    
+    private func regiserTableViewFooterToWriteStroke(){
+        let view = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 40))
+        
+        view.addSubviews([storkeTextField, checkImageView])
+        storkeTextField.snp.makeConstraints{
+            $0.centerY.equalToSuperview()
+            $0.leading.equalToSuperview().inset(32)
+        }
+        
+        checkImageView.snp.makeConstraints{
+            $0.centerY.equalToSuperview()
+            $0.trailing.equalToSuperview().inset(32)
+        }
+        
+        tableView.tableFooterView = view
+    }
 }
+
+
+extension ModifyElementVC: UITextFieldDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        storkeTextField.text = nil
+        storkeTextField.font = .IBMPlexSansSemiBold(ofSize: 16)
+        storkeTextField.textColor = .upuhBlue
+        checkImageView.isHidden = false
+        
+        contentView.frame = CGRect(x: contentView.frame.minX,
+                                   y: contentView.frame.minY - 100,
+                                   width: contentView.frame.width,
+                                   height: contentView.frame.height)
+        
+        print("contentView.frame = \(contentView.frame)")
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool{
+        textField.resignFirstResponder()
+        guard let text = textField.text else {return false}
+        selectedStroke = text
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        contentView.frame = CGRect(x: contentView.frame.minX,
+                                   y: contentView.frame.minY + 100,
+                                   width: contentView.frame.width,
+                                   height: contentView.frame.height)
+        selectedStroke = textField.text
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard let text = textField.text else {return false}
+        if text.count > maxLength {
+            textField.deleteBackward()
+        }
+        
+        return true
+    }
+}
+
