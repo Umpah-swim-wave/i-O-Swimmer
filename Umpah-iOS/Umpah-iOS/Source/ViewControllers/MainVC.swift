@@ -325,6 +325,7 @@ extension MainVC: UITableViewDataSource {
             case 1:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DateTVC.identifier) as? DateTVC else { return UITableViewCell() }
                 cell.dateLabel.text = dateText
+                cell.dateLabel.addCharacterSpacing(kernValue: 2)
                 return cell
             case 2:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: ChartTVC.identifier) as? ChartTVC else { return UITableViewCell() }
