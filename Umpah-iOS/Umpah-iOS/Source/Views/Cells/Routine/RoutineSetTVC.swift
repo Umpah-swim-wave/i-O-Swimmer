@@ -106,13 +106,13 @@ class RoutineSetTVC: UITableViewCell {
         titleLabel.text = routineSetTitle.uppercased() + " SET"
         self.viewModel = viewModel
         routineListInSet = viewModel.routineStorage.routineList[title] ?? []
-        print("routineListInSet = \(routineListInSet)")
         initRoutineItemCells()
     }
     
     private func initRoutineItemCells(){
         var list: [RoutineItemTVC] = []
         routineListInSet.forEach{
+            print("routine = \($0)")
             let cell = self.getRoutineItemCell(item: $0)
             list.append(cell)
         }
@@ -123,9 +123,8 @@ class RoutineSetTVC: UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineItemTVC.identifier) as? RoutineItemTVC else{
             return RoutineItemTVC()
         }
-        cell.setRoutineItem(item: item)
-        cell.isEditingMode = isEditingMode
-        print("cell.isEditingMode = \(cell.isEditingMode)")
+        cell.setRoutineItem(item: item, isEditing: isEditingMode)
+        //cell.isEditingMode = isEditingMode
         return cell
     }
 }
@@ -143,6 +142,8 @@ extension RoutineSetTVC: UITableViewDelegate{
         viewModel?.routineStorage.swapRoutineItems(setTitle: routineSetTitle,
                                                    sourceIndex: sourceIndexPath.row,
                                                    destinationIndex: destinationIndexPath.row)
+        routineItemCellList.swapAt(sourceIndexPath.row, destinationIndexPath.row)
+        tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
@@ -150,19 +151,18 @@ extension RoutineSetTVC: UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete{
-//            viewModel?.deleteRoutineItem(title: routineSetTitle, index: indexPath.row)
-//            routineItemCellList.remove(at: indexPath.row)
-//            cellDelegate?.routineItemCellForDeleting(cell: self, index: indexPath.row)
-//            tableView.reloadData()
-//        }
+        if editingStyle == .delete{
+            viewModel?.routineStorage.delete(setTitle: routineSetTitle, index: indexPath.row)
+            routineItemCellList.remove(at: indexPath.row)
+            cellDelegate?.routineItemCellForDeleting(cell: self, index: indexPath.row)
+            tableView.reloadData()
+        }
     }
 }
 
 extension RoutineSetTVC: UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("routineListInSet.count = \(routineListInSet.count)")
-        return viewModel?.routineStorage.routineList[routineSetTitle]?.count ?? 0
+        return routineItemCellList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -204,22 +204,17 @@ extension RoutineSetTVC: UITableViewDataSource{
     @objc func addInitRoutineItem(){
         print("addInitRoutineItem 눌림")
         viewModel?.routineStorage.createRoutine(setTitle: routineSetTitle)
-        
-//        addRoutineItemCell()
-//        cellDelegate?.routineItemCellForAdding(cell: self)
+        cellDelegate?.routineItemCellForAdding(cell: self)
+        addRoutineItemCell()
+        tableView.reloadData()
+// cellDelegate?.routineItemCellForAdding(cell: self)
 //        tableView.reloadData()
     }
     
-    
-    
     private func addRoutineItemCell(){
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineItemTVC.identifier) as? RoutineItemTVC else{
-            return
-        }
-//        cell.setRoutineItem(item: RoutineItemData())
-//        viewModel?.addRoutineItem(title: routineSetTitle, item: RoutineItemData())
-//        routineItemCellList.append(cell)
-//        routineItemCellList.last?.isEditingMode = true
+        let cell = getRoutineItemCell(item: RoutineItemData())
+        routineItemCellList.append(cell)
+        routineItemCellList.last?.isEditingMode = true
     }
 }
 
