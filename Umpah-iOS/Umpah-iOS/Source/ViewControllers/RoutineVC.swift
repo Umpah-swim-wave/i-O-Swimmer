@@ -29,14 +29,14 @@ class RoutineVC: UIViewController {
     
     private lazy var bottomButton = UIButton().then {
         $0.layer.cornerRadius = 16
-        $0.backgroundColor = .blue
+        $0.backgroundColor = .upuhBlue
         $0.setTitle("어푸님만의 루틴 만들기", for: .normal)
         $0.titleLabel?.textColor = .white
         $0.addTarget(self, action: #selector(changeTableViewEditingMode), for: .touchUpInside)
     }
     
     private lazy var titleTextField = UITextField().then{
-        $0.font = .boldSystemFont(ofSize: 20)
+        $0.font = .IBMPlexSansSemiBold(ofSize: 20)
         $0.isUserInteractionEnabled = false
         $0.text = "1km 기본루틴"
         $0.returnKeyType = .done
@@ -46,45 +46,47 @@ class RoutineVC: UIViewController {
     
     private let levelButton = UIButton().then{
         $0.setTitle("레벨", for: .normal)
-        $0.titleLabel?.font = .boldSystemFont(ofSize: 12)
+        $0.titleLabel?.font = .IBMPlexSansBold(ofSize: 12)
         $0.layer.cornerRadius = 8
-        $0.setTitleColor(.black, for: .normal)
+        $0.setTitleColor(.upuhBlack, for: .normal)
         $0.backgroundColor = .lightGray
         $0.contentEdgeInsets = UIEdgeInsets(top: 6, left: 10, bottom: 6, right: 10)
     }
     
     private let distanceButton = UIButton().then{
         $0.setTitle("1km", for: .normal)
-        $0.titleLabel?.font = .boldSystemFont(ofSize: 12)
+        $0.titleLabel?.font = .IBMPlexSansBold(ofSize: 12)
         $0.layer.cornerRadius = 8
         $0.setTitleColor(.white, for: .normal)
-        $0.backgroundColor = .orange
+        $0.backgroundColor = .upuhOrange
         $0.isUserInteractionEnabled = true
         $0.contentEdgeInsets = UIEdgeInsets(top: 6, left: 10, bottom: 6, right: 10)
     }
     
     private let timeButton = UIButton().then{
         $0.setTitle("1h", for: .normal)
-        $0.titleLabel?.font = .boldSystemFont(ofSize: 12)
+        $0.titleLabel?.font = .IBMPlexSansBold(ofSize: 12)
         $0.layer.cornerRadius = 8
         $0.setTitleColor(.white, for: .normal)
-        $0.backgroundColor = .orange
+        $0.backgroundColor = .upuhOrange
         $0.isUserInteractionEnabled = false
         $0.contentEdgeInsets = UIEdgeInsets(top: 6, left: 10, bottom: 6, right: 10)
     }
     
     private let descriptionTextView = UITextView().then{
         $0.text = "설명이 들어갑니다 오랜만에 수영을 하면 몸이 굳으니까 이걸로 몸을 푸는거라고 합니다 그렇다네요 최대두줄까지 들어가나요?"
-        $0.font = .systemFont(ofSize: 13)
+        $0.font = .IBMPlexSansText(ofSize: 14)
         $0.textColor = .upuhBlack
         $0.backgroundColor = .clear
         $0.textContainer.maximumNumberOfLines = 2
+        $0.textContainer.lineFragmentPadding = 0
+        $0.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         $0.textContainer.lineBreakMode = .byTruncatingTail
         $0.isUserInteractionEnabled = false
     }
     
     private let headerUnderlineView = UIView().then{
-        $0.backgroundColor = .lightGray
+        $0.backgroundColor = .upuhSubGray
     }
     
     //MARK: abouy Modify element
@@ -96,17 +98,26 @@ class RoutineVC: UIViewController {
         setTableViewAttribute()
         initRoutineSetCells()
         addActions()
+        addTapGesture()
         view.backgroundColor = upuhGreen
     }
     
     private func updateHeaderLayout(atEditMode: Bool){
+        if atEditMode {
+            tableViewHeader.frame = CGRect(x: 0, y: 0,
+                                           width: UIScreen.getDeviceWidth(),
+                                           height: tableViewHeader.frame.height + 8)
+        }else {
+            tableViewHeader.frame = CGRect(x: 0,y: 0,
+                                           width: UIScreen.getDeviceWidth(),
+                                           height: tableViewHeader.frame.height - 8)
+        }
+        
         let offsetValue = atEditMode ? 8 : 0
         titleUnderlineView.snp.updateConstraints{
             $0.top.equalTo(titleTextField.snp.bottom).offset(offsetValue)
         }
-        descriptionTextView.snp.updateConstraints{
-            $0.bottom.equalToSuperview().inset(24 - offsetValue)
-        }
+
         titleUnderlineView.backgroundColor = atEditMode ? .black : .clear
         titleTextField.isUserInteractionEnabled = atEditMode ? true : false
         titleTextField.text = atEditMode ? "Copy of " + titleTextField.text! : titleTextField.text
@@ -121,10 +132,6 @@ class RoutineVC: UIViewController {
         tableView.backgroundColor = upuhGreen
     }
     
-//    private func initTableViewHeader(title: String, level: String, description: String){
-//        let view = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.getDeviceWidth(), height: 164))
-//    }
-//
     
     private func initRoutineSetCells(){
         viewModel.routineStorage.routineSetTitleList.forEach{
@@ -176,6 +183,17 @@ class RoutineVC: UIViewController {
                 print("---------------------------------")
             }
         }
+        if mode {
+            titleTextField.becomeFirstResponder()
+            descriptionTextView.isUserInteractionEnabled = true
+        }else{
+            descriptionTextView.isUserInteractionEnabled = false
+        }
+    }
+    
+    func addTapGesture(){
+        let tapGesture = UITapGestureRecognizer(target: view, action: #selector(view.endEditing))
+        view.addGestureRecognizer(tapGesture)
     }
 }
 
@@ -212,33 +230,6 @@ extension RoutineVC: UITableViewDataSource{
     }
 }
 
-extension RoutineVC: RoutineCellDelegate{
-    func routineItemCellForAdding(cell: RoutineSetTVC, index: Int) {
-        print("왜 여기 안눌려??")
-        //let cellIndex = cell.getTableCellIndexPathRow()
-        cell.routineItemCellList[index].selectStorke = {
-            self.presentModifyElementView(elementType: .stroke,
-                                          setTitle: cell.routineSetTitle,
-                                          index: index)
-        }
-        print("current selected index = \(index)")
-        tableView.beginUpdates()
-        tableView.reloadData()
-        tableView.endUpdates()
-    }
-    
-    func routineItemCellForDeleting(cell: RoutineSetTVC, index: Int) {
-        let index = cell.getTableCellIndexPathRow()
-        updateTableView()
-    }
-    
-    func updateTableView(){
-        tableView.beginUpdates()
-        tableView.reloadData()
-        tableView.endUpdates()
-    }
-}
-
 extension RoutineVC: UITextFieldDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
@@ -251,32 +242,67 @@ extension RoutineVC: UITextFieldDelegate {
     }
 }
 
+extension RoutineVC: RoutineCellDelegate{
+    func routineItemCellForAdding(cell: RoutineSetTVC, index: Int) {
+        cell.routineItemCellList[index].selectStorke = {
+            self.presentModifyElementView(elementType: .stroke,
+                                          setTitle: cell.routineSetTitle,
+                                          index: index)
+        }
+        updateTableView()
+    }
+    
+    func routineItemCellForDeleting(cell: RoutineSetTVC, index: Int) {
+        let index = cell.getTableCellIndexPathRow()
+        resetRoutineItemPresentIndex(cell: cell)
+        updateTableView()
+    }
+    
+    func routineItenCellForSwapping(cell: RoutineSetTVC, source: Int, destination: Int) {
+        resetRoutineItemPresentIndex(cell: cell)
+    }
+    
+    func updateTableView(){
+        tableView.beginUpdates()
+        tableView.reloadData()
+        tableView.endUpdates()
+    }
+    
+    func resetRoutineItemPresentIndex(cell: RoutineSetTVC){
+        for index in 0..<cell.routineItemCellList.count{
+            cell.routineItemCellList[index].selectStorke = {
+                self.presentModifyElementView(elementType: .stroke,
+                                              setTitle: cell.routineSetTitle,
+                                              index: index)
+            }
+        }
+    }
+    
+}
+
+
+
 extension RoutineVC {
     func presentModifyElementView(elementType: ModifyElementType, setTitle: String, index: Int){
-        print("presentSetSelectionView")
         let storyboard = UIStoryboard(name: "ModifyElement", bundle: nil)
         guard let nextVC = storyboard.instantiateViewController(identifier: ModifyElementVC.identifier) as? ModifyElementVC else {
             return
         }
-        print("present = \(setTitle), index = \(index)")
-        
         nextVC.elementType = elementType
         nextVC.presentingSetTitle = setTitle
         nextVC.presentingItemIndex = index
         nextVC.modalPresentationStyle = .fullScreen
          DispatchQueue.main.asyncAfter(deadline: .now() + 0.1 , execute: {
             nextVC.backgroundImage = self.view.asImage()
-           self.present(nextVC, animated: false, completion: nil)
+             nextVC.modalTransitionStyle = .crossDissolve
+            self.present(nextVC, animated: true, completion: nil)
          })
     }
     
     func updateRoutineItem(stroke: String, setTitle: String, index: Int){
-        print("updateRoutineItem 불림")
-        print("변화될 settitle = \(setTitle) index = \(index)")
         viewModel.routineStorage.update(stroke: stroke, setTitle: setTitle, index: index)
         let origin = viewModel.routineStorage.routineList[setTitle]?[index] ?? RoutineItemData()
         let newItem = RoutineItemData(stroke: stroke, distance: origin.distance, time: origin.time)
-        print("newItem is = \(newItem)")
         routineSetCellList.forEach{
             if $0.routineSetTitle == setTitle {
                 $0.routineItemCellList[index].setRoutineItem(item: newItem, isEditing: true)
@@ -316,7 +342,7 @@ extension RoutineVC {
     private func setupHeaderViewLayout(){
         tableViewHeader.frame = CGRect(x: 0, y: 0,
                                        width: UIScreen.getDeviceWidth(),
-                                       height: 164)
+                                       height: 168)
         tableViewHeader.backgroundColor = .clear
         tableViewHeader.addSubviews([titleTextField,
                                      titleUnderlineView,
@@ -359,13 +385,13 @@ extension RoutineVC {
         descriptionTextView.snp.makeConstraints{
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.top.equalTo(levelButton.snp.bottom).offset(16)
-            $0.bottom.equalToSuperview().inset(24)
+            $0.height.equalTo(40)
         }
         
         headerUnderlineView.snp.makeConstraints{
             $0.leading.trailing.equalToSuperview().inset(20)
             $0.bottom.equalToSuperview()
-            $0.height.equalTo(1)
+            $0.height.equalTo(0.8)
         }
         
         tableView.tableHeaderView = tableViewHeader
