@@ -210,22 +210,6 @@ extension RoutineViewController: UITableViewDataSource{
 }
 
 
-extension RoutineViewController: RoutineCellDelegate{
-    func routineItemCellForAdding(cell: RoutineSetTVC) {
-        print("이거 왜 안눌려??")
-        let index = cell.getTableCellIndexPathRow()
-        updateTableView()
-    }
-    
-    func routineItemCellForDeleting(cell: RoutineSetTVC, index: Int) {
-        let index = cell.getTableCellIndexPathRow()
-        updateTableView()
-    }
-    
-   
-}
-
-
 extension RoutineViewController: UITextFieldDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
