@@ -21,6 +21,11 @@ class FilterCVC: UICollectionViewCell {
         $0.semanticContentAttribute = .forceRightToLeft
         $0.isUserInteractionEnabled = false
     }
+    let backView = UIView().then {
+        $0.backgroundColor = .clear
+        $0.layer.borderColor = UIColor.upuhBlue.withAlphaComponent(0.15).cgColor
+        $0.layer.borderWidth = 2
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -32,6 +37,10 @@ class FilterCVC: UICollectionViewCell {
     }
     
     override func layoutSubviews() {
+        backView.snp.makeConstraints {
+            $0.edges.equalToSuperview()
+        }
+        
         filterButton.snp.makeConstraints {
             $0.center.equalToSuperview()
         }
@@ -40,9 +49,9 @@ class FilterCVC: UICollectionViewCell {
     private func configUI() {
         backgroundColor = .clear
         layer.cornerRadius = 22
-        layer.borderColor = UIColor.upuhBlue.withAlphaComponent(0.15).cgColor
-        layer.borderWidth = 2
         
-        addSubview(filterButton)
+        setViewShadow(backView: backView, cornerRadius: 22)
+        
+        addSubviews([backView, filterButton])
     }
 }

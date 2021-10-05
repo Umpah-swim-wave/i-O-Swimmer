@@ -26,6 +26,7 @@ class StrokeView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+        makeShadow(.upuhSkyBlue, 0.6, CGSize(width: 0, height: 0), 7)
         setupLayout()
     }
     

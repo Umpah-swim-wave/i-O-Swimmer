@@ -17,6 +17,7 @@ class DetailView: UIView {
         $0.layer.cornerRadius = 16
         $0.layer.borderWidth = 2
         $0.layer.borderColor = UIColor.upuhBlue.withAlphaComponent(0.15).cgColor
+        $0.makeShadow(.upuhSkyBlue, 0.6, CGSize(width: 0, height: 0), 7)
         
         let distanceIconImage = UIImageView().then {
             $0.image = UIImage(named: "ic_swim")
@@ -73,6 +74,7 @@ class DetailView: UIView {
         $0.layer.cornerRadius = 16
         $0.layer.borderWidth = 2
         $0.layer.borderColor = UIColor.upuhBlue.withAlphaComponent(0.15).cgColor
+        $0.makeShadow(.upuhSkyBlue, 0.6, CGSize(width: 0, height: 0), 7)
         
         let kcalIconImage = UIImageView().then {
             $0.image = UIImage(named: "ic_kcal")
