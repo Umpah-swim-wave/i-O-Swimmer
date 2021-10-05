@@ -412,12 +412,18 @@ extension MainVC: UITableViewDelegate {
         
         if y >= 188 {
             topView.titleLabel.alpha = 0
+            topView.nameLabel.alpha = 0
         } else if y > 0 {
             topView.titleLabel.transform = CGAffineTransform(translationX: -y/140, y: 0)
             topView.titleLabel.alpha = 1 - (y / 95)
+            topView.nameLabel.transform = CGAffineTransform(translationX: -y/140, y: 0)
+            topView.nameLabel.alpha = 1 - (y / 95)
+
         } else {
             topView.titleLabel.transform = .identity
             topView.titleLabel.alpha = 1
+            topView.nameLabel.transform = .identity
+            topView.nameLabel.alpha = 1
         }
     }
 }
