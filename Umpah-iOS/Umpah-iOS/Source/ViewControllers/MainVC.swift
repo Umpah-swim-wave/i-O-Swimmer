@@ -24,6 +24,10 @@ class MainVC: UIViewController {
         $0.register(DateTVC.self, forCellReuseIdentifier: DateTVC.identifier)
         $0.backgroundColor = .clear
         $0.separatorStyle = .none
+        
+        if #available(iOS 15.0, *) {
+            $0.sectionHeaderTopPadding = 0
+        }
     }
     lazy var dateText: String = dateformatter.string(from: Date())
     
