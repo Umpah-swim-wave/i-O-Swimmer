@@ -34,9 +34,10 @@ class MainVC: UIViewController {
     // MARK: - Properties
     var cardView = UIView().then {
         $0.backgroundColor = .white
-        $0.clipsToBounds = true
+        $0.clipsToBounds = false
         $0.layer.cornerRadius = 32.0
         $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        $0.makeShadow(.upuhSkyBlue, 0.4, CGSize(width: 0, height: -5), 5)
     }
     
     lazy var expandedView = ExpandedStateView(root: self)
