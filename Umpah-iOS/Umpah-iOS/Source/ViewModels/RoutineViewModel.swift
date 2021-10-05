@@ -11,4 +11,11 @@ import RxSwift
 class RoutineViewModel {
     
     var routineStorage = RoutineStorage()
+    
+    
+    func getRoutineItemCount(index: Int) -> Int{
+        let setTitle = routineStorage.routineSetTitleList[index]
+        return routineStorage.routineList[setTitle]?.count ?? 0
+    }
+    
 }
