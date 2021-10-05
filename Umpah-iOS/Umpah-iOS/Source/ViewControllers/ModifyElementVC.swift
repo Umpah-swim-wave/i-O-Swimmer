@@ -9,12 +9,23 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+enum ModifyElementType {
+    case setTitle
+    case stroke
+    case level
+}
+
 class ModifyElementVC: UIViewController{
 
     static let identifier = "ModifyElementVC"
     private var disposeBag = DisposeBag()
     
     public var elementList: [String] = []
+    public var elementType: ModifyElementType?
+    
+    public var presentingSetTitle: String?
+    public var presentingItemIndex: Int?
+    public var selectedStroke: String?
     
     private var backgroundImageView = UIImageView()
     public var backgroundImage : UIImage?
@@ -46,6 +57,7 @@ class ModifyElementVC: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupContentElement()
         calculateContentViewHeight()
         setupBackgroundLayout()
         setupContentViewLayout()
@@ -57,8 +69,36 @@ class ModifyElementVC: UIViewController{
             let position = touch.location(in: view)
             print(position)
             if isBackgroundTouched(point: position) {
-                dismiss(animated: false, completion: nil)
+                changeDataInPresentingVC()
+                dismiss(animated: true, completion: nil)
+                
+//                presentingViewController?.dismiss(animated: true) {
+//                    print("self.presentingViewController = \(self.presentingViewController)")
+//                    let presentingVC = self.presentingViewController as? RoutineVC
+//                    print("presentingVC = \(presentingVC)")
+//                    presentingVC?.updateRoutineItem(stroke: self.selectedStroke ?? "잘못넘어옴",
+//                                                    setTitle: self.presentingSetTitle ?? "",
+//                                                    index: self.presentingItemIndex ?? 0)
+//                }
             }
+        }
+    }
+    
+    func changeDataInPresentingVC(){
+        switch elementType{
+            case .setTitle:
+                elementList = ["WARM-UP SET", "PRE SET", "MAIN SET", "KICK SET", "PULL SET", "DRILL SET", "COOL DOWN SET"]
+                titleLabel.text = "세트 선택"
+            case .level:
+                elementList = ["자유형", "평영", "배영", "접영"]
+                titleLabel.text = "영법 선택"
+            case .stroke:
+                let presentingVC = presentingViewController as? RoutineVC
+                presentingVC?.updateRoutineItem(stroke: self.selectedStroke ?? "잘못넘어옴",
+                                            setTitle: self.presentingSetTitle ?? "",
+                                            index: self.presentingItemIndex ?? 0)
+            case .none:
+                elementList = []
         }
     }
     
@@ -86,14 +126,26 @@ class ModifyElementVC: UIViewController{
         //MARK: TO-Do 전체적으로 구현해보고 괜찮은 함수 선택하기
         tableView.rx.itemSelected
             .subscribe(onNext: { indexPath in
-                print(indexPath)
+                self.selectedStroke = self.elementList[indexPath.row]
                 print(self.elementList[indexPath.row])
             }).disposed(by: disposeBag)
-        
-        tableView.rx.modelSelected(String.self)
-            .subscribe(onNext: { model in
-                print("\(model) is selected")
-            }).disposed(by: disposeBag)
+    }
+    
+    
+    private func setupContentElement(){
+        switch elementType{
+        case .setTitle:
+            elementList = ["WARM-UP SET", "PRE SET", "MAIN SET", "KICK SET", "PULL SET", "DRILL SET", "COOL DOWN SET"]
+            titleLabel.text = "세트 선택"
+        case .level:
+            elementList = ["자유형", "평영", "배영", "접영"]
+            titleLabel.text = "영법 선택"
+        case .stroke:
+            elementList = ["자유형", "평영", "배영", "접영"]
+            titleLabel.text = "영법 선택"
+        case .none:
+            elementList = []
+        }
     }
     
 }
