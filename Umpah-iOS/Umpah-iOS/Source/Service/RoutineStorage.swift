@@ -42,6 +42,7 @@ class RoutineStorage: RoutineStorageType{
         routineList[setTitle]?.append(routine)
         store.onNext(routineList)
         print("-----\(setTitle)-------createRoutine------=\(routineList[setTitle]?.count)----------")
+        displayCurrentRoutineItems(setTitle: setTitle)
         return Observable.just(routine)
     }
     
@@ -59,20 +60,27 @@ class RoutineStorage: RoutineStorageType{
         
         store.onNext(routineList)
         print("------------update----------------")
+        displayCurrentRoutineItems(setTitle: setTitle)
         return Observable.just(newItem)
     }
     
     func swapRoutineItems(setTitle: String, sourceIndex: Int, destinationIndex: Int) {
         routineList[setTitle]?.swapAt(sourceIndex, destinationIndex)
         store.onNext(routineList)
+        displayCurrentRoutineItems(setTitle: setTitle)
         print("------------swapRoutineItems----------------")
     }
     
     @discardableResult
     func delete(setTitle: String, index: Int){
         routineList[setTitle]?.remove(at: index)
+        displayCurrentRoutineItems(setTitle: setTitle)
         print("------------delete----------------")
     }
     
-    
+    func displayCurrentRoutineItems(setTitle: String){
+        routineList[setTitle]?.forEach{
+            print($0)
+        }
+    }
 }
