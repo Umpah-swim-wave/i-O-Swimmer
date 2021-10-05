@@ -401,13 +401,13 @@ extension MainVC: UITableViewDelegate {
         let y = scrollView.contentOffset.y
 
         if y >= 188 {
-            headerView.backgroundColor = .white
-            statusBar.backgroundColor = .white
+            headerView.backgroundColor = .upuhSkyBlue
+            statusBar.backgroundColor = .upuhSkyBlue
         } else if y < 188 && (y / 188) > 0.3 {
-            headerView.backgroundColor = .white.withAlphaComponent(y / 188)
+            headerView.backgroundColor = .upuhSkyBlue.withAlphaComponent(y / 188)
             statusBar.backgroundColor = .clear
         } else {
-            headerView.backgroundColor = .white.withAlphaComponent(0.3)
+            headerView.backgroundColor = .upuhSkyBlue.withAlphaComponent(0.3)
         }
         
         if y >= 188 {

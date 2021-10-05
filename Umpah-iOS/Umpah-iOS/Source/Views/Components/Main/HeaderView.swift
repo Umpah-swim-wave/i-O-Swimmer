@@ -21,7 +21,7 @@ class HeaderView: UIView {
     var routineButton = UIButton().then {
         $0.setTitle("루틴", for: .normal)
         $0.setTitleColor(.upuhGreen, for: .normal)
-        $0.titleLabel?.font = .IBMPlexSansSemiBold(ofSize: 16)
+        $0.titleLabel?.font = .IBMPlexSansRegular(ofSize: 16)
         $0.addTarget(self, action: #selector(touchupRoutine), for: .touchUpInside)
     }
     var bottomView = UIView().then {
@@ -57,8 +57,8 @@ class HeaderView: UIView {
         
         bottomView.snp.makeConstraints {
             $0.bottom.equalToSuperview().inset(1)
-            $0.leading.equalToSuperview().inset(28)
-            $0.width.equalTo(70)
+            $0.leading.equalToSuperview().inset(38)
+            $0.width.equalTo(50)
             $0.height.equalTo(3)
         }
     }
@@ -69,6 +69,8 @@ class HeaderView: UIView {
         print("Record - ing")
         recordButton.setTitleColor(.upuhBlack, for: .normal)
         routineButton.setTitleColor(.upuhGreen, for: .normal)
+        recordButton.titleLabel?.font = .IBMPlexSansSemiBold(ofSize: 16)
+        routineButton.titleLabel?.font = .IBMPlexSansRegular(ofSize: 16)
         moveRecordDirection()
     }
     
@@ -77,6 +79,8 @@ class HeaderView: UIView {
         print("Routine - ing")
         routineButton.setTitleColor(.upuhBlack, for: .normal)
         recordButton.setTitleColor(.upuhGreen, for: .normal)
+        routineButton.titleLabel?.font = .IBMPlexSansSemiBold(ofSize: 16)
+        recordButton.titleLabel?.font = .IBMPlexSansRegular(ofSize: 16)
         moveRoutineDirection()
     }
 }
