@@ -9,7 +9,7 @@ import Foundation
 
 struct RoutineItemData {
     var stroke: String = "영법입력"
-    var distance: String = "999"
+    var distance: Int = 999
     var time : Int = 0
     
     func getTimeToString() -> String{
