@@ -13,7 +13,14 @@ class RoutineItemTVC: UITableViewCell {
     static let identifier = "RoutineItemTVC"
     
     public var selectStorke: (() -> ())?
+    public var selectDistance: ((Int) -> ())?
+    public var isSelectedDistance: Bool = true
     private var routineItem: RoutineItemData?
+    
+    private var distanceList: [Int] = []
+    private var miniteList: [Int] = []
+    private var pickerView = UIPickerView()
+    private let toolbar = UIToolbar()
     
     public var strokeButton = UIButton().then{
         $0.semanticContentAttribute = .forceRightToLeft
@@ -23,15 +30,16 @@ class RoutineItemTVC: UITableViewCell {
         $0.titleLabel?.font = .IBMPlexSansRegular(ofSize: 14)
     }
     
-    private var distanceLabel = UILabel().then{
+    private var distanceTextField = UITextField().then {
         $0.font = .IBMPlexSansRegular(ofSize: 14)
         $0.textColor = .upuhBlack
+        $0.tintColor = .clear
     }
- 
     
-    private var timeLabel = UILabel().then{
+    private var timeTextField = UITextField().then {
         $0.font = .IBMPlexSansRegular(ofSize: 14)
         $0.textColor = .upuhBlack
+        $0.tintColor = .clear
     }
     
     public var lineView = UIView().then {
@@ -52,8 +60,11 @@ class RoutineItemTVC: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        initDataList()
         setupLayout()
         addActions()
+        createPickerViewToolbar()
+        setPickerViewDelegate()
         selectionStyle = .none
     }
 
@@ -64,8 +75,8 @@ class RoutineItemTVC: UITableViewCell {
     public func setRoutineItem(item: RoutineItemData, isEditing: Bool){
         routineItem = item
         strokeButton.setTitle(item.stroke, for: .normal)
-        distanceLabel.text = item.distance + "m"
-        timeLabel.text = item.getTimeToString()
+        distanceTextField.text = "\(item.distance)m"
+        timeTextField.text = item.getTimeToString()
         isEditingMode = isEditing
     }
     
@@ -75,18 +86,74 @@ class RoutineItemTVC: UITableViewCell {
             return
         }
         strokeButton.setTitle(item.stroke, for: .normal)
-        distanceLabel.text = item.distance + "m"
-        timeLabel.text = item.getTimeToString()
+        distanceTextField.text = "\(item.distance)m"
+        timeTextField.text = item.getTimeToString()
     }
     
     func addActions(){
-        strokeButton.addTarget(self, action: #selector(touchUpToselectStorke), for: .touchUpInside)
+        let touchUpToselectStorke = UIAction {_ in self.selectStorke?()}
+        let checkDistanceAction = UIAction{ _ in self.isSelectedDistance = true}
+        let checkTimeAction = UIAction{_ in self.isSelectedDistance = false}
+        
+        strokeButton.addAction(touchUpToselectStorke, for: .touchUpInside)
+        distanceTextField.addAction(checkDistanceAction, for: .touchDown)
+        timeTextField.addAction(checkTimeAction, for: .touchDown)
+    }
+    
+    func setPickerViewDelegate(){
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        distanceTextField.inputView = pickerView
+        distanceTextField.inputAccessoryView = toolbar
+    }
+    
+    func initDataList(){
+        for num in stride(from: 25, to: 9999, by: 25){
+            distanceList.append(num)
+        }
+        for num in 0..<60 {
+            miniteList.append(num)
+        }
+    }
+    
+    private func createPickerViewToolbar(){
+        toolbar.sizeToFit()
+        
+        let titleLabel = UIBarButtonItem(title: "거리", style: .plain, target: nil, action: nil)
+        let doneButton = UIBarButtonItem(title: "완료", style: .done, target: nil, action: #selector(donePresseed))
+        
+        let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+        
+        toolbar.setItems([titleLabel, flexibleSpace, doneButton], animated: true)
     }
     
     @objc
-    func touchUpToselectStorke(){
-        print("touchUpToselectStorke")
-        selectStorke?()
+    func donePresseed(){
+        endEditing(true)
+        selectDistance?(routineItem?.distance ?? 9999)
+    }
+}
+
+
+extension RoutineItemTVC: UIPickerViewDelegate{
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return String(distanceList[row])
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        distanceTextField.text = "\(distanceList[row])m"
+        routineItem?.distance = distanceList[row]
+    }
+    
+}
+
+extension RoutineItemTVC: UIPickerViewDataSource{
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return  distanceList.count
     }
 }
 
@@ -95,8 +162,8 @@ class RoutineItemTVC: UITableViewCell {
 extension RoutineItemTVC {
     private func setupLayout(){
         addSubviews([strokeButton,
-                     distanceLabel,
-                     timeLabel,
+                     distanceTextField,
+                     timeTextField,
                      lineView])
 
         strokeButton.snp.makeConstraints{
@@ -106,12 +173,12 @@ extension RoutineItemTVC {
             $0.width.equalTo(108)
         }
         
-        distanceLabel.snp.makeConstraints{
+        distanceTextField.snp.makeConstraints{
             $0.centerY.equalTo(strokeButton.snp.centerY)
-            $0.trailing.equalTo(timeLabel.snp.leading).offset(-37)
+            $0.trailing.equalTo(timeTextField.snp.leading).offset(-37)
         }
         
-        timeLabel.snp.makeConstraints {
+        timeTextField.snp.makeConstraints {
             $0.centerY.equalTo(strokeButton.snp.centerY)
             $0.trailing.equalToSuperview().offset(-16)
         }
@@ -136,7 +203,7 @@ extension RoutineItemTVC {
             $0.leading.equalToSuperview().offset(46)
         }
         
-        timeLabel.snp.updateConstraints {
+        timeTextField.snp.updateConstraints {
             $0.trailing.equalToSuperview().offset(-55)
         }
     }
@@ -146,7 +213,7 @@ extension RoutineItemTVC {
             $0.leading.equalToSuperview().offset(24)
         }
         
-        timeLabel.snp.updateConstraints {
+        timeTextField.snp.updateConstraints {
             $0.trailing.equalToSuperview().offset(-16)
         }
     }
