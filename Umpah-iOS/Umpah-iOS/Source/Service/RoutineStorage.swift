@@ -13,7 +13,7 @@ class RoutineStorage: RoutineStorageType{
     public var routineList: [String : [RoutineItemData]] = [:]
     public var routineSetTitleList : [String] = []
     
-    private lazy var store = BehaviorSubject<[String : [RoutineItemData]]>(value: routineList)
+    public lazy var store = BehaviorSubject<[String : [RoutineItemData]]>(value: routineList)
     
     init() {
         initRoutineItems()
@@ -21,18 +21,18 @@ class RoutineStorage: RoutineStorageType{
     
     private func initRoutineItems(){
         routineSetTitleList = ["warm-up", "main", "cool-down"]
-        routineList = ["warm-up" : [RoutineItemData(stroke: "자유영", distance: "90", time: 135),
-                                    RoutineItemData(stroke: "자유영", distance: "250", time: 235),
-                                    RoutineItemData(stroke: "자유영", distance: "1275", time: 335)] ,
-                       "main" : [RoutineItemData(stroke: "배형", distance: "1225", time: 130),
-                                 RoutineItemData(stroke: "배형", distance: "1250", time: 131),
-                                 RoutineItemData(stroke: "배형", distance: "1275", time: 132),
-                                 RoutineItemData(stroke: "배형", distance: "1300", time: 133),
-                                 RoutineItemData(stroke: "배형", distance: "1225", time: 134)],
-                       "cool-down" : [RoutineItemData(stroke: "접형", distance: "1200", time: 100),
-                                 RoutineItemData(stroke: "접형", distance: "1225", time: 200),
-                                 RoutineItemData(stroke: "접형", distance: "1250", time: 300),
-                                 RoutineItemData(stroke: "접형", distance: "1275", time: 400)]]
+        routineList = ["warm-up" : [RoutineItemData(stroke: "자유영", distance: 90, time: 60),
+                                    RoutineItemData(stroke: "자유영", distance: 250, time: 60),
+                                    RoutineItemData(stroke: "자유영", distance: 1275, time: 60)] ,
+                       "main" : [RoutineItemData(stroke: "배형", distance: 1225, time: 60),
+                                 RoutineItemData(stroke: "배형", distance: 1250, time: 60),
+                                 RoutineItemData(stroke: "배형", distance: 1275, time: 60),
+                                 RoutineItemData(stroke: "배형", distance: 1300, time: 60),
+                                 RoutineItemData(stroke: "배형", distance: 1225, time: 60)],
+                       "cool-down" : [RoutineItemData(stroke: "접형", distance: 1200, time: 60),
+                                 RoutineItemData(stroke: "접형", distance: 1225, time: 60),
+                                 RoutineItemData(stroke: "접형", distance: 1250, time: 60),
+                                 RoutineItemData(stroke: "접형", distance: 1275, time: 60)]]
     }
     
     
@@ -43,6 +43,7 @@ class RoutineStorage: RoutineStorageType{
         store.onNext(routineList)
         print("-----\(setTitle)-------createRoutine------=\(routineList[setTitle]?.count)----------")
         displayCurrentRoutineItems(setTitle: setTitle)
+        store.onNext(routineList)
         return Observable.just(routine)
     }
     
@@ -71,6 +72,17 @@ class RoutineStorage: RoutineStorageType{
         routineList[setTitle]?.remove(at: index)
         routineList[setTitle]?.insert(newItem, at: index)
         displayCurrentRoutineItems(setTitle: setTitle)
+        store.onNext(routineList)
+    }
+    
+    func update(distance: Int, setTitle: String, index: Int){
+        let origin = routineList[setTitle]?[index] ?? RoutineItemData()
+        let newItem = RoutineItemData(stroke: origin.stroke, distance: distance, time: origin.time)
+        
+        routineList[setTitle]?.remove(at: index)
+        routineList[setTitle]?.insert(newItem, at: index)
+        displayCurrentRoutineItems(setTitle: setTitle)
+        store.onNext(routineList)
     }
     
     func swapRoutineItems(setTitle: String, sourceIndex: Int, destinationIndex: Int) {
@@ -78,6 +90,7 @@ class RoutineStorage: RoutineStorageType{
         store.onNext(routineList)
         displayCurrentRoutineItems(setTitle: setTitle)
         print("------------swapRoutineItems----------------")
+        store.onNext(routineList)
     }
     
     @discardableResult
@@ -85,6 +98,7 @@ class RoutineStorage: RoutineStorageType{
         routineList[setTitle]?.remove(at: index)
         displayCurrentRoutineItems(setTitle: setTitle)
         print("------------delete----------------")
+        store.onNext(routineList)
     }
     
     func displayCurrentRoutineItems(setTitle: String){
