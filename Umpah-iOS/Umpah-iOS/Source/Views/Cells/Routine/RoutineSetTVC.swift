@@ -51,11 +51,16 @@ class RoutineSetTVC: UITableViewCell {
         $0.text = "시간"
     }
     
+    public var reorderImageView = UIImageView().then {
+        $0.image = UIImage(named: "reorderIcon")
+        $0.isHidden = true
+    }
+    
     public var tableView = UITableView().then{
         $0.registerCustomXib(name: RoutineItemTVC.identifier)
     }
     
-    public var reorderControlImageView: UIImageView? {
+    private var reorderControlImageView: UIImageView? {
         let reorderControl = self.subviews.first { view -> Bool in
             view.classForCoder.description() == "UITableViewCellReorderControl"
         }
@@ -112,9 +117,13 @@ class RoutineSetTVC: UITableViewCell {
     
     private func initRoutineItemCells(){
         var list: [RoutineItemTVC] = []
-        routineListInSet.forEach{
-            print("routine = \($0)")
-            let cell = self.getRoutineItemCell(item: $0)
+        for index in 0..<routineListInSet.count{
+            let cell = self.getRoutineItemCell(item: routineListInSet[index])
+            cell.selectDistance = { newDistance in
+                self.viewModel?.routineStorage.update(distance: newDistance,
+                                                      setTitle: self.routineSetTitle,
+                                                      index: index)
+            }
             list.append(cell)
         }
         routineItemCellList = list
@@ -125,7 +134,6 @@ class RoutineSetTVC: UITableViewCell {
             return RoutineItemTVC()
         }
         cell.setRoutineItem(item: item, isEditing: isEditingMode)
-        //cell.isEditingMode = isEditingMode
         return cell
     }
 }
@@ -136,6 +144,10 @@ extension RoutineSetTVC: UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
@@ -155,6 +167,7 @@ extension RoutineSetTVC: UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        print("indexPath = \(indexPath), editingStyle = \(editingStyle)")
         if editingStyle == .delete{
             viewModel?.routineStorage.delete(setTitle: routineSetTitle, index: indexPath.row)
             routineItemCellList.remove(at: indexPath.row)
@@ -192,6 +205,7 @@ extension RoutineSetTVC: UITableViewDataSource{
         
         view.addSubviews([titleButton,
                           titleUnderline])
+       
         titleButton.snp.makeConstraints{
             $0.center.equalToSuperview()
         }
@@ -225,11 +239,17 @@ extension RoutineSetTVC: UITableViewDataSource{
 extension RoutineSetTVC {
     private func setupLayout(){
         addSubviews([titleLabel,
+                     reorderImageView,
                      tableBackgroundView])
         
         titleLabel.snp.makeConstraints{
             $0.top.equalToSuperview().inset(19)
             $0.leading.equalToSuperview().inset(24)
+        }
+       
+        reorderImageView.snp.makeConstraints{
+            $0.centerY.equalTo(titleLabel.snp.centerY)
+            $0.trailing.equalToSuperview().inset(24)
         }
         
         tableBackgroundView.snp.makeConstraints{
@@ -291,6 +311,16 @@ extension RoutineSetTVC {
         
         timeLabel.snp.updateConstraints {
             $0.trailing.equalToSuperview().offset(-40)
+        }
+    }
+    
+    public func updateReorderImageView(){
+        print("reorderControlImageView?.frame = \(reorderControlImageView?.frame)")
+        reorderImageView.snp.remakeConstraints{
+            $0.centerY.equalTo(titleLabel.snp.centerY)
+            $0.trailing.equalToSuperview().inset(24)
+            $0.height.equalTo(reorderControlImageView?.frame.height ?? 13)
+            $0.width.equalTo(reorderControlImageView?.frame.width ?? 26)
         }
     }
 }
