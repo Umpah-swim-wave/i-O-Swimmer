@@ -99,6 +99,7 @@ class RoutineVC: UIViewController {
         initRoutineSetCells()
         addActions()
         addTapGesture()
+        bindDataToViewModel()
         view.backgroundColor = upuhGreen
     }
     
@@ -118,7 +119,7 @@ class RoutineVC: UIViewController {
             $0.top.equalTo(titleTextField.snp.bottom).offset(offsetValue)
         }
 
-        titleUnderlineView.backgroundColor = atEditMode ? .black : .clear
+        titleUnderlineView.backgroundColor = atEditMode ? .upuhSubGray : .clear
         titleTextField.isUserInteractionEnabled = atEditMode ? true : false
         titleTextField.text = atEditMode ? "Copy of " + titleTextField.text! : titleTextField.text
     }
@@ -176,12 +177,8 @@ class RoutineVC: UIViewController {
         }
         tableView.reloadData()
         routineSetCellList.forEach{
-            if $0.showsReorderControl {
-                //$0.reorderControlImageView?.frame = CGRect(x: 0, y: 0, width: 25, height: 13)
-                print("---------------------------------")
-                print("\($0.reorderControlImageView)")
-                print("---------------------------------")
-            }
+            $0.updateReorderImageView()
+            $0.reorderImageView.isHidden = !mode
         }
         if mode {
             titleTextField.becomeFirstResponder()
@@ -195,6 +192,16 @@ class RoutineVC: UIViewController {
         let tapGesture = UITapGestureRecognizer(target: view, action: #selector(view.endEditing))
         view.addGestureRecognizer(tapGesture)
     }
+    
+    //MARK :routine item 바뀔 때 마다 시간, 거리 버튼 값 조정
+    func bindDataToViewModel(){
+        viewModel.routineStorage.store
+            .subscribe(onNext: { _ in
+                self.distanceButton.setTitle(self.viewModel.getTotalRoutinesDistanceToString(), for: .normal)
+                self.timeButton.setTitle(self.viewModel.getTotalRoutinesTimeToString(), for: .normal)
+            })
+            .disposed(by: disposeBag)
+    }
 }
 
 extension RoutineVC: UITableViewDelegate{
@@ -207,6 +214,12 @@ extension RoutineVC: UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
         return true
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let imageView = cell.subviews.first(where: {$0.description.contains("Reorder")})?
+            .subviews.first(where: {$0 is UIImageView}) as? UIImageView
+        imageView?.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
     }
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
@@ -310,7 +323,6 @@ extension RoutineVC {
             }
         }
     }
-    
 }
 
 extension RoutineVC {
