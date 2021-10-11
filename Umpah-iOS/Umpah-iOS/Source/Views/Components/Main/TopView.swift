@@ -12,11 +12,15 @@ import SnapKit
 
 class TopView: UIView {
     // MARK: - Properties
+    var nameLabel = UILabel().then {
+        $0.text = "어푸님,"
+        $0.textColor = .upuhBlack
+        $0.font = .IBMPlexSansSemiBold(ofSize: 20)
+    }
     var titleLabel = UILabel().then {
-        $0.text = "어푸님!\n수영하기 좋은 날이에요!"
-        $0.textColor = .black
-        $0.numberOfLines = 0
-        $0.font = .systemFont(ofSize: 20, weight: .medium)
+        $0.text = "수영하기 좋은 날이에요!"
+        $0.textColor = .upuhBlack
+        $0.font = .IBMPlexSansRegular(ofSize: 18)
     }
 
     override init(frame: CGRect) {
@@ -30,10 +34,16 @@ class TopView: UIView {
     }
     
     private func setupLayout() {
-        addSubview(titleLabel)
+        addSubviews([nameLabel,
+                     titleLabel])
+        
+        nameLabel.snp.makeConstraints {
+            $0.top.equalToSuperview().inset(49)
+            $0.leading.equalToSuperview().inset(36)
+        }
         
         titleLabel.snp.makeConstraints {
-            $0.top.equalTo(safeAreaLayoutGuide).inset(49)
+            $0.top.equalTo(nameLabel.snp.bottom).offset(5)
             $0.leading.equalToSuperview().inset(36)
         }
     }

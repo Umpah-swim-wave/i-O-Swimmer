@@ -15,18 +15,21 @@ class InsideStrokeTVC: UITableViewCell {
 
     // MARK: - Properties
     var strokeLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 14)
+        $0.font = .IBMPlexSansText(ofSize: 14)
+        $0.textColor = .upuhBlack
     }
     var distanceLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 14)
         $0.text = "9999m"
+        $0.font = .IBMPlexSansText(ofSize: 14)
+        $0.addCharacterSpacing(kernValue: -1)
     }
     var averageSpeedLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 14)
         $0.text = "1.7m/s"
+        $0.font = .IBMPlexSansText(ofSize: 14)
+        $0.addCharacterSpacing(kernValue: -1)
     }
     var bottomLine = UIView().then {
-        $0.backgroundColor = .lightGray
+        $0.backgroundColor = .upuhDivider
     }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -46,7 +49,7 @@ class InsideStrokeTVC: UITableViewCell {
         
         strokeLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(14)
-            $0.bottom.equalToSuperview().inset(16)
+            $0.bottom.equalToSuperview().inset(14)
             $0.leading.equalToSuperview().inset(24)
         }
         

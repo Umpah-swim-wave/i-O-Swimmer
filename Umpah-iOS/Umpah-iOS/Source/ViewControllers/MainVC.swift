@@ -24,15 +24,21 @@ class MainVC: UIViewController {
         $0.register(DateTVC.self, forCellReuseIdentifier: DateTVC.identifier)
         $0.backgroundColor = .clear
         $0.separatorStyle = .none
+        $0.showsVerticalScrollIndicator = false
+        
+        if #available(iOS 15.0, *) {
+            $0.sectionHeaderTopPadding = 0
+        }
     }
     lazy var dateText: String = dateformatter.string(from: Date())
     
     // MARK: - Properties
     var cardView = UIView().then {
         $0.backgroundColor = .white
-        $0.clipsToBounds = true
+        $0.clipsToBounds = false
         $0.layer.cornerRadius = 32.0
         $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        $0.makeShadow(.upuhSkyBlue, 0.6, CGSize(width: 0, height: -2), 8)
     }
     
     lazy var expandedView = ExpandedStateView(root: self)
@@ -98,14 +104,14 @@ class MainVC: UIViewController {
     }
     
     private func initUpperView() {
-        view.backgroundColor = .init(red: 166/255, green: 226/255, blue: 226/255, alpha: 1.0)
+        view.backgroundColor = .upuhBlue
     }
     
     private func initCardView() {
         expandedView.alpha = 0.0
         
         let handleView = UIView()
-        handleView.backgroundColor = .lightGray
+        handleView.backgroundColor = UIColor.init(red: 224/255, green: 224/255, blue: 224/255, alpha: 1.0)
         handleView.layer.cornerRadius = 3
         cardView.addSubview(handleView)
         handleView.snp.makeConstraints {
@@ -264,6 +270,7 @@ extension MainVC {
     }
 }
 
+// MARK: - UITableViewDataSource
 extension MainVC: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
@@ -289,31 +296,28 @@ extension MainVC: UITableViewDataSource {
             switch indexPath.row {
             case 0:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: FilterTVC.identifier) as? FilterTVC else { return UITableViewCell() }
-                cell.selectionStyle = .none
                 cell.delegate = self
                 cell.state = currentState
                 return cell
             case 1:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DateTVC.identifier) as? DateTVC else { return UITableViewCell() }
-                cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
-                cell.selectionStyle = .none
                 cell.dateLabel.text = dateText
+                cell.dateLabel.addCharacterSpacing(kernValue: 2)
+                cell.dateLabel.font = .nexaBold(ofSize: 16)
                 return cell
             case 2:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
-                cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
-                cell.selectionStyle = .none
                 cell.titleLabel.text = "OVERVIEW"
+                cell.titleLabel.addCharacterSpacing(kernValue: 2)
                 return cell
             case 3:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: StrokeTVC.identifier) as? StrokeTVC else { return UITableViewCell() }
-                cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
-                cell.selectionStyle = .none
                 cell.titleLabel.text = "TOTAL"
+                cell.titleLabel.addCharacterSpacing(kernValue: 2)
                 return cell
             default:
                 let cell = UITableViewCell(frame: .zero)
-                cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
+                cell.backgroundColor = .upuhBackground
                 cell.selectionStyle = .none
                 return cell
             }
@@ -329,6 +333,12 @@ extension MainVC: UITableViewDataSource {
             case 1:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DateTVC.identifier) as? DateTVC else { return UITableViewCell() }
                 cell.dateLabel.text = dateText
+                cell.dateLabel.addCharacterSpacing(kernValue: 2)
+                if dateText == "이번주" || dateText == "지난주" {
+                    cell.dateLabel.font = .IBMPlexSansSemiBold(ofSize: 16)
+                } else {
+                    cell.dateLabel.font = .nexaBold(ofSize: 16)
+                }
                 return cell
             case 2:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: ChartTVC.identifier) as? ChartTVC else { return UITableViewCell() }
@@ -336,8 +346,10 @@ extension MainVC: UITableViewDataSource {
                 
                 if currentState == .week {
                     cell.titleLabel.text = "WEEKLY RECORD"
+                    cell.titleLabel.addCharacterSpacing(kernValue: 2)
                 } else {
                     cell.titleLabel.text = "MONTHLY RECORD"
+                    cell.titleLabel.addCharacterSpacing(kernValue: 2)
                 }
                 
                 return cell
@@ -346,14 +358,16 @@ extension MainVC: UITableViewDataSource {
                 
                 if currentState == .week {
                     cell.titleLabel.text = "WEEKLY OVERVIEW"
+                    cell.titleLabel.addCharacterSpacing(kernValue: 2)
                 } else {
                     cell.titleLabel.text = "MONTHLY OVERVIEW"
+                    cell.titleLabel.addCharacterSpacing(kernValue: 2)
                 }
                 
                 return cell
             default:
                 let cell = UITableViewCell(frame: .zero)
-                cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
+                cell.backgroundColor = .upuhBackground
                 cell.selectionStyle = .none
                 return cell
             }
@@ -363,6 +377,7 @@ extension MainVC: UITableViewDataSource {
     }
 }
 
+// MARK: - UITableViewDelegate
 extension MainVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         switch indexPath.row {
@@ -399,23 +414,35 @@ extension MainVC: UITableViewDelegate {
         let y = scrollView.contentOffset.y
 
         if y >= 188 {
-            headerView.backgroundColor = .white
-            statusBar.backgroundColor = .white
+            headerView.backgroundColor = .upuhSkyBlue
+            statusBar.backgroundColor = .upuhSkyBlue
         } else if y < 188 && (y / 188) > 0.3 {
-            headerView.backgroundColor = .white.withAlphaComponent(y / 188)
+            headerView.backgroundColor = .upuhSkyBlue.withAlphaComponent(y / 188)
             statusBar.backgroundColor = .clear
         } else {
-            headerView.backgroundColor = .white.withAlphaComponent(0.3)
+            headerView.backgroundColor = .upuhSkyBlue.withAlphaComponent(0.3)
         }
         
         if y >= 188 {
             topView.titleLabel.alpha = 0
+            topView.nameLabel.alpha = 0
         } else if y > 0 {
             topView.titleLabel.transform = CGAffineTransform(translationX: -y/140, y: 0)
             topView.titleLabel.alpha = 1 - (y / 95)
+            topView.nameLabel.transform = CGAffineTransform(translationX: -y/140, y: 0)
+            topView.nameLabel.alpha = 1 - (y / 95)
+
         } else {
             topView.titleLabel.transform = .identity
             topView.titleLabel.alpha = 1
+            topView.nameLabel.transform = .identity
+            topView.nameLabel.alpha = 1
+        }
+    }
+    
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        if cardViewState == .expanded {
+            showCard(atState: .normal)
         }
     }
 }

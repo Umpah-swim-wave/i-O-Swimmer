@@ -22,10 +22,12 @@ extension CombinedChartView {
         rightAxis.axisLineColor = .clear
         rightAxis.axisMinimum = 0.0
         rightAxis.drawGridLinesEnabled = false
+        rightAxis.labelFont = .nexaBold(ofSize: 8)
         leftAxis.axisLineWidth = 0.0
-        leftAxis.gridColor = .systemGray3
+        leftAxis.gridColor = .init(red: 232/255, green: 232/255, blue: 232/255, alpha: 1.0)
         leftAxis.axisMinimum = 0.0
         leftAxis.axisMaximum = 5000
+        leftAxis.labelFont = .nexaBold(ofSize: 8)
         
         extraRightOffset = 22
         extraLeftOffset = 22
