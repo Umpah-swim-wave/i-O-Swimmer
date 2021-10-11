@@ -27,6 +27,7 @@ class ModifyElementVC: UIViewController{
     public var presentingSetTitle: String?
     public var presentingItemIndex: Int?
     public var selectedStroke: String?
+    public var selectedContent: String?
     
     private var backgroundImageView = UIImageView()
     public var backgroundImage : UIImage?
@@ -92,15 +93,15 @@ class ModifyElementVC: UIViewController{
     func changeDataInPresentingVC(){
         switch elementType{
             case .setTitle:
-                elementList = ["WARM-UP SET", "PRE SET", "MAIN SET", "KICK SET", "PULL SET", "DRILL SET", "COOL DOWN SET"]
-                titleLabel.text = "세트 선택"
+            let presentingVC = presentingViewController as? RoutineVC
+            presentingVC?.addRoutineSet(setTitle: selectedContent ?? "타이틀 잘못 넘어옴")
             case .level:
                 elementList = ["자유형", "평영", "배영", "접영"]
                 titleLabel.text = "영법 선택"
             case .stroke:
-                print("selectedStroke = \(selectedStroke)")
+                print("selectedStroke = \(selectedContent)")
                 let presentingVC = presentingViewController as? RoutineVC
-                presentingVC?.updateRoutineItem(stroke: self.selectedStroke ?? "잘못넘어옴",
+                presentingVC?.updateRoutineItem(stroke: self.selectedContent ?? "잘못넘어옴",
                                             setTitle: self.presentingSetTitle ?? "",
                                             index: self.presentingItemIndex ?? 0)
             case .none:
@@ -131,14 +132,18 @@ class ModifyElementVC: UIViewController{
         let observable = Observable.of(elementList)
         observable.bind(to: tableView.rx.items(cellIdentifier: ModifyElementTVC.identifier,
                                                cellType: ModifyElementTVC.self)) { row, element, cell in
-            cell.nameLabel.text = element
+            if self.elementType == .setTitle {
+                cell.nameLabel.text = element + " SET"
+            }else{
+                cell.nameLabel.text = element
+            }
         }.disposed(by: disposeBag)
         
-        //MARK: TO-Do 전체적으로 구현해보고 괜찮은 함수 선택하기
         tableView.rx.itemSelected
             .subscribe(onNext: { indexPath in
-                self.selectedStroke = self.elementList[indexPath.row]
-                print(self.elementList[indexPath.row])
+                self.selectedContent = self.elementList[indexPath.row]
+                print("self.selectedContent= \(self.selectedContent)")
+                //self.selectedStroke = self.elementList[indexPath.row]
                 self.changeDataInPresentingVC()
                 self.dismiss(animated: true, completion: nil)
             }).disposed(by: disposeBag)
@@ -148,7 +153,7 @@ class ModifyElementVC: UIViewController{
     private func setupContentElement(){
         switch elementType{
         case .setTitle:
-            elementList = ["WARM-UP SET", "PRE SET", "MAIN SET", "KICK SET", "PULL SET", "DRILL SET", "COOL DOWN SET"]
+            elementList = ["WARM-UP", "PRE", "MAIN", "KICK", "PULL", "DRILL", "COOL DOWN"]
             titleLabel.text = "세트 선택"
         case .level:
             elementList = ["자유형", "평영", "배영", "접영"]
@@ -245,7 +250,7 @@ extension ModifyElementVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool{
         textField.resignFirstResponder()
         guard let text = textField.text else {return false}
-        selectedStroke = text
+        selectedContent = text
         changeDataInPresentingVC()
         dismiss(animated: true, completion: nil)
         return true
