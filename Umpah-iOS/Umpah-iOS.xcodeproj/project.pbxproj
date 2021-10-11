@@ -7,13 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3C64C15926BBA85C009BD23B /* XmarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C64C15826BBA85C009BD23B /* XmarkButton.swift */; };
-		3C8CE32926BCBE6B002BBFE5 /* RoutineSetTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8CE32726BCBE6B002BBFE5 /* RoutineSetTVC.swift */; };
+		3C358BB626E5B2970025ABDC /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C358BB526E5B2970025ABDC /* UITableViewCell+.swift */; };
+		3C7479E12702E577006752EE /* RoutineItemTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7479DF2702E577006752EE /* RoutineItemTVC.swift */; };
+		3C7479E22702E577006752EE /* RoutineSetTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7479E02702E577006752EE /* RoutineSetTVC.swift */; };
+		3C7479E42702E666006752EE /* XmarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7479E32702E666006752EE /* XmarkButton.swift */; };
+		3C7479E92702EDB5006752EE /* RoutineStorageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7479E82702EDB5006752EE /* RoutineStorageType.swift */; };
+		3C7479EB2702EFAE006752EE /* RoutineStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7479EA2702EFAE006752EE /* RoutineStorage.swift */; };
 		3C8CE32A26BCBE6B002BBFE5 /* RoutineSetTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C8CE32826BCBE6B002BBFE5 /* RoutineSetTVC.xib */; };
 		3C8CE32D26BCC318002BBFE5 /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8CE32C26BCC318002BBFE5 /* UITableView+.swift */; };
 		3C8CE32F26BCCADD002BBFE5 /* RoutineItemDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8CE32E26BCCADD002BBFE5 /* RoutineItemDataModel.swift */; };
-		3CB4B33126BBB396003C578D /* RoutineItemTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB4B32F26BBB396003C578D /* RoutineItemTVC.swift */; };
+		3CAD1F2626CBDA64001CD535 /* UIWindow+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CAD1F2526CBDA64001CD535 /* UIWindow+.swift */; };
 		3CB4B33226BBB396003C578D /* RoutineItemTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CB4B33026BBB396003C578D /* RoutineItemTVC.xib */; };
+		3CE4D67926DD2786007E4193 /* CALayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE4D67826DD2786007E4193 /* CALayer+.swift */; };
+		3CF69DEA26E7776C002FD6DB /* ModifyElementVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF69DE926E7776C002FD6DB /* ModifyElementVC.swift */; };
+		3CF69DEC26E77856002FD6DB /* ModifyElement.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CF69DEB26E77856002FD6DB /* ModifyElement.storyboard */; };
+		3CF69DF026E781B5002FD6DB /* ModifyElementTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF69DEE26E781B5002FD6DB /* ModifyElementTVC.swift */; };
+		3CF69DF126E781B5002FD6DB /* ModifyElementTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CF69DEF26E781B5002FD6DB /* ModifyElementTVC.xib */; };
+		3CF69DF426E79A68002FD6DB /* RoutineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF69DF326E79A68002FD6DB /* RoutineViewModel.swift */; };
 		65BD8F2201A9C1AFD7C2D8DD /* Pods_Umpah_iOS_WatchKit_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86DD879FC3C4E84D7E3F34D5 /* Pods_Umpah_iOS_WatchKit_App.framework */; };
 		D1F464F8FC2774B0D55FFF79 /* Pods_Umpah_iOS_WatchKit_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C521171D608E01D7F8B2492 /* Pods_Umpah_iOS_WatchKit_Extension.framework */; };
 		ECF21C0C9372B4F1A806C262 /* Pods_Umpah_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB7CF8BBFF32001FC0A7E689 /* Pods_Umpah_iOS.framework */; };
@@ -45,7 +55,6 @@
 		ED8AB6A92703157A0066CD02 /* SelectedRangeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8AB6A82703157A0066CD02 /* SelectedRangeDelegate.swift */; };
 		ED8AB6AB2703158F0066CD02 /* States.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8AB6AA2703158F0066CD02 /* States.swift */; };
 		EDB91D8626C2A4F300F4562D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EDB91D8526C2A4F300F4562D /* GoogleService-Info.plist */; };
-		EDB91D8826C2A66700F4562D /* UIWindow+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB91D8726C2A66700F4562D /* UIWindow+.swift */; };
 		EDC1EDDF26BF8FF600DCB215 /* Charts+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC1EDDE26BF8FF600DCB215 /* Charts+.swift */; };
 		EDD3CCD7270118DA00AFED4B /* StatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3CCD6270118DA00AFED4B /* StatusBar.swift */; };
 		EDD3CCD9270192D200AFED4B /* SelectedRangeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3CCD8270192D200AFED4B /* SelectedRangeVC.swift */; };
@@ -126,13 +135,23 @@
 /* Begin PBXFileReference section */
 		2D05BFF43235C874BA8005FE /* Pods-Umpah-iOS WatchKit Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Umpah-iOS WatchKit Extension.release.xcconfig"; path = "Target Support Files/Pods-Umpah-iOS WatchKit Extension/Pods-Umpah-iOS WatchKit Extension.release.xcconfig"; sourceTree = "<group>"; };
 		30E19E303BB4F713D525DDCC /* Pods-Umpah-iOS WatchKit App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Umpah-iOS WatchKit App.debug.xcconfig"; path = "Target Support Files/Pods-Umpah-iOS WatchKit App/Pods-Umpah-iOS WatchKit App.debug.xcconfig"; sourceTree = "<group>"; };
-		3C64C15826BBA85C009BD23B /* XmarkButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = XmarkButton.swift; path = "Umpah-iOS/Source/Views/Components/Shared/XmarkButton.swift"; sourceTree = SOURCE_ROOT; };
-		3C8CE32726BCBE6B002BBFE5 /* RoutineSetTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RoutineSetTVC.swift; path = "Umpah-iOS/Source/Views/Cells/Routine/RoutineSetTVC.swift"; sourceTree = SOURCE_ROOT; };
+		3C358BB526E5B2970025ABDC /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
+		3C7479DF2702E577006752EE /* RoutineItemTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutineItemTVC.swift; sourceTree = "<group>"; };
+		3C7479E02702E577006752EE /* RoutineSetTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutineSetTVC.swift; sourceTree = "<group>"; };
+		3C7479E32702E666006752EE /* XmarkButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XmarkButton.swift; sourceTree = "<group>"; };
+		3C7479E82702EDB5006752EE /* RoutineStorageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStorageType.swift; sourceTree = "<group>"; };
+		3C7479EA2702EFAE006752EE /* RoutineStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStorage.swift; sourceTree = "<group>"; };
 		3C8CE32826BCBE6B002BBFE5 /* RoutineSetTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RoutineSetTVC.xib; path = "Umpah-iOS/Resource/Xibs/RoutineScene/RoutineSetTVC.xib"; sourceTree = SOURCE_ROOT; };
 		3C8CE32C26BCC318002BBFE5 /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
-		3C8CE32E26BCCADD002BBFE5 /* RoutineItemDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RoutineItemDataModel.swift; path = "Umpah-iOS/Source/Extensions/RoutineItemDataModel.swift"; sourceTree = SOURCE_ROOT; };
-		3CB4B32F26BBB396003C578D /* RoutineItemTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RoutineItemTVC.swift; path = "Umpah-iOS/Source/Views/Cells/Routine/RoutineItemTVC.swift"; sourceTree = SOURCE_ROOT; };
+		3C8CE32E26BCCADD002BBFE5 /* RoutineItemDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RoutineItemDataModel.swift; path = "Umpah-iOS/Source/Models/RoutineItemDataModel.swift"; sourceTree = SOURCE_ROOT; };
+		3CAD1F2526CBDA64001CD535 /* UIWindow+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIWindow+.swift"; sourceTree = "<group>"; };
 		3CB4B33026BBB396003C578D /* RoutineItemTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RoutineItemTVC.xib; path = "Umpah-iOS/Resource/Xibs/RoutineScene/RoutineItemTVC.xib"; sourceTree = SOURCE_ROOT; };
+		3CE4D67826DD2786007E4193 /* CALayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+.swift"; sourceTree = "<group>"; };
+		3CF69DE926E7776C002FD6DB /* ModifyElementVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyElementVC.swift; sourceTree = "<group>"; };
+		3CF69DEB26E77856002FD6DB /* ModifyElement.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ModifyElement.storyboard; sourceTree = "<group>"; };
+		3CF69DEE26E781B5002FD6DB /* ModifyElementTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ModifyElementTVC.swift; path = "Umpah-iOS/Source/Views/Cells/Routine/ModifyElementTVC.swift"; sourceTree = SOURCE_ROOT; };
+		3CF69DEF26E781B5002FD6DB /* ModifyElementTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ModifyElementTVC.xib; path = "Umpah-iOS/Resource/Xibs/ModifyElementScene/ModifyElementTVC.xib"; sourceTree = SOURCE_ROOT; };
+		3CF69DF326E79A68002FD6DB /* RoutineViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RoutineViewModel.swift; path = "Umpah-iOS/Source/ViewModels/RoutineViewModel.swift"; sourceTree = SOURCE_ROOT; };
 		5C22123FD09CFCBFA7BA82AB /* Pods-Umpah-iOS WatchKit App.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Umpah-iOS WatchKit App.release.xcconfig"; path = "Target Support Files/Pods-Umpah-iOS WatchKit App/Pods-Umpah-iOS WatchKit App.release.xcconfig"; sourceTree = "<group>"; };
 		7C521171D608E01D7F8B2492 /* Pods_Umpah_iOS_WatchKit_Extension.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Umpah_iOS_WatchKit_Extension.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		86DD879FC3C4E84D7E3F34D5 /* Pods_Umpah_iOS_WatchKit_App.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Umpah_iOS_WatchKit_App.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -168,7 +187,6 @@
 		ED8AB6A82703157A0066CD02 /* SelectedRangeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedRangeDelegate.swift; sourceTree = "<group>"; };
 		ED8AB6AA2703158F0066CD02 /* States.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = States.swift; sourceTree = "<group>"; };
 		EDB91D8526C2A4F300F4562D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		EDB91D8726C2A66700F4562D /* UIWindow+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIWindow+.swift"; sourceTree = "<group>"; };
 		EDC1EDDE26BF8FF600DCB215 /* Charts+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Charts+.swift"; sourceTree = "<group>"; };
 		EDD3CCD6270118DA00AFED4B /* StatusBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBar.swift; sourceTree = "<group>"; };
 		EDD3CCD8270192D200AFED4B /* SelectedRangeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedRangeVC.swift; sourceTree = "<group>"; };
@@ -246,6 +264,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		3C7479E72702ED62006752EE /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				3C7479E82702EDB5006752EE /* RoutineStorageType.swift */,
+				3C7479EA2702EFAE006752EE /* RoutineStorage.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
 		3C8CE32B26BCBE73002BBFE5 /* RoutineScene */ = {
 			isa = PBXGroup;
 			children = (
@@ -253,6 +280,14 @@
 				3CB4B33026BBB396003C578D /* RoutineItemTVC.xib */,
 			);
 			path = RoutineScene;
+			sourceTree = "<group>";
+		};
+		3CF69DF226E781C3002FD6DB /* ModifyElementScene */ = {
+			isa = PBXGroup;
+			children = (
+				3CF69DEF26E781B5002FD6DB /* ModifyElementTVC.xib */,
+			);
+			path = ModifyElementScene;
 			sourceTree = "<group>";
 		};
 		BB7FBBC3787B03C3765734FA /* Pods */ = {
@@ -306,8 +341,9 @@
 		ED78842B26DC9C11006D8787 /* Routine */ = {
 			isa = PBXGroup;
 			children = (
-				3CB4B32F26BBB396003C578D /* RoutineItemTVC.swift */,
-				3C8CE32726BCBE6B002BBFE5 /* RoutineSetTVC.swift */,
+				3CF69DEE26E781B5002FD6DB /* ModifyElementTVC.swift */,
+				3C7479DF2702E577006752EE /* RoutineItemTVC.swift */,
+				3C7479E02702E577006752EE /* RoutineSetTVC.swift */,
 			);
 			path = Routine;
 			sourceTree = "<group>";
@@ -341,7 +377,7 @@
 		ED78842E26DC9C2C006D8787 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				3C64C15826BBA85C009BD23B /* XmarkButton.swift */,
+				3C7479E32702E666006752EE /* XmarkButton.swift */,
 				EDD3CCD6270118DA00AFED4B /* StatusBar.swift */,
 			);
 			path = Shared;
@@ -447,7 +483,7 @@
 				EDD4401626483D1A00C866F3 /* Models */,
 				EDD4401526483D1600C866F3 /* ViewModels */,
 				EDD4401726483D2100C866F3 /* ViewControllers */,
-				EDD4401326483CD600C866F3 /* Services */,
+				3C7479E72702ED62006752EE /* Service */,
 				EDD4401226483CD100C866F3 /* Supports */,
 				EDD4401126483CCD00C866F3 /* Extensions */,
 			);
@@ -469,6 +505,7 @@
 		EDD4401126483CCD00C866F3 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				3CAD1F2526CBDA64001CD535 /* UIWindow+.swift */,
 				ED5396EE26B9774C0061722F /* Encodable+.swift */,
 				ED5396EC26B977320061722F /* UIApplication+.swift */,
 				ED5396F426B977A20061722F /* UIScreen+.swift */,
@@ -478,7 +515,8 @@
 				ED5396F826B977D10061722F /* UIView+.swift */,
 				EDD46F5126BEEA3B00FA91F2 /* UILabel+.swift */,
 				EDC1EDDE26BF8FF600DCB215 /* Charts+.swift */,
-				EDB91D8726C2A66700F4562D /* UIWindow+.swift */,
+				3CE4D67826DD2786007E4193 /* CALayer+.swift */,
+				3C358BB526E5B2970025ABDC /* UITableViewCell+.swift */,
 				EDD7C43D26CBD3EF00D93306 /* UIButton+.swift */,
 				EDD3CCDD2701B16A00AFED4B /* UIFont+.swift */,
 				EDD3CCE52701B4EE00AFED4B /* UIColor+.swift */,
@@ -495,16 +533,10 @@
 			path = Supports;
 			sourceTree = "<group>";
 		};
-		EDD4401326483CD600C866F3 /* Services */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Services;
-			sourceTree = "<group>";
-		};
 		EDD4401526483D1600C866F3 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				3CF69DF326E79A68002FD6DB /* RoutineViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -522,6 +554,7 @@
 			children = (
 				ED5396E326B975D70061722F /* MainVC.swift */,
 				ED5396E726B975F60061722F /* RoutineVC.swift */,
+				3CF69DE926E7776C002FD6DB /* ModifyElementVC.swift */,
 				EDD3CCD8270192D200AFED4B /* SelectedRangeVC.swift */,
 				ED8AB6A02702E55D0066CD02 /* SelectedStrokeVC.swift */,
 			);
@@ -534,6 +567,7 @@
 				EDD43FDE26483C9600C866F3 /* LaunchScreen.storyboard */,
 				ED5396E126B975AD0061722F /* Main.storyboard */,
 				ED5396E526B975E70061722F /* Routine.storyboard */,
+				3CF69DEB26E77856002FD6DB /* ModifyElement.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -541,6 +575,7 @@
 		EDD4401A26483D4900C866F3 /* Xibs */ = {
 			isa = PBXGroup;
 			children = (
+				3CF69DF226E781C3002FD6DB /* ModifyElementScene */,
 				3C8CE32B26BCBE73002BBFE5 /* RoutineScene */,
 			);
 			path = Xibs;
@@ -703,11 +738,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				3CB4B33226BBB396003C578D /* RoutineItemTVC.xib in Resources */,
+				3CF69DEC26E77856002FD6DB /* ModifyElement.storyboard in Resources */,
 				EDD3CCF02701B79F00AFED4B /* Nexa Bold.otf in Resources */,
 				ED5396E226B975AD0061722F /* Main.storyboard in Resources */,
 				EDD3CCF72701D1F100AFED4B /* IBMPlexSansKR-Medium.ttf in Resources */,
 				EDD43FE026483C9600C866F3 /* LaunchScreen.storyboard in Resources */,
 				EDD43FDD26483C9600C866F3 /* Assets.xcassets in Resources */,
+				3CF69DF126E781B5002FD6DB /* ModifyElementTVC.xib in Resources */,
 				ED5396E626B975E70061722F /* Routine.storyboard in Resources */,
 				EDD3CCEE2701B77D00AFED4B /* IBMPlexSansKR-SemiBold.ttf in Resources */,
 				EDB91D8626C2A4F300F4562D /* GoogleService-Info.plist in Resources */,
@@ -828,7 +865,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3CF69DF026E781B5002FD6DB /* ModifyElementTVC.swift in Sources */,
+				3C7479E12702E577006752EE /* RoutineItemTVC.swift in Sources */,
 				ED5396ED26B977320061722F /* UIApplication+.swift in Sources */,
+				3C7479E22702E577006752EE /* RoutineSetTVC.swift in Sources */,
+				3C7479E92702EDB5006752EE /* RoutineStorageType.swift in Sources */,
+				EDD46F5026BEDE4D00FA91F2 /* TypeCell.swift in Sources */,
+				3C7479EB2702EFAE006752EE /* RoutineStorage.swift in Sources */,
 				EDD46F5226BEEA3B00FA91F2 /* UILabel+.swift in Sources */,
 				EDE550BE2700F80D004422CE /* DateTVC.swift in Sources */,
 				ED78843C26DE4551006D8787 /* ExpandedWeekTVC.swift in Sources */,
@@ -841,26 +884,27 @@
 				EDD3CCDE2701B16A00AFED4B /* UIFont+.swift in Sources */,
 				ED5F1A1E26ECFD13003FF801 /* InsideStrokeTVC.swift in Sources */,
 				ED2ACAF826E41C7200C5A772 /* FilterCVC.swift in Sources */,
+				3C7479E42702E666006752EE /* XmarkButton.swift in Sources */,
 				ED78843626DE3612006D8787 /* ExpandedDayTVC.swift in Sources */,
 				EDD7C43E26CBD3EF00D93306 /* UIButton+.swift in Sources */,
 				ED78843A26DE3F63006D8787 /* WeekMonthHeader.swift in Sources */,
 				ED5396F726B977BB0061722F /* UIViewController+.swift in Sources */,
 				3C8CE32D26BCC318002BBFE5 /* UITableView+.swift in Sources */,
-				3CB4B33126BBB396003C578D /* RoutineItemTVC.swift in Sources */,
+				3CF69DEA26E7776C002FD6DB /* ModifyElementVC.swift in Sources */,
+				3CE4D67926DD2786007E4193 /* CALayer+.swift in Sources */,
 				ED8AB6A62702EDC20066CD02 /* StrokesTVC.swift in Sources */,
-				EDB91D8826C2A66700F4562D /* UIWindow+.swift in Sources */,
 				ED78843E26DE4C50006D8787 /* SelectedStrokeView.swift in Sources */,
 				ED8AB6A12702E55D0066CD02 /* SelectedStrokeVC.swift in Sources */,
 				3C8CE32F26BCCADD002BBFE5 /* RoutineItemDataModel.swift in Sources */,
 				ED5F1A1C26ECF1C7003FF801 /* StrokeView.swift in Sources */,
 				ED78843426DCA965006D8787 /* TopView.swift in Sources */,
-				3C64C15926BBA85C009BD23B /* XmarkButton.swift in Sources */,
 				EDD3CCD9270192D200AFED4B /* SelectedRangeVC.swift in Sources */,
 				EDD43FD426483C9500C866F3 /* AppDelegate.swift in Sources */,
 				ED5396E826B975F60061722F /* RoutineVC.swift in Sources */,
 				EDD46F4D26BE9C0200FA91F2 /* ExpandedStateView.swift in Sources */,
 				ED5396EF26B9774C0061722F /* Encodable+.swift in Sources */,
 				ED5396E426B975D70061722F /* MainVC.swift in Sources */,
+				3CF69DF426E79A68002FD6DB /* RoutineViewModel.swift in Sources */,
 				EDD46F4B26BE99F900FA91F2 /* NormalStateView.swift in Sources */,
 				ED5396F926B977D10061722F /* UIView+.swift in Sources */,
 				ED2ACAF626E41A4F00C5A772 /* FilterTVC.swift in Sources */,
@@ -873,8 +917,9 @@
 				ED8AB6A32702E73F0066CD02 /* StrokesView.swift in Sources */,
 				ED5396F326B977920061722F /* UITextField+.swift in Sources */,
 				EDD3CCD7270118DA00AFED4B /* StatusBar.swift in Sources */,
+				3C358BB626E5B2970025ABDC /* UITableViewCell+.swift in Sources */,
+				3CAD1F2626CBDA64001CD535 /* UIWindow+.swift in Sources */,
 				EDFC6EE72702387500B718C6 /* RangeButton.swift in Sources */,
-				3C8CE32926BCBE6B002BBFE5 /* RoutineSetTVC.swift in Sources */,
 				ED78843026DC9D3C006D8787 /* HeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -975,7 +1020,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1029,7 +1074,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;

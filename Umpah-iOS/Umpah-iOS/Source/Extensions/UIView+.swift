@@ -41,6 +41,13 @@ extension UIView {
                        }, completion: completion)
     }
     
+    func asImage() -> UIImage {
+        let renderer = UIGraphicsImageRenderer(bounds: bounds)
+        return renderer.image(actions: { rendererContext in
+            layer.render(in: rendererContext.cgContext)
+        })
+    }
+    
     func constraint(_ anchor: NSLayoutDimension, constant: CGFloat) {
         self.translatesAutoresizingMaskIntoConstraints = false
         anchor.constraint(equalToConstant: constant).isActive = true

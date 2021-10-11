@@ -16,4 +16,11 @@ extension UIScreen{
             return true
         }
     }
+    class public func getDeviceHeight() -> CGFloat{
+        return UIScreen.main.bounds.height
+    }
+    
+    class public func getDeviceWidth() -> CGFloat{
+        return UIScreen.main.bounds.width
+    }
 }
