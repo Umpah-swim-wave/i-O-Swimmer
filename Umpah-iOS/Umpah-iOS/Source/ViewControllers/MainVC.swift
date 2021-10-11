@@ -57,6 +57,7 @@ class MainVC: UIViewController {
         $0.dateFormat = "YY/MM/dd"
         $0.locale = Locale.init(identifier: "ko-KR")
     }
+    var canScrollMore = true
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -121,8 +122,9 @@ class MainVC: UIViewController {
             $0.width.equalTo(48)
         }
         
-        if let safeAreaHeight = UIApplication.shared.keyWindow?.safeAreaLayoutGuide.layoutFrame.size.height,
-          let bottomPadding = UIApplication.shared.keyWindow?.safeAreaInsets.bottom {
+        let window = UIApplication.shared.windows.first { $0.isKeyWindow }
+        if let safeAreaHeight = window?.safeAreaLayoutGuide.layoutFrame.size.height,
+          let bottomPadding = window?.safeAreaInsets.bottom {
             cardViewTopConstraint?.constant = safeAreaHeight + bottomPadding
         }
     }
@@ -162,6 +164,18 @@ extension MainVC {
             expandedView.fadeIn()
             normalView.fadeOut()
             startAnimation()
+        case .fail:
+            if canScrollMore {
+                canScrollMore = false
+                cardViewState = .fail
+                
+                makeRequestAlert(okAction: { _ in
+                    self.expandedView.isModified = false
+                    self.showCard(atState: .normal)
+                    self.expandedView.bottomView.selectButton.setTitle("영법 수정하기", for: .normal)
+                    self.canScrollMore = true
+                }, cancelAction: { _ in self.canScrollMore = true })
+            }
         }
         
         expandedView.changeTableViewLayout()
@@ -181,6 +195,10 @@ extension MainVC {
         let velocity = panRecognizer.velocity(in: self.view)
         let translation = panRecognizer.translation(in: self.view)
         
+        if expandedView.isModified {
+            panRecognizer.state = .failed
+        }
+        
         switch panRecognizer.state {
         case .began:
             cardPanStartingTopConstant = cardViewTopConstraint?.constant ?? 0
@@ -194,8 +212,9 @@ extension MainVC {
                 return
             }
             
-            if let safeAreaHeight = UIApplication.shared.keyWindow?.safeAreaLayoutGuide.layoutFrame.size.height,
-               let bottomPadding = UIApplication.shared.keyWindow?.safeAreaInsets.bottom {
+            let window = UIApplication.shared.windows.first { $0.isKeyWindow }
+            if let safeAreaHeight = window?.safeAreaLayoutGuide.layoutFrame.size.height,
+               let bottomPadding = window?.safeAreaInsets.bottom {
                 if self.cardViewTopConstraint?.constant ?? 0 < (safeAreaHeight + bottomPadding) * 0.6 {
                     showCard(atState: .expanded)
                 } else  {
@@ -203,7 +222,7 @@ extension MainVC {
                 }
             }
         default:
-            break
+            showCard(atState: .fail)
         }
     }
 }
@@ -225,6 +244,8 @@ extension MainVC {
             default:
                 cardViewTopConstraint?.constant = 20.0
             }
+        case .fail:
+            break
         }
         
         guard let constant = cardViewTopConstraint?.constant else { return 0 }
