@@ -166,9 +166,8 @@ extension MainVC {
         case .fail:
             if canScrollMore {
                 canScrollMore = false
-                print("fail to scroll down")
-                
                 cardViewState = .fail
+                
                 makeRequestAlert(okAction: { _ in
                     self.expandedView.isModified = false
                     self.showCard(atState: .normal)
