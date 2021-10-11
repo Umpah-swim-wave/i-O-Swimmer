@@ -171,8 +171,7 @@ class ModifyElementVC: UIViewController{
 
 extension ModifyElementVC {
     private func setupBackgroundLayout(){
-        view.addSubview(backgroundImageView)
-        print("넘겨져온 backgroundImage = \(backgroundImage)")
+        view.addSubviews([backgroundImageView,dimmerView])
         backgroundImageView.image = backgroundImage
         backgroundImageView.snp.makeConstraints{
             $0.top.equalToSuperview()
@@ -181,7 +180,6 @@ extension ModifyElementVC {
             $0.bottom.equalToSuperview()
         }
         
-        view.addSubview(dimmerView)
         dimmerView.snp.makeConstraints{
             $0.top.equalToSuperview()
             $0.leading.equalToSuperview()
