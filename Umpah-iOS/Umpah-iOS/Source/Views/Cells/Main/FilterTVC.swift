@@ -15,9 +15,9 @@ class FilterTVC: UITableViewCell {
     
     // MARK: - Properties
     lazy var filterCollectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout).then {
-        $0.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
         $0.dataSource = self
         $0.delegate = self
+        $0.backgroundColor = .upuhBackground
         $0.contentInset = UIEdgeInsets(top: 0, left: 28, bottom: 0, right: 0)
         $0.register(FilterCVC.self, forCellWithReuseIdentifier: FilterCVC.identifier)
     }
@@ -54,6 +54,22 @@ class FilterTVC: UITableViewCell {
             $0.height.equalTo(70)
         }
     }
+    
+    @available(iOS 15.0, *)
+    private func setupConfigurationButton(image: String,
+                                          titlePadding: CGFloat,
+                                          imagePadding: CGFloat,
+                                          backgroundColor: UIColor,
+                                          title: String) -> UIButton.Configuration {
+        var configuration = UIButton.Configuration.plain()
+        configuration.image = UIImage(named: image)
+        configuration.titlePadding = titlePadding
+        configuration.imagePadding = imagePadding
+        configuration.baseForegroundColor = backgroundColor
+        configuration.attributedTitle = AttributedString(title, attributes: AttributeContainer([NSAttributedString.Key.foregroundColor: UIColor.upuhGreen, NSAttributedString.Key.font: UIFont.IBMPlexSansText(ofSize: 14)]))
+        
+        return configuration
+    }
 }
 
 extension FilterTVC: UICollectionViewDataSource {
@@ -71,21 +87,55 @@ extension FilterTVC: UICollectionViewDataSource {
         case 0:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FilterCVC.identifier, for: indexPath) as? FilterCVC else { return UICollectionViewCell() }
             
-            print(state)
-            cell.filterButton.setImage(UIImage(systemName: "xmark"), for: .normal)
             cell.backgroundColor = .white
+            
             
             switch state {
             case .base:
-                cell.filterButton.setTitle(categorys[0], for: .normal)
-                cell.filterButton.setImage(UIImage(systemName: "plus"), for: .normal)
+                if #available(iOS 15, *) {
+                    cell.filterButton.configuration = setupConfigurationButton(image: "plus",
+                                                                               titlePadding: 0,
+                                                                               imagePadding: 4,
+                                                                               backgroundColor: .upuhGreen,
+                                                                               title: categorys[0])
+                } else {
+                    cell.filterButton.setTitle(categorys[0], for: .normal)
+                    cell.filterButton.setImage(UIImage(named: "plus"), for: .normal)
+                }
                 cell.backgroundColor = .clear
             case .day:
-                cell.filterButton.setTitle(categorys[1], for: .normal)
+                if #available(iOS 15, *) {
+                    cell.filterButton.configuration = setupConfigurationButton(image: "xmark",
+                                                                               titlePadding: 2,
+                                                                               imagePadding: 2,
+                                                                               backgroundColor: .upuhGreen,
+                                                                               title: categorys[1])
+                } else {
+                    cell.filterButton.setTitle(categorys[1], for: .normal)
+                    cell.filterButton.setImage(UIImage(named: "xmark"), for: .normal)
+                }
             case .week:
-                cell.filterButton.setTitle(categorys[2], for: .normal)
+                if #available(iOS 15, *) {
+                    cell.filterButton.configuration = setupConfigurationButton(image: "xmark",
+                                                                               titlePadding: 2,
+                                                                               imagePadding: 2,
+                                                                               backgroundColor: .upuhGreen,
+                                                                               title: categorys[2])
+                } else {
+                    cell.filterButton.setTitle(categorys[2], for: .normal)
+                    cell.filterButton.setImage(UIImage(named: "xmark"), for: .normal)
+                }
             case .month:
-                cell.filterButton.setTitle(categorys[3], for: .normal)
+                if #available(iOS 15, *) {
+                    cell.filterButton.configuration = setupConfigurationButton(image: "xmark",
+                                                                               titlePadding: 2,
+                                                                               imagePadding: 2,
+                                                                               backgroundColor: .upuhGreen,
+                                                                               title: categorys[3])
+                } else {
+                    cell.filterButton.setTitle(categorys[3], for: .normal)
+                    cell.filterButton.setImage(UIImage(named: "xmark"), for: .normal)
+                }
             case .routine:
                 break
             }
@@ -94,21 +144,64 @@ extension FilterTVC: UICollectionViewDataSource {
         default:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FilterCVC.identifier, for: indexPath) as? FilterCVC else { return UICollectionViewCell() }
             
-            cell.filterButton.setImage(UIImage(systemName: "xmark"), for: .normal)
             cell.backgroundColor = .white
             
             switch stroke {
             case .freestyle:
-                cell.filterButton.setTitle(strokes[1], for: .normal)
+                if #available(iOS 15, *) {
+                    cell.filterButton.configuration = setupConfigurationButton(image: "xmark",
+                                                                               titlePadding: 2,
+                                                                               imagePadding: 2,
+                                                                               backgroundColor: .upuhGreen,
+                                                                               title: strokes[1])
+                } else {
+                    cell.filterButton.setTitle(strokes[1], for: .normal)
+                    cell.filterButton.setImage(UIImage(named: "xmark"), for: .normal)
+                }
             case .breaststroke:
-                cell.filterButton.setTitle(strokes[2], for: .normal)
+                if #available(iOS 15, *) {
+                    cell.filterButton.configuration = setupConfigurationButton(image: "xmark",
+                                                                               titlePadding: 2,
+                                                                               imagePadding: 2,
+                                                                               backgroundColor: .upuhGreen,
+                                                                               title: strokes[2])
+                } else {
+                    cell.filterButton.setTitle(strokes[2], for: .normal)
+                    cell.filterButton.setImage(UIImage(named: "xmark"), for: .normal)
+                }
             case .backstroke:
-                cell.filterButton.setTitle(strokes[3], for: .normal)
+                if #available(iOS 15, *) {
+                    cell.filterButton.configuration = setupConfigurationButton(image: "xmark",
+                                                                               titlePadding: 2,
+                                                                               imagePadding: 2,
+                                                                               backgroundColor: .upuhGreen,
+                                                                               title: strokes[3])
+                } else {
+                    cell.filterButton.setTitle(strokes[3], for: .normal)
+                    cell.filterButton.setImage(UIImage(named: "xmark"), for: .normal)
+                }
             case .butterfly:
-                cell.filterButton.setTitle(strokes[4], for: .normal)
+                if #available(iOS 15, *) {
+                    cell.filterButton.configuration = setupConfigurationButton(image: "xmark",
+                                                                               titlePadding: 2,
+                                                                               imagePadding: 2,
+                                                                               backgroundColor: .upuhGreen,
+                                                                               title: strokes[4])
+                } else {
+                    cell.filterButton.setTitle(strokes[4], for: .normal)
+                    cell.filterButton.setImage(UIImage(named: "xmark"), for: .normal)
+                }
             default:
-                cell.filterButton.setTitle(strokes[0], for: .normal)
-                cell.filterButton.setImage(UIImage(systemName: "plus"), for: .normal)
+                if #available(iOS 15, *) {
+                    cell.filterButton.configuration = setupConfigurationButton(image: "plus",
+                                                                               titlePadding: 0,
+                                                                               imagePadding: 4,
+                                                                               backgroundColor: .upuhGreen,
+                                                                               title: strokes[0])
+                } else {
+                    cell.filterButton.setTitle(strokes[0], for: .normal)
+                    cell.filterButton.setImage(UIImage(named: "plus"), for: .normal)
+                }
                 cell.backgroundColor = .clear
             }
             
@@ -119,7 +212,17 @@ extension FilterTVC: UICollectionViewDataSource {
 
 extension FilterTVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 79, height: 40)
+        switch indexPath.item {
+        case 1:
+            switch stroke {
+            case .freestyle:
+                return CGSize(width: 91, height: 40)
+            default:
+                return CGSize(width: 79, height: 40)
+            }
+        default:
+            return CGSize(width: 79, height: 40)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -127,7 +230,7 @@ extension FilterTVC: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
+        return 8
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

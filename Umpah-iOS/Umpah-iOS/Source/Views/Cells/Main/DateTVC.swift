@@ -15,13 +15,12 @@ class DateTVC: UITableViewCell {
     
     // MARK: - Properties
     let dateLabel = UILabel().then {
-        $0.font = .boldSystemFont(ofSize: 16)
-        $0.addCharacterSpacing(kernValue: 2)
+        $0.textColor = .upuhGreen
     }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
+        backgroundColor = .upuhBackground
         selectionStyle = .none
         setupLayout()
     }

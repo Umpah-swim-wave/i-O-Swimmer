@@ -15,49 +15,38 @@ class ExpandedDayTVC: UITableViewCell {
     
     // MARK: - UI
     var rowLabel = UILabel().then {
-        $0.font = .boldSystemFont(ofSize: 12)
-        $0.textColor = .orange
+        $0.font = .nexaBold(ofSize: 13)
+        $0.textColor = .upuhBadgeOrange
     }
     var strokeLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 14)
+        $0.font = .IBMPlexSansText(ofSize: 14)
+        $0.textColor = .upuhBlack
     }
     let strokeButton = UIButton().then {
-        if #available(iOS 15, *) {
-            var configuration = UIButton.Configuration.plain()
-            configuration.image = UIImage(systemName: "chevron.down")
-            configuration.titlePadding = 0
-            configuration.imagePadding = 2
-            configuration.baseForegroundColor = .black
-            configuration.attributedTitle = AttributedString("자유형", attributes: AttributeContainer([NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)]))
-            configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-            $0.configuration = configuration
-        } else {
-            $0.setImage(UIImage(systemName: "chevron.down"), for: .normal)
-            $0.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: 0)
-            $0.titleLabel?.font = .systemFont(ofSize: 14)
-            $0.setTitleColor(.black, for: .normal)
-            $0.sizeToFit()
-        }
-        
         $0.semanticContentAttribute = .forceRightToLeft
         $0.isHidden = true
         $0.addTarget(self, action: #selector(touchUpChangeStroke), for: .touchUpInside)
     }
     let distanceLabel = UILabel().then {
         $0.text = "999m"
-        $0.font = .systemFont(ofSize: 14)
+        $0.font = .IBMPlexSansText(ofSize: 14)
+        $0.textColor = .upuhBlack
+        $0.addCharacterSpacing(kernValue: -1)
     }
     let velocityLabel = UILabel().then {
         $0.text = "1.7m/s"
-        $0.font = .systemFont(ofSize: 14)
+        $0.font = .IBMPlexSansText(ofSize: 14)
+        $0.textColor = .upuhBlack
+        $0.addCharacterSpacing(kernValue: -1)
     }
     let timeLabel = UILabel().then {
         $0.text = "99:99"
-        $0.font = .systemFont(ofSize: 14)
+        $0.font = .IBMPlexSansText(ofSize: 14)
+        $0.textColor = .upuhBlack
+        $0.addCharacterSpacing(kernValue: -1)
     }
     let mergeButton = UIButton().then {
-        $0.setImage(UIImage(systemName: "arrow.down.circle"), for: .normal)
-        $0.tintColor = .black
+        $0.setImage(UIImage(named: "ic_merge"), for: .normal)
         $0.isHidden = true
         $0.addTarget(self, action: #selector(touchUpMerge), for: .touchUpInside)
     }
@@ -66,6 +55,8 @@ class ExpandedDayTVC: UITableViewCell {
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        backgroundColor = .clear
+        selectionStyle = .none
         setupLayout()
     }
     

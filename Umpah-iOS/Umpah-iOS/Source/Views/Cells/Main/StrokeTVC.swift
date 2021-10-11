@@ -15,16 +15,20 @@ class StrokeTVC: UITableViewCell {
     
     // MARK: - Properties
     let titleLabel = UILabel().then {
-        $0.font = .boldSystemFont(ofSize: 12)
-        $0.textColor = .gray
+        $0.font = .nexaBold(ofSize: 12)
+        $0.textColor = .upuhGray
     }
     let strokeView = StrokeView().then {
         $0.layer.cornerRadius = 16
+        $0.layer.borderColor = UIColor.upuhBlue.withAlphaComponent(0.15).cgColor
+        $0.layer.borderWidth = 2
         $0.backgroundColor = .white
     }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        backgroundColor = .upuhBackground
+        selectionStyle = .none
         setupLayout()
     }
     

@@ -15,28 +15,38 @@ class ExpandedWeekTVC: UITableViewCell {
     
     // MARK: - Properties
     let dayLabel = UILabel().then {
-        $0.font = .boldSystemFont(ofSize: 12)
-        $0.textColor = .orange
+        $0.font = .nexaBold(ofSize: 13)
+        $0.textColor = .upuhBadgeOrange
     }
     let distanceLabel = UILabel().then {
         $0.text = "999m"
-        $0.font = .systemFont(ofSize: 14)
+        $0.font = .IBMPlexSansText(ofSize: 14)
+        $0.textColor = .upuhBlack
+        $0.addCharacterSpacing(kernValue: -1)
     }
     let timeLabel = UILabel().then {
         $0.text = "00:99:99"
-        $0.font = .systemFont(ofSize: 14)
+        $0.font = .IBMPlexSansText(ofSize: 14)
+        $0.textColor = .upuhBlack
+        $0.addCharacterSpacing(kernValue: -1)
     }
     let velocityLabel = UILabel().then {
         $0.text = "1.7m/s"
-        $0.font = .systemFont(ofSize: 14)
+        $0.font = .IBMPlexSansText(ofSize: 14)
+        $0.textColor = .upuhBlack
+        $0.addCharacterSpacing(kernValue: -1)
     }
     let kcalLabel = UILabel().then {
         $0.text = "320kcal"
-        $0.font = .systemFont(ofSize: 14)
+        $0.font = .IBMPlexSansText(ofSize: 14)
+        $0.textColor = .upuhBlack
+        $0.addCharacterSpacing(kernValue: -1)
     }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
+        backgroundColor = .clear
+        selectionStyle = .none
         setupLayout()
     }
     
