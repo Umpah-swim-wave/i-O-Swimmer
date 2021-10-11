@@ -262,6 +262,7 @@ extension RoutineVC: RoutineCellDelegate{
                                           setTitle: cell.routineSetTitle,
                                           index: index)
         }
+        tableView.reloadRows(at: [IndexPath(row: cell.getTableCellIndexPath(), section: 0)], with: .none)
         updateTableView()
     }
     
@@ -310,6 +311,21 @@ extension RoutineVC {
             self.present(nextVC, animated: true, completion: nil)
          })
     }
+    
+    func presentModifyElementView(elementType: ModifyElementType){
+        let storyboard = UIStoryboard(name: "ModifyElement", bundle: nil)
+        guard let nextVC = storyboard.instantiateViewController(identifier: ModifyElementVC.identifier) as? ModifyElementVC else {
+            return
+        }
+        nextVC.elementType = elementType
+        nextVC.modalPresentationStyle = .fullScreen
+         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1 , execute: {
+            nextVC.backgroundImage = self.view.asImage()
+             nextVC.modalTransitionStyle = .crossDissolve
+            self.present(nextVC, animated: true, completion: nil)
+         })
+    }
+
     
     func updateRoutineItem(stroke: String, setTitle: String, index: Int){
         viewModel.routineStorage.update(stroke: stroke, setTitle: setTitle, index: index)
@@ -423,6 +439,12 @@ extension RoutineVC {
             $0.backgroundColor = .gray
         }
         
+        let presentingAction = UIAction{ _ in
+            self.presentModifyElementView(elementType: .setTitle)
+        }
+        
+        titleButton.addAction(presentingAction, for: .touchUpInside)
+        
         view.addSubviews([titleButton,
                           titleUnderline])
         titleButton.snp.makeConstraints{
@@ -436,5 +458,14 @@ extension RoutineVC {
             $0.height.equalTo(1)
         }
         return view
+    }
+    
+    func addRoutineSet(setTitle: String){
+        viewModel.routineStorage.routineSetTitleList.append(setTitle)
+        viewModel.routineStorage.routineList[setTitle] = []
+        let cell = getInitRoutineSetCell(setTitle: setTitle)
+        cell.reorderImageView.isHidden = false
+        routineSetCellList.append(cell)
+        tableView.reloadData()
     }
 }
