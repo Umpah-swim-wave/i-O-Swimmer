@@ -124,6 +124,12 @@ class RoutineSetTVC: UITableViewCell {
                                                       setTitle: self.routineSetTitle,
                                                       index: index)
             }
+            
+            cell.selectTime = { newTime in
+                self.viewModel?.routineStorage.update(time: newTime,
+                                                      setTitle: self.routineSetTitle,
+                                                      index: index)
+            }
             list.append(cell)
         }
         routineItemCellList = list
@@ -134,6 +140,7 @@ class RoutineSetTVC: UITableViewCell {
             return RoutineItemTVC()
         }
         cell.setRoutineItem(item: item, isEditing: isEditingMode)
+        
         return cell
     }
 }
@@ -230,6 +237,19 @@ extension RoutineSetTVC: UITableViewDataSource{
     
     private func addRoutineItemCell(){
         let cell = getRoutineItemCell(item: RoutineItemData())
+        
+        print("넣은 index 값은? =\(routineItemCellList.count-1)")
+        cell.selectDistance = { newDistance in
+            self.viewModel?.routineStorage.update(distance: newDistance,
+                                                  setTitle: self.routineSetTitle,
+                                                  index: self.routineItemCellList.count-1)
+        }
+        
+        cell.selectTime = { newTime in
+            self.viewModel?.routineStorage.update(time: newTime,
+                                                  setTitle: self.routineSetTitle,
+                                                  index: self.routineItemCellList.count-1)
+        }
         routineItemCellList.append(cell)
         routineItemCellList.last?.isEditingMode = true
     }
