@@ -12,6 +12,8 @@ target 'Umpah-iOS' do
   pod 'Then'
   pod 'Charts'
   pod 'Firebase/Analytics'
+  pod 'RxSwift', '6.2.0'
+  pod 'RxCocoa', '6.2.0'
 end
 
 target 'Umpah-iOS WatchKit App' do
