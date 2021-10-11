@@ -8,17 +8,18 @@
 import UIKit
 
 import Then
+import SnapKit
 
 class FilterCVC: UICollectionViewCell {
     static let identifier = "FilterCVC"
     
     // MARK: - Properties
     let filterButton = UIButton().then {
-        $0.setImage(UIImage(systemName: "plus"), for: .normal)
         $0.setTitleColor(.init(red: 129/255, green: 151/255, blue: 154/255, alpha: 1.0), for: .normal)
         $0.tintColor = .init(red: 129/255, green: 151/255, blue: 154/255, alpha: 1.0)
         $0.titleLabel?.font = .systemFont(ofSize: 14, weight: .semibold)
         $0.semanticContentAttribute = .forceRightToLeft
+        $0.isUserInteractionEnabled = false
     }
     
     override init(frame: CGRect) {

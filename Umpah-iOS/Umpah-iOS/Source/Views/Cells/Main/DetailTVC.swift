@@ -16,7 +16,6 @@ class DetailTVC: UITableViewCell {
     
     // MARK: - Properties
     let titleLabel = UILabel().then {
-        $0.text = "OVERVIEW"
         $0.textColor = .gray
         $0.font = .boldSystemFont(ofSize: 12)
         $0.addCharacterSpacing(kernValue: 2)

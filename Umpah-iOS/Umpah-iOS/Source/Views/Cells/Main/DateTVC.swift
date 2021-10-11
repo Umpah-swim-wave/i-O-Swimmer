@@ -7,12 +7,14 @@
 
 import UIKit
 
+import Then
+import SnapKit
+
 class DateTVC: UITableViewCell {
     static let identifier = "DateTVC"
     
     // MARK: - Properties
     let dateLabel = UILabel().then {
-        $0.text = "21/09/27"
         $0.font = .boldSystemFont(ofSize: 16)
         $0.addCharacterSpacing(kernValue: 2)
     }

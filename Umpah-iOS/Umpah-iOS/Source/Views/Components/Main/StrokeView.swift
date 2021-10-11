@@ -7,6 +7,9 @@
 
 import UIKit
 
+import Then
+import SnapKit
+
 class StrokeView: UIView {
     // MARK: - Properties
     lazy var strokeTableView = UITableView().then {
