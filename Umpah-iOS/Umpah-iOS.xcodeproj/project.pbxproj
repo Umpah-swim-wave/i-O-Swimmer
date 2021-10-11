@@ -72,7 +72,6 @@
 		EDD43FFF26483C9700C866F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDD43FFE26483C9700C866F3 /* Assets.xcassets */; };
 		EDD46F4B26BE99F900FA91F2 /* NormalStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD46F4A26BE99F900FA91F2 /* NormalStateView.swift */; };
 		EDD46F4D26BE9C0200FA91F2 /* ExpandedStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD46F4C26BE9C0200FA91F2 /* ExpandedStateView.swift */; };
-		EDD46F5026BEDE4D00FA91F2 /* TypeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD46F4F26BEDE4D00FA91F2 /* TypeCell.swift */; };
 		EDD46F5226BEEA3B00FA91F2 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD46F5126BEEA3B00FA91F2 /* UILabel+.swift */; };
 		EDD7C43C26CB903F00D93306 /* ChartTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD7C43B26CB903F00D93306 /* ChartTVC.swift */; };
 		EDD7C43E26CBD3EF00D93306 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD7C43D26CBD3EF00D93306 /* UIButton+.swift */; };
@@ -200,7 +199,6 @@
 		EDD4400026483C9700C866F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EDD46F4A26BE99F900FA91F2 /* NormalStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NormalStateView.swift; path = "Umpah-iOS/Source/Views/Components/Main/NormalStateView.swift"; sourceTree = SOURCE_ROOT; };
 		EDD46F4C26BE9C0200FA91F2 /* ExpandedStateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ExpandedStateView.swift; path = "Umpah-iOS/Source/Views/Components/Main/ExpandedStateView.swift"; sourceTree = SOURCE_ROOT; };
-		EDD46F4F26BEDE4D00FA91F2 /* TypeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TypeCell.swift; path = "Umpah-iOS/Source/Views/Cells/Main/TypeCell.swift"; sourceTree = SOURCE_ROOT; };
 		EDD46F5126BEEA3B00FA91F2 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		EDD7C43B26CB903F00D93306 /* ChartTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ChartTVC.swift; path = "Umpah-iOS/Source/Views/Cells/Main/ChartTVC.swift"; sourceTree = SOURCE_ROOT; };
 		EDD7C43D26CBD3EF00D93306 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
@@ -292,7 +290,6 @@
 		ED78842A26DC9C07006D8787 /* Main */ = {
 			isa = PBXGroup;
 			children = (
-				EDD46F4F26BEDE4D00FA91F2 /* TypeCell.swift */,
 				EDD7C43B26CB903F00D93306 /* ChartTVC.swift */,
 				EDD7C43F26CBDB4600D93306 /* DetailTVC.swift */,
 				ED78843526DE3612006D8787 /* ExpandedDayTVC.swift */,
@@ -832,7 +829,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				ED5396ED26B977320061722F /* UIApplication+.swift in Sources */,
-				EDD46F5026BEDE4D00FA91F2 /* TypeCell.swift in Sources */,
 				EDD46F5226BEEA3B00FA91F2 /* UILabel+.swift in Sources */,
 				EDE550BE2700F80D004422CE /* DateTVC.swift in Sources */,
 				ED78843C26DE4551006D8787 /* ExpandedWeekTVC.swift in Sources */,
@@ -979,6 +975,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1032,6 +1029,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;

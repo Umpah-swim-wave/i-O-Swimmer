@@ -16,27 +16,29 @@ class DetailView: UIView {
         $0.backgroundColor = .white
         $0.layer.cornerRadius = 16
         $0.layer.borderWidth = 2
-        $0.layer.borderColor = UIColor.init(red: 78/255, green: 149/255, blue: 185/255, alpha: 0.15).cgColor
+        $0.layer.borderColor = UIColor.upuhBlue.withAlphaComponent(0.15).cgColor
+        $0.makeShadow(.upuhSkyBlue, 0.6, CGSize(width: 0, height: 0), 7)
         
         let distanceIconImage = UIImageView().then {
-            $0.backgroundColor = .systemOrange
+            $0.image = UIImage(named: "ic_swim")
         }
         let distanceTitle = UILabel().then {
             $0.text = "DISTANCE"
-            $0.textColor = .systemOrange
-            $0.font = .boldSystemFont(ofSize: 8)
+            $0.textColor = .upuhSubOrange
+            $0.font = .nexaBold(ofSize: 9)
             $0.addCharacterSpacing(kernValue: 2)
         }
         let divideLine = UIView().then {
-            $0.backgroundColor = .lightGray
+            $0.backgroundColor = .upuhDivider
+            $0.layer.cornerRadius = 3
         }
         let timeIconImage = UIImageView().then {
-            $0.backgroundColor = .systemOrange
+            $0.image = UIImage(named: "ic_time")
         }
         let timeTitle = UILabel().then {
             $0.text = "TIME"
-            $0.textColor = .systemOrange
-            $0.font = .boldSystemFont(ofSize: 8)
+            $0.textColor = .upuhSubOrange
+            $0.font = .nexaBold(ofSize: 9)
             $0.addCharacterSpacing(kernValue: 2)
         }
         
@@ -71,21 +73,23 @@ class DetailView: UIView {
         $0.backgroundColor = .white
         $0.layer.cornerRadius = 16
         $0.layer.borderWidth = 2
-        $0.layer.borderColor = UIColor.init(red: 78/255, green: 149/255, blue: 185/255, alpha: 0.15).cgColor
+        $0.layer.borderColor = UIColor.upuhBlue.withAlphaComponent(0.15).cgColor
+        $0.makeShadow(.upuhSkyBlue, 0.6, CGSize(width: 0, height: 0), 7)
         
         let kcalIconImage = UIImageView().then {
-            $0.backgroundColor = .systemOrange
+            $0.image = UIImage(named: "ic_kcal")
         }
         let heartIconImage = UIImageView().then {
-            $0.backgroundColor = .systemOrange
+            $0.image = UIImage(named: "ic_heart")
         }
         let divideLine = UIView().then {
-            $0.backgroundColor = .lightGray
+            $0.backgroundColor = .upuhDivider
+            $0.layer.cornerRadius = 3
         }
         
         $0.addSubviews([kcalIconImage, heartIconImage, divideLine])
         kcalIconImage.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(22)
+            $0.centerY.equalToSuperview()
             $0.leading.equalToSuperview().inset(32)
             $0.width.equalTo(24)
             $0.height.equalTo(26)
@@ -96,7 +100,7 @@ class DetailView: UIView {
             $0.centerX.equalToSuperview()
         }
         heartIconImage.snp.makeConstraints {
-            $0.top.equalToSuperview().inset(23)
+            $0.centerY.equalToSuperview()
             $0.leading.equalTo(divideLine.snp.trailing).offset(22)
             $0.width.equalTo(24)
             $0.height.equalTo(22)
@@ -104,12 +108,13 @@ class DetailView: UIView {
     }
     let warningLabel = UILabel().then {
         $0.text = "휴식시간을 포함한 평균값입니다. 애플 피트니스의 값과 다를 수 있습니다."
-        $0.font = .systemFont(ofSize: 11)
-        $0.textColor = .gray
+        $0.font = .IBMPlexSansRegular(ofSize: 11)
+        $0.textColor = .upuhWarning
         
         let image = UIImageView()
-        image.image = UIImage(systemName: "exclamationmark.triangle")
+        image.image = UIImage(named: "alert-circle")
         $0.addSubview(image)
+        $0.tintColor = .upuhGray
         image.snp.makeConstraints {
             $0.width.height.equalTo(14)
             $0.leading.equalToSuperview().inset(-18)
@@ -118,26 +123,26 @@ class DetailView: UIView {
     }
     let distanceLabel = UILabel().then {
         $0.text = "5.4km"
-        $0.textColor = .black
-        $0.font = .boldSystemFont(ofSize: 35)
+        $0.textColor = .upuhBlack
+        $0.font = .nexaBold(ofSize: 35)
         $0.changeCharacterAttribute(words: ["km"], size: 22, kernValue: 1)
     }
     let timeLabel = UILabel().then {
         $0.text = "2h 11m"
-        $0.textColor = .black
-        $0.font = .boldSystemFont(ofSize: 35)
+        $0.textColor = .upuhBlack
+        $0.font = .nexaBold(ofSize: 35)
         $0.changeCharacterAttribute(words: ["h", "m"], size: 22, kernValue: -0.1)
     }
     let kcalLabel = UILabel().then {
         $0.text = "390kcal"
-        $0.textColor = .black
-        $0.font = .boldSystemFont(ofSize: 22)
+        $0.textColor = .upuhBlack
+        $0.font = .nexaBold(ofSize: 22)
         $0.changeCharacterAttribute(words: ["kcal"], size: 18, kernValue: 2)
     }
     let bpmLabel = UILabel().then {
         $0.text = "120bpm"
-        $0.textColor = .black
-        $0.font = .boldSystemFont(ofSize: 22)
+        $0.textColor = .upuhBlack
+        $0.font = .nexaBold(ofSize: 22)
         $0.changeCharacterAttribute(words: ["bpm"], size: 18, kernValue: 2)
     }
 
@@ -163,7 +168,7 @@ class DetailView: UIView {
         }
         
         bottomView.snp.makeConstraints {
-            $0.top.equalTo(topView.snp.bottom).offset(14)
+            $0.top.equalTo(topView.snp.bottom).offset(16)
             $0.leading.trailing.equalTo(topView)
             $0.height.equalTo(70)
         }
@@ -185,12 +190,12 @@ class DetailView: UIView {
         }
         
         kcalLabel.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
+            $0.top.equalToSuperview().inset(26)
             $0.leading.equalToSuperview().inset(64)
         }
         
         bpmLabel.snp.makeConstraints {
-            $0.centerY.equalToSuperview()
+            $0.top.equalToSuperview().inset(26)
             $0.leading.equalTo(bottomView.snp.centerX).offset(54)
         }
     }

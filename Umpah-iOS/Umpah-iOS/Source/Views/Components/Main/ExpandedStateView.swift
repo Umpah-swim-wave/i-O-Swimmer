@@ -17,13 +17,18 @@ class ExpandedStateView: UIView {
         $0.dataSource = self
         $0.register(ExpandedDayTVC.self, forCellReuseIdentifier: ExpandedDayTVC.identifier)
         $0.register(ExpandedWeekTVC.self, forCellReuseIdentifier: ExpandedWeekTVC.identifier)
+        $0.showsVerticalScrollIndicator = false
+        
+        if #available(iOS 15.0, *) {
+            $0.sectionHeaderTopPadding = 0
+        }
     }
     lazy var bottomView = SelectedStrokeView().then {
         $0.backgroundColor = .white
     }
     let titleLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 16, weight: .semibold)
-        $0.textColor = .systemGray
+        $0.font = .IBMPlexSansSemiBold(ofSize: 16)
+        $0.textColor = .upuhGreen
     }
     
     var strokes: [String] = ["자유형", "접영", "자유형", "자유형", "자유형", "자유형", "배영", "배영", "평영", "평영", "접영", "자유형", "접영"]
@@ -120,10 +125,9 @@ extension ExpandedStateView: UITableViewDataSource {
         switch state {
         case .day,
              .base:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: ExpandedDayTVC.identifier) as? ExpandedDayTVC else { return UITableViewCell() }
-            cell.backgroundColor = .clear
-            cell.selectionStyle = .none
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: ExpandedDayTVC.identifier) as? ExpandedDayTVC else { return UITableViewCell() }            
             cell.strokeLabel.text = strokes[indexPath.row]
+            
             if indexPath.row >= 9 {
                 cell.rowLabel.text = "\(indexPath.row + 1)"
             } else {
@@ -132,19 +136,19 @@ extension ExpandedStateView: UITableViewDataSource {
             
             if #available(iOS 15, *) {
                 var configuration = UIButton.Configuration.plain()
-                configuration.image = UIImage(systemName: "chevron.down")
+                configuration.image = UIImage(named: "ic_drop")
                 configuration.titlePadding = 0
                 configuration.imagePadding = 2
-                configuration.baseForegroundColor = .black
-                configuration.attributedTitle = AttributedString(strokes[indexPath.row], attributes: AttributeContainer([NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)]))
+                configuration.baseForegroundColor = .upuhBlack
+                configuration.attributedTitle = AttributedString(strokes[indexPath.row], attributes: AttributeContainer([NSAttributedString.Key.foregroundColor: UIColor.upuhBlack, NSAttributedString.Key.font: UIFont.IBMPlexSansText(ofSize: 14)]))
                 configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
                 cell.strokeButton.configuration = configuration
             } else {
-                cell.strokeButton.setImage(UIImage(systemName: "chevron.down"), for: .normal)
+                cell.strokeButton.setImage(UIImage(named: "ic_drop"), for: .normal)
                 cell.strokeButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: 0)
                 cell.strokeButton.setTitle(strokes[indexPath.row], for: .normal)
-                cell.strokeButton.titleLabel?.font = .systemFont(ofSize: 14)
-                cell.strokeButton.setTitleColor(.black, for: .normal)
+                cell.strokeButton.titleLabel?.font = .IBMPlexSansText(ofSize: 14)
+                cell.strokeButton.setTitleColor(.upuhBlack, for: .normal)
                 cell.strokeButton.sizeToFit()
             }
             
@@ -159,20 +163,15 @@ extension ExpandedStateView: UITableViewDataSource {
             return cell
         case .week:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ExpandedWeekTVC.identifier) as? ExpandedWeekTVC else { return UITableViewCell() }
-            cell.backgroundColor = .clear
-            cell.selectionStyle = .none
             cell.dayLabel.text = days[indexPath.row]
+            cell.dayLabel.addCharacterSpacing(kernValue: 1)
             return cell
         case .month:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ExpandedWeekTVC.identifier) as? ExpandedWeekTVC else { return UITableViewCell() }
-            cell.backgroundColor = .clear
-            cell.selectionStyle = .none
             cell.dayLabel.text = weeks[indexPath.row]
             return cell
         case .routine:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ExpandedDayTVC.identifier) as? ExpandedDayTVC else { return UITableViewCell() }
-            cell.backgroundColor = .clear
-            cell.selectionStyle = .none
             return cell
         default:
             return UITableViewCell()
@@ -197,7 +196,22 @@ extension ExpandedStateView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         tableView.backgroundColor = .white
-        tableView.separatorInset = .init(top: 0, left: 30, bottom: 0, right: 30)
+        
+        if indexPath.row == tableView.numberOfRows(inSection: indexPath.section) - 1 {
+            cell.separatorInset.left = cell.bounds.size.width
+        } else {
+            switch state {
+            case .base,
+                 .day:
+                cell.separatorInset = .init(top: 0, left: 40, bottom: 0, right: 20)
+            case .week:
+                cell.separatorInset = .init(top: 0, left: 80, bottom: 0, right: 20)
+            case .month:
+                cell.separatorInset = .init(top: 0, left: 90, bottom: 0, right: 20)
+            default:
+                break
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -205,16 +219,13 @@ extension ExpandedStateView: UITableViewDelegate {
         case .day,
              .base:
             let header = DayHeader()
-            header.backgroundColor = .white
             return header
         case .week:
             let header = WeekMonthHeader()
-            header.backgroundColor = .white
             header.dateTitle.text = "요일"
             return header
         case .month:
             let header = WeekMonthHeader()
-            header.backgroundColor = .white
             header.dateTitle.text = "주차"
             return header
         default:
@@ -232,8 +243,6 @@ extension ExpandedStateView: SelectedRangeDelegate {
         vc.modalTransitionStyle = .crossDissolve
         
         vc.strokeData = { style in
-            let indexPathRow = IndexPath(row: indexPath, section: 0)
-
             switch style {
             case .freestyle:
                 self.strokes[indexPath] = "자유형"
@@ -247,15 +256,13 @@ extension ExpandedStateView: SelectedRangeDelegate {
                 break
             }
             
-            self.listTableView.reloadRows(at: [indexPathRow], with: .fade)
+            self.listTableView.reloadSections(IndexSet(0...0), with: .fade)
         }
         
         root?.present(vc, animated: true, completion: nil)
     }
     
     func didClickedMergeButton(indexPath: Int) {
-        let indexPathRow = IndexPath(row: indexPath, section: 0)
-        
         strokes.remove(at: indexPath)
         listTableView.reloadSections(IndexSet(0...0), with: .fade)
     }

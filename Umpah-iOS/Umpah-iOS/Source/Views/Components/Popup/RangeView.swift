@@ -14,11 +14,13 @@ class RangeView: UIView {
     // MARK: - Properties
     let titleLabel = UILabel().then {
         $0.text = "기간 선택"
-        $0.font = .systemFont(ofSize: 18, weight: .semibold)
+        $0.textColor = .upuhBlack
+        $0.font = .IBMPlexSansSemiBold(ofSize: 18)
     }
     let infoLabel = UILabel().then {
         $0.text = "기본값은 가장 최근 기록입니다!"
-        $0.font = .systemFont(ofSize: 11)
+        $0.textColor = .upuhWarning
+        $0.font = .IBMPlexSansRegular(ofSize: 11)
     }
     let buttonStackView = UIStackView().then {
         $0.alignment = .center

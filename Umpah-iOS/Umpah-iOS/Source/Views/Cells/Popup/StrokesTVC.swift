@@ -16,21 +16,17 @@ class StrokesTVC: UITableViewCell {
     override var isSelected: Bool {
         willSet {
             checkButton.isHidden = !isSelected
-            if #available(iOS 15.0, *) {
-                strokeLabel.textColor = isSelected ? .systemMint : .black
-            } else {
-                strokeLabel.textColor = isSelected ? .systemTeal : .black
-            }
+            strokeLabel.textColor = isSelected ? .upuhBlue : .upuhBlack
         }
     }
     
     // MARK: - Properties
     let strokeLabel = UILabel().then {
-        $0.font = .systemFont(ofSize: 16, weight: .medium)
+        $0.font = .IBMPlexSansText(ofSize: 16)
+        $0.textColor = .upuhBlack
     }
     let checkButton = UIButton().then {
-        $0.setImage(UIImage(systemName: "checkmark"), for: .normal)
-        $0.tintColor = .blue
+        $0.setImage(UIImage(named: "check"), for: .normal)
         $0.isHidden = true
     }
     

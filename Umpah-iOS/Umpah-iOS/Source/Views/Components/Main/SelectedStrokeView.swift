@@ -13,11 +13,11 @@ import SnapKit
 class SelectedStrokeView: UIView {
     // MARK: - Properties
     let selectButton = UIButton().then {
-        $0.titleLabel?.font = .systemFont(ofSize: 16, weight: .semibold)
         $0.setTitle("영법 수정하기", for: .normal)
+        $0.titleLabel?.font = .IBMPlexSansSemiBold(ofSize: 16)
         $0.setTitleColor(.white, for: .normal)
-        $0.setBackgroundColor(.systemBlue, for: .normal)
-        $0.setBackgroundColor(.systemBlue.withAlphaComponent(0.7), for: .highlighted)
+        $0.setBackgroundColor(.upuhSubBlue, for: .normal)
+        $0.setBackgroundColor(.upuhSubBlue.withAlphaComponent(0.7), for: .highlighted)
         $0.layer.cornerRadius = 23
         $0.layer.masksToBounds = true
     }

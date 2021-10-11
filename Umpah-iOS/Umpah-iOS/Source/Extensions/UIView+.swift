@@ -40,4 +40,16 @@ extension UIView {
                         self.alpha = 0.0
                        }, completion: completion)
     }
+    
+    func constraint(_ anchor: NSLayoutDimension, constant: CGFloat) {
+        self.translatesAutoresizingMaskIntoConstraints = false
+        anchor.constraint(equalToConstant: constant).isActive = true
+    }
+    
+    func setViewShadow(backView: UIView, cornerRadius: CGFloat) {
+        backView.layer.masksToBounds = true
+        backView.layer.cornerRadius = cornerRadius
+        
+        makeShadow(.upuhSkyBlue, 0.4, CGSize(width: -2, height: 2), 5)
+    }
 }

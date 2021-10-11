@@ -16,15 +16,14 @@ class DetailTVC: UITableViewCell {
     
     // MARK: - Properties
     let titleLabel = UILabel().then {
-        $0.textColor = .gray
-        $0.font = .boldSystemFont(ofSize: 12)
-        $0.addCharacterSpacing(kernValue: 2)
+        $0.textColor = .upuhGray
+        $0.font = .nexaBold(ofSize: 12)
     }
     let detailView = DetailView()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
+        backgroundColor = .upuhBackground
         selectionStyle = .none
         setupLayout()
     }
