@@ -14,11 +14,13 @@ class RoutineItemTVC: UITableViewCell {
     
     public var selectStorke: (() -> ())?
     public var selectDistance: ((Int) -> ())?
+    public var selectTime: ((Int) -> ())?
     public var isSelectedDistance: Bool = true
     private var routineItem: RoutineItemData?
     
     private var distanceList: [Int] = []
     private var miniteList: [Int] = []
+    private var selectedTime: (Int, Int) = (0,0)
     private var pickerView = UIPickerView()
     private let toolbar = UIToolbar()
     
@@ -92,12 +94,20 @@ class RoutineItemTVC: UITableViewCell {
     
     func addActions(){
         let touchUpToselectStorke = UIAction {_ in self.selectStorke?()}
-        let checkDistanceAction = UIAction{ _ in self.isSelectedDistance = true}
-        let checkTimeAction = UIAction{_ in self.isSelectedDistance = false}
+        let checkDistanceAction = UIAction{ _ in
+            print("checkDistanceAction isSelectedDistance = \(self.isSelectedDistance)")
+            self.isSelectedDistance = true
+            self.changeToolbarTitle(title: "거리")
+        }
+        let checkTimeAction = UIAction{_ in
+            self.isSelectedDistance = false
+            self.changeToolbarTitle(title: "시간")
+            print("checkTimeAction isSelectedDistance = \(self.isSelectedDistance)")
+        }
         
         strokeButton.addAction(touchUpToselectStorke, for: .touchUpInside)
-        distanceTextField.addAction(checkDistanceAction, for: .touchDown)
-        timeTextField.addAction(checkTimeAction, for: .touchDown)
+        distanceTextField.addAction(checkDistanceAction, for: .editingDidBegin)
+        timeTextField.addAction(checkTimeAction, for: .editingDidBegin)
     }
     
     func setPickerViewDelegate(){
@@ -105,6 +115,8 @@ class RoutineItemTVC: UITableViewCell {
         pickerView.dataSource = self
         distanceTextField.inputView = pickerView
         distanceTextField.inputAccessoryView = toolbar
+        timeTextField.inputView = pickerView
+        timeTextField.inputAccessoryView = toolbar
     }
     
     func initDataList(){
@@ -121,39 +133,73 @@ class RoutineItemTVC: UITableViewCell {
         
         let titleLabel = UIBarButtonItem(title: "거리", style: .plain, target: nil, action: nil)
         let doneButton = UIBarButtonItem(title: "완료", style: .done, target: nil, action: #selector(donePresseed))
-        
         let flexibleSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
         
         toolbar.setItems([titleLabel, flexibleSpace, doneButton], animated: true)
     }
     
+    private func changeToolbarTitle(title: String){
+        toolbar.items?.first?.title = title
+    }
+    
     @objc
     func donePresseed(){
         endEditing(true)
-        selectDistance?(routineItem?.distance ?? 9999)
+        isSelectedDistance ? selectDistance?(routineItem?.distance ?? 9999) : selectTime?(selectedTime.0 + selectedTime.1)
     }
 }
 
 
 extension RoutineItemTVC: UIPickerViewDelegate{
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return String(distanceList[row])
+        print("isSelectedDistance = \(isSelectedDistance)")
+        if isSelectedDistance{
+            return String(distanceList[row])
+        }else{
+            if component == 0 {
+                return String(miniteList[row])
+            }else{
+                return row == 0 ? "0" : "30"
+            }
+        }
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        distanceTextField.text = "\(distanceList[row])m"
-        routineItem?.distance = distanceList[row]
+        if isSelectedDistance {
+            distanceTextField.text = "\(distanceList[row])m"
+            routineItem?.distance = distanceList[row]
+        }else{
+            if component == 0{
+                selectedTime.0 = miniteList[row]*60
+            }
+            if component == 1 {
+                selectedTime.1 = row == 0 ? 0 : 30
+            }
+            let newTime = selectedTime.0 + selectedTime.1
+            timeTextField.text = getTimeToString(time: newTime)
+            routineItem?.time = newTime
+        }
+    }
+    
+    func getTimeToString(time: Int) -> String{
+        let minute = time / 60 < 10 ? "0\(time / 60)" : "\(time / 60)"
+        let second = time % 60 < 10 ? "0\(time % 60)" : "\(time % 60)"
+        return minute + ":" + second
     }
     
 }
 
 extension RoutineItemTVC: UIPickerViewDataSource{
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
+        return isSelectedDistance ? 1 : 2
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return  distanceList.count
+        if isSelectedDistance{
+            return distanceList.count
+        }else{
+            return component == 0 ? miniteList.count : 2
+        }
     }
 }
 
@@ -189,8 +235,6 @@ extension RoutineItemTVC {
             $0.height.equalTo(0.5)
         }
         
-        print("Editing = \(isEditingMode)")
-        print("showsReorderControl = \(showsReorderControl)")
         if showsReorderControl{
             changeLayoutAtEditingMode()
         }else{
