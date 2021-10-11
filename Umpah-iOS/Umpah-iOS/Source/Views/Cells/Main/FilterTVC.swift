@@ -72,6 +72,9 @@ extension FilterTVC: UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FilterCVC.identifier, for: indexPath) as? FilterCVC else { return UICollectionViewCell() }
             
             print(state)
+            cell.filterButton.setImage(UIImage(systemName: "xmark"), for: .normal)
+            cell.backgroundColor = .white
+            
             switch state {
             case .base:
                 cell.filterButton.setTitle(categorys[0], for: .normal)
@@ -79,16 +82,10 @@ extension FilterTVC: UICollectionViewDataSource {
                 cell.backgroundColor = .clear
             case .day:
                 cell.filterButton.setTitle(categorys[1], for: .normal)
-                cell.filterButton.setImage(UIImage(systemName: "xmark"), for: .normal)
-                cell.backgroundColor = .white
             case .week:
                 cell.filterButton.setTitle(categorys[2], for: .normal)
-                cell.filterButton.setImage(UIImage(systemName: "xmark"), for: .normal)
-                cell.backgroundColor = .white
             case .month:
                 cell.filterButton.setTitle(categorys[3], for: .normal)
-                cell.filterButton.setImage(UIImage(systemName: "xmark"), for: .normal)
-                cell.backgroundColor = .white
             case .routine:
                 break
             }
@@ -97,23 +94,18 @@ extension FilterTVC: UICollectionViewDataSource {
         default:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FilterCVC.identifier, for: indexPath) as? FilterCVC else { return UICollectionViewCell() }
             
+            cell.filterButton.setImage(UIImage(systemName: "xmark"), for: .normal)
+            cell.backgroundColor = .white
+            
             switch stroke {
             case .freestyle:
                 cell.filterButton.setTitle(strokes[1], for: .normal)
-                cell.filterButton.setImage(UIImage(systemName: "xmark"), for: .normal)
-                cell.backgroundColor = .white
             case .breaststroke:
                 cell.filterButton.setTitle(strokes[2], for: .normal)
-                cell.filterButton.setImage(UIImage(systemName: "xmark"), for: .normal)
-                cell.backgroundColor = .white
             case .backstroke:
                 cell.filterButton.setTitle(strokes[3], for: .normal)
-                cell.filterButton.setImage(UIImage(systemName: "xmark"), for: .normal)
-                cell.backgroundColor = .white
             case .butterfly:
-                cell.filterButton.setTitle(strokes[1], for: .normal)
-                cell.filterButton.setImage(UIImage(systemName: "xmark"), for: .normal)
-                cell.backgroundColor = .white
+                cell.filterButton.setTitle(strokes[4], for: .normal)
             default:
                 cell.filterButton.setTitle(strokes[0], for: .normal)
                 cell.filterButton.setImage(UIImage(systemName: "plus"), for: .normal)
@@ -149,7 +141,7 @@ extension FilterTVC: UICollectionViewDelegate {
         case 0:
             delegate?.didClickedRangeButton()
         default:
-            delegate?.didClickedStrokeButton()
+            delegate?.didClickedStrokeButton(indexPath: 0)
         }
     }
 }

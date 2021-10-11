@@ -35,11 +35,11 @@ class MainVC: UIViewController {
         $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     }
     
+    lazy var expandedView = ExpandedStateView(root: self)
     let topView = TopView()
     let headerView = HeaderView()
     let statusBar = StatusBar()
     let normalView = NormalStateView()
-    let expandedView = ExpandedStateView()
     
     var currentState: CurrentState = .base
     var cardViewState: CardViewState = .base
@@ -157,6 +157,8 @@ extension MainVC {
             normalView.fadeOut()
             startAnimation()
         }
+        
+        expandedView.changeTableViewLayout()
     }
     
     private func startAnimation() {
@@ -421,6 +423,8 @@ extension MainVC: UITableViewDelegate {
 // MARK: - SelectedRange Delegate
 extension MainVC: SelectedRangeDelegate {
     func didClickedRangeButton() {
+        showCard()
+        
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "SelectedRangeVC") as? SelectedRangeVC else { return }
         vc.modalPresentationStyle = .overCurrentContext
         vc.modalTransitionStyle = .crossDissolve
@@ -434,6 +438,7 @@ extension MainVC: SelectedRangeDelegate {
             self.currentState = (self.dateText == self.dateformatter.string(from: Date())) ? .base : .day
             self.strokeState = .none
             self.mainTableView.reloadSections(IndexSet(1...1), with: .fade)
+            self.normalView.titleLabel.text = self.decideTitle(of: .normal)
         }
         vc.weekData = { week in
             print("weekData : \(week)")
@@ -441,6 +446,7 @@ extension MainVC: SelectedRangeDelegate {
             self.currentState = .week
             self.strokeState = .none
             self.mainTableView.reloadSections(IndexSet(1...1), with: .automatic)
+            self.normalView.titleLabel.text = self.decideTitle(of: .normal)
         }
         vc.monthData = { year, month in
             print("monthData : \(year) \(month)")
@@ -449,12 +455,15 @@ extension MainVC: SelectedRangeDelegate {
             self.currentState = .month
             self.strokeState = .none
             self.mainTableView.reloadSections(IndexSet(1...1), with: .automatic)
+            self.normalView.titleLabel.text = self.decideTitle(of: .normal)
         }
         
         present(vc, animated: true, completion: nil)
     }
     
-    func didClickedStrokeButton() {
+    func didClickedStrokeButton(indexPath: Int = 0) {
+        showCard()
+        
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "SelectedStrokeVC") as? SelectedStrokeVC else { return }
         vc.modalPresentationStyle = .overCurrentContext
         vc.modalTransitionStyle = .crossDissolve
