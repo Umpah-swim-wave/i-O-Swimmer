@@ -72,6 +72,9 @@ extension FilterTVC: UICollectionViewDataSource {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FilterCVC.identifier, for: indexPath) as? FilterCVC else { return UICollectionViewCell() }
             
             print(state)
+            cell.filterButton.setImage(UIImage(systemName: "xmark"), for: .normal)
+            cell.backgroundColor = .white
+            
             switch state {
             case .base:
                 if #available(iOS 15, *) {
@@ -136,6 +139,9 @@ extension FilterTVC: UICollectionViewDataSource {
             return cell
         default:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FilterCVC.identifier, for: indexPath) as? FilterCVC else { return UICollectionViewCell() }
+            
+            cell.filterButton.setImage(UIImage(systemName: "xmark"), for: .normal)
+            cell.backgroundColor = .white
             
             switch stroke {
             case .freestyle:
