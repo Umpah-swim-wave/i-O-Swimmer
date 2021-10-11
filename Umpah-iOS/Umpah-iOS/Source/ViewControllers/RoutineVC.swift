@@ -144,7 +144,6 @@ class RoutineVC: UIViewController {
     }
     
     private func getInitRoutineSetCell(setTitle: String) -> RoutineSetTVC{
-        
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineSetTVC.identifier) as? RoutineSetTVC else {
             return RoutineSetTVC() }
         cell.setRoutineContent(title: setTitle, viewModel: viewModel)
@@ -156,6 +155,25 @@ class RoutineVC: UIViewController {
                                               setTitle: setTitle,
                                               index: index)
             }
+        }
+        return cell
+    }
+    
+    private func getNewInitRoutineSetCell(setTitle: String) -> RoutineSetTVC{
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineSetTVC.identifier) as? RoutineSetTVC else {
+            return RoutineSetTVC() }
+        cell.setRoutineContent(title: setTitle, viewModel: viewModel)
+        cell.cellDelegate = self
+        cell.isEditingMode = true
+        for index in 0..<cell.routineItemCellList.count {
+            cell.routineItemCellList[index].selectStorke = {
+                self.presentModifyElementView(elementType: .stroke,
+                                              setTitle: setTitle,
+                                              index: index)
+            }
+            cell.routineItemCellList[index].isEditingMode = true
+            cell.tableView.setEditing(true, animated: true)
+            print("cell.routineItemCellList[index].showsReorderControl = \(cell.routineItemCellList[index].showsReorderControl)")
         }
         return cell
     }
@@ -208,7 +226,6 @@ extension RoutineVC: UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         let routineCount = viewModel.getRoutineItemCount(index: indexPath.row)
-        print("routineCount = \(routineCount)")
         return tableView.isEditing ? CGFloat(170 + routineCount * 44) : CGFloat(120 + routineCount * 44)
     }
     
@@ -219,6 +236,7 @@ extension RoutineVC: UITableViewDelegate{
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let imageView = cell.subviews.first(where: {$0.description.contains("Reorder")})?
             .subviews.first(where: {$0 is UIImageView}) as? UIImageView
+        print("imageView reorder = \(imageView?.frame)")
         imageView?.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
     }
     
@@ -262,7 +280,6 @@ extension RoutineVC: RoutineCellDelegate{
                                           setTitle: cell.routineSetTitle,
                                           index: index)
         }
-        tableView.reloadRows(at: [IndexPath(row: cell.getTableCellIndexPath(), section: 0)], with: .none)
         updateTableView()
     }
     
@@ -448,7 +465,8 @@ extension RoutineVC {
         view.addSubviews([titleButton,
                           titleUnderline])
         titleButton.snp.makeConstraints{
-            $0.center.equalToSuperview()
+            $0.centerX.equalTo(UIScreen.getDeviceWidth() / 2.0)
+            $0.centerY.equalToSuperview()
         }
         
         titleUnderline.snp.makeConstraints{
@@ -462,8 +480,8 @@ extension RoutineVC {
     
     func addRoutineSet(setTitle: String){
         viewModel.routineStorage.routineSetTitleList.append(setTitle)
-        viewModel.routineStorage.routineList[setTitle] = []
-        let cell = getInitRoutineSetCell(setTitle: setTitle)
+        viewModel.routineStorage.routineList[setTitle] = [RoutineItemData()]
+        let cell = getNewInitRoutineSetCell(setTitle: setTitle)
         cell.reorderImageView.isHidden = false
         routineSetCellList.append(cell)
         tableView.reloadData()
