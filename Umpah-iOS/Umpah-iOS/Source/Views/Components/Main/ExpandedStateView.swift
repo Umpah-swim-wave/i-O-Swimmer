@@ -102,6 +102,8 @@ class ExpandedStateView: UIView {
         listTableView.reloadSections(IndexSet(0...0), with: .fade)
         
         bottomView.selectButton.setTitle(isModified ? "수정한 영법 저장하기" : "영법 수정하기", for: .normal)
+        
+        print(isModified)
     }
 }
 

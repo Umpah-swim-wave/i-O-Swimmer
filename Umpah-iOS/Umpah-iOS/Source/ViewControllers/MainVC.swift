@@ -57,6 +57,7 @@ class MainVC: UIViewController {
         $0.dateFormat = "YY/MM/dd"
         $0.locale = Locale.init(identifier: "ko-KR")
     }
+    var canScrollMore = true
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -163,8 +164,18 @@ extension MainVC {
             normalView.fadeOut()
             startAnimation()
         case .fail:
-            print("fail to scroll down")
-            break
+            if canScrollMore {
+                canScrollMore = false
+                print("fail to scroll down")
+                
+                cardViewState = .fail
+                makeRequestAlert(okAction: { _ in
+                    self.expandedView.isModified = false
+                    self.showCard(atState: .normal)
+                    self.expandedView.bottomView.selectButton.setTitle("영법 수정하기", for: .normal)
+                    self.canScrollMore = true
+                }, cancelAction: { _ in self.canScrollMore = true })
+            }
         }
         
         expandedView.changeTableViewLayout()
