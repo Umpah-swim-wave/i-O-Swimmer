@@ -99,7 +99,6 @@ class ModifyElementVC: UIViewController{
                 elementList = ["자유형", "평영", "배영", "접영"]
                 titleLabel.text = "영법 선택"
             case .stroke:
-                print("selectedStroke = \(selectedContent)")
                 let presentingVC = presentingViewController as? RoutineVC
                 presentingVC?.updateRoutineItem(stroke: self.selectedContent ?? "잘못넘어옴",
                                             setTitle: self.presentingSetTitle ?? "",
@@ -143,7 +142,6 @@ class ModifyElementVC: UIViewController{
             .subscribe(onNext: { indexPath in
                 self.selectedContent = self.elementList[indexPath.row]
                 print("self.selectedContent= \(self.selectedContent)")
-                //self.selectedStroke = self.elementList[indexPath.row]
                 self.changeDataInPresentingVC()
                 self.dismiss(animated: true, completion: nil)
             }).disposed(by: disposeBag)
@@ -240,8 +238,6 @@ extension ModifyElementVC: UITextFieldDelegate {
                                    y: contentView.frame.minY - 100,
                                    width: contentView.frame.width,
                                    height: contentView.frame.height)
-        
-        print("contentView.frame = \(contentView.frame)")
         return true
     }
     
