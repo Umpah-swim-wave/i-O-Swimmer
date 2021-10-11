@@ -54,6 +54,22 @@ class FilterTVC: UITableViewCell {
             $0.height.equalTo(70)
         }
     }
+    
+    @available(iOS 15.0, *)
+    private func setupConfigurationButton(image: String,
+                                          titlePadding: CGFloat,
+                                          imagePadding: CGFloat,
+                                          backgroundColor: UIColor,
+                                          title: String) -> UIButton.Configuration {
+        var configuration = UIButton.Configuration.plain()
+        configuration.image = UIImage(named: image)
+        configuration.titlePadding = titlePadding
+        configuration.imagePadding = imagePadding
+        configuration.baseForegroundColor = backgroundColor
+        configuration.attributedTitle = AttributedString(title, attributes: AttributeContainer([NSAttributedString.Key.foregroundColor: UIColor.upuhGreen, NSAttributedString.Key.font: UIFont.IBMPlexSansText(ofSize: 14)]))
+        
+        return configuration
+    }
 }
 
 extension FilterTVC: UICollectionViewDataSource {
@@ -71,20 +87,17 @@ extension FilterTVC: UICollectionViewDataSource {
         case 0:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FilterCVC.identifier, for: indexPath) as? FilterCVC else { return UICollectionViewCell() }
             
-            print(state)
-            cell.filterButton.setImage(UIImage(systemName: "xmark"), for: .normal)
             cell.backgroundColor = .white
+            
             
             switch state {
             case .base:
                 if #available(iOS 15, *) {
-                    var configuration = UIButton.Configuration.plain()
-                    configuration.image = UIImage(named: "plus")
-                    configuration.titlePadding = 0
-                    configuration.imagePadding = 4
-                    configuration.baseForegroundColor = .upuhGreen
-                    configuration.attributedTitle = AttributedString(categorys[0], attributes: AttributeContainer([NSAttributedString.Key.foregroundColor: UIColor.upuhGreen, NSAttributedString.Key.font: UIFont.IBMPlexSansText(ofSize: 14)]))
-                    cell.filterButton.configuration = configuration
+                    cell.filterButton.configuration = setupConfigurationButton(image: "plus",
+                                                                               titlePadding: 0,
+                                                                               imagePadding: 4,
+                                                                               backgroundColor: .upuhGreen,
+                                                                               title: categorys[0])
                 } else {
                     cell.filterButton.setTitle(categorys[0], for: .normal)
                     cell.filterButton.setImage(UIImage(named: "plus"), for: .normal)
@@ -92,46 +105,37 @@ extension FilterTVC: UICollectionViewDataSource {
                 cell.backgroundColor = .clear
             case .day:
                 if #available(iOS 15, *) {
-                    var configuration = UIButton.Configuration.plain()
-                    configuration.image = UIImage(named: "xmark")
-                    configuration.titlePadding = 2
-                    configuration.imagePadding = 2
-                    configuration.baseForegroundColor = .upuhGreen
-                    configuration.attributedTitle = AttributedString(categorys[1], attributes: AttributeContainer([NSAttributedString.Key.foregroundColor: UIColor.upuhGreen, NSAttributedString.Key.font: UIFont.IBMPlexSansText(ofSize: 14)]))
-                    cell.filterButton.configuration = configuration
+                    cell.filterButton.configuration = setupConfigurationButton(image: "xmark",
+                                                                               titlePadding: 2,
+                                                                               imagePadding: 2,
+                                                                               backgroundColor: .upuhGreen,
+                                                                               title: categorys[1])
                 } else {
                     cell.filterButton.setTitle(categorys[1], for: .normal)
                     cell.filterButton.setImage(UIImage(named: "xmark"), for: .normal)
                 }
-                cell.backgroundColor = .white
             case .week:
                 if #available(iOS 15, *) {
-                    var configuration = UIButton.Configuration.plain()
-                    configuration.image = UIImage(named: "xmark")
-                    configuration.titlePadding = 2
-                    configuration.imagePadding = 2
-                    configuration.baseForegroundColor = .upuhGreen
-                    configuration.attributedTitle = AttributedString(categorys[2], attributes: AttributeContainer([NSAttributedString.Key.foregroundColor: UIColor.upuhGreen, NSAttributedString.Key.font: UIFont.IBMPlexSansText(ofSize: 14)]))
-                    cell.filterButton.configuration = configuration
+                    cell.filterButton.configuration = setupConfigurationButton(image: "xmark",
+                                                                               titlePadding: 2,
+                                                                               imagePadding: 2,
+                                                                               backgroundColor: .upuhGreen,
+                                                                               title: categorys[2])
                 } else {
                     cell.filterButton.setTitle(categorys[2], for: .normal)
                     cell.filterButton.setImage(UIImage(named: "xmark"), for: .normal)
                 }
-                cell.backgroundColor = .white
             case .month:
                 if #available(iOS 15, *) {
-                    var configuration = UIButton.Configuration.plain()
-                    configuration.image = UIImage(named: "xmark")
-                    configuration.titlePadding = 2
-                    configuration.imagePadding = 2
-                    configuration.baseForegroundColor = .upuhGreen
-                    configuration.attributedTitle = AttributedString(categorys[3], attributes: AttributeContainer([NSAttributedString.Key.foregroundColor: UIColor.upuhGreen, NSAttributedString.Key.font: UIFont.IBMPlexSansText(ofSize: 14)]))
-                    cell.filterButton.configuration = configuration
+                    cell.filterButton.configuration = setupConfigurationButton(image: "xmark",
+                                                                               titlePadding: 2,
+                                                                               imagePadding: 2,
+                                                                               backgroundColor: .upuhGreen,
+                                                                               title: categorys[3])
                 } else {
                     cell.filterButton.setTitle(categorys[3], for: .normal)
                     cell.filterButton.setImage(UIImage(named: "xmark"), for: .normal)
                 }
-                cell.backgroundColor = .white
             case .routine:
                 break
             }
@@ -140,75 +144,60 @@ extension FilterTVC: UICollectionViewDataSource {
         default:
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FilterCVC.identifier, for: indexPath) as? FilterCVC else { return UICollectionViewCell() }
             
-            cell.filterButton.setImage(UIImage(systemName: "xmark"), for: .normal)
             cell.backgroundColor = .white
             
             switch stroke {
             case .freestyle:
                 if #available(iOS 15, *) {
-                    var configuration = UIButton.Configuration.plain()
-                    configuration.image = UIImage(named: "xmark")
-                    configuration.titlePadding = 2
-                    configuration.imagePadding = 2
-                    configuration.baseForegroundColor = .upuhGreen
-                    configuration.attributedTitle = AttributedString(strokes[1], attributes: AttributeContainer([NSAttributedString.Key.foregroundColor: UIColor.upuhGreen, NSAttributedString.Key.font: UIFont.IBMPlexSansText(ofSize: 14)]))
-                    cell.filterButton.configuration = configuration
+                    cell.filterButton.configuration = setupConfigurationButton(image: "xmark",
+                                                                               titlePadding: 2,
+                                                                               imagePadding: 2,
+                                                                               backgroundColor: .upuhGreen,
+                                                                               title: strokes[1])
                 } else {
                     cell.filterButton.setTitle(strokes[1], for: .normal)
                     cell.filterButton.setImage(UIImage(named: "xmark"), for: .normal)
                 }
-                cell.backgroundColor = .white
             case .breaststroke:
                 if #available(iOS 15, *) {
-                    var configuration = UIButton.Configuration.plain()
-                    configuration.image = UIImage(named: "xmark")
-                    configuration.titlePadding = 2
-                    configuration.imagePadding = 2
-                    configuration.baseForegroundColor = .upuhGreen
-                    configuration.attributedTitle = AttributedString(strokes[2], attributes: AttributeContainer([NSAttributedString.Key.foregroundColor: UIColor.upuhGreen, NSAttributedString.Key.font: UIFont.IBMPlexSansText(ofSize: 14)]))
-                    cell.filterButton.configuration = configuration
+                    cell.filterButton.configuration = setupConfigurationButton(image: "xmark",
+                                                                               titlePadding: 2,
+                                                                               imagePadding: 2,
+                                                                               backgroundColor: .upuhGreen,
+                                                                               title: strokes[2])
                 } else {
                     cell.filterButton.setTitle(strokes[2], for: .normal)
                     cell.filterButton.setImage(UIImage(named: "xmark"), for: .normal)
                 }
-                cell.backgroundColor = .white
             case .backstroke:
                 if #available(iOS 15, *) {
-                    var configuration = UIButton.Configuration.plain()
-                    configuration.image = UIImage(named: "xmark")
-                    configuration.titlePadding = 2
-                    configuration.imagePadding = 2
-                    configuration.baseForegroundColor = .upuhGreen
-                    configuration.attributedTitle = AttributedString(strokes[3], attributes: AttributeContainer([NSAttributedString.Key.foregroundColor: UIColor.upuhGreen, NSAttributedString.Key.font: UIFont.IBMPlexSansText(ofSize: 14)]))
-                    cell.filterButton.configuration = configuration
+                    cell.filterButton.configuration = setupConfigurationButton(image: "xmark",
+                                                                               titlePadding: 2,
+                                                                               imagePadding: 2,
+                                                                               backgroundColor: .upuhGreen,
+                                                                               title: strokes[3])
                 } else {
                     cell.filterButton.setTitle(strokes[3], for: .normal)
                     cell.filterButton.setImage(UIImage(named: "xmark"), for: .normal)
                 }
-                cell.backgroundColor = .white
             case .butterfly:
                 if #available(iOS 15, *) {
-                    var configuration = UIButton.Configuration.plain()
-                    configuration.image = UIImage(named: "xmark")
-                    configuration.titlePadding = 2
-                    configuration.imagePadding = 2
-                    configuration.baseForegroundColor = .upuhGreen
-                    configuration.attributedTitle = AttributedString(strokes[4], attributes: AttributeContainer([NSAttributedString.Key.foregroundColor: UIColor.upuhGreen, NSAttributedString.Key.font: UIFont.IBMPlexSansText(ofSize: 14)]))
-                    cell.filterButton.configuration = configuration
+                    cell.filterButton.configuration = setupConfigurationButton(image: "xmark",
+                                                                               titlePadding: 2,
+                                                                               imagePadding: 2,
+                                                                               backgroundColor: .upuhGreen,
+                                                                               title: strokes[4])
                 } else {
                     cell.filterButton.setTitle(strokes[4], for: .normal)
                     cell.filterButton.setImage(UIImage(named: "xmark"), for: .normal)
                 }
-                cell.backgroundColor = .white
             default:
                 if #available(iOS 15, *) {
-                    var configuration = UIButton.Configuration.plain()
-                    configuration.image = UIImage(named: "plus")
-                    configuration.titlePadding = 2
-                    configuration.imagePadding = 2
-                    configuration.baseForegroundColor = .upuhGreen
-                    configuration.attributedTitle = AttributedString(strokes[0], attributes: AttributeContainer([NSAttributedString.Key.foregroundColor: UIColor.upuhGreen, NSAttributedString.Key.font: UIFont.IBMPlexSansText(ofSize: 14)]))
-                    cell.filterButton.configuration = configuration
+                    cell.filterButton.configuration = setupConfigurationButton(image: "plus",
+                                                                               titlePadding: 0,
+                                                                               imagePadding: 4,
+                                                                               backgroundColor: .upuhGreen,
+                                                                               title: strokes[0])
                 } else {
                     cell.filterButton.setTitle(strokes[0], for: .normal)
                     cell.filterButton.setImage(UIImage(named: "plus"), for: .normal)
