@@ -25,8 +25,10 @@ class FilterTVC: UITableViewCell {
         $0.scrollDirection = .horizontal
     }
     
-    let categorys: [String] = ["기간", "일간", "주간", "월간", "영법"]
+    let categorys: [String] = ["기간", "일간", "주간", "월간"]
+    let strokes: [String] = ["영법", "자유형", "평영", "배영", "접영"]
     var state: CurrentState = .base
+    var stroke: Stroke = .none
     var delegate: SelectedRangeDelegate?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -37,6 +39,10 @@ class FilterTVC: UITableViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    override func prepareForReuse() {
+        filterCollectionView.reloadData()
     }
     
     fileprivate func setupLayout() {
@@ -61,9 +67,53 @@ extension FilterTVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FilterCVC.identifier, for: indexPath) as? FilterCVC else { return UICollectionViewCell() }
-        cell.filterButton.setTitle(categorys[indexPath.item], for: .normal)
-        return cell
+        switch indexPath.item {
+        case 0:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FilterCVC.identifier, for: indexPath) as? FilterCVC else { return UICollectionViewCell() }
+            
+            print(state)
+            cell.filterButton.setImage(UIImage(systemName: "xmark"), for: .normal)
+            cell.backgroundColor = .white
+            
+            switch state {
+            case .base:
+                cell.filterButton.setTitle(categorys[0], for: .normal)
+                cell.filterButton.setImage(UIImage(systemName: "plus"), for: .normal)
+                cell.backgroundColor = .clear
+            case .day:
+                cell.filterButton.setTitle(categorys[1], for: .normal)
+            case .week:
+                cell.filterButton.setTitle(categorys[2], for: .normal)
+            case .month:
+                cell.filterButton.setTitle(categorys[3], for: .normal)
+            case .routine:
+                break
+            }
+            
+            return cell
+        default:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FilterCVC.identifier, for: indexPath) as? FilterCVC else { return UICollectionViewCell() }
+            
+            cell.filterButton.setImage(UIImage(systemName: "xmark"), for: .normal)
+            cell.backgroundColor = .white
+            
+            switch stroke {
+            case .freestyle:
+                cell.filterButton.setTitle(strokes[1], for: .normal)
+            case .breaststroke:
+                cell.filterButton.setTitle(strokes[2], for: .normal)
+            case .backstroke:
+                cell.filterButton.setTitle(strokes[3], for: .normal)
+            case .butterfly:
+                cell.filterButton.setTitle(strokes[4], for: .normal)
+            default:
+                cell.filterButton.setTitle(strokes[0], for: .normal)
+                cell.filterButton.setImage(UIImage(systemName: "plus"), for: .normal)
+                cell.backgroundColor = .clear
+            }
+            
+            return cell
+        }
     }
 }
 
@@ -73,7 +123,7 @@ extension FilterTVC: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 12
+        return 8
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -91,7 +141,7 @@ extension FilterTVC: UICollectionViewDelegate {
         case 0:
             delegate?.didClickedRangeButton()
         default:
-            delegate?.didClickedRangeButton()
+            delegate?.didClickedStrokeButton(indexPath: 0)
         }
     }
 }

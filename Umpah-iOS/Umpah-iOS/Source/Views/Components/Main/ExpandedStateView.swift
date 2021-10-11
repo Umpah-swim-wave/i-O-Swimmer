@@ -26,14 +26,23 @@ class ExpandedStateView: UIView {
         $0.textColor = .systemGray
     }
     
+    var strokes: [String] = ["자유형", "접영", "자유형", "자유형", "자유형", "자유형", "배영", "배영", "평영", "평영", "접영", "자유형", "접영"]
     let days: [String] = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
     let weeks: [String] = ["WEEK1", "WEEK2", "WEEK3", "WEEK4", "WEEK5"]
         
     var state: CurrentState?
+    private var isModified = false
+    private var root: UIViewController?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
+        setupModifyButton()
+    }
+    
+    convenience init(root: UIViewController) {
+        self.init(frame: .zero)
+        self.root = root
     }
     
     required init?(coder: NSCoder) {
@@ -59,14 +68,45 @@ class ExpandedStateView: UIView {
             $0.height.equalTo(UIScreen.main.hasNotch ? 93 : 49)
         }
     }
+    
+    private func setupModifyButton() {
+        bottomView.selectButton.addTarget(self, action: #selector(touchUpModify), for: .touchUpInside)
+    }
+    
+    func changeTableViewLayout() {
+        switch state {
+        case .base,
+             .day:
+            listTableView.snp.updateConstraints {
+                $0.top.equalTo(titleLabel.snp.bottom).offset(36)
+                $0.leading.trailing.equalToSuperview()
+                $0.bottom.equalToSuperview().inset(UIScreen.main.hasNotch ? 93 : 49)
+            }
+        default:
+            listTableView.snp.updateConstraints {
+                $0.top.equalTo(titleLabel.snp.bottom).offset(36)
+                $0.leading.trailing.bottom.equalToSuperview()
+            }
+        }
+    }
+    
+    // MARK: - @objc
+    @objc
+    private func touchUpModify() {
+        isModified.toggle()
+        listTableView.reloadSections(IndexSet(0...0), with: .fade)
+        
+        bottomView.selectButton.setTitle(isModified ? "수정한 영법 저장하기" : "영법 수정하기", for: .normal)
+    }
 }
 
 // MARK: - UITableViewDataSource
 extension ExpandedStateView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch state {
-        case .day:
-            return 10
+        case .day,
+             .base:
+            return strokes.count
         case .week:
             return 7
         case .month:
@@ -78,10 +118,44 @@ extension ExpandedStateView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch state {
-        case .day:
+        case .day,
+             .base:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ExpandedDayTVC.identifier) as? ExpandedDayTVC else { return UITableViewCell() }
             cell.backgroundColor = .clear
             cell.selectionStyle = .none
+            cell.strokeLabel.text = strokes[indexPath.row]
+            if indexPath.row >= 9 {
+                cell.rowLabel.text = "\(indexPath.row + 1)"
+            } else {
+                cell.rowLabel.text = "0\(indexPath.row + 1)"
+            }
+            
+            if #available(iOS 15, *) {
+                var configuration = UIButton.Configuration.plain()
+                configuration.image = UIImage(systemName: "chevron.down")
+                configuration.titlePadding = 0
+                configuration.imagePadding = 2
+                configuration.baseForegroundColor = .black
+                configuration.attributedTitle = AttributedString(strokes[indexPath.row], attributes: AttributeContainer([NSAttributedString.Key.foregroundColor: UIColor.black, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14)]))
+                configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+                cell.strokeButton.configuration = configuration
+            } else {
+                cell.strokeButton.setImage(UIImage(systemName: "chevron.down"), for: .normal)
+                cell.strokeButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: 0)
+                cell.strokeButton.setTitle(strokes[indexPath.row], for: .normal)
+                cell.strokeButton.titleLabel?.font = .systemFont(ofSize: 14)
+                cell.strokeButton.setTitleColor(.black, for: .normal)
+                cell.strokeButton.sizeToFit()
+            }
+            
+            cell.delegate = self
+            
+            if indexPath.row < strokes.count - 1 {
+                cell.changeCellConfiguration(isModified, strokes[indexPath.row] == strokes[indexPath.row + 1])
+            } else {
+                cell.changeCellConfiguration(isModified, false)
+            }
+            
             return cell
         case .week:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ExpandedWeekTVC.identifier) as? ExpandedWeekTVC else { return UITableViewCell() }
@@ -128,7 +202,8 @@ extension ExpandedStateView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         switch state {
-        case .day:
+        case .day,
+             .base:
             let header = DayHeader()
             header.backgroundColor = .white
             return header
@@ -145,5 +220,43 @@ extension ExpandedStateView: UITableViewDelegate {
         default:
             return UIView()
         }
+    }
+}
+
+// MARK: - SelectedRangeDelegate
+extension ExpandedStateView: SelectedRangeDelegate {
+    func didClickedStrokeButton(indexPath: Int) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let vc = storyboard.instantiateViewController(withIdentifier: "SelectedStrokeVC") as? SelectedStrokeVC else { return }
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.modalTransitionStyle = .crossDissolve
+        
+        vc.strokeData = { style in
+            let indexPathRow = IndexPath(row: indexPath, section: 0)
+
+            switch style {
+            case .freestyle:
+                self.strokes[indexPath] = "자유형"
+            case .butterfly:
+                self.strokes[indexPath] = "접영"
+            case .backstroke:
+                self.strokes[indexPath] = "배영"
+            case .breaststroke:
+                self.strokes[indexPath] = "평영"
+            default:
+                break
+            }
+            
+            self.listTableView.reloadRows(at: [indexPathRow], with: .fade)
+        }
+        
+        root?.present(vc, animated: true, completion: nil)
+    }
+    
+    func didClickedMergeButton(indexPath: Int) {
+        let indexPathRow = IndexPath(row: indexPath, section: 0)
+        
+        strokes.remove(at: indexPath)
+        listTableView.reloadSections(IndexSet(0...0), with: .fade)
     }
 }

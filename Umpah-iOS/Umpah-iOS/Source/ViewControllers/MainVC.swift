@@ -11,24 +11,6 @@ import Then
 import SnapKit
 import Charts
 
-enum CardViewState {
-    case base
-    case expanded
-    case normal
-}
-
-enum CurrentState {
-    case base
-    case day
-    case week
-    case month
-    case routine
-}
-
-protocol SelectedRangeDelegate: class {
-    func didClickedRangeButton()
-}
-
 class MainVC: UIViewController {
     // MARK: - Lazy Properties
     lazy var mainTableView = UITableView(frame: .zero, style: .plain).then {
@@ -43,6 +25,7 @@ class MainVC: UIViewController {
         $0.backgroundColor = .clear
         $0.separatorStyle = .none
     }
+    lazy var dateText: String = dateformatter.string(from: Date())
     
     // MARK: - Properties
     var cardView = UIView().then {
@@ -51,17 +34,23 @@ class MainVC: UIViewController {
         $0.layer.cornerRadius = 32.0
         $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
     }
+    
+    lazy var expandedView = ExpandedStateView(root: self)
     let topView = TopView()
     let headerView = HeaderView()
     let statusBar = StatusBar()
     let normalView = NormalStateView()
-    let expandedView = ExpandedStateView()
     
     var currentState: CurrentState = .base
     var cardViewState: CardViewState = .base
+    var strokeState: Stroke = .none
     var cardPanStartingTopConstant : CGFloat = 20.0
     var cardPanMaxVelocity: CGFloat = 1500.0
     var cardViewTopConstraint: NSLayoutConstraint?
+    var dateformatter = DateFormatter().then {
+        $0.dateFormat = "YY/MM/dd"
+        $0.locale = Locale.init(identifier: "ko-KR")
+    }
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -168,6 +157,8 @@ extension MainVC {
             normalView.fadeOut()
             startAnimation()
         }
+        
+        expandedView.changeTableViewLayout()
     }
     
     private func startAnimation() {
@@ -255,15 +246,11 @@ extension MainVC {
     private func applyExpandedTitle(of state: CurrentState) -> String {
         switch state {
         case .base:
-            return "21/09/27"
-        case .day:
-            return "21/08/31"
-        case .week:
-            return "21/08/29 - 21/09/05"
-        case .month:
-            return "2021/08"
+            return dateformatter.string(from: Date())
         case .routine:
             return "어푸가 추천하는 수영 루틴들"
+        default:
+            return dateText
         }
     }
     
@@ -304,21 +291,25 @@ extension MainVC: UITableViewDataSource {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: FilterTVC.identifier) as? FilterTVC else { return UITableViewCell() }
                 cell.selectionStyle = .none
                 cell.delegate = self
+                cell.state = currentState
                 return cell
             case 1:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DateTVC.identifier) as? DateTVC else { return UITableViewCell() }
                 cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
                 cell.selectionStyle = .none
+                cell.dateLabel.text = dateText
                 return cell
             case 2:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
                 cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
                 cell.selectionStyle = .none
+                cell.titleLabel.text = "OVERVIEW"
                 return cell
             case 3:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: StrokeTVC.identifier) as? StrokeTVC else { return UITableViewCell() }
                 cell.backgroundColor = .init(red: 223/255, green: 231/255, blue: 233/255, alpha: 1.0)
                 cell.selectionStyle = .none
+                cell.titleLabel.text = "TOTAL"
                 return cell
             default:
                 let cell = UITableViewCell(frame: .zero)
@@ -332,15 +323,33 @@ extension MainVC: UITableViewDataSource {
             case 0:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: FilterTVC.identifier) as? FilterTVC else { return UITableViewCell() }
                 cell.delegate = self
+                cell.state = currentState
+                cell.stroke = strokeState
                 return cell
             case 1:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DateTVC.identifier) as? DateTVC else { return UITableViewCell() }
+                cell.dateLabel.text = dateText
                 return cell
             case 2:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: ChartTVC.identifier) as? ChartTVC else { return UITableViewCell() }
+                cell.combineChartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .linear)
+                
+                if currentState == .week {
+                    cell.titleLabel.text = "WEEKLY RECORD"
+                } else {
+                    cell.titleLabel.text = "MONTHLY RECORD"
+                }
+                
                 return cell
             case 3:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
+                
+                if currentState == .week {
+                    cell.titleLabel.text = "WEEKLY OVERVIEW"
+                } else {
+                    cell.titleLabel.text = "MONTHLY OVERVIEW"
+                }
+                
                 return cell
             default:
                 let cell = UITableViewCell(frame: .zero)
@@ -411,12 +420,60 @@ extension MainVC: UITableViewDelegate {
     }
 }
 
-// MARK: - FilterTVC Delegate
+// MARK: - SelectedRange Delegate
 extension MainVC: SelectedRangeDelegate {
     func didClickedRangeButton() {
+        showCard()
+        
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "SelectedRangeVC") as? SelectedRangeVC else { return }
         vc.modalPresentationStyle = .overCurrentContext
         vc.modalTransitionStyle = .crossDissolve
+        
+        vc.dayData = { year, month, day in
+            print("dayData : \(year) \(month) \(day)")
+            let transYear = year[year.index(year.startIndex, offsetBy: 2)..<year.endIndex]
+            let transMonth = (month.count == 1) ? "0\(month)" : month
+            let transDay = (day.count == 1) ? "0\(day)" : day
+            self.dateText = "\(transYear)/\(transMonth)/\(transDay)"
+            self.currentState = (self.dateText == self.dateformatter.string(from: Date())) ? .base : .day
+            self.strokeState = .none
+            self.mainTableView.reloadSections(IndexSet(1...1), with: .fade)
+            self.normalView.titleLabel.text = self.decideTitle(of: .normal)
+        }
+        vc.weekData = { week in
+            print("weekData : \(week)")
+            self.dateText = week
+            self.currentState = .week
+            self.strokeState = .none
+            self.mainTableView.reloadSections(IndexSet(1...1), with: .automatic)
+            self.normalView.titleLabel.text = self.decideTitle(of: .normal)
+        }
+        vc.monthData = { year, month in
+            print("monthData : \(year) \(month)")
+            let transMonth = (month.count == 1) ? "0\(month)" : month
+            self.dateText = "\(year)/\(transMonth)"
+            self.currentState = .month
+            self.strokeState = .none
+            self.mainTableView.reloadSections(IndexSet(1...1), with: .automatic)
+            self.normalView.titleLabel.text = self.decideTitle(of: .normal)
+        }
+        
+        present(vc, animated: true, completion: nil)
+    }
+    
+    func didClickedStrokeButton(indexPath: Int = 0) {
+        showCard()
+        
+        guard let vc = storyboard?.instantiateViewController(withIdentifier: "SelectedStrokeVC") as? SelectedStrokeVC else { return }
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.modalTransitionStyle = .crossDissolve
+        
+        vc.strokeData = { style in
+            print(style)
+            self.strokeState = style
+            self.mainTableView.reloadSections(IndexSet(1...1), with: .automatic)
+        }
+        
         present(vc, animated: true, completion: nil)
     }
 }
