@@ -227,18 +227,14 @@ extension RoutineSetTVC: UITableViewDataSource{
     }
     
     @objc func addInitRoutineItem(){
-        print("addInitRoutineItem 눌림")
         viewModel?.routineStorage.createRoutine(setTitle: routineSetTitle)
         addRoutineItemCell()
-        print("cellDelegate = \(cellDelegate)")
+        //tableView.reloadData()
         cellDelegate?.routineItemCellForAdding(cell: self, index: routineItemCellList.count - 1)
-        tableView.reloadData()
     }
     
     private func addRoutineItemCell(){
         let cell = getRoutineItemCell(item: RoutineItemData())
-        
-        print("넣은 index 값은? =\(routineItemCellList.count-1)")
         cell.selectDistance = { newDistance in
             self.viewModel?.routineStorage.update(distance: newDistance,
                                                   setTitle: self.routineSetTitle,
@@ -250,8 +246,11 @@ extension RoutineSetTVC: UITableViewDataSource{
                                                   setTitle: self.routineSetTitle,
                                                   index: self.routineItemCellList.count-1)
         }
+        cell.isEditingMode = true
+        
+
         routineItemCellList.append(cell)
-        routineItemCellList.last?.isEditingMode = true
+        tableView.reloadData()
     }
 }
 
@@ -339,8 +338,8 @@ extension RoutineSetTVC {
         reorderImageView.snp.remakeConstraints{
             $0.centerY.equalTo(titleLabel.snp.centerY)
             $0.trailing.equalToSuperview().inset(24)
-            $0.height.equalTo(reorderControlImageView?.frame.height ?? 13)
-            $0.width.equalTo(reorderControlImageView?.frame.width ?? 26)
+            $0.height.equalTo(reorderControlImageView?.frame.height ?? 15)
+            $0.width.equalTo(reorderControlImageView?.frame.width ?? 30)
         }
     }
 }
