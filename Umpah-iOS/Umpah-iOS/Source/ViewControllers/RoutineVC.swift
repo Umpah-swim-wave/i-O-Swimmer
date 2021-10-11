@@ -193,7 +193,7 @@ class RoutineVC: UIViewController {
         view.addGestureRecognizer(tapGesture)
     }
     
-    //MARK :routine item 바뀔 때 마다 시간, 거리 버튼 값 조정
+   
     func bindDataToViewModel(){
         viewModel.routineStorage.store
             .subscribe(onNext: { _ in
@@ -224,6 +224,7 @@ extension RoutineVC: UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         routineSetCellList.swapAt(sourceIndexPath.row, destinationIndexPath.row)
+        viewModel.routineStorage.routineSetTitleList.swapAt(sourceIndexPath.row, destinationIndexPath.row)
     }
     
     func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
@@ -234,7 +235,6 @@ extension RoutineVC: UITableViewDelegate{
 extension RoutineVC: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("routineSetCellList.count = \(routineSetCellList.count)")
         return routineSetCellList.count
     }
     
@@ -290,7 +290,6 @@ extension RoutineVC: RoutineCellDelegate{
             }
         }
     }
-    
 }
 
 
