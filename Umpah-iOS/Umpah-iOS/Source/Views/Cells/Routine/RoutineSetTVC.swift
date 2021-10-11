@@ -52,7 +52,7 @@ class RoutineSetTVC: UITableViewCell {
     }
     
     public var reorderImageView = UIImageView().then {
-        $0.image = UIImage(named: "reorderIcon")
+        $0.image = UIImage(named: "reorderIconWide")
         $0.isHidden = true
     }
     
@@ -92,13 +92,13 @@ class RoutineSetTVC: UITableViewCell {
         setTableViewAttribute()
         initRoutineItemCells()
         setupLayout()
+        updateReorderImageView()
         self.backgroundColor = .clear
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    
     
     private func setTableViewAttribute(){
         tableView.delegate = self
@@ -140,7 +140,6 @@ class RoutineSetTVC: UITableViewCell {
             return RoutineItemTVC()
         }
         cell.setRoutineItem(item: item, isEditing: isEditingMode)
-        
         return cell
     }
 }
@@ -198,7 +197,7 @@ extension RoutineSetTVC: UITableViewDataSource{
         let view = UIView(frame: CGRect(x: 0, y: 0,
                                         width: UIScreen.getDeviceWidth(),
                                         height: 68))
-        
+
         let titleButton = UIButton().then{
             $0.setTitle("영법 추가하기", for: .normal)
             $0.titleLabel?.font = .IBMPlexSansSemiBold(ofSize: 12)
@@ -212,10 +211,12 @@ extension RoutineSetTVC: UITableViewDataSource{
         
         view.addSubviews([titleButton,
                           titleUnderline])
-       
+        let centerX = UIScreen.getDeviceWidth() / 2.0
+        print("centerX = \(centerX)")
         titleButton.snp.makeConstraints{
             $0.center.equalToSuperview()
         }
+        titleButton.center.x = centerX
         
         titleUnderline.snp.makeConstraints{
             $0.top.equalTo(titleButton.snp.bottom).offset(-8)
@@ -229,7 +230,6 @@ extension RoutineSetTVC: UITableViewDataSource{
     @objc func addInitRoutineItem(){
         viewModel?.routineStorage.createRoutine(setTitle: routineSetTitle)
         addRoutineItemCell()
-        //tableView.reloadData()
         cellDelegate?.routineItemCellForAdding(cell: self, index: routineItemCellList.count - 1)
     }
     
@@ -247,10 +247,10 @@ extension RoutineSetTVC: UITableViewDataSource{
                                                   index: self.routineItemCellList.count-1)
         }
         cell.isEditingMode = true
-        
-
         routineItemCellList.append(cell)
         tableView.reloadData()
+        
+        print("cell.editingStyle = \(cell.editingStyle.rawValue)")
     }
 }
 
@@ -338,8 +338,11 @@ extension RoutineSetTVC {
         reorderImageView.snp.remakeConstraints{
             $0.centerY.equalTo(titleLabel.snp.centerY)
             $0.trailing.equalToSuperview().inset(24)
-            $0.height.equalTo(reorderControlImageView?.frame.height ?? 15)
-            $0.width.equalTo(reorderControlImageView?.frame.width ?? 30)
+//            $0.height.equalTo(reorderControlImageView?.frame.height ?? 30)
+//            $0.width.equalTo(reorderControlImageView?.frame.width ?? 30)
+            $0.height.equalTo(30)
+            $0.width.equalTo(30)
+
         }
     }
 }
