@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		3C358BB626E5B2970025ABDC /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C358BB526E5B2970025ABDC /* UITableViewCell+.swift */; };
-		3C5C209E26EF2B82006951A6 /* RoutineViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C5C209D26EF2B82006951A6 /* RoutineViewController.swift */; };
 		3C7479E12702E577006752EE /* RoutineItemTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7479DF2702E577006752EE /* RoutineItemTVC.swift */; };
 		3C7479E22702E577006752EE /* RoutineSetTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7479E02702E577006752EE /* RoutineSetTVC.swift */; };
 		3C7479E42702E666006752EE /* XmarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7479E32702E666006752EE /* XmarkButton.swift */; };
@@ -138,7 +137,6 @@
 		2D05BFF43235C874BA8005FE /* Pods-Umpah-iOS WatchKit Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Umpah-iOS WatchKit Extension.release.xcconfig"; path = "Target Support Files/Pods-Umpah-iOS WatchKit Extension/Pods-Umpah-iOS WatchKit Extension.release.xcconfig"; sourceTree = "<group>"; };
 		30E19E303BB4F713D525DDCC /* Pods-Umpah-iOS WatchKit App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Umpah-iOS WatchKit App.debug.xcconfig"; path = "Target Support Files/Pods-Umpah-iOS WatchKit App/Pods-Umpah-iOS WatchKit App.debug.xcconfig"; sourceTree = "<group>"; };
 		3C358BB526E5B2970025ABDC /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
-		3C5C209D26EF2B82006951A6 /* RoutineViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineViewController.swift; sourceTree = "<group>"; };
 		3C7479DF2702E577006752EE /* RoutineItemTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutineItemTVC.swift; sourceTree = "<group>"; };
 		3C7479E02702E577006752EE /* RoutineSetTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutineSetTVC.swift; sourceTree = "<group>"; };
 		3C7479E32702E666006752EE /* XmarkButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XmarkButton.swift; sourceTree = "<group>"; };
@@ -560,7 +558,6 @@
 				ED5396E326B975D70061722F /* MainVC.swift */,
 				ED5396E726B975F60061722F /* RoutineVC.swift */,
 				3CF69DE926E7776C002FD6DB /* ModifyElementVC.swift */,
-				3C5C209D26EF2B82006951A6 /* RoutineViewController.swift */,
 				EDD3CCD8270192D200AFED4B /* SelectedRangeVC.swift */,
 				ED8AB6A02702E55D0066CD02 /* SelectedStrokeVC.swift */,
 			);
@@ -898,9 +895,7 @@
 				3C8CE32D26BCC318002BBFE5 /* UITableView+.swift in Sources */,
 				3CF69DEA26E7776C002FD6DB /* ModifyElementVC.swift in Sources */,
 				3CE4D67926DD2786007E4193 /* CALayer+.swift in Sources */,
-				3CB4B33126BBB396003C578D /* RoutineItemTVC.swift in Sources */,
 				ED8AB6A62702EDC20066CD02 /* StrokesTVC.swift in Sources */,
-				EDB91D8826C2A66700F4562D /* UIWindow+.swift in Sources */,
 				ED78843E26DE4C50006D8787 /* SelectedStrokeView.swift in Sources */,
 				ED8AB6A12702E55D0066CD02 /* SelectedStrokeVC.swift in Sources */,
 				3C8CE32F26BCCADD002BBFE5 /* RoutineItemDataModel.swift in Sources */,
@@ -911,7 +906,6 @@
 				ED5396E826B975F60061722F /* RoutineVC.swift in Sources */,
 				EDD46F4D26BE9C0200FA91F2 /* ExpandedStateView.swift in Sources */,
 				ED5396EF26B9774C0061722F /* Encodable+.swift in Sources */,
-				3C5C209E26EF2B82006951A6 /* RoutineViewController.swift in Sources */,
 				ED5396E426B975D70061722F /* MainVC.swift in Sources */,
 				3CF69DF426E79A68002FD6DB /* RoutineViewModel.swift in Sources */,
 				EDD46F4B26BE99F900FA91F2 /* NormalStateView.swift in Sources */,
@@ -929,7 +923,6 @@
 				3C358BB626E5B2970025ABDC /* UITableViewCell+.swift in Sources */,
 				3CAD1F2626CBDA64001CD535 /* UIWindow+.swift in Sources */,
 				EDFC6EE72702387500B718C6 /* RangeButton.swift in Sources */,
-				3C8CE32926BCBE6B002BBFE5 /* RoutineSetTVC.swift in Sources */,
 				ED78843026DC9D3C006D8787 /* HeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
