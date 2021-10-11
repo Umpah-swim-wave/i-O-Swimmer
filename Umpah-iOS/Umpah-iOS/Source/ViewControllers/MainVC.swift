@@ -122,8 +122,9 @@ class MainVC: UIViewController {
             $0.width.equalTo(48)
         }
         
-        if let safeAreaHeight = UIApplication.shared.keyWindow?.safeAreaLayoutGuide.layoutFrame.size.height,
-          let bottomPadding = UIApplication.shared.keyWindow?.safeAreaInsets.bottom {
+        let window = UIApplication.shared.windows.first { $0.isKeyWindow }
+        if let safeAreaHeight = window?.safeAreaLayoutGuide.layoutFrame.size.height,
+          let bottomPadding = window?.safeAreaInsets.bottom {
             cardViewTopConstraint?.constant = safeAreaHeight + bottomPadding
         }
     }
@@ -211,8 +212,9 @@ extension MainVC {
                 return
             }
             
-            if let safeAreaHeight = UIApplication.shared.keyWindow?.safeAreaLayoutGuide.layoutFrame.size.height,
-               let bottomPadding = UIApplication.shared.keyWindow?.safeAreaInsets.bottom {
+            let window = UIApplication.shared.windows.first { $0.isKeyWindow }
+            if let safeAreaHeight = window?.safeAreaLayoutGuide.layoutFrame.size.height,
+               let bottomPadding = window?.safeAreaInsets.bottom {
                 if self.cardViewTopConstraint?.constant ?? 0 < (safeAreaHeight + bottomPadding) * 0.6 {
                     showCard(atState: .expanded)
                 } else  {
