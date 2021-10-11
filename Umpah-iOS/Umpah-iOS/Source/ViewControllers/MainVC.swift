@@ -162,6 +162,9 @@ extension MainVC {
             expandedView.fadeIn()
             normalView.fadeOut()
             startAnimation()
+        case .fail:
+            print("fail to scroll down")
+            break
         }
         
         expandedView.changeTableViewLayout()
@@ -180,6 +183,10 @@ extension MainVC {
     func viewPanned(_ panRecognizer: UIPanGestureRecognizer) {
         let velocity = panRecognizer.velocity(in: self.view)
         let translation = panRecognizer.translation(in: self.view)
+        
+        if expandedView.isModified {
+            panRecognizer.state = .failed
+        }
         
         switch panRecognizer.state {
         case .began:
@@ -203,7 +210,7 @@ extension MainVC {
                 }
             }
         default:
-            break
+            showCard(atState: .fail)
         }
     }
 }
@@ -225,6 +232,8 @@ extension MainVC {
             default:
                 cardViewTopConstraint?.constant = 20.0
             }
+        case .fail:
+            break
         }
         
         guard let constant = cardViewTopConstraint?.constant else { return 0 }

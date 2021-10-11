@@ -36,7 +36,7 @@ class ExpandedStateView: UIView {
     let weeks: [String] = ["WEEK1", "WEEK2", "WEEK3", "WEEK4", "WEEK5"]
         
     var state: CurrentState?
-    private var isModified = false
+    var isModified = false
     private var root: UIViewController?
 
     override init(frame: CGRect) {
