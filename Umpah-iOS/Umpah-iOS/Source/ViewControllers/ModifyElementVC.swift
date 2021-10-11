@@ -139,6 +139,8 @@ class ModifyElementVC: UIViewController{
             .subscribe(onNext: { indexPath in
                 self.selectedStroke = self.elementList[indexPath.row]
                 print(self.elementList[indexPath.row])
+                self.changeDataInPresentingVC()
+                self.dismiss(animated: true, completion: nil)
             }).disposed(by: disposeBag)
     }
     
@@ -244,6 +246,8 @@ extension ModifyElementVC: UITextFieldDelegate {
         textField.resignFirstResponder()
         guard let text = textField.text else {return false}
         selectedStroke = text
+        changeDataInPresentingVC()
+        dismiss(animated: true, completion: nil)
         return true
     }
     
