@@ -20,7 +20,7 @@ class XmarkButton: UIButton {
     }
     
     private func setupConfigure() {
-        setImage(UIImage(named: "exitButton"), for: .normal)
+        setImage(UIImage(named: "ic_xmark"), for: .normal)
     }
     
     private func initAction(vc: UIViewController) {
