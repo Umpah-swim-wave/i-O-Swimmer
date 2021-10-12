@@ -8,6 +8,11 @@
 import Foundation
 
 struct RoutineOverviewData{
+    let title: String = "어푸 추천 루틴"
+    var level: Int = 0
+    var totalDistance: Int = 2500
+    let totalTime: Int = 4500
+    let description: String = "설명이 들어갑니다 오랜만에 수영을 하면 몸이 굳으니까 이걸로 몸을 푸는거라고 합니다 그렇다네요 최대 두 줄까지 들어가나요?? ..."
     
     func getDistanceToString() -> String{
         return String(format: "%.1f", Float(totalDistance) / 1000.0) + "km"
