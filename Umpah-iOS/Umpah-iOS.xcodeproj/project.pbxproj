@@ -13,8 +13,9 @@
 		3C7479E42702E666006752EE /* XmarkButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7479E32702E666006752EE /* XmarkButton.swift */; };
 		3C7479E92702EDB5006752EE /* RoutineStorageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7479E82702EDB5006752EE /* RoutineStorageType.swift */; };
 		3C7479EB2702EFAE006752EE /* RoutineStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7479EA2702EFAE006752EE /* RoutineStorage.swift */; };
-		3C7F688427156A6700758733 /* RoutineTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7F688227156A6700758733 /* RoutineTVC.swift */; };
 		3C7F68892715704F00758733 /* RoutineDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7F68882715704F00758733 /* RoutineDataModel.swift */; };
+		3C7F688C27157EDE00758733 /* RoutineTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7F688A27157EDE00758733 /* RoutineTVC.swift */; };
+		3C7F688D27157EDE00758733 /* RoutineTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C7F688B27157EDE00758733 /* RoutineTVC.xib */; };
 		3C8CE32A26BCBE6B002BBFE5 /* RoutineSetTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C8CE32826BCBE6B002BBFE5 /* RoutineSetTVC.xib */; };
 		3C8CE32D26BCC318002BBFE5 /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8CE32C26BCC318002BBFE5 /* UITableView+.swift */; };
 		3CAD1F2626CBDA64001CD535 /* UIWindow+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CAD1F2526CBDA64001CD535 /* UIWindow+.swift */; };
@@ -142,8 +143,9 @@
 		3C7479E32702E666006752EE /* XmarkButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XmarkButton.swift; sourceTree = "<group>"; };
 		3C7479E82702EDB5006752EE /* RoutineStorageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStorageType.swift; sourceTree = "<group>"; };
 		3C7479EA2702EFAE006752EE /* RoutineStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineStorage.swift; sourceTree = "<group>"; };
-		3C7F688227156A6700758733 /* RoutineTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineTVC.swift; sourceTree = "<group>"; };
 		3C7F68882715704F00758733 /* RoutineDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineDataModel.swift; sourceTree = "<group>"; };
+		3C7F688A27157EDE00758733 /* RoutineTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineTVC.swift; sourceTree = "<group>"; };
+		3C7F688B27157EDE00758733 /* RoutineTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoutineTVC.xib; sourceTree = "<group>"; };
 		3C8CE32826BCBE6B002BBFE5 /* RoutineSetTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RoutineSetTVC.xib; path = "Umpah-iOS/Resource/Xibs/RoutineScene/RoutineSetTVC.xib"; sourceTree = SOURCE_ROOT; };
 		3C8CE32C26BCC318002BBFE5 /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
 		3CAD1F2526CBDA64001CD535 /* UIWindow+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIWindow+.swift"; sourceTree = "<group>"; };
@@ -278,6 +280,7 @@
 		3C8CE32B26BCBE73002BBFE5 /* RoutineScene */ = {
 			isa = PBXGroup;
 			children = (
+				3C7F688B27157EDE00758733 /* RoutineTVC.xib */,
 				3C8CE32826BCBE6B002BBFE5 /* RoutineSetTVC.xib */,
 				3CB4B33026BBB396003C578D /* RoutineItemTVC.xib */,
 			);
@@ -336,7 +339,7 @@
 				ED5F1A1926ECF05E003FF801 /* StrokeTVC.swift */,
 				ED5F1A1D26ECFD13003FF801 /* InsideStrokeTVC.swift */,
 				EDE550BD2700F80D004422CE /* DateTVC.swift */,
-				3C7F688227156A6700758733 /* RoutineTVC.swift */,
+				3C7F688A27157EDE00758733 /* RoutineTVC.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -742,6 +745,7 @@
 			files = (
 				3CB4B33226BBB396003C578D /* RoutineItemTVC.xib in Resources */,
 				3CF69DEC26E77856002FD6DB /* ModifyElement.storyboard in Resources */,
+				3C7F688D27157EDE00758733 /* RoutineTVC.xib in Resources */,
 				EDD3CCF02701B79F00AFED4B /* Nexa Bold.otf in Resources */,
 				ED5396E226B975AD0061722F /* Main.storyboard in Resources */,
 				EDD3CCF72701D1F100AFED4B /* IBMPlexSansKR-Medium.ttf in Resources */,
@@ -897,6 +901,7 @@
 				ED8AB6A62702EDC20066CD02 /* StrokesTVC.swift in Sources */,
 				3C7F68892715704F00758733 /* RoutineDataModel.swift in Sources */,
 				ED78843E26DE4C50006D8787 /* SelectedStrokeView.swift in Sources */,
+				3C7F688C27157EDE00758733 /* RoutineTVC.swift in Sources */,
 				ED8AB6A12702E55D0066CD02 /* SelectedStrokeVC.swift in Sources */,
 				ED5F1A1C26ECF1C7003FF801 /* StrokeView.swift in Sources */,
 				ED78843426DCA965006D8787 /* TopView.swift in Sources */,
@@ -906,7 +911,6 @@
 				EDD46F4D26BE9C0200FA91F2 /* ExpandedStateView.swift in Sources */,
 				ED5396EF26B9774C0061722F /* Encodable+.swift in Sources */,
 				ED5396E426B975D70061722F /* MainVC.swift in Sources */,
-				3C7F688427156A6700758733 /* RoutineTVC.swift in Sources */,
 				3CF69DF426E79A68002FD6DB /* RoutineViewModel.swift in Sources */,
 				EDD46F4B26BE99F900FA91F2 /* NormalStateView.swift in Sources */,
 				ED5396F926B977D10061722F /* UIView+.swift in Sources */,
