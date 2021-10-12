@@ -17,6 +17,8 @@ class ExpandedStateView: UIView {
         $0.dataSource = self
         $0.register(ExpandedDayTVC.self, forCellReuseIdentifier: ExpandedDayTVC.identifier)
         $0.register(ExpandedWeekTVC.self, forCellReuseIdentifier: ExpandedWeekTVC.identifier)
+        $0.register(RoutineTVC.self, forCellReuseIdentifier: RoutineTVC.identifier)
+        $0.registerCustomXib(name: RoutineTVC.identifier)
         $0.showsVerticalScrollIndicator = false
         
         if #available(iOS 15.0, *) {
@@ -38,11 +40,13 @@ class ExpandedStateView: UIView {
     var state: CurrentState?
     var isModified = false
     private var root: UIViewController?
+    var upuhRoutineOverViewList: [RoutineOverviewData] = []
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
         setupModifyButton()
+        initRoutineOverViewList()
     }
     
     convenience init(root: UIViewController) {
@@ -100,8 +104,15 @@ class ExpandedStateView: UIView {
     private func touchUpModify() {
         isModified.toggle()
         listTableView.reloadSections(IndexSet(0...0), with: .fade)
-        
         bottomView.selectButton.setTitle(isModified ? "수정한 영법 저장하기" : "영법 수정하기", for: .normal)
+    }
+    
+    private func initRoutineOverViewList(){
+        for i in 0..<20 {
+            var data = RoutineOverviewData()
+            data.level = Int.random(in: 0...2)
+            upuhRoutineOverViewList.append(data)
+        }
     }
 }
 
@@ -117,7 +128,7 @@ extension ExpandedStateView: UITableViewDataSource {
         case .month:
             return 5
         default:
-            return 30
+            return 20
         }
     }
     
@@ -171,7 +182,8 @@ extension ExpandedStateView: UITableViewDataSource {
             cell.dayLabel.text = weeks[indexPath.row]
             return cell
         case .routine:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: ExpandedDayTVC.identifier) as? ExpandedDayTVC else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineTVC.identifier) as? RoutineTVC else { return UITableViewCell() }
+            cell.setContentData(overview: upuhRoutineOverViewList[indexPath.row])
             return cell
         default:
             return UITableViewCell()
@@ -181,6 +193,12 @@ extension ExpandedStateView: UITableViewDataSource {
 
 // MARK: - UITableViewDelegate
 extension ExpandedStateView: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        tableView.separatorStyle = state == .routine ? .none : .singleLine
+        return state == .routine ? 168 : UITableView.automaticDimension
+    }
+    
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableView.automaticDimension
     }
