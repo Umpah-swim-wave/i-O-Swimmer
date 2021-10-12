@@ -19,11 +19,15 @@ class RoutineVC: UIViewController {
     
     //MARK: TableView data
     private var routineSetCellList : [RoutineSetTVC] = []
-      
     private let upuhGreen = UIColor(red: 0.965, green: 0.98, blue: 0.988, alpha: 1)
     
     //MARK: - UI Component
     private let navigationView = UIView()
+    private lazy var xmarkButton = XmarkButton(toDismiss: self)
+    private let backButton = UIButton().then{
+        $0.setBackgroundImage(UIImage(named: "ic_back"), for: .normal)
+    }
+    
     private var tableView = UITableView()
     private let tableViewHeader = UIView()
     
@@ -180,7 +184,9 @@ class RoutineVC: UIViewController {
     
     private func addActions(){
         bottomButton.addTarget(self, action: #selector(changeTableViewEditingMode), for: .touchUpInside)
-        //distanceButton.addTarget(self, action: #selector(presentSetSelectionView), for: .touchUpInside)
+        
+        let dismissAction = UIAction { _ in self.dismiss(animated: true, completion: nil) }
+        backButton.addAction(dismissAction, for: .touchUpInside)
     }
     
     @objc
@@ -203,6 +209,11 @@ class RoutineVC: UIViewController {
             descriptionTextView.isUserInteractionEnabled = true
         }else{
             descriptionTextView.isUserInteractionEnabled = false
+        }
+        
+        if !backButton.isHidden{
+            backButton.isHidden = true
+            xmarkButton.isHidden = false
         }
     }
     
@@ -367,6 +378,7 @@ extension RoutineVC {
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             $0.height.equalTo(44)
         }
+        setupNavigationViewLayout()
         
         tableView.snp.makeConstraints {
             $0.top.equalTo(navigationView.snp.bottom)
@@ -381,6 +393,21 @@ extension RoutineVC {
         }
         setupHeaderViewLayout()
         bottomButton.bringSubviewToFront(tableView)
+    }
+    
+    private func setupNavigationViewLayout(){
+        navigationView.addSubviews([backButton, xmarkButton])
+        
+        backButton.snp.makeConstraints{
+            $0.leading.equalToSuperview().offset(16)
+            $0.centerY.equalToSuperview()
+        }
+        
+        xmarkButton.snp.makeConstraints{
+            $0.trailing.equalToSuperview().offset(-16)
+            $0.centerY.equalToSuperview()
+        }
+        xmarkButton.isHidden = true
     }
     
     private func setupHeaderViewLayout(){
