@@ -12,6 +12,8 @@ import SnapKit
 
 class HeaderView: UIView {
     // MARK: - Properties
+    var changeState : ((Bool) -> ())?
+    
     var recordButton = UIButton().then {
         $0.setTitle("기록", for: .normal)
         $0.setTitleColor(.upuhBlack, for: .normal)
@@ -72,6 +74,7 @@ class HeaderView: UIView {
         recordButton.titleLabel?.font = .IBMPlexSansSemiBold(ofSize: 16)
         routineButton.titleLabel?.font = .IBMPlexSansRegular(ofSize: 16)
         moveRecordDirection()
+        changeState?(true)
     }
     
     @objc
@@ -82,6 +85,7 @@ class HeaderView: UIView {
         routineButton.titleLabel?.font = .IBMPlexSansSemiBold(ofSize: 16)
         recordButton.titleLabel?.font = .IBMPlexSansRegular(ofSize: 16)
         moveRoutineDirection()
+        changeState?(false)
     }
 }
 
