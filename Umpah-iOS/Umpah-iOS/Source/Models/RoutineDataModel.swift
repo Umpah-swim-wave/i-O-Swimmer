@@ -8,11 +8,16 @@
 import Foundation
 
 struct RoutineOverviewData{
-    let title: String
-    let level: String
-    let totalDistance: Int
-    let totalTime: Int
-    let description: String
+    
+    func getDistanceToString() -> String{
+        return String(format: "%.1f", Float(totalDistance) / 1000.0) + "km"
+    }
+    
+    func getTimeToString() -> String{
+        let minute = (totalTime % 3600) / 60
+        let minuteText = minute < 10 ? "0\(minute)" : "\(minute)"
+        return "\(totalTime/3600)h " + minuteText + "m"
+    }
 }
 
 struct RoutineItemData {
