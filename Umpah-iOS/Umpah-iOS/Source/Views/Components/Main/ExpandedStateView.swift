@@ -41,7 +41,8 @@ class ExpandedStateView: UIView {
     var isModified = false
     private var root: UIViewController?
     var upuhRoutineOverViewList: [RoutineOverviewData] = []
-
+    var presentModifyRoutineVC : ((Int) -> ())?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
@@ -248,6 +249,17 @@ extension ExpandedStateView: UITableViewDelegate {
             return header
         default:
             return UIView()
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if state == .routine {
+            //presentModifyRoutineVC?(indexPath.row)
+            let storyboard = UIStoryboard(name: "Routine", bundle: nil)
+            guard let routineVC = storyboard.instantiateViewController(withIdentifier: RoutineVC.identifier) as? RoutineVC else {return}
+            //routineVC.modalTransitionStyle = .partialCurl
+            routineVC.modalPresentationStyle = .overFullScreen
+            root?.present(routineVC, animated: true, completion: nil)
         }
     }
 }
