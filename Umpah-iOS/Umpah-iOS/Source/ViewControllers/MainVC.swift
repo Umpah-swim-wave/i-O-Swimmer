@@ -51,6 +51,7 @@ class MainVC: UIViewController {
     
     var currentState: CurrentState = .base
     var cardViewState: CardViewState = .base
+    var cacheState: CurrentState = .base
     var strokeState: Stroke = .none
     var cardPanStartingTopConstant : CGFloat = 20.0
     var cardPanMaxVelocity: CGFloat = 1500.0
@@ -155,11 +156,13 @@ class MainVC: UIViewController {
     private func addClosureToChangeState(){
         headerView.changeState = { isRecord in
             //어떻게 하면 좋을지,,
-            print("addClosureToChangeState")
-            self.currentState = isRecord ? .base : .routine
             if !isRecord{
-                self.decideTitle(of: .base)
+                self.cacheState = self.currentState
+                self.currentState = .routine
+            }else{
+                self.currentState = self.cacheState
             }
+            self.normalView.titleLabel.text = self.decideTitle(of: .normal)
             self.mainTableView.reloadData()
         }
         
