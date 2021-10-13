@@ -40,8 +40,14 @@ class ExpandedStateView: UIView {
     var state: CurrentState?
     var isModified = false
     private var root: UIViewController?
+    
+    //MARK: about Routine
     var upuhRoutineOverViewList: [RoutineOverviewData] = []
-    var presentModifyRoutineVC : ((Int) -> ())?
+    var filteredOverViewList: [RoutineOverviewData] = []
+    let routineHeaderView = UIView()
+    let levelButton = UIButton()
+    let exceptionButton = UIButton()
+    let distanceOrderButton = UIButton()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -113,6 +119,53 @@ class ExpandedStateView: UIView {
             var data = RoutineOverviewData()
             data.level = Int.random(in: 0...2)
             upuhRoutineOverViewList.append(data)
+        }
+        filteredOverViewList = upuhRoutineOverViewList
+    }
+    
+    private func setAttributeRoutineButton(button: UIButton, title: String){
+        button.setTitle(title, for: .normal)
+        button.setTitleColor(.upuhGreen, for: .normal)
+        button.titleLabel?.font = .IBMPlexSansSemiBold(ofSize: 14)
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 0)
+        button.setImage(UIImage(named: "plus"), for: .normal)
+        button.semanticContentAttribute = .forceRightToLeft
+        button.backgroundColor = .clear
+        button.layer.borderColor = UIColor.upuhBlue.withAlphaComponent(0.15).cgColor
+        button.layer.borderWidth = 2
+    }
+    
+    private func setupRoutineHeaderLayout(){
+        setAttributeRoutineButton(button: levelButton, title: "레벨")
+        setAttributeRoutineButton(button: exceptionButton, title: "제외할 영법")
+        setAttributeRoutineButton(button: distanceOrderButton, title: "거리순")
+        
+        addSubview(routineHeaderView)
+        
+        routineHeaderView.snp.makeConstraints{
+            $0.top.equalTo(titleLabel.snp.bottom).offset(16)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(70)
+        }
+        
+        routineHeaderView.addSubviews([levelButton,
+                                       exceptionButton,
+                                       distanceOrderButton])
+        
+        levelButton.snp.makeConstraints{
+            $0.top.equalToSuperview().offset(22)
+            $0.leading.equalToSuperview().offset(18)
+            $0.bottom.equalToSuperview().offset(-8)
+        }
+        
+        exceptionButton.snp.makeConstraints{
+            $0.centerY.equalTo(levelButton.snp.centerY)
+            $0.leading.equalTo(levelButton.snp.trailing).offset(8)
+        }
+        
+        distanceOrderButton.snp.makeConstraints{
+            $0.centerY.equalTo(levelButton.snp.centerY)
+            $0.leading.equalTo(exceptionButton.snp.trailing).offset(8)
         }
     }
 }
@@ -254,10 +307,8 @@ extension ExpandedStateView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if state == .routine {
-            //presentModifyRoutineVC?(indexPath.row)
             let storyboard = UIStoryboard(name: "Routine", bundle: nil)
             guard let routineVC = storyboard.instantiateViewController(withIdentifier: RoutineVC.identifier) as? RoutineVC else {return}
-            //routineVC.modalTransitionStyle = .partialCurl
             routineVC.modalPresentationStyle = .overFullScreen
             root?.present(routineVC, animated: true, completion: nil)
         }
