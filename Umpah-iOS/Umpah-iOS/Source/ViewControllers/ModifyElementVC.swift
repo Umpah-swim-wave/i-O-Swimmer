@@ -12,6 +12,7 @@ import RxCocoa
 enum ModifyElementType {
     case setTitle
     case stroke
+    case exceptStorke
     case level
 }
 
@@ -26,7 +27,6 @@ class ModifyElementVC: UIViewController{
     
     public var presentingSetTitle: String?
     public var presentingItemIndex: Int?
-    public var selectedStroke: String?
     public var selectedContent: String?
     
     private var backgroundImageView = UIImageView()
@@ -92,19 +92,22 @@ class ModifyElementVC: UIViewController{
     
     func changeDataInPresentingVC(){
         switch elementType{
-            case .setTitle:
+        case .setTitle:
             let presentingVC = presentingViewController as? RoutineVC
             presentingVC?.addRoutineSet(setTitle: selectedContent ?? "타이틀 잘못 넘어옴")
-            case .level:
-                elementList = ["자유형", "평영", "배영", "접영"]
-                titleLabel.text = "영법 선택"
-            case .stroke:
-                let presentingVC = presentingViewController as? RoutineVC
-                presentingVC?.updateRoutineItem(stroke: self.selectedContent ?? "잘못넘어옴",
+        case .stroke:
+            let presentingVC = presentingViewController as? RoutineVC
+            presentingVC?.updateRoutineItem(stroke: self.selectedContent ?? "잘못넘어옴",
                                             setTitle: self.presentingSetTitle ?? "",
                                             index: self.presentingItemIndex ?? 0)
-            case .none:
-                elementList = []
+        case .level:
+            let presentingVC = presentingViewController as? MainVC
+            presentingVC?.expandedView.levelText = selectedContent ?? ""
+        case .exceptStorke:
+            let presentingVC = presentingViewController as? MainVC
+            presentingVC?.expandedView.exceptionStrokeText = selectedContent ?? ""
+        case .none:
+            elementList = []
         }
     }
     
@@ -154,16 +157,32 @@ class ModifyElementVC: UIViewController{
             elementList = ["WARM-UP", "PRE", "MAIN", "KICK", "PULL", "DRILL", "COOL DOWN"]
             titleLabel.text = "세트 선택"
         case .level:
-            elementList = ["자유형", "평영", "배영", "접영"]
-            titleLabel.text = "영법 선택"
+            elementList = ["초급", "중급","고급"]
+            titleLabel.text = "레벨 선택"
         case .stroke:
             elementList = ["자유형", "평영", "배영", "접영"]
             titleLabel.text = "영법 선택"
             regiserTableViewFooterToWriteStroke()
+        case .exceptStorke:
+            elementList = ["자유형", "평영", "배영", "접영"]
+            titleLabel.text = "제외할 영법 선택"
         case .none:
             elementList = []
         }
     }
+//    
+//    private func changeLevelStringToInt(level: String) -> Int{
+//        switch level{
+//        case "초급":
+//            return 0
+//        case "중급":
+//            return 1
+//        case "고급":
+//            return 2
+//        default:
+//            return -1
+//        }
+//    }
     
 }
 
@@ -255,7 +274,6 @@ extension ModifyElementVC: UITextFieldDelegate {
                                    y: contentView.frame.minY + 100,
                                    width: contentView.frame.width,
                                    height: contentView.frame.height)
-        selectedStroke = textField.text
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
