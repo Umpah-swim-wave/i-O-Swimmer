@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3C0D3FB2271692DE0019A763 /* RoutineFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0D3FB1271692DE0019A763 /* RoutineFilterView.swift */; };
 		3C358BB626E5B2970025ABDC /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C358BB526E5B2970025ABDC /* UITableViewCell+.swift */; };
 		3C7479E12702E577006752EE /* RoutineItemTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7479DF2702E577006752EE /* RoutineItemTVC.swift */; };
 		3C7479E22702E577006752EE /* RoutineSetTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C7479E02702E577006752EE /* RoutineSetTVC.swift */; };
@@ -137,6 +138,7 @@
 /* Begin PBXFileReference section */
 		2D05BFF43235C874BA8005FE /* Pods-Umpah-iOS WatchKit Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Umpah-iOS WatchKit Extension.release.xcconfig"; path = "Target Support Files/Pods-Umpah-iOS WatchKit Extension/Pods-Umpah-iOS WatchKit Extension.release.xcconfig"; sourceTree = "<group>"; };
 		30E19E303BB4F713D525DDCC /* Pods-Umpah-iOS WatchKit App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Umpah-iOS WatchKit App.debug.xcconfig"; path = "Target Support Files/Pods-Umpah-iOS WatchKit App/Pods-Umpah-iOS WatchKit App.debug.xcconfig"; sourceTree = "<group>"; };
+		3C0D3FB1271692DE0019A763 /* RoutineFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineFilterView.swift; sourceTree = "<group>"; };
 		3C358BB526E5B2970025ABDC /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
 		3C7479DF2702E577006752EE /* RoutineItemTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutineItemTVC.swift; sourceTree = "<group>"; };
 		3C7479E02702E577006752EE /* RoutineSetTVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoutineSetTVC.swift; sourceTree = "<group>"; };
@@ -376,6 +378,7 @@
 				ED78843926DE3F63006D8787 /* WeekMonthHeader.swift */,
 				ED78843D26DE4C50006D8787 /* SelectedStrokeView.swift */,
 				ED5F1A1B26ECF1C7003FF801 /* StrokeView.swift */,
+				3C0D3FB1271692DE0019A763 /* RoutineFilterView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -911,6 +914,7 @@
 				EDD46F4D26BE9C0200FA91F2 /* ExpandedStateView.swift in Sources */,
 				ED5396EF26B9774C0061722F /* Encodable+.swift in Sources */,
 				ED5396E426B975D70061722F /* MainVC.swift in Sources */,
+				3C0D3FB2271692DE0019A763 /* RoutineFilterView.swift in Sources */,
 				3CF69DF426E79A68002FD6DB /* RoutineViewModel.swift in Sources */,
 				EDD46F4B26BE99F900FA91F2 /* NormalStateView.swift in Sources */,
 				ED5396F926B977D10061722F /* UIView+.swift in Sources */,
