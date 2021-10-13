@@ -46,7 +46,9 @@ class ExpandedStateView: UIView {
     var filteredOverViewList: [RoutineOverviewData] = []
     let routineHeaderView = UIView()
     let levelButton = UIButton()
+    var levelText = "레벨"
     let exceptionButton = UIButton()
+    var exceptionStrokeText = "제외할 영법"
     let distanceOrderButton = UIButton()
     
     override init(frame: CGRect) {
@@ -54,6 +56,7 @@ class ExpandedStateView: UIView {
         setupLayout()
         setupModifyButton()
         initRoutineOverViewList()
+        setupActions()
     }
     
     convenience init(root: UIViewController) {
@@ -93,12 +96,20 @@ class ExpandedStateView: UIView {
         switch state {
         case .base,
              .day:
+            deleteRoutineHeaderLayout()
             listTableView.snp.updateConstraints {
                 $0.top.equalTo(titleLabel.snp.bottom).offset(36)
                 $0.leading.trailing.equalToSuperview()
                 $0.bottom.equalToSuperview().inset(UIScreen.main.hasNotch ? 93 : 49)
             }
+        case .routine:
+            setupRoutineHeaderLayout()
+            listTableView.snp.updateConstraints {
+                $0.top.equalTo(titleLabel.snp.bottom).offset(91)
+                $0.leading.trailing.bottom.equalToSuperview()
+            }
         default:
+            deleteRoutineHeaderLayout()
             listTableView.snp.updateConstraints {
                 $0.top.equalTo(titleLabel.snp.bottom).offset(36)
                 $0.leading.trailing.bottom.equalToSuperview()
@@ -114,60 +125,26 @@ class ExpandedStateView: UIView {
         bottomView.selectButton.setTitle(isModified ? "수정한 영법 저장하기" : "영법 수정하기", for: .normal)
     }
     
-    private func initRoutineOverViewList(){
-        for i in 0..<20 {
-            var data = RoutineOverviewData()
-            data.level = Int.random(in: 0...2)
-            upuhRoutineOverViewList.append(data)
+  
+    private func setupActions(){
+        let presentinglevelAction = UIAction { _ in
+            self.presentToModifyElement(elementType: .level)
         }
-        filteredOverViewList = upuhRoutineOverViewList
-    }
     
-    private func setAttributeRoutineButton(button: UIButton, title: String){
-        button.setTitle(title, for: .normal)
-        button.setTitleColor(.upuhGreen, for: .normal)
-        button.titleLabel?.font = .IBMPlexSansSemiBold(ofSize: 14)
-        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 0)
-        button.setImage(UIImage(named: "plus"), for: .normal)
-        button.semanticContentAttribute = .forceRightToLeft
-        button.backgroundColor = .clear
-        button.layer.borderColor = UIColor.upuhBlue.withAlphaComponent(0.15).cgColor
-        button.layer.borderWidth = 2
+        let presentingStrokeAction = UIAction { _ in
+            self.presentToModifyElement(elementType: .exceptStorke)
+        }
+        
+        let changeOrderingDistanceAction = UIAction { _ in
+            self.changeDistanceButton()
+        }
+        
+        levelButton.addAction(presentinglevelAction, for: .touchUpInside)
+        exceptionButton.addAction(presentingStrokeAction, for: .touchUpInside)
+        distanceOrderButton.addAction(changeOrderingDistanceAction, for: .touchUpInside)
     }
+ 
     
-    private func setupRoutineHeaderLayout(){
-        setAttributeRoutineButton(button: levelButton, title: "레벨")
-        setAttributeRoutineButton(button: exceptionButton, title: "제외할 영법")
-        setAttributeRoutineButton(button: distanceOrderButton, title: "거리순")
-        
-        addSubview(routineHeaderView)
-        
-        routineHeaderView.snp.makeConstraints{
-            $0.top.equalTo(titleLabel.snp.bottom).offset(16)
-            $0.leading.trailing.equalToSuperview()
-            $0.height.equalTo(70)
-        }
-        
-        routineHeaderView.addSubviews([levelButton,
-                                       exceptionButton,
-                                       distanceOrderButton])
-        
-        levelButton.snp.makeConstraints{
-            $0.top.equalToSuperview().offset(22)
-            $0.leading.equalToSuperview().offset(18)
-            $0.bottom.equalToSuperview().offset(-8)
-        }
-        
-        exceptionButton.snp.makeConstraints{
-            $0.centerY.equalTo(levelButton.snp.centerY)
-            $0.leading.equalTo(levelButton.snp.trailing).offset(8)
-        }
-        
-        distanceOrderButton.snp.makeConstraints{
-            $0.centerY.equalTo(levelButton.snp.centerY)
-            $0.leading.equalTo(exceptionButton.snp.trailing).offset(8)
-        }
-    }
 }
 
 // MARK: - UITableViewDataSource
@@ -347,4 +324,167 @@ extension ExpandedStateView: SelectedRangeDelegate {
         strokes.remove(at: indexPath)
         listTableView.reloadSections(IndexSet(0...0), with: .fade)
     }
+}
+
+
+//MARK: Routine UI 처리
+extension ExpandedStateView{
+    private func setAttributeRoutineButton(button: UIButton, title: String){
+        print("넣어야할 title = \(title)")
+        button.semanticContentAttribute = .forceRightToLeft
+        button.backgroundColor = .clear
+        button.layer.borderColor = UIColor.upuhBlue.withAlphaComponent(0.15).cgColor
+        button.layer.borderWidth = 2
+        button.layer.cornerRadius = 20
+        
+        
+        if #available(iOS 15, *) {
+            var configuration = UIButton.Configuration.plain()
+            configuration.title = title
+            configuration.image = UIImage(named: "plus")
+            configuration.titlePadding = 0
+            configuration.imagePadding = 4
+            configuration.baseForegroundColor = .upuhGreen
+            configuration.attributedTitle = AttributedString(title, attributes: AttributeContainer([NSAttributedString.Key.foregroundColor: UIColor.upuhGreen, NSAttributedString.Key.font: UIFont.IBMPlexSansSemiBold(ofSize: 14)]))
+            button.configuration = configuration
+        } else {
+            button.setTitle(title, for: .normal)
+            button.setTitleColor(.upuhGreen, for: .normal)
+            button.titleLabel?.font = .IBMPlexSansSemiBold(ofSize: 14)
+            button.setImage(UIImage(named: "plus"), for: .normal)
+            button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 0)
+            button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 0)
+        }
+        
+        if button == levelButton && title != "레벨"{
+            setFilteredButton(button: levelButton, title: title)
+            print("레벨 불림")
+        }
+        
+        if button == exceptionButton && title != "제외할 영법"{
+            setFilteredButton(button: exceptionButton, title: title)
+        }
+    }
+    
+    private func setFilteredButton(button: UIButton, title: String){
+        button.setImage(UIImage(named: "xmark"), for: .normal)
+        button.backgroundColor = .white
+        if #available(iOS 15, *){
+            button.configuration?.title = title
+            button.configuration?.baseForegroundColor = .upuhGreen
+            button.configuration?.attributedTitle = AttributedString(title, attributes: AttributeContainer([NSAttributedString.Key.foregroundColor: UIColor.upuhGreen, NSAttributedString.Key.font: UIFont.IBMPlexSansSemiBold(ofSize: 14)]))
+        }else{
+            button.setTitle(title, for: .normal)
+            button.titleLabel?.font = .IBMPlexSansSemiBold(ofSize: 14)
+            button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 0)
+            button.imageEdgeInsets = UIEdgeInsets(top: 0, left: 4, bottom: 0, right: 0)
+        }
+    }
+     
+    private func setAttributeDistanceButton(){
+        distanceOrderButton.setImage(UIImage(named: "ic_upArrow"), for: .normal)
+        distanceOrderButton.backgroundColor = .upuhBlue.withAlphaComponent(0.1)
+    }
+    
+    private func setupRoutineHeaderLayout(){
+        setAttributeRoutineButton(button: levelButton, title: levelText)
+        setAttributeRoutineButton(button: exceptionButton, title: exceptionStrokeText)
+        setAttributeRoutineButton(button: distanceOrderButton, title: "거리순")
+        setAttributeDistanceButton()
+        
+        routineHeaderView.backgroundColor = .clear
+        backgroundColor = .upuhBackground
+        listTableView.backgroundColor = .upuhBackground
+        self.layer.cornerRadius = 32
+        self.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
+        addSubview(routineHeaderView)
+        
+        routineHeaderView.snp.makeConstraints{
+            $0.top.equalTo(titleLabel.snp.bottom).offset(16)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(77)
+        }
+        
+        routineHeaderView.addSubviews([levelButton,
+                                       exceptionButton,
+                                       distanceOrderButton])
+        
+        levelButton.snp.makeConstraints{
+            $0.top.equalToSuperview().offset(22)
+            $0.bottom.equalToSuperview().offset(-15)
+            $0.leading.equalToSuperview().offset(18)
+            $0.width.equalTo(79)
+        }
+        
+        exceptionButton.snp.makeConstraints{
+            $0.top.equalToSuperview().offset(22)
+            $0.bottom.equalToSuperview().offset(-15)
+            $0.leading.equalTo(levelButton.snp.trailing).offset(8)
+        }
+        
+        distanceOrderButton.snp.makeConstraints{
+            $0.top.equalToSuperview().offset(22)
+            $0.bottom.equalToSuperview().offset(-15)
+            $0.trailing.equalToSuperview().offset(-16)
+            $0.width.equalTo(91)
+        }
+    }
+    
+    func deleteRoutineHeaderLayout(){
+        routineHeaderView.subviews.forEach{
+            $0.removeFromSuperview()
+        }
+        routineHeaderView.removeFromSuperview()
+        backgroundColor = .clear
+        listTableView.backgroundColor = .clear
+    }
+    
+    func changeDistanceButton(){
+        let newImage = distanceOrderButton.imageView?.image == UIImage(named: "ic_upArrow") ? UIImage(named: "ic_downArrow") : UIImage(named: "ic_upArrow")
+        distanceOrderButton.setImage(newImage, for: .normal)
+    }
+}
+
+//MARK: Routine data 처리
+extension ExpandedStateView {
+    
+    //MARK: 서버통신 후 삭제할 더미 함수
+    private func initRoutineOverViewList(){
+        for i in 0..<20 {
+            var data = RoutineOverviewData()
+            data.level = Int.random(in: 0...2)
+            upuhRoutineOverViewList.append(data)
+        }
+        filteredOverViewList = upuhRoutineOverViewList
+    }
+
+    private func presentToModifyElement(elementType: ModifyElementType){
+        let storyboard = UIStoryboard(name: "ModifyElement", bundle: nil)
+        guard let nextVC = storyboard.instantiateViewController(withIdentifier: ModifyElementVC.identifier) as? ModifyElementVC else {return}
+        
+        nextVC.elementType = elementType
+        nextVC.modalPresentationStyle = .fullScreen
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1 , execute: {
+            nextVC.backgroundImage = self.root?.view.asImage()
+            nextVC.modalTransitionStyle = .crossDissolve
+            self.root?.present(nextVC, animated: true, completion: nil)
+        })
+    }
+    private func applyToFilterData(){
+        
+    }
+    
+    private func getLevelText(level: Int) -> String{
+        switch level{
+        case 0:
+            return "초급"
+        case 1:
+            return "중급"
+        case 2:
+            return "고급"
+        default:
+            return "잘못된값"
+        }
+    }
+    
 }
