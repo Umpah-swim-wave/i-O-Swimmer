@@ -165,15 +165,6 @@ class MainVC: UIViewController {
             self.normalView.titleLabel.text = self.decideTitle(of: .normal)
             self.mainTableView.reloadData()
         }
-        
-        expandedView.presentModifyRoutineVC = { index in
-            print("선택된 index = \(index)")
-            let storyboard = UIStoryboard(name: "Routine", bundle: nil)
-            guard let routineVC = storyboard.instantiateViewController(withIdentifier: RoutineVC.identifier) as? RoutineVC else {return}
-            routineVC.modalTransitionStyle = .crossDissolve
-            routineVC.modalPresentationStyle = .overFullScreen
-            self.present(routineVC, animated: true, completion: nil)
-        }
     }
 }
 
