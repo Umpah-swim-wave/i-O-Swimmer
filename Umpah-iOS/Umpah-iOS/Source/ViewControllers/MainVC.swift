@@ -22,6 +22,8 @@ class MainVC: UIViewController {
         $0.register(FilterTVC.self, forCellReuseIdentifier: FilterTVC.identifier)
         $0.register(StrokeTVC.self, forCellReuseIdentifier: StrokeTVC.identifier)
         $0.register(DateTVC.self, forCellReuseIdentifier: DateTVC.identifier)
+        //$0.register(RoutineTVC.self, forCellReuseIdentifier: RoutineTVC.identifier)
+        $0.registerCustomXib(name: RoutineTVC.identifier)
         $0.backgroundColor = .clear
         $0.separatorStyle = .none
         $0.showsVerticalScrollIndicator = false
@@ -49,6 +51,7 @@ class MainVC: UIViewController {
     
     var currentState: CurrentState = .base
     var cardViewState: CardViewState = .base
+    var cacheState: CurrentState = .base
     var strokeState: Stroke = .none
     var cardPanStartingTopConstant : CGFloat = 20.0
     var cardPanMaxVelocity: CGFloat = 1500.0
@@ -59,6 +62,9 @@ class MainVC: UIViewController {
     }
     var canScrollMore = true
     
+    //MARK: Routine data
+    var routineOverViewList: [RoutineOverviewData] = []
+    
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -66,6 +72,8 @@ class MainVC: UIViewController {
         initUpperView()
         initCardView()
         initGestureView()
+        initRoutineOverViewList()
+        addClosureToChangeState()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -134,6 +142,29 @@ class MainVC: UIViewController {
         viewPan.delaysTouchesBegan = false
         viewPan.delaysTouchesEnded = false
         view.addGestureRecognizer(viewPan)
+    }
+    
+    private func initRoutineOverViewList(){
+        for i in 0..<20 {
+            var data = RoutineOverviewData()
+            data.level = Int.random(in: 0...2)
+            data.totalDistance = 1000 + i * 150
+            routineOverViewList.append(data)
+        }
+    }
+    
+    private func addClosureToChangeState(){
+        headerView.changeState = { isRecord in
+            //어떻게 하면 좋을지,,
+            if !isRecord{
+                self.cacheState = self.currentState
+                self.currentState = .routine
+            }else{
+                self.currentState = self.cacheState
+            }
+            self.normalView.titleLabel.text = self.decideTitle(of: .normal)
+            self.mainTableView.reloadData()
+        }
     }
 }
 
@@ -303,7 +334,7 @@ extension MainVC: UITableViewDataSource {
             if currentState != .routine {
                 return 5
             } else {
-                return 10
+                return routineOverViewList.count
             }
         default:
             return 0
@@ -372,7 +403,6 @@ extension MainVC: UITableViewDataSource {
                     cell.titleLabel.text = "MONTHLY RECORD"
                     cell.titleLabel.addCharacterSpacing(kernValue: 2)
                 }
-                
                 return cell
             case 3:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
@@ -393,7 +423,9 @@ extension MainVC: UITableViewDataSource {
                 return cell
             }
         case .routine:
-            return UITableViewCell()
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineTVC.identifier) as? RoutineTVC else { return UITableViewCell()}
+            cell.setContentData(overview: routineOverViewList[indexPath.row])
+            return cell
         }
     }
 }
@@ -401,11 +433,15 @@ extension MainVC: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 extension MainVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        switch indexPath.row {
-        case 4:
-            return 105
-        default:
-            return UITableView.automaticDimension
+        if currentState == .routine {
+            return indexPath.row == 0 ? 184 : 168
+        }else {
+            switch indexPath.row {
+            case 4:
+                return 105
+            default:
+                return UITableView.automaticDimension
+            }
         }
     }
     

@@ -9,7 +9,11 @@ import UIKit
 
 extension UIApplication {
     static var statusBarHeight: CGFloat {
-        let window = UIApplication.shared.windows.first { $0.isKeyWindow }
-        return window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+//        if #available(iOS 13.0, *) {
+//            let window = shared.windows.filter { $0.isKeyWindow }.first
+//            return window?.windowScene?.statusBarManager?.statusBarFrame.height ?? 0
+//        }
+//
+        return shared.statusBarFrame.height
     }
 }
