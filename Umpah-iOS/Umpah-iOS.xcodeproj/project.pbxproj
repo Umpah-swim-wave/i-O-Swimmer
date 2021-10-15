@@ -27,6 +27,7 @@
 		3CF4E9102719C09A00FE8802 /* SwimmingDataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF4E90F2719C09A00FE8802 /* SwimmingDataStorage.swift */; };
 		3CF4E9122719C0F100FE8802 /* SwimmingDataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF4E9112719C0F100FE8802 /* SwimmingDataModel.swift */; };
 		3CF4E9142719C6C600FE8802 /* Date+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF4E9132719C6C600FE8802 /* Date+.swift */; };
+		3CF4E9162719F43700FE8802 /* SwimmingDataViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF4E9152719F43700FE8802 /* SwimmingDataViewModel.swift */; };
 		3CF69DEA26E7776C002FD6DB /* ModifyElementVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF69DE926E7776C002FD6DB /* ModifyElementVC.swift */; };
 		3CF69DEC26E77856002FD6DB /* ModifyElement.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3CF69DEB26E77856002FD6DB /* ModifyElement.storyboard */; };
 		3CF69DF026E781B5002FD6DB /* ModifyElementTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF69DEE26E781B5002FD6DB /* ModifyElementTVC.swift */; };
@@ -164,6 +165,7 @@
 		3CF4E90F2719C09A00FE8802 /* SwimmingDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwimmingDataStorage.swift; sourceTree = "<group>"; };
 		3CF4E9112719C0F100FE8802 /* SwimmingDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwimmingDataModel.swift; sourceTree = "<group>"; };
 		3CF4E9132719C6C600FE8802 /* Date+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+.swift"; sourceTree = "<group>"; };
+		3CF4E9152719F43700FE8802 /* SwimmingDataViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwimmingDataViewModel.swift; sourceTree = "<group>"; };
 		3CF69DE926E7776C002FD6DB /* ModifyElementVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModifyElementVC.swift; sourceTree = "<group>"; };
 		3CF69DEB26E77856002FD6DB /* ModifyElement.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ModifyElement.storyboard; sourceTree = "<group>"; };
 		3CF69DEE26E781B5002FD6DB /* ModifyElementTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ModifyElementTVC.swift; path = "Umpah-iOS/Source/Views/Cells/Routine/ModifyElementTVC.swift"; sourceTree = SOURCE_ROOT; };
@@ -563,6 +565,7 @@
 			isa = PBXGroup;
 			children = (
 				3CF69DF326E79A68002FD6DB /* RoutineViewModel.swift */,
+				3CF4E9152719F43700FE8802 /* SwimmingDataViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -942,6 +945,7 @@
 				ED5396F926B977D10061722F /* UIView+.swift in Sources */,
 				ED2ACAF626E41A4F00C5A772 /* FilterTVC.swift in Sources */,
 				ED8AB6AB2703158F0066CD02 /* States.swift in Sources */,
+				3CF4E9162719F43700FE8802 /* SwimmingDataViewModel.swift in Sources */,
 				EDD7C44026CBDB4600D93306 /* DetailTVC.swift in Sources */,
 				ED5F1A1A26ECF05E003FF801 /* StrokeTVC.swift in Sources */,
 				ED78843826DE3D18006D8787 /* DayHeader.swift in Sources */,
