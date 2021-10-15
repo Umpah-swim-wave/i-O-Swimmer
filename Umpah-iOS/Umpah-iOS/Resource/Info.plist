@@ -2,17 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UIAppFonts</key>
-	<array>
-		<string>IBMPlexSansKR-Medium.ttf</string>
-		<string>IBMPlexSansKR-Regular.ttf</string>
-		<string>Nexa Bold.otf</string>
-		<string>IBMPlexSansKR-Text.ttf</string>
-		<string>IBMPlexSansKR-SemiBold.ttf</string>
-		<string>IBMPlexSansKR-Bold.ttf</string>
-	</array>
-	<key>UIUserInterfaceStyle</key>
-	<string>Light</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleExecutable</key>
@@ -31,6 +20,17 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSHealthShareUsageDescription</key>
+	<string>어푸에서 User의 소중한 수영데이터를 분석하려고 합니다</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>IBMPlexSansKR-Medium.ttf</string>
+		<string>IBMPlexSansKR-Regular.ttf</string>
+		<string>Nexa Bold.otf</string>
+		<string>IBMPlexSansKR-Text.ttf</string>
+		<string>IBMPlexSansKR-SemiBold.ttf</string>
+		<string>IBMPlexSansKR-Bold.ttf</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -73,5 +73,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
 </dict>
 </plist>
