@@ -74,6 +74,7 @@ class MainVC: UIViewController {
         initGestureView()
         initRoutineOverViewList()
         addClosureToChangeState()
+        authorizeHealthKit()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -559,5 +560,23 @@ extension MainVC: SelectedRangeDelegate {
         }
         
         present(vc, animated: true, completion: nil)
+    }
+}
+
+//MARK: HealthKit
+extension MainVC {
+    private func authorizeHealthKit() {
+        HealthKitSetupAssistant.authorizeHealthKitAtSwimming { (authorized, error) in
+            guard authorized else {
+                let baseMessage = "HealthKit Authorization Failed"
+                if let error = error {
+                    print("\(baseMessage). Reason: \(error.localizedDescription)")
+                } else {
+                    print(baseMessage)
+                }
+                return
+            }
+            print("HealthKit Successfully Authorized.")
+        }
     }
 }
