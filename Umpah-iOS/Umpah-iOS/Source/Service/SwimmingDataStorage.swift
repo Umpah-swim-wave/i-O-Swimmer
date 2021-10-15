@@ -8,7 +8,7 @@
 import Foundation
 import HealthKit
 
-class SwimmingDataStore {
+class SwimmingDataStorage{
     
     let healthStore = HKHealthStore()
     var sourceSet: Set<HKSource> = []
@@ -112,7 +112,7 @@ class SwimmingDataStore {
         healthStore.execute(query)
     }
 
-    //MARK: 시작시간, 종료시간 , 운동시간, 거리
+    //MARK: 시작시간, 종료시간 , 운동시간
     func refineSwimmingDistanceData(start: Date, end: Date, completion: @escaping ([SwimmingDistanceData], Error?) -> Void){
         var list: [SwimmingDistanceData] = []
         readSwimmingDistance(start: start, end: end) { sampleList , error in
@@ -121,6 +121,47 @@ class SwimmingDataStore {
                 list.append(distance)
             }
             completion(list, nil)
+        }
+    }
+    
+    func readSwimmingStrokeData(start: Date, end: Date, completion: @escaping ([HKSample], Error?) -> Void){
+        guard let sampleType = HKObjectType.quantityType(forIdentifier: .swimmingStrokeCount) else{ return }
+        let datePredicate = HKQuery.predicateForSamples(withStart: start, end: end, options: .strictEndDate)
+        let query = HKSampleQuery(sampleType: sampleType,
+                                  predicate: datePredicate,
+                                  limit: 0,
+                                  sortDescriptors: [sortDescriptor]) { query, result, error in
+            
+            guard let sampleList = result else {
+                print("sample data 안넘어옴")
+                completion([], error)
+                return
+            }
+            
+            completion(sampleList, nil)
+        }
+        healthStore.execute(query)
+    }
+    
+    func refineSwimmingStrokeData(start: Date, end: Date, completion: @escaping ([SwimmingStrokeData], Error?) -> Void){
+        var strokeDataList: [SwimmingStrokeData] = []
+        readSwimmingStrokeData(start: start, end: end) { sampleList, error in
+            for sample in sampleList {
+                guard let quantitySample = sample as? HKQuantitySample else {
+                    print("stroke data에 잘못된 값이 들어옴")
+                    completion([], error)
+                    return
+                }
+                let strokeCount = quantitySample.quantity.doubleValue(for: HKUnit.count())
+                let strokeStyleInt = sample.metadata?["HKSwimmingStrokeStyle"] as? Int
+                
+                let stokeData = SwimmingStrokeData(startDate: sample.startDate,
+                                                   endDate: sample.endDate,
+                                                   count: Int(strokeCount),
+                                                   strokeStyle: strokeStyleInt ?? -1)
+                strokeDataList.append(stokeData)
+            }
+            completion(strokeDataList, nil)
         }
     }
     
