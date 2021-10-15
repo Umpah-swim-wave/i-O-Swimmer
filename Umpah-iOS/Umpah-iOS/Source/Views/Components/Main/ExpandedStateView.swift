@@ -51,7 +51,7 @@ class ExpandedStateView: UIView {
         setupLayout()
         setupModifyButton()
         initRoutineOverViewList()
-        setupRoutinrFilterActions()
+        setupRoutineFilterActions()
     }
     
     convenience init(root: UIViewController) {
@@ -321,7 +321,7 @@ extension ExpandedStateView{
         listTableView.backgroundColor = .clear
     }
     
-    private func setupRoutinrFilterActions(){
+    private func setupRoutineFilterActions(){
         let presentinglevelAction = UIAction { _ in
             self.presentToModifyElement(elementType: .level)
         }
