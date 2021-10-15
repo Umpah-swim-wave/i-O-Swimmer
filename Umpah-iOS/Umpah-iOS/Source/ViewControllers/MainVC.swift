@@ -64,6 +64,7 @@ class MainVC: UIViewController {
     
     //MARK: Routine data
     var routineOverViewList: [RoutineOverviewData] = []
+    let swimmingViewModel = SwimmingDataViewModel()
     
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -577,6 +578,7 @@ extension MainVC {
                 return
             }
             print("HealthKit Successfully Authorized.")
+            self.swimmingViewModel.initSwimmingData()
         }
     }
 }
