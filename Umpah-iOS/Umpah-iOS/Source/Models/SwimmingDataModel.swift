@@ -18,6 +18,8 @@ struct SwimWorkoutData {
     var workourActivityType: HKWorkoutActivityType
     var totalSwimmingStrokeCount: Double
     var metadata: [String : Any]
+    var distanceList: [SwimmingDistanceData] = []
+    var strokeList: [SwimmingStrokeData] = []
     
     func display(){
         print("---------------------------")
@@ -55,8 +57,8 @@ struct SwimmingStrokeData{
     var endDate: Date
     var count: Int = 0
     var strokeStyle: Int = 0
-    var storkeStyleENG:String = ""
-    var strokeStyleKR:String = ""
+    var storkeStyleENG: String = ""
+    var strokeStyleKR: String = ""
 
     func changeStringArray() -> [String] {
         return [strokeStyle.description, strokeStyleKR, storkeStyleENG]
