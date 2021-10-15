@@ -1,0 +1,127 @@
+//
+//  HealthKitDataStore.swift
+//  Umpah-iOS
+//
+//  Created by 장혜령 on 2021/10/15.
+//
+
+import Foundation
+import HealthKit
+
+class SwimmingDataStore {
+    
+    let healthStore = HKHealthStore()
+    var sourceSet: Set<HKSource> = []
+    let startDate = Calendar.current.date(byAdding: .year, value: -1, to: Date())
+    let datePredicate = HKQuery.predicateForSamples(withStart: Calendar.current.date(byAdding: .year, value: -1, to: Date()),
+                                                    end: Date(),
+                                                    options: .strictEndDate)
+    let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
+    
+    //MARK: 가장먼저 source를 가져와야함.
+    func loadWorkoutHKSource() {
+        let sampleType = HKObjectType.workoutType()
+        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: Date(), options: .strictEndDate)
+        
+        let sourceQuery = HKSourceQuery.init(sampleType: sampleType,
+                                             samplePredicate: datePredicate){ (query, result, error) in
+            guard let sources = result else{
+                print("source nil")
+                return
+            }
+            print("source 가져와졌음 \(sources.count)")
+            self.sourceSet.removeAll()
+            for src in sources {
+                print("source 가져와졌음, src.name = \(src.name)")
+                print("source 가져와졌음, src.bundleIdentifier = \(src.bundleIdentifier)")
+                self.sourceSet.insert(src)
+            }
+        }
+        healthStore.execute(sourceQuery)
+    }
+
+    //MARK: 수영 전체 workoutData
+    //TODO: start, end data 언제 제대로 처리할 지
+    func readSwimmingWorkout(completion: @escaping ([HKSample], Error?) -> Void ){
+        let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
+        //let predicate = HKQuery.predicateForSamples(withStart: startDate, end: Date(), options: .strictEndDate)
+        let swimmingPredicate = HKQuery.predicateForWorkouts(with: .swimming)
+        let sourcePredicate = HKQuery.predicateForObjects(from: sourceSet)
+        let compound = NSCompoundPredicate(andPredicateWithSubpredicates: [swimmingPredicate, sourcePredicate])
+        
+        let query = HKSampleQuery(sampleType: HKObjectType.workoutType(),
+                                  predicate: compound,
+                                  limit: 0,
+                                  sortDescriptors: [sortDescriptor]){(query, result, error) in
+            guard let samples = result else {
+                print("workout으로 넘어져 오는게 없음")
+                completion([], error)
+                return
+            }
+            completion(samples, nil)
+        }
+        healthStore.execute(query)
+    }
+
+    func refineSwimmingWorkoutData(completion: @escaping ([SwimWorkoutData], Error?) -> Void){
+        readSwimmingWorkout { sampleList, error in
+            var swimmingWorkoutList: [SwimWorkoutData] = []
+            for sample in sampleList{
+                let src = sample as! HKWorkout
+                let duration = floor(src.duration / 100) * 100
+                
+                let meterUnit = HKUnit.meter()
+                let totalDistance = src.totalDistance?.doubleValue(for: meterUnit) ?? 1
+              
+                let kiloCalorie = HKUnit.kilocalorie()
+                let totalEnergy = src.totalEnergyBurned?.doubleValue(for: kiloCalorie) ?? 0
+                
+                let workoutType = src.workoutActivityType
+                let strokes = src.totalSwimmingStrokeCount?.doubleValue(for: HKUnit.count()) ?? 0
+                let metaData = src.metadata ?? [:]
+                
+                let swimming = SwimWorkoutData(startDate: sample.startDate,
+                                               endDate: sample.endDate,
+                                               duration: duration,
+                                               totalDistance: totalDistance,
+                                               totalEnergyBured: totalEnergy,
+                                               workourActivityType: workoutType,
+                                               totalSwimmingStrokeCount: strokes,
+                                               metadata: metaData)
+                swimmingWorkoutList.append(swimming)
+                swimming.display()
+            }
+            completion(swimmingWorkoutList, nil)
+        }
+    }
+    
+    func readSwimmingDistance(start: Date, end: Date, completion: @escaping ([HKSample], Error?) -> Void){
+        guard let sampleType = HKObjectType.quantityType(forIdentifier: .distanceSwimming) else{ return }
+        let datePredicate = HKQuery.predicateForSamples(withStart: start, end: end, options: .strictEndDate)
+        let query = HKSampleQuery(sampleType: sampleType,
+                                  predicate: datePredicate,
+                                  limit: 0,
+                                  sortDescriptors: [sortDescriptor]) {(query, reault, error) in
+            guard let sampleList = reault else{
+                print("sample data 안넘어옴")
+                completion([], error)
+                return
+            }
+            completion(sampleList, nil)
+        }
+        healthStore.execute(query)
+    }
+
+    //MARK: 시작시간, 종료시간 , 운동시간, 거리
+    func refineSwimmingDistanceData(start: Date, end: Date, completion: @escaping ([SwimmingDistanceData], Error?) -> Void){
+        var list: [SwimmingDistanceData] = []
+        readSwimmingDistance(start: start, end: end) { sampleList , error in
+            for sample in sampleList{
+                let distance = SwimmingDistanceData(start: sample.startDate, end: sample.endDate)
+                list.append(distance)
+            }
+            completion(list, nil)
+        }
+    }
+    
+}
