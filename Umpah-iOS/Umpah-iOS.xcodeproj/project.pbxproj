@@ -522,8 +522,6 @@
 			isa = PBXGroup;
 			children = (
 				EDD43FDC26483C9600C866F3 /* Assets.xcassets */,
-				EDD43FE126483C9600C866F3 /* Info.plist */,
-				EDB91D8526C2A4F300F4562D /* GoogleService-Info.plist */,
 				EDD3CCF32701BE9100AFED4B /* Font */,
 				EDD4401A26483D4900C866F3 /* Xibs */,
 				EDD4401926483D2F00C866F3 /* Storyboards */,
@@ -559,6 +557,8 @@
 			children = (
 				EDD43FD326483C9500C866F3 /* AppDelegate.swift */,
 				EDD43FD526483C9500C866F3 /* SceneDelegate.swift */,
+				EDD43FE126483C9600C866F3 /* Info.plist */,
+				EDB91D8526C2A4F300F4562D /* GoogleService-Info.plist */,
 			);
 			path = Supports;
 			sourceTree = "<group>";
