@@ -1266,7 +1266,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Umpah-iOS/Umpah-iOS.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4QG3GC35LA;
-				INFOPLIST_FILE = "Umpah-iOS/Resource/Info.plist";
+				INFOPLIST_FILE = "Umpah-iOS/Global/Supports/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1289,7 +1289,7 @@
 				CODE_SIGN_ENTITLEMENTS = "Umpah-iOS/Umpah-iOS.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 4QG3GC35LA;
-				INFOPLIST_FILE = "Umpah-iOS/Resource/Info.plist";
+				INFOPLIST_FILE = "Umpah-iOS/Global/Supports/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
