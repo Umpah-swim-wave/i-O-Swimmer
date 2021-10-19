@@ -12,19 +12,35 @@ import Then
 import RxSwift
 import RxCocoa
 
-class BaseViewController: UIViewController {
+class BaseViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+        
+    // MARK: - Rx
     
-    // MARK:- Rx
     public let disposeBag = DisposeBag()
     
-    // MARK:- View Life Cycle
+    // MARK: - UI
+    
+    private lazy var tableViewContainer = UITableView().then {
+        $0.delegate = self
+        $0.dataSource = self
+        $0.separatorStyle = .none
+        $0.showsVerticalScrollIndicator = false
+        
+        if #available(iOS 15.0, *) {
+            $0.sectionHeaderTopPadding = 0
+        }
+    }
+    
+    // MARK: - View Life Cycle
+    
     override func viewDidLoad() {
         render()
         configUI()
         setupLocalization()
         setData()
-        bind()
     }
+    
+    // MARK: - Manage Memory
     
     deinit {
         NotificationCenter.default.removeObserver(self)
@@ -37,6 +53,7 @@ class BaseViewController: UIViewController {
     }
     
     // MARK: - Override Method
+    
     func render() {
         // Override Layout
     }
@@ -54,13 +71,20 @@ class BaseViewController: UIViewController {
         // Override Set Data
     }
     
-    func bind() {
-        // Override Binding
-    }
-    
     // MARK: - @objc
+    
     @objc
     func cancelButtonDidTap() {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    // MARK: - UITableViewDataSource
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
     }
 }

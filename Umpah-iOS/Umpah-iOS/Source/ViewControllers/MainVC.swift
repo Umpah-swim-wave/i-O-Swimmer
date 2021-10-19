@@ -12,6 +12,7 @@ import Charts
 final class MainVC: BaseViewController {
     
     // MARK: - Lazy UI
+    
     lazy var mainTableView = UITableView(frame: .zero, style: .plain).then {
         $0.delegate = self
         $0.dataSource = self
@@ -30,9 +31,9 @@ final class MainVC: BaseViewController {
             $0.sectionHeaderTopPadding = 0
         }
     }
-    lazy var dateText: String = dateformatter.string(from: Date())
     
-    // MARK: - Properties
+    // MARK: - UI
+    
     var cardView = UIView().then {
         $0.backgroundColor = .white
         $0.clipsToBounds = false
@@ -47,6 +48,9 @@ final class MainVC: BaseViewController {
     let statusBar = StatusBar()
     let normalView = NormalStateView()
     
+    // MARK: - Properties
+    
+    lazy var dateText: String = dateformatter.string(from: Date())
     var currentState: CurrentState = .base
     var cardViewState: CardViewState = .base
     var cacheState: CurrentState = .base
@@ -60,7 +64,8 @@ final class MainVC: BaseViewController {
     }
     var canScrollMore = true
     
-    //MARK: Routine data
+    // MARK: - Routine data
+    
     var routineOverViewList: [RoutineOverviewData] = []
     let swimmingViewModel = SwimmingDataViewModel()
     
@@ -164,6 +169,109 @@ final class MainVC: BaseViewController {
             }
             self.normalView.titleLabel.text = self.decideTitle(of: .normal)
             self.mainTableView.reloadData()
+        }
+    }
+    
+    // MARK: - UITableViewDelegate
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        switch section {
+        case 1:
+            if currentState != .routine {
+                return 5
+            } else {
+                return routineOverViewList.count
+            }
+        default:
+            return 0
+        }
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch currentState {
+        case .day,
+             .base:
+            switch indexPath.row {
+            case 0:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: FilterTVC.identifier) as? FilterTVC else { return UITableViewCell() }
+                cell.delegate = self
+                cell.state = currentState
+                return cell
+            case 1:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: DateTVC.identifier) as? DateTVC else { return UITableViewCell() }
+                cell.dateLabel.text = dateText
+                cell.dateLabel.addCharacterSpacing(kernValue: 2)
+                cell.dateLabel.font = .nexaBold(ofSize: 16)
+                return cell
+            case 2:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
+                cell.titleLabel.text = "OVERVIEW"
+                cell.titleLabel.addCharacterSpacing(kernValue: 2)
+                return cell
+            case 3:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: StrokeTVC.identifier) as? StrokeTVC else { return UITableViewCell() }
+                cell.titleLabel.text = "TOTAL"
+                cell.titleLabel.addCharacterSpacing(kernValue: 2)
+                return cell
+            default:
+                let cell = UITableViewCell(frame: .zero)
+                cell.backgroundColor = .upuhBackground
+                cell.selectionStyle = .none
+                return cell
+            }
+        case .week,
+             .month:
+            switch indexPath.row {
+            case 0:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: FilterTVC.identifier) as? FilterTVC else { return UITableViewCell() }
+                cell.delegate = self
+                cell.state = currentState
+                cell.stroke = strokeState
+                return cell
+            case 1:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: DateTVC.identifier) as? DateTVC else { return UITableViewCell() }
+                cell.dateLabel.text = dateText
+                cell.dateLabel.addCharacterSpacing(kernValue: 2)
+                if dateText == "이번주" || dateText == "지난주" {
+                    cell.dateLabel.font = .IBMPlexSansSemiBold(ofSize: 16)
+                } else {
+                    cell.dateLabel.font = .nexaBold(ofSize: 16)
+                }
+                return cell
+            case 2:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: ChartTVC.identifier) as? ChartTVC else { return UITableViewCell() }
+                cell.combineChartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .linear)
+                
+                if currentState == .week {
+                    cell.titleLabel.text = "WEEKLY RECORD"
+                    cell.titleLabel.addCharacterSpacing(kernValue: 2)
+                } else {
+                    cell.titleLabel.text = "MONTHLY RECORD"
+                    cell.titleLabel.addCharacterSpacing(kernValue: 2)
+                }
+                return cell
+            case 3:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
+                
+                if currentState == .week {
+                    cell.titleLabel.text = "WEEKLY OVERVIEW"
+                    cell.titleLabel.addCharacterSpacing(kernValue: 2)
+                } else {
+                    cell.titleLabel.text = "MONTHLY OVERVIEW"
+                    cell.titleLabel.addCharacterSpacing(kernValue: 2)
+                }
+                
+                return cell
+            default:
+                let cell = UITableViewCell(frame: .zero)
+                cell.backgroundColor = .upuhBackground
+                cell.selectionStyle = .none
+                return cell
+            }
+        case .routine:
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineTVC.identifier) as? RoutineTVC else { return UITableViewCell()}
+            cell.setContentData(overview: routineOverViewList[indexPath.row])
+            return cell
         }
     }
 }
@@ -323,115 +431,14 @@ extension MainVC {
 }
 
 // MARK: - UITableViewDataSource
-extension MainVC: UITableViewDataSource {
+extension MainVC {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 1:
-            if currentState != .routine {
-                return 5
-            } else {
-                return routineOverViewList.count
-            }
-        default:
-            return 0
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch currentState {
-        case .day,
-             .base:
-            switch indexPath.row {
-            case 0:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: FilterTVC.identifier) as? FilterTVC else { return UITableViewCell() }
-                cell.delegate = self
-                cell.state = currentState
-                return cell
-            case 1:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: DateTVC.identifier) as? DateTVC else { return UITableViewCell() }
-                cell.dateLabel.text = dateText
-                cell.dateLabel.addCharacterSpacing(kernValue: 2)
-                cell.dateLabel.font = .nexaBold(ofSize: 16)
-                return cell
-            case 2:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
-                cell.titleLabel.text = "OVERVIEW"
-                cell.titleLabel.addCharacterSpacing(kernValue: 2)
-                return cell
-            case 3:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: StrokeTVC.identifier) as? StrokeTVC else { return UITableViewCell() }
-                cell.titleLabel.text = "TOTAL"
-                cell.titleLabel.addCharacterSpacing(kernValue: 2)
-                return cell
-            default:
-                let cell = UITableViewCell(frame: .zero)
-                cell.backgroundColor = .upuhBackground
-                cell.selectionStyle = .none
-                return cell
-            }
-        case .week,
-             .month:
-            switch indexPath.row {
-            case 0:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: FilterTVC.identifier) as? FilterTVC else { return UITableViewCell() }
-                cell.delegate = self
-                cell.state = currentState
-                cell.stroke = strokeState
-                return cell
-            case 1:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: DateTVC.identifier) as? DateTVC else { return UITableViewCell() }
-                cell.dateLabel.text = dateText
-                cell.dateLabel.addCharacterSpacing(kernValue: 2)
-                if dateText == "이번주" || dateText == "지난주" {
-                    cell.dateLabel.font = .IBMPlexSansSemiBold(ofSize: 16)
-                } else {
-                    cell.dateLabel.font = .nexaBold(ofSize: 16)
-                }
-                return cell
-            case 2:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: ChartTVC.identifier) as? ChartTVC else { return UITableViewCell() }
-                cell.combineChartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .linear)
-                
-                if currentState == .week {
-                    cell.titleLabel.text = "WEEKLY RECORD"
-                    cell.titleLabel.addCharacterSpacing(kernValue: 2)
-                } else {
-                    cell.titleLabel.text = "MONTHLY RECORD"
-                    cell.titleLabel.addCharacterSpacing(kernValue: 2)
-                }
-                return cell
-            case 3:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
-                
-                if currentState == .week {
-                    cell.titleLabel.text = "WEEKLY OVERVIEW"
-                    cell.titleLabel.addCharacterSpacing(kernValue: 2)
-                } else {
-                    cell.titleLabel.text = "MONTHLY OVERVIEW"
-                    cell.titleLabel.addCharacterSpacing(kernValue: 2)
-                }
-                
-                return cell
-            default:
-                let cell = UITableViewCell(frame: .zero)
-                cell.backgroundColor = .upuhBackground
-                cell.selectionStyle = .none
-                return cell
-            }
-        case .routine:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineTVC.identifier) as? RoutineTVC else { return UITableViewCell()}
-            cell.setContentData(overview: routineOverViewList[indexPath.row])
-            return cell
-        }
     }
 }
 
 // MARK: - UITableViewDelegate
-extension MainVC: UITableViewDelegate {
+extension MainVC {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if currentState == .routine {
             return indexPath.row == 0 ? 184 : 168
