@@ -96,6 +96,9 @@
 		EDD7C44026CBDB4600D93306 /* DetailTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD7C43F26CBDB4600D93306 /* DetailTVC.swift */; };
 		EDD7C44226CBDCE200D93306 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD7C44126CBDCE200D93306 /* DetailView.swift */; };
 		EDE550BE2700F80D004422CE /* DateTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE550BD2700F80D004422CE /* DateTVC.swift */; };
+		EDEF3B56271E962400C852E7 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEF3B55271E962400C852E7 /* BaseViewController.swift */; };
+		EDEF3B5A271E9BAD00C852E7 /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEF3B59271E9BAD00C852E7 /* ReusableView.swift */; };
+		EDEF3B5C271E9C0900C852E7 /* NibLoadableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEF3B5B271E9C0900C852E7 /* NibLoadableView.swift */; };
 		EDFC6EE72702387500B718C6 /* RangeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFC6EE62702387500B718C6 /* RangeButton.swift */; };
 /* End PBXBuildFile section */
 
@@ -242,6 +245,9 @@
 		EDD7C43F26CBDB4600D93306 /* DetailTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailTVC.swift; path = "Umpah-iOS/Source/Views/Cells/Main/DetailTVC.swift"; sourceTree = SOURCE_ROOT; };
 		EDD7C44126CBDCE200D93306 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailView.swift; path = "Umpah-iOS/Source/Views/Components/Main/DetailView.swift"; sourceTree = SOURCE_ROOT; };
 		EDE550BD2700F80D004422CE /* DateTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTVC.swift; sourceTree = "<group>"; };
+		EDEF3B55271E962400C852E7 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
+		EDEF3B59271E9BAD00C852E7 /* ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableView.swift; sourceTree = "<group>"; };
+		EDEF3B5B271E9C0900C852E7 /* NibLoadableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadableView.swift; sourceTree = "<group>"; };
 		EDFC6EE62702387500B718C6 /* RangeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -417,15 +423,6 @@
 			path = Popup;
 			sourceTree = "<group>";
 		};
-		ED8AB6A7270315640066CD02 /* Classes */ = {
-			isa = PBXGroup;
-			children = (
-				ED8AB6A82703157A0066CD02 /* SelectedRangeDelegate.swift */,
-				ED8AB6AA2703158F0066CD02 /* States.swift */,
-			);
-			path = Classes;
-			sourceTree = "<group>";
-		};
 		EDD3CCDA27019A5200AFED4B /* Popup */ = {
 			isa = PBXGroup;
 			children = (
@@ -476,6 +473,7 @@
 			isa = PBXGroup;
 			children = (
 				3C662B6127198AE90061E133 /* Umpah-iOS.entitlements */,
+				EDEF3B53271E95CA00C852E7 /* Global */,
 				EDD4400F26483CBC00C866F3 /* Source */,
 				EDD4401026483CC300C866F3 /* Resource */,
 			);
@@ -505,14 +503,11 @@
 		EDD4400F26483CBC00C866F3 /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				ED8AB6A7270315640066CD02 /* Classes */,
 				ED78842726DC9B96006D8787 /* Views */,
 				EDD4401626483D1A00C866F3 /* Models */,
 				EDD4401526483D1600C866F3 /* ViewModels */,
 				EDD4401726483D2100C866F3 /* ViewControllers */,
 				3C7479E72702ED62006752EE /* Service */,
-				EDD4401226483CD100C866F3 /* Supports */,
-				EDD4401126483CCD00C866F3 /* Extensions */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -659,6 +654,44 @@
 				EDD43FFA26483C9700C866F3 /* ExtensionDelegate.swift */,
 			);
 			path = Supports;
+			sourceTree = "<group>";
+		};
+		EDEF3B53271E95CA00C852E7 /* Global */ = {
+			isa = PBXGroup;
+			children = (
+				EDD4401226483CD100C866F3 /* Supports */,
+				EDD4401126483CCD00C866F3 /* Extensions */,
+				EDEF3B58271E9B7800C852E7 /* Enum */,
+				EDEF3B57271E9B6100C852E7 /* Protocol */,
+				EDEF3B54271E960C00C852E7 /* Base */,
+			);
+			path = Global;
+			sourceTree = "<group>";
+		};
+		EDEF3B54271E960C00C852E7 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				EDEF3B55271E962400C852E7 /* BaseViewController.swift */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		EDEF3B57271E9B6100C852E7 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				ED8AB6A82703157A0066CD02 /* SelectedRangeDelegate.swift */,
+				EDEF3B59271E9BAD00C852E7 /* ReusableView.swift */,
+				EDEF3B5B271E9C0900C852E7 /* NibLoadableView.swift */,
+			);
+			path = Protocol;
+			sourceTree = "<group>";
+		};
+		EDEF3B58271E9B7800C852E7 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				ED8AB6AA2703158F0066CD02 /* States.swift */,
+			);
+			path = Enum;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -901,6 +934,7 @@
 				ED5396ED26B977320061722F /* UIApplication+.swift in Sources */,
 				3C7479E22702E577006752EE /* RoutineSetTVC.swift in Sources */,
 				3C7479E92702EDB5006752EE /* RoutineStorageType.swift in Sources */,
+				EDEF3B56271E962400C852E7 /* BaseViewController.swift in Sources */,
 				3C7479EB2702EFAE006752EE /* RoutineStorage.swift in Sources */,
 				EDD46F5226BEEA3B00FA91F2 /* UILabel+.swift in Sources */,
 				EDE550BE2700F80D004422CE /* DateTVC.swift in Sources */,
@@ -954,7 +988,9 @@
 				ED8AB6A32702E73F0066CD02 /* StrokesView.swift in Sources */,
 				ED5396F326B977920061722F /* UITextField+.swift in Sources */,
 				EDD3CCD7270118DA00AFED4B /* StatusBar.swift in Sources */,
+				EDEF3B5A271E9BAD00C852E7 /* ReusableView.swift in Sources */,
 				3C358BB626E5B2970025ABDC /* UITableViewCell+.swift in Sources */,
+				EDEF3B5C271E9C0900C852E7 /* NibLoadableView.swift in Sources */,
 				3CAD1F2626CBDA64001CD535 /* UIWindow+.swift in Sources */,
 				EDFC6EE72702387500B718C6 /* RangeButton.swift in Sources */,
 				ED78843026DC9D3C006D8787 /* HeaderView.swift in Sources */,
