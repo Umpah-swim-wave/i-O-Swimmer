@@ -7,12 +7,11 @@
 
 import UIKit
 
-import Then
-import SnapKit
 import Charts
 
-class MainVC: UIViewController {
-    // MARK: - Lazy Properties
+final class MainVC: BaseViewController {
+    
+    // MARK: - Lazy UI
     lazy var mainTableView = UITableView(frame: .zero, style: .plain).then {
         $0.delegate = self
         $0.dataSource = self
@@ -22,8 +21,7 @@ class MainVC: UIViewController {
         $0.register(FilterTVC.self, forCellReuseIdentifier: FilterTVC.identifier)
         $0.register(StrokeTVC.self, forCellReuseIdentifier: StrokeTVC.identifier)
         $0.register(DateTVC.self, forCellReuseIdentifier: DateTVC.identifier)
-        //$0.register(RoutineTVC.self, forCellReuseIdentifier: RoutineTVC.identifier)
-        $0.registerCustomXib(name: RoutineTVC.identifier)
+        $0.register(RoutineTVC.self)
         $0.backgroundColor = .clear
         $0.separatorStyle = .none
         $0.showsVerticalScrollIndicator = false
@@ -84,7 +82,7 @@ class MainVC: UIViewController {
     }
     
     // MARK: - Custom Methods
-    private func setupLayout() {
+    func setupLayout() {
         view.addSubviews([statusBar, mainTableView, cardView])
         cardView.addSubviews([normalView, expandedView])
         

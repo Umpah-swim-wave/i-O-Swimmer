@@ -19,10 +19,11 @@ class BaseViewController: UIViewController {
     
     // MARK:- View Life Cycle
     override func viewDidLoad() {
-        setupLayout()
+        render()
         configUI()
         setupLocalization()
         setData()
+        bind()
     }
     
     deinit {
@@ -36,7 +37,7 @@ class BaseViewController: UIViewController {
     }
     
     // MARK: - Override Method
-    func setupLayout() {
+    func render() {
         // Override Layout
     }
     

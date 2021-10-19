@@ -7,7 +7,7 @@
 
 import UIKit
 
-class RoutineTVC: UITableViewCell {
+class RoutineTVC: UITableViewCell, NibLoadableView, ReusableView {
 
     static let identifier = "RoutineTVC"
     public var routineOverviewData: RoutineOverviewData?
