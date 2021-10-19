@@ -6,7 +6,6 @@
 //
 
 import UIKit
-
 import SnapKit
 import Then
 import RxSwift
@@ -20,23 +19,26 @@ class BaseViewController: UIViewController, UITableViewDataSource, UITableViewDe
     
     // MARK: - UI
     
-    private lazy var tableViewContainer = UITableView().then {
-        $0.delegate = self
-        $0.dataSource = self
-        $0.separatorStyle = .none
-        $0.showsVerticalScrollIndicator = false
+    public lazy var baseTableView: UITableView = {
+        let tableView = UITableView()
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.separatorStyle = .none
+        tableView.showsVerticalScrollIndicator = false
         
         if #available(iOS 15.0, *) {
-            $0.sectionHeaderTopPadding = 0
+            tableView.sectionHeaderTopPadding = 0
         }
-    }
+        return tableView
+    }()
     
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         render()
+        setTableView(tableView: baseTableView)
         configUI()
-        setupLocalization()
+        setLocalization()
         setData()
     }
     
@@ -58,12 +60,16 @@ class BaseViewController: UIViewController, UITableViewDataSource, UITableViewDe
         // Override Layout
     }
     
+    func setTableView(tableView table: UITableView) {
+        // Override setTableView
+    }
+    
     func configUI() {
         // 기본 음파 배경 설정
         view.backgroundColor = .upuhBlue
     }
     
-    func setupLocalization() {
+    func setLocalization() {
         // Override Localization
     }
     

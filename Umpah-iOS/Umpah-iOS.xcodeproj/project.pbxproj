@@ -100,6 +100,8 @@
 		EDEF3B5A271E9BAD00C852E7 /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEF3B59271E9BAD00C852E7 /* ReusableView.swift */; };
 		EDEF3B5C271E9C0900C852E7 /* NibLoadableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEF3B5B271E9C0900C852E7 /* NibLoadableView.swift */; };
 		EDEF3B5E271EA37500C852E7 /* ViewModelBindableType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEF3B5D271EA37500C852E7 /* ViewModelBindableType.swift */; };
+		EDEF3B60271EC92F00C852E7 /* ViewModelType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEF3B5F271EC92F00C852E7 /* ViewModelType.swift */; };
+		EDEF3B63271EF70000C852E7 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEF3B62271EF70000C852E7 /* CardView.swift */; };
 		EDFC6EE72702387500B718C6 /* RangeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFC6EE62702387500B718C6 /* RangeButton.swift */; };
 /* End PBXBuildFile section */
 
@@ -250,6 +252,8 @@
 		EDEF3B59271E9BAD00C852E7 /* ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableView.swift; sourceTree = "<group>"; };
 		EDEF3B5B271E9C0900C852E7 /* NibLoadableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NibLoadableView.swift; sourceTree = "<group>"; };
 		EDEF3B5D271EA37500C852E7 /* ViewModelBindableType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelBindableType.swift; sourceTree = "<group>"; };
+		EDEF3B5F271EC92F00C852E7 /* ViewModelType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelType.swift; sourceTree = "<group>"; };
+		EDEF3B62271EF70000C852E7 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		EDFC6EE62702387500B718C6 /* RangeButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeButton.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -404,6 +408,7 @@
 				ED78843D26DE4C50006D8787 /* SelectedStrokeView.swift */,
 				ED5F1A1B26ECF1C7003FF801 /* StrokeView.swift */,
 				3C0D3FB1271692DE0019A763 /* RoutineFilterView.swift */,
+				EDEF3B62271EF70000C852E7 /* CardView.swift */,
 			);
 			path = Main;
 			sourceTree = "<group>";
@@ -452,7 +457,6 @@
 			isa = PBXGroup;
 			children = (
 				EDD43FD226483C9500C866F3 /* Umpah-iOS */,
-				EDB91D8526C2A4F300F4562D /* GoogleService-Info.plist */,
 				EDD43FE826483C9600C866F3 /* Umpah-iOS WatchKit App */,
 				EDD43FF726483C9700C866F3 /* Umpah-iOS WatchKit Extension */,
 				EDD43FD126483C9500C866F3 /* Products */,
@@ -519,6 +523,7 @@
 			children = (
 				EDD43FDC26483C9600C866F3 /* Assets.xcassets */,
 				EDD43FE126483C9600C866F3 /* Info.plist */,
+				EDB91D8526C2A4F300F4562D /* GoogleService-Info.plist */,
 				EDD3CCF32701BE9100AFED4B /* Font */,
 				EDD4401A26483D4900C866F3 /* Xibs */,
 				EDD4401926483D2F00C866F3 /* Storyboards */,
@@ -674,6 +679,7 @@
 			isa = PBXGroup;
 			children = (
 				EDEF3B55271E962400C852E7 /* BaseViewController.swift */,
+				EDEF3B5F271EC92F00C852E7 /* ViewModelType.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -993,10 +999,12 @@
 				ED5396F326B977920061722F /* UITextField+.swift in Sources */,
 				EDD3CCD7270118DA00AFED4B /* StatusBar.swift in Sources */,
 				EDEF3B5A271E9BAD00C852E7 /* ReusableView.swift in Sources */,
+				EDEF3B60271EC92F00C852E7 /* ViewModelType.swift in Sources */,
 				3C358BB626E5B2970025ABDC /* UITableViewCell+.swift in Sources */,
 				EDEF3B5C271E9C0900C852E7 /* NibLoadableView.swift in Sources */,
 				3CAD1F2626CBDA64001CD535 /* UIWindow+.swift in Sources */,
 				EDFC6EE72702387500B718C6 /* RangeButton.swift in Sources */,
+				EDEF3B63271EF70000C852E7 /* CardView.swift in Sources */,
 				ED78843026DC9D3C006D8787 /* HeaderView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

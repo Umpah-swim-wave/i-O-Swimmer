@@ -5,33 +5,10 @@
 //  Created by SHIN YOON AH on 2021/08/03.
 //
 
-import UIKit
-
 import Charts
 
 final class MainVC: BaseViewController {
-    
-    // MARK: - Lazy UI
-    
-    lazy var mainTableView = UITableView(frame: .zero, style: .plain).then {
-        $0.delegate = self
-        $0.dataSource = self
-        $0.estimatedRowHeight = 100
-        $0.register(ChartTVC.self, forCellReuseIdentifier: ChartTVC.identifier)
-        $0.register(DetailTVC.self, forCellReuseIdentifier: DetailTVC.identifier)
-        $0.register(FilterTVC.self, forCellReuseIdentifier: FilterTVC.identifier)
-        $0.register(StrokeTVC.self, forCellReuseIdentifier: StrokeTVC.identifier)
-        $0.register(DateTVC.self, forCellReuseIdentifier: DateTVC.identifier)
-        $0.register(RoutineTVC.self)
-        $0.backgroundColor = .clear
-        $0.separatorStyle = .none
-        $0.showsVerticalScrollIndicator = false
-        
-        if #available(iOS 15.0, *) {
-            $0.sectionHeaderTopPadding = 0
-        }
-    }
-    
+
     // MARK: - UI
     
     var cardView = UIView().then {
@@ -70,13 +47,9 @@ final class MainVC: BaseViewController {
     let swimmingViewModel = SwimmingDataViewModel()
     
     // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupLayout()
-        initUpperView()
-        initCardView()
-        initGestureView()
-        initRoutineOverViewList()
         addClosureToChangeState()
         authorizeHealthKit()
     }
@@ -86,23 +59,30 @@ final class MainVC: BaseViewController {
         showCard(atState: cardViewState)
     }
     
-    // MARK: - Custom Methods
-    func setupLayout() {
-        view.addSubviews([statusBar, mainTableView, cardView])
-        cardView.addSubviews([normalView, expandedView])
+    // MARK: - Override Method
+    
+    override func render() {
+        cardView.adds([normalView,
+                       expandedView])
         
-        statusBar.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview()
-            $0.height.equalTo(UIApplication.statusBarHeight)
+        view.add(statusBar) {
+            $0.snp.makeConstraints {
+                $0.top.leading.trailing.equalToSuperview()
+                $0.height.equalTo(UIApplication.statusBarHeight)
+            }
         }
         
-        mainTableView.snp.makeConstraints {
-            $0.top.equalTo(view.safeAreaLayoutGuide)
-            $0.leading.trailing.bottom.equalToSuperview()
+        view.add(baseTableView) {
+            $0.snp.makeConstraints {
+                $0.top.equalTo(self.view.safeAreaLayoutGuide)
+                $0.leading.trailing.bottom.equalToSuperview()
+            }
         }
         
-        cardView.snp.makeConstraints {
-            $0.leading.trailing.bottom.equalToSuperview()
+        view.add(cardView) {
+            $0.snp.makeConstraints {
+                $0.leading.trailing.bottom.equalToSuperview()
+            }
         }
         cardViewTopConstraint = cardView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20)
         cardViewTopConstraint?.isActive = true
@@ -117,59 +97,22 @@ final class MainVC: BaseViewController {
         }
     }
     
-    private func initUpperView() {
-        view.backgroundColor = .upuhBlue
+    override func setTableView(tableView table: UITableView) {
+        table.estimatedRowHeight = 100
+        table.register(ChartTVC.self, forCellReuseIdentifier: ChartTVC.identifier)
+        table.register(DetailTVC.self, forCellReuseIdentifier: DetailTVC.identifier)
+        table.register(FilterTVC.self, forCellReuseIdentifier: FilterTVC.identifier)
+        table.register(StrokeTVC.self, forCellReuseIdentifier: StrokeTVC.identifier)
+        table.register(DateTVC.self, forCellReuseIdentifier: DateTVC.identifier)
+        table.register(RoutineTVC.self)
+        table.backgroundColor = .clear
     }
     
-    private func initCardView() {
-        expandedView.alpha = 0.0
-        
-        let handleView = UIView()
-        handleView.backgroundColor = UIColor.init(red: 224/255, green: 224/255, blue: 224/255, alpha: 1.0)
-        handleView.layer.cornerRadius = 3
-        cardView.addSubview(handleView)
-        handleView.snp.makeConstraints {
-            $0.top.equalTo(cardView.snp.top).offset(9)
-            $0.centerX.equalToSuperview()
-            $0.height.equalTo(4)
-            $0.width.equalTo(48)
-        }
-        
-        let window = UIApplication.shared.windows.first { $0.isKeyWindow }
-        if let safeAreaHeight = window?.safeAreaLayoutGuide.layoutFrame.size.height,
-          let bottomPadding = window?.safeAreaInsets.bottom {
-            cardViewTopConstraint?.constant = safeAreaHeight + bottomPadding
-        }
-    }
-    
-    private func initGestureView() {
-        let viewPan = UIPanGestureRecognizer(target: self, action: #selector(viewPanned(_:)))
-        viewPan.delaysTouchesBegan = false
-        viewPan.delaysTouchesEnded = false
-        view.addGestureRecognizer(viewPan)
-    }
-    
-    private func initRoutineOverViewList(){
-        for i in 0..<20 {
-            var data = RoutineOverviewData()
-            data.level = Int.random(in: 0...2)
-            data.totalDistance = 1000 + i * 150
-            routineOverViewList.append(data)
-        }
-    }
-    
-    private func addClosureToChangeState(){
-        headerView.changeState = { isRecord in
-            //어떻게 하면 좋을지,,
-            if !isRecord{
-                self.cacheState = self.currentState
-                self.currentState = .routine
-            }else{
-                self.currentState = self.cacheState
-            }
-            self.normalView.titleLabel.text = self.decideTitle(of: .normal)
-            self.mainTableView.reloadData()
-        }
+    override func configUI() {
+        super.configUI()
+        initCardView()
+        initGestureView()
+        initRoutineOverViewList()
     }
     
     // MARK: - UITableViewDelegate
@@ -272,6 +215,60 @@ final class MainVC: BaseViewController {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineTVC.identifier) as? RoutineTVC else { return UITableViewCell()}
             cell.setContentData(overview: routineOverViewList[indexPath.row])
             return cell
+        }
+    }
+}
+
+// MARK: - Custom Methods
+extension MainVC {
+    private func initCardView() {
+        expandedView.alpha = 0.0
+        
+        let handleView = UIView()
+        handleView.backgroundColor = UIColor.init(red: 224/255, green: 224/255, blue: 224/255, alpha: 1.0)
+        handleView.layer.cornerRadius = 3
+        cardView.addSubview(handleView)
+        handleView.snp.makeConstraints {
+            $0.top.equalTo(cardView.snp.top).offset(9)
+            $0.centerX.equalToSuperview()
+            $0.height.equalTo(4)
+            $0.width.equalTo(48)
+        }
+        
+        let window = UIApplication.shared.windows.first { $0.isKeyWindow }
+        if let safeAreaHeight = window?.safeAreaLayoutGuide.layoutFrame.size.height,
+          let bottomPadding = window?.safeAreaInsets.bottom {
+            cardViewTopConstraint?.constant = safeAreaHeight + bottomPadding
+        }
+    }
+    
+    private func initGestureView() {
+        let viewPan = UIPanGestureRecognizer(target: self, action: #selector(viewPanned(_:)))
+        viewPan.delaysTouchesBegan = false
+        viewPan.delaysTouchesEnded = false
+        view.addGestureRecognizer(viewPan)
+    }
+    
+    private func initRoutineOverViewList(){
+        for i in 0..<20 {
+            var data = RoutineOverviewData()
+            data.level = Int.random(in: 0...2)
+            data.totalDistance = 1000 + i * 150
+            routineOverViewList.append(data)
+        }
+    }
+    
+    private func addClosureToChangeState(){
+        headerView.changeState = { isRecord in
+            //어떻게 하면 좋을지,,
+            if !isRecord{
+                self.cacheState = self.currentState
+                self.currentState = .routine
+            }else{
+                self.currentState = self.cacheState
+            }
+            self.normalView.titleLabel.text = self.decideTitle(of: .normal)
+            self.baseTableView.reloadData()
         }
     }
 }
@@ -528,7 +525,7 @@ extension MainVC: SelectedRangeDelegate {
             self.dateText = "\(transYear)/\(transMonth)/\(transDay)"
             self.currentState = (self.dateText == self.dateformatter.string(from: Date())) ? .base : .day
             self.strokeState = .none
-            self.mainTableView.reloadSections(IndexSet(1...1), with: .fade)
+            self.baseTableView.reloadSections(IndexSet(1...1), with: .fade)
             self.normalView.titleLabel.text = self.decideTitle(of: .normal)
         }
         vc.weekData = { week in
@@ -536,7 +533,7 @@ extension MainVC: SelectedRangeDelegate {
             self.dateText = week
             self.currentState = .week
             self.strokeState = .none
-            self.mainTableView.reloadSections(IndexSet(1...1), with: .automatic)
+            self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
             self.normalView.titleLabel.text = self.decideTitle(of: .normal)
         }
         vc.monthData = { year, month in
@@ -545,7 +542,7 @@ extension MainVC: SelectedRangeDelegate {
             self.dateText = "\(year)/\(transMonth)"
             self.currentState = .month
             self.strokeState = .none
-            self.mainTableView.reloadSections(IndexSet(1...1), with: .automatic)
+            self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
             self.normalView.titleLabel.text = self.decideTitle(of: .normal)
         }
         
@@ -562,14 +559,14 @@ extension MainVC: SelectedRangeDelegate {
         vc.strokeData = { style in
             print(style)
             self.strokeState = style
-            self.mainTableView.reloadSections(IndexSet(1...1), with: .automatic)
+            self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
         }
         
         present(vc, animated: true, completion: nil)
     }
 }
 
-//MARK: HealthKit
+// MARK: - HealthKit
 extension MainVC {
     private func authorizeHealthKit() {
         HealthKitSetupAssistant.authorizeHealthKitAtSwimming { (authorized, error) in
