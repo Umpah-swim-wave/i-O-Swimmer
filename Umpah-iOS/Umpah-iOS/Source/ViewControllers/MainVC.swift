@@ -382,6 +382,7 @@ extension MainVC: UITableViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         if cardView.cardViewState == .expanded {
             cardView.cardViewState = .normal
+            decideTopConstraint(of: .normal)
         }
     }
 }
@@ -390,6 +391,7 @@ extension MainVC: UITableViewDelegate {
 extension MainVC: SelectedRangeDelegate {
     func didClickedRangeButton() {
         cardView.cardViewState = .normal
+        decideTopConstraint(of: .normal)
         
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "SelectedRangeVC") as? SelectedRangeVC else { return }
         vc.modalPresentationStyle = .overCurrentContext
@@ -432,6 +434,7 @@ extension MainVC: SelectedRangeDelegate {
     
     func didClickedStrokeButton(indexPath: Int = 0) {
         cardView.cardViewState = .normal
+        decideTopConstraint(of: .normal)
         
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "SelectedStrokeVC") as? SelectedStrokeVC else { return }
         vc.modalPresentationStyle = .overCurrentContext
