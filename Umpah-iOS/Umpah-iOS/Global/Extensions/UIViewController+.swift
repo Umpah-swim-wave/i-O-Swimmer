@@ -45,28 +45,4 @@ extension UIViewController {
             statusBar?.backgroundColor = color
         }
     }
-    
-    func makeRequestAlert(title : String? = nil,
-                          message : String? = nil,
-                          okAction : ((UIAlertAction) -> Void)?,
-                          cancelAction : ((UIAlertAction) -> Void)? = nil,
-                          completion : (() -> Void)? = nil)
-    {
-        
-        let generator = UIImpactFeedbackGenerator(style: .medium)
-        generator.impactOccurred()
-        
-        let alertViewController = UIAlertController(title: title, message: message,
-                                                    preferredStyle: .actionSheet)
-        
-        let okAction = UIAlertAction(title: "변경 사항 폐기", style: .destructive, handler: okAction)
-        alertViewController.addAction(okAction)
-        
-        
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: cancelAction)
-        alertViewController.addAction(cancelAction)
-        
-        
-        self.present(alertViewController, animated: true, completion: completion)
-    }
 }

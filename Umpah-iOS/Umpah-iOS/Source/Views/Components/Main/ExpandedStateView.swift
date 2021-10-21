@@ -39,7 +39,7 @@ class ExpandedStateView: UIView {
         
     var state: CurrentState?
     var isModified = false
-    private var root: UIViewController?
+    var root: MainVC?
     
     //MARK: about Routine
     var upuhRoutineOverViewList: [RoutineOverviewData] = []
@@ -52,11 +52,6 @@ class ExpandedStateView: UIView {
         setupModifyButton()
         initRoutineOverViewList()
         setupRoutineFilterActions()
-    }
-    
-    convenience init(root: UIViewController) {
-        self.init(frame: .zero)
-        self.root = root
     }
     
     required init?(coder: NSCoder) {

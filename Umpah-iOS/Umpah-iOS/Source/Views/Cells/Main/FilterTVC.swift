@@ -10,7 +10,7 @@ import UIKit
 import Then
 import SnapKit
 
-class FilterTVC: UITableViewCell {
+class FilterTVC: UITableViewCell, ReusableView {
     static let identifier = "FilterTVC"
     
     // MARK: - Properties
