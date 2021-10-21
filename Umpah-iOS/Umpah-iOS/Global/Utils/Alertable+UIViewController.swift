@@ -14,7 +14,7 @@ extension Alertable where Self: UIView {
                           message : String? = nil,
                           okAction : ((UIAlertAction) -> Void)?,
                           cancelAction : ((UIAlertAction) -> Void)? = nil,
-                          completion : ((UIAlertController) -> Void)? = nil)
+                          completion : (() -> Void)? = nil) -> UIAlertController
     {
         
         let generator = UIImpactFeedbackGenerator(style: .medium)
@@ -29,5 +29,7 @@ extension Alertable where Self: UIView {
         
         let cancelAction = UIAlertAction(title: "취소", style: .cancel, handler: cancelAction)
         alertViewController.addAction(cancelAction)
+        
+        return alertViewController
     }
 }

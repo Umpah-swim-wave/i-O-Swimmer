@@ -9,10 +9,6 @@ import UIKit
 
 class BaseView: UIView {
 
-    // MARK: - Public Properties
-    
-    public var rootVC: UIViewController?
-    
     // MARK: - Initalizing
     
     override init(frame: CGRect) {

@@ -181,11 +181,8 @@ extension MainVC {
             cardView.cardViewState = .fail
         }
     }
-}
-
-// MARK: - Helper
-extension MainVC {
-    private func decideTopConstraint(of state: CardViewState) {
+    
+    public func decideTopConstraint(of state: CardViewState) {
         switch state {
         case .normal:
             cardViewTopConstraint?.constant = UIScreen.main.hasNotch ? UIScreen.main.bounds.size.height * 0.8 : UIScreen.main.bounds.size.height * 0.87

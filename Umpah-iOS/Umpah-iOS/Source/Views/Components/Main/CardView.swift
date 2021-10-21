@@ -25,6 +25,7 @@ final class CardView: BaseView, Alertable {
     
     // MARK: - Private Properties
     
+    private var rootVC: MainVC?
     private var canScrollMore = true
     private var dateformatter = DateFormatter().then {
         $0.dateFormat = "YY/MM/dd"
@@ -35,7 +36,6 @@ final class CardView: BaseView, Alertable {
     
     public lazy var expandedView = ExpandedStateView().then {
         $0.alpha = 0.0
-        $0.root = rootVC
     }
     public let normalView = NormalStateView()
     
@@ -45,9 +45,10 @@ final class CardView: BaseView, Alertable {
     }
 
     // MARK: - Initalizing
-    init(rootVC: UIViewController) {
+    init(rootVC: MainVC) {
         super.init(frame: .zero)
         self.rootVC = rootVC
+        expandedView.root = rootVC
         
         showCard()
     }
@@ -118,16 +119,17 @@ final class CardView: BaseView, Alertable {
             if canScrollMore {
                 canScrollMore = false
                 
-                makeRequestAlert(okAction: { _ in
+                let alert = makeRequestAlert(okAction: { _ in
                     self.expandedView.isModified = false
                     self.cardViewState = .normal
+                    self.rootVC?.decideTopConstraint(of: .normal)
                     self.expandedView.bottomView.selectButton.setTitle("영법 수정하기", for: .normal)
                     self.canScrollMore = true
                 }, cancelAction: { _ in
                     self.canScrollMore = true
-                }) { alert in
-                    self.rootVC?.present(alert, animated: true, completion: nil)
-                }
+                })
+                
+                rootVC?.present(alert, animated: true, completion: nil)
             }
         }
         
