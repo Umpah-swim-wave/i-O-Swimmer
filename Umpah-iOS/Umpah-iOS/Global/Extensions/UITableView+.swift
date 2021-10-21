@@ -21,6 +21,10 @@ extension UITableView {
         register(nib, forCellReuseIdentifier: T.reuseIdentifier)
     }
     
+    func register<T: UITableViewCell>(_: T.Type) where T: ReusableView {
+        register(T.self, forCellReuseIdentifier: T.reuseIdentifier)
+    }
+    
     /// 셀을 꺼내 드는 메서드
     func dequeueReusableCell<T: UITableViewCell>(forIndexPath indexPath: IndexPath) -> T where T: ReusableView {
         guard let cell = dequeueReusableCell(withIdentifier: T.reuseIdentifier, for: indexPath) as? T else {

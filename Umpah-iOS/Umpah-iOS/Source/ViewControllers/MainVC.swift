@@ -14,14 +14,14 @@ final class MainVC: BaseViewController {
     public lazy var baseTableView = UITableView().then {
         $0.delegate = self
         $0.dataSource = self
-        $0.estimatedRowHeight = 100
-        $0.backgroundColor = .clear
         $0.register(ChartTVC.self, forCellReuseIdentifier: ChartTVC.identifier)
         $0.register(DetailTVC.self, forCellReuseIdentifier: DetailTVC.identifier)
         $0.register(FilterTVC.self, forCellReuseIdentifier: FilterTVC.identifier)
         $0.register(StrokeTVC.self, forCellReuseIdentifier: StrokeTVC.identifier)
         $0.register(DateTVC.self, forCellReuseIdentifier: DateTVC.identifier)
         $0.register(RoutineTVC.self)
+        $0.backgroundColor = .clear
+        $0.estimatedRowHeight = 100
         $0.separatorStyle = .none
         $0.showsVerticalScrollIndicator = false
         
@@ -29,8 +29,8 @@ final class MainVC: BaseViewController {
             $0.sectionHeaderTopPadding = 0
         }
     }
-    
     public lazy var cardView = CardView(rootVC: self)
+    
     private let topView = TopView()
     private let headerView = HeaderView()
     private let statusBar = StatusBar()
@@ -133,7 +133,7 @@ extension MainVC {
             }else{
                 self.currentState = self.cacheState
             }
-            self.cardView.normalView.titleLabel.text = self.cardView.decideTitle(of: .normal)
+            self.cardView.currentState = self.currentState
             self.baseTableView.reloadData()
         }
     }
@@ -405,7 +405,7 @@ extension MainVC: SelectedRangeDelegate {
             self.currentState = (self.dateText == self.dateformatter.string(from: Date())) ? .base : .day
             self.strokeState = .none
             self.baseTableView.reloadSections(IndexSet(1...1), with: .fade)
-            self.cardView.currentState = .day
+            self.cardView.currentState = self.currentState
         }
         vc.weekData = { week in
             print("weekData : \(week)")
@@ -414,7 +414,7 @@ extension MainVC: SelectedRangeDelegate {
             self.currentState = .week
             self.strokeState = .none
             self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
-            self.cardView.currentState = .week
+            self.cardView.currentState = self.currentState
         }
         vc.monthData = { year, month in
             print("monthData : \(year) \(month)")
@@ -424,7 +424,7 @@ extension MainVC: SelectedRangeDelegate {
             self.currentState = .month
             self.strokeState = .none
             self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
-            self.cardView.currentState = .month
+            self.cardView.currentState = self.currentState
         }
         
         present(vc, animated: true, completion: nil)

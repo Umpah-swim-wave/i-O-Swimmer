@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class CardView: BaseView, Alertable {
+final class CardView: BaseView, Alertable {
     
     // MARK: - Public Properties
     
