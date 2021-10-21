@@ -36,6 +36,8 @@
 		65BD8F2201A9C1AFD7C2D8DD /* Pods_Umpah_iOS_WatchKit_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86DD879FC3C4E84D7E3F34D5 /* Pods_Umpah_iOS_WatchKit_App.framework */; };
 		D1F464F8FC2774B0D55FFF79 /* Pods_Umpah_iOS_WatchKit_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C521171D608E01D7F8B2492 /* Pods_Umpah_iOS_WatchKit_Extension.framework */; };
 		ECF21C0C9372B4F1A806C262 /* Pods_Umpah_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB7CF8BBFF32001FC0A7E689 /* Pods_Umpah_iOS.framework */; };
+		ED1DC478271FD94D002FF766 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1DC477271FD94D002FF766 /* BaseView.swift */; };
+		ED1DC47C2721814B002FF766 /* Alertable+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1DC47B2721814B002FF766 /* Alertable+UIViewController.swift */; };
 		ED2ACAF626E41A4F00C5A772 /* FilterTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2ACAF526E41A4F00C5A772 /* FilterTVC.swift */; };
 		ED2ACAF826E41C7200C5A772 /* FilterCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2ACAF726E41C7200C5A772 /* FilterCVC.swift */; };
 		ED5396E226B975AD0061722F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED5396E126B975AD0061722F /* Main.storyboard */; };
@@ -184,6 +186,8 @@
 		B53DA869B8F832A627BB5D6C /* Pods-Umpah-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Umpah-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Umpah-iOS/Pods-Umpah-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		DB7CF8BBFF32001FC0A7E689 /* Pods_Umpah_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Umpah_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2A34E7653F7869CEB27C154 /* Pods-Umpah-iOS WatchKit Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Umpah-iOS WatchKit Extension.debug.xcconfig"; path = "Target Support Files/Pods-Umpah-iOS WatchKit Extension/Pods-Umpah-iOS WatchKit Extension.debug.xcconfig"; sourceTree = "<group>"; };
+		ED1DC477271FD94D002FF766 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
+		ED1DC47B2721814B002FF766 /* Alertable+UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alertable+UIViewController.swift"; sourceTree = "<group>"; };
 		ED2ACAF526E41A4F00C5A772 /* FilterTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTVC.swift; sourceTree = "<group>"; };
 		ED2ACAF726E41C7200C5A772 /* FilterCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCVC.swift; sourceTree = "<group>"; };
 		ED5396E126B975AD0061722F /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -337,6 +341,14 @@
 				2D05BFF43235C874BA8005FE /* Pods-Umpah-iOS WatchKit Extension.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		ED1DC47927218119002FF766 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				ED1DC47B2721814B002FF766 /* Alertable+UIViewController.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 		ED78842726DC9B96006D8787 /* Views */ = {
@@ -668,6 +680,7 @@
 			children = (
 				EDD4401226483CD100C866F3 /* Supports */,
 				EDD4401126483CCD00C866F3 /* Extensions */,
+				ED1DC47927218119002FF766 /* Utils */,
 				EDEF3B58271E9B7800C852E7 /* Enum */,
 				EDEF3B57271E9B6100C852E7 /* Protocol */,
 				EDEF3B54271E960C00C852E7 /* Base */,
@@ -680,6 +693,7 @@
 			children = (
 				EDEF3B55271E962400C852E7 /* BaseViewController.swift */,
 				EDEF3B5F271EC92F00C852E7 /* ViewModelType.swift */,
+				ED1DC477271FD94D002FF766 /* BaseView.swift */,
 			);
 			path = Base;
 			sourceTree = "<group>";
@@ -956,6 +970,7 @@
 				EDD3CCDC27019A7200AFED4B /* RangeView.swift in Sources */,
 				EDC1EDDF26BF8FF600DCB215 /* Charts+.swift in Sources */,
 				EDD7C44226CBDCE200D93306 /* DetailView.swift in Sources */,
+				ED1DC47C2721814B002FF766 /* Alertable+UIViewController.swift in Sources */,
 				EDD3CCDE2701B16A00AFED4B /* UIFont+.swift in Sources */,
 				ED5F1A1E26ECFD13003FF801 /* InsideStrokeTVC.swift in Sources */,
 				ED2ACAF826E41C7200C5A772 /* FilterCVC.swift in Sources */,
@@ -980,6 +995,7 @@
 				EDEF3B5E271EA37500C852E7 /* ViewModelBindableType.swift in Sources */,
 				EDD43FD426483C9500C866F3 /* AppDelegate.swift in Sources */,
 				ED5396E826B975F60061722F /* RoutineVC.swift in Sources */,
+				ED1DC478271FD94D002FF766 /* BaseView.swift in Sources */,
 				EDD46F4D26BE9C0200FA91F2 /* ExpandedStateView.swift in Sources */,
 				ED5396EF26B9774C0061722F /* Encodable+.swift in Sources */,
 				ED5396E426B975D70061722F /* MainVC.swift in Sources */,

@@ -11,35 +11,43 @@ final class MainVC: BaseViewController {
 
     // MARK: - UI
     
-    var cardView = UIView().then {
-        $0.backgroundColor = .white
-        $0.clipsToBounds = false
-        $0.layer.cornerRadius = 32.0
-        $0.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        $0.makeShadow(.upuhSkyBlue, 0.6, CGSize(width: 0, height: -2), 8)
+    public lazy var baseTableView = UITableView().then {
+        $0.delegate = self
+        $0.dataSource = self
+        $0.estimatedRowHeight = 100
+        $0.backgroundColor = .clear
+        $0.register(ChartTVC.self, forCellReuseIdentifier: ChartTVC.identifier)
+        $0.register(DetailTVC.self, forCellReuseIdentifier: DetailTVC.identifier)
+        $0.register(FilterTVC.self, forCellReuseIdentifier: FilterTVC.identifier)
+        $0.register(StrokeTVC.self, forCellReuseIdentifier: StrokeTVC.identifier)
+        $0.register(DateTVC.self, forCellReuseIdentifier: DateTVC.identifier)
+        $0.register(RoutineTVC.self)
+        $0.separatorStyle = .none
+        $0.showsVerticalScrollIndicator = false
+        
+        if #available(iOS 15.0, *) {
+            $0.sectionHeaderTopPadding = 0
+        }
     }
     
-    lazy var expandedView = ExpandedStateView(root: self)
-    let topView = TopView()
-    let headerView = HeaderView()
-    let statusBar = StatusBar()
-    let normalView = NormalStateView()
+    public lazy var cardView = CardView(rootVC: self)
+    private let topView = TopView()
+    private let headerView = HeaderView()
+    private let statusBar = StatusBar()
     
     // MARK: - Properties
     
-    lazy var dateText: String = dateformatter.string(from: Date())
-    var currentState: CurrentState = .base
-    var cardViewState: CardViewState = .base
-    var cacheState: CurrentState = .base
-    var strokeState: Stroke = .none
-    var cardPanStartingTopConstant : CGFloat = 20.0
-    var cardPanMaxVelocity: CGFloat = 1500.0
-    var cardViewTopConstraint: NSLayoutConstraint?
-    var dateformatter = DateFormatter().then {
+    private lazy var dateText: String = dateformatter.string(from: Date())
+    private var cardViewTopConstraint: NSLayoutConstraint?
+    private var cardPanStartingTopConstant : CGFloat = 20.0
+    private var cardPanMaxVelocity: CGFloat = 1500.0
+    private var currentState: CurrentState = .base
+    private var cacheState: CurrentState = .base
+    private var strokeState: Stroke = .none
+    private var dateformatter = DateFormatter().then {
         $0.dateFormat = "YY/MM/dd"
         $0.locale = Locale.init(identifier: "ko-KR")
     }
-    var canScrollMore = true
     
     // MARK: - Routine data
     
@@ -56,15 +64,12 @@ final class MainVC: BaseViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        showCard(atState: cardViewState)
+        decideTopConstraint(of: .normal)
     }
     
     // MARK: - Override Method
     
     override func render() {
-        cardView.adds([normalView,
-                       expandedView])
-        
         view.add(statusBar) {
             $0.snp.makeConstraints {
                 $0.top.leading.trailing.equalToSuperview()
@@ -83,41 +88,129 @@ final class MainVC: BaseViewController {
             $0.snp.makeConstraints {
                 $0.leading.trailing.bottom.equalToSuperview()
             }
+            
+            self.cardViewTopConstraint = $0.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 20)
+            self.cardViewTopConstraint?.isActive = true
+            let window = UIApplication.shared.windows.first { $0.isKeyWindow }
+            if let safeAreaHeight = window?.safeAreaLayoutGuide.layoutFrame.size.height,
+              let bottomPadding = window?.safeAreaInsets.bottom {
+                self.cardViewTopConstraint?.constant = safeAreaHeight + bottomPadding
+            }
         }
-        cardViewTopConstraint = cardView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20)
-        cardViewTopConstraint?.isActive = true
-        
-        normalView.snp.makeConstraints {
-            $0.top.leading.trailing.equalToSuperview()
-            $0.bottom.equalTo(view.safeAreaLayoutGuide)
-        }
-        
-        expandedView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
-        }
-    }
-    
-    override func setTableView(tableView table: UITableView) {
-        table.estimatedRowHeight = 100
-        table.register(ChartTVC.self, forCellReuseIdentifier: ChartTVC.identifier)
-        table.register(DetailTVC.self, forCellReuseIdentifier: DetailTVC.identifier)
-        table.register(FilterTVC.self, forCellReuseIdentifier: FilterTVC.identifier)
-        table.register(StrokeTVC.self, forCellReuseIdentifier: StrokeTVC.identifier)
-        table.register(DateTVC.self, forCellReuseIdentifier: DateTVC.identifier)
-        table.register(RoutineTVC.self)
-        table.backgroundColor = .clear
     }
     
     override func configUI() {
         super.configUI()
-        initCardView()
         initGestureView()
         initRoutineOverViewList()
     }
+}
+
+// MARK: - Custom Methods
+extension MainVC {
+    private func initGestureView() {
+        let viewPan = UIPanGestureRecognizer(target: self, action: #selector(viewPanned(_:)))
+        viewPan.delaysTouchesBegan = false
+        viewPan.delaysTouchesEnded = false
+        view.addGestureRecognizer(viewPan)
+    }
     
-    // MARK: - UITableViewDelegate
+    private func initRoutineOverViewList(){
+        for i in 0..<20 {
+            var data = RoutineOverviewData()
+            data.level = Int.random(in: 0...2)
+            data.totalDistance = 1000 + i * 150
+            routineOverViewList.append(data)
+        }
+    }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    private func addClosureToChangeState(){
+        headerView.changeState = { isRecord in
+            //어떻게 하면 좋을지,,
+            if !isRecord{
+                self.cacheState = self.currentState
+                self.currentState = .routine
+            }else{
+                self.currentState = self.cacheState
+            }
+            self.cardView.normalView.titleLabel.text = self.cardView.decideTitle(of: .normal)
+            self.baseTableView.reloadData()
+        }
+    }
+}
+
+// MARK: - Animation
+extension MainVC {
+    // MARK: - @objc
+    
+    @objc
+    func viewPanned(_ panRecognizer: UIPanGestureRecognizer) {
+        let velocity = panRecognizer.velocity(in: self.view)
+        let translation = panRecognizer.translation(in: self.view)
+        
+        if cardView.expandedView.isModified {
+            panRecognizer.state = .failed
+        }
+        
+        switch panRecognizer.state {
+        case .began:
+            cardPanStartingTopConstant = cardViewTopConstraint?.constant ?? 0
+        case .changed:
+            if self.cardPanStartingTopConstant + translation.y > 20.0 {
+                self.cardViewTopConstraint?.constant = self.cardPanStartingTopConstant + translation.y
+            }
+        case .ended:
+            if velocity.y > cardPanMaxVelocity {
+                cardView.cardViewState = .normal
+                decideTopConstraint(of: .normal)
+                return
+            }
+            
+            let window = UIApplication.shared.windows.first { $0.isKeyWindow }
+            if let safeAreaHeight = window?.safeAreaLayoutGuide.layoutFrame.size.height,
+               let bottomPadding = window?.safeAreaInsets.bottom {
+                if self.cardViewTopConstraint?.constant ?? 0 < (safeAreaHeight + bottomPadding) * 0.6 {
+                    cardView.cardViewState = .expanded
+                    decideTopConstraint(of: .expanded)
+                } else  {
+                    cardView.cardViewState = .normal
+                    decideTopConstraint(of: .normal)
+                }
+            }
+        default:
+            cardView.cardViewState = .fail
+        }
+    }
+}
+
+// MARK: - Helper
+extension MainVC {
+    private func decideTopConstraint(of state: CardViewState) {
+        switch state {
+        case .normal:
+            cardViewTopConstraint?.constant = UIScreen.main.hasNotch ? UIScreen.main.bounds.size.height * 0.8 : UIScreen.main.bounds.size.height * 0.87
+        case .expanded:
+            switch currentState {
+            case .week:
+                cardViewTopConstraint?.constant = UIScreen.main.bounds.size.height * 0.24
+            case .month:
+                cardViewTopConstraint?.constant = UIScreen.main.bounds.size.height * 0.38
+            default:
+                cardViewTopConstraint?.constant = 20.0
+            }
+        case .fail:
+            break
+        }
+    }
+}
+
+// MARK: - UITableViewDataSource
+extension MainVC: UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 2
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 1:
             if currentState != .routine {
@@ -130,7 +223,7 @@ final class MainVC: BaseViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch currentState {
         case .day,
              .base:
@@ -219,223 +312,8 @@ final class MainVC: BaseViewController {
     }
 }
 
-// MARK: - Custom Methods
-extension MainVC {
-    private func initCardView() {
-        expandedView.alpha = 0.0
-        
-        let handleView = UIView()
-        handleView.backgroundColor = UIColor.init(red: 224/255, green: 224/255, blue: 224/255, alpha: 1.0)
-        handleView.layer.cornerRadius = 3
-        cardView.addSubview(handleView)
-        handleView.snp.makeConstraints {
-            $0.top.equalTo(cardView.snp.top).offset(9)
-            $0.centerX.equalToSuperview()
-            $0.height.equalTo(4)
-            $0.width.equalTo(48)
-        }
-        
-        let window = UIApplication.shared.windows.first { $0.isKeyWindow }
-        if let safeAreaHeight = window?.safeAreaLayoutGuide.layoutFrame.size.height,
-          let bottomPadding = window?.safeAreaInsets.bottom {
-            cardViewTopConstraint?.constant = safeAreaHeight + bottomPadding
-        }
-    }
-    
-    private func initGestureView() {
-        let viewPan = UIPanGestureRecognizer(target: self, action: #selector(viewPanned(_:)))
-        viewPan.delaysTouchesBegan = false
-        viewPan.delaysTouchesEnded = false
-        view.addGestureRecognizer(viewPan)
-    }
-    
-    private func initRoutineOverViewList(){
-        for i in 0..<20 {
-            var data = RoutineOverviewData()
-            data.level = Int.random(in: 0...2)
-            data.totalDistance = 1000 + i * 150
-            routineOverViewList.append(data)
-        }
-    }
-    
-    private func addClosureToChangeState(){
-        headerView.changeState = { isRecord in
-            //어떻게 하면 좋을지,,
-            if !isRecord{
-                self.cacheState = self.currentState
-                self.currentState = .routine
-            }else{
-                self.currentState = self.cacheState
-            }
-            self.normalView.titleLabel.text = self.decideTitle(of: .normal)
-            self.baseTableView.reloadData()
-        }
-    }
-}
-
-// MARK: - Animation
-extension MainVC {
-    private func showCard(atState: CardViewState = .normal) {
-        self.view.layoutIfNeeded()
-        
-        cardPanStartingTopConstant = decideTopConstraint(of: atState)
-        normalView.titleLabel.text = decideTitle(of: atState)
-        
-        switch atState {
-        case .base:
-            cardViewState = .expanded
-        case .normal:
-            cardViewState = .normal
-            
-            normalView.fadeIn()
-            expandedView.fadeOut()
-            startAnimation()
-        case .expanded:
-            cardViewState = .expanded
-            expandedView.state = currentState
-            expandedView.titleLabel.text = applyExpandedTitle(of: currentState)
-            expandedView.bottomView.isHidden = decideHiddenState(by: currentState)
-            expandedView.listTableView.reloadData()
-            
-            expandedView.fadeIn()
-            normalView.fadeOut()
-            startAnimation()
-        case .fail:
-            if canScrollMore {
-                canScrollMore = false
-                cardViewState = .fail
-                
-                makeRequestAlert(okAction: { _ in
-                    self.expandedView.isModified = false
-                    self.showCard(atState: .normal)
-                    self.expandedView.bottomView.selectButton.setTitle("영법 수정하기", for: .normal)
-                    self.canScrollMore = true
-                }, cancelAction: { _ in self.canScrollMore = true })
-            }
-        }
-        
-        expandedView.changeTableViewLayout()
-    }
-    
-    private func startAnimation() {
-        let showCard = UIViewPropertyAnimator(duration: 0.25, curve: .easeIn, animations: {
-            self.view.layoutIfNeeded()
-        })
-
-        showCard.startAnimation()
-    }
-
-    // MARK: - @objc
-    @objc
-    func viewPanned(_ panRecognizer: UIPanGestureRecognizer) {
-        let velocity = panRecognizer.velocity(in: self.view)
-        let translation = panRecognizer.translation(in: self.view)
-        
-        if expandedView.isModified {
-            panRecognizer.state = .failed
-        }
-        
-        switch panRecognizer.state {
-        case .began:
-            cardPanStartingTopConstant = cardViewTopConstraint?.constant ?? 0
-        case .changed:
-            if self.cardPanStartingTopConstant + translation.y > 20.0 {
-                self.cardViewTopConstraint?.constant = self.cardPanStartingTopConstant + translation.y
-            }
-        case .ended:
-            if velocity.y > cardPanMaxVelocity {
-                showCard(atState: .normal)
-                return
-            }
-            
-            let window = UIApplication.shared.windows.first { $0.isKeyWindow }
-            if let safeAreaHeight = window?.safeAreaLayoutGuide.layoutFrame.size.height,
-               let bottomPadding = window?.safeAreaInsets.bottom {
-                if self.cardViewTopConstraint?.constant ?? 0 < (safeAreaHeight + bottomPadding) * 0.6 {
-                    showCard(atState: .expanded)
-                } else  {
-                    showCard(atState: .normal)
-                }
-            }
-        default:
-            showCard(atState: .fail)
-        }
-    }
-}
-
-// MARK: - Helper
-extension MainVC {
-    private func decideTopConstraint(of state: CardViewState) -> CGFloat {
-        switch state {
-        case .base:
-            cardViewTopConstraint?.constant = UIScreen.main.hasNotch ? UIScreen.main.bounds.size.height * 0.8 : UIScreen.main.bounds.size.height * 0.87
-        case .normal:
-            cardViewTopConstraint?.constant = UIScreen.main.hasNotch ? UIScreen.main.bounds.size.height * 0.8 : UIScreen.main.bounds.size.height * 0.87
-        case .expanded:
-            switch currentState {
-            case .week:
-                cardViewTopConstraint?.constant = UIScreen.main.bounds.size.height * 0.24
-            case .month:
-                cardViewTopConstraint?.constant = UIScreen.main.bounds.size.height * 0.38
-            default:
-                cardViewTopConstraint?.constant = 20.0
-            }
-        case .fail:
-            break
-        }
-        
-        guard let constant = cardViewTopConstraint?.constant else { return 0 }
-        return constant
-    }
-    
-    private func decideTitle(of state: CardViewState) -> String {
-        switch state {
-        case .expanded:
-            return ""
-        default:
-            switch currentState {
-            case .week:
-                return "요일별 기록 보기"
-            case .month:
-                return "주간별 기록 보기"
-            case .routine:
-                return "어푸가 추천하는 루틴 보기"
-            default:
-                return "랩스 기록 보기"
-            }
-        }
-    }
-    
-    private func applyExpandedTitle(of state: CurrentState) -> String {
-        switch state {
-        case .base:
-            return dateformatter.string(from: Date())
-        case .routine:
-            return "어푸가 추천하는 수영 루틴들"
-        default:
-            return dateText
-        }
-    }
-    
-    private func decideHiddenState(by state: CurrentState) -> Bool {
-        switch state {
-        case .day, .base:
-            return false
-        default:
-            return true
-        }
-    }
-}
-
-// MARK: - UITableViewDataSource
-extension MainVC {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
-}
-
 // MARK: - UITableViewDelegate
-extension MainVC {
+extension MainVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if currentState == .routine {
             return indexPath.row == 0 ? 184 : 168
@@ -502,8 +380,8 @@ extension MainVC {
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        if cardViewState == .expanded {
-            showCard(atState: .normal)
+        if cardView.cardViewState == .expanded {
+            cardView.cardViewState = .normal
         }
     }
 }
@@ -511,7 +389,7 @@ extension MainVC {
 // MARK: - SelectedRange Delegate
 extension MainVC: SelectedRangeDelegate {
     func didClickedRangeButton() {
-        showCard()
+        cardView.cardViewState = .normal
         
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "SelectedRangeVC") as? SelectedRangeVC else { return }
         vc.modalPresentationStyle = .overCurrentContext
@@ -523,34 +401,37 @@ extension MainVC: SelectedRangeDelegate {
             let transMonth = (month.count == 1) ? "0\(month)" : month
             let transDay = (day.count == 1) ? "0\(day)" : day
             self.dateText = "\(transYear)/\(transMonth)/\(transDay)"
+            self.cardView.dateText = self.dateText
             self.currentState = (self.dateText == self.dateformatter.string(from: Date())) ? .base : .day
             self.strokeState = .none
             self.baseTableView.reloadSections(IndexSet(1...1), with: .fade)
-            self.normalView.titleLabel.text = self.decideTitle(of: .normal)
+            self.cardView.currentState = .day
         }
         vc.weekData = { week in
             print("weekData : \(week)")
             self.dateText = week
+            self.cardView.dateText = self.dateText
             self.currentState = .week
             self.strokeState = .none
             self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
-            self.normalView.titleLabel.text = self.decideTitle(of: .normal)
+            self.cardView.currentState = .week
         }
         vc.monthData = { year, month in
             print("monthData : \(year) \(month)")
             let transMonth = (month.count == 1) ? "0\(month)" : month
             self.dateText = "\(year)/\(transMonth)"
+            self.cardView.dateText = self.dateText
             self.currentState = .month
             self.strokeState = .none
             self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
-            self.normalView.titleLabel.text = self.decideTitle(of: .normal)
+            self.cardView.currentState = .month
         }
         
         present(vc, animated: true, completion: nil)
     }
     
     func didClickedStrokeButton(indexPath: Int = 0) {
-        showCard()
+        cardView.cardViewState = .normal
         
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "SelectedStrokeVC") as? SelectedStrokeVC else { return }
         vc.modalPresentationStyle = .overCurrentContext

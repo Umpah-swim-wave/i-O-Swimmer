@@ -8,7 +8,6 @@
 import Foundation
 
 enum CardViewState {
-    case base
     case expanded
     case normal
     case fail

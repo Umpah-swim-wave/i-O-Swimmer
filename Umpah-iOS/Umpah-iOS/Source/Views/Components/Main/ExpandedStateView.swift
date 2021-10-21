@@ -39,7 +39,7 @@ class ExpandedStateView: UIView {
         
     var state: CurrentState?
     var isModified = false
-    private var root: UIViewController?
+    var root: UIViewController?
     
     //MARK: about Routine
     var upuhRoutineOverViewList: [RoutineOverviewData] = []
@@ -54,7 +54,7 @@ class ExpandedStateView: UIView {
         setupRoutineFilterActions()
     }
     
-    convenience init(root: UIViewController) {
+    convenience init() {
         self.init(frame: .zero)
         self.root = root
     }
