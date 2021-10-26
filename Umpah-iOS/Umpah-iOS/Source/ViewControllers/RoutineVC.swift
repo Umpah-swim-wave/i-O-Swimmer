@@ -32,9 +32,12 @@ class RoutineVC: UIViewController {
     private let tableViewHeader = UIView()
     
     private lazy var bottomButton = UIButton().then {
-        $0.layer.cornerRadius = 16
-        $0.backgroundColor = .upuhBlue
+        $0.layer.masksToBounds = true
+        $0.layer.cornerRadius = 25
+        $0.setBackgroundColor(.upuhBlue2, for: .normal)
+        $0.setBackgroundColor(.upuhBlue2.withAlphaComponent(0.7), for: .highlighted)
         $0.setTitle("어푸님만의 루틴 만들기", for: .normal)
+        $0.titleLabel?.font = .IBMPlexSansSemiBold(ofSize: 16)
         $0.titleLabel?.textColor = .white
         $0.addTarget(self, action: #selector(changeTableViewEditingMode), for: .touchUpInside)
     }
@@ -389,7 +392,7 @@ extension RoutineVC {
         bottomButton.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.bottom.equalTo(view.safeAreaLayoutGuide).inset(5)
-            $0.height.equalTo(40)
+            $0.height.equalTo(49)
         }
         setupHeaderViewLayout()
         bottomButton.bringSubviewToFront(tableView)
