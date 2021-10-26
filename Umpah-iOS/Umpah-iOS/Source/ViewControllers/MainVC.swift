@@ -78,7 +78,7 @@ final class MainVC: BaseViewController {
         view.add(statusBar) {
             $0.snp.makeConstraints {
                 $0.top.leading.trailing.equalToSuperview()
-                $0.height.equalTo(UIApplication.statusBarHeight)
+                $0.height.equalTo(StatusBarDelegate.shared.height)
             }
         }
         
