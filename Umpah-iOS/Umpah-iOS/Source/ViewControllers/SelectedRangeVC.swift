@@ -72,10 +72,12 @@ class SelectedRangeVC: UIViewController {
     private func configureToolBar() -> UIToolbar {
         let toolbar = UIToolbar();
         toolbar.sizeToFit()
-        let doneButton = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(donedatePicker));
+        let cancelButton = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(cancelDatePicker))
         let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        let cancelButton = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(cancelDatePicker));
-        toolbar.setItems([doneButton,spaceButton,cancelButton], animated: false)
+        let doneButton = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(donedatePicker))
+        
+        
+        toolbar.setItems([cancelButton, spaceButton, doneButton], animated: false)
         
         return toolbar
     }
@@ -153,6 +155,7 @@ class SelectedRangeVC: UIViewController {
     }
 }
 
+// MARK: - UIPickerViewDataSource
 extension SelectedRangeVC: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         switch state {
@@ -186,6 +189,7 @@ extension SelectedRangeVC: UIPickerViewDataSource {
     }
 }
 
+// MARK: - UIPickerViewDelegate
 extension SelectedRangeVC: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         switch state {
