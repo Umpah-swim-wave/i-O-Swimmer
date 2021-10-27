@@ -6,74 +6,83 @@
 //
 
 import Foundation
-import CSV
+import RxSwift
+import RxCocoa
 
 class SwimmingDataViewModel{
+    let semaphore = DispatchSemaphore(value: 0)
     let swimmingStorage = SwimmingDataStorage()
-    var swimmingWorkoutList: [SwimWorkoutData] = []
-    
+    lazy var swimmingWorkoutList: [SwimWorkoutData] = [] {
+        didSet {
+            semaphore.signal()
+            print("semaphore 시드널 불림")
+        }
+    }
+    let swimmingSubject = PublishSubject<[SwimmingWorkoutData]>()
+
     func initSwimmingData(){
-        swimmingStorage.loadWorkoutHKSource()
-        swimmingStorage.refineSwimmingWorkoutData(completion: { workoutList, error in
-            self.swimmingWorkoutList = workoutList
-            self.getStrokeAndDistanceData()
-        })
+        swimmingStorage.loadWorkoutHKSource { completed, error in
+            print("complete = \(completed)")
+            if completed {
+                self.swimmingStorage.refineSwimmingWorkoutData(completion: { workoutList, error in
+                    self.swimmingWorkoutList = workoutList
+                    self.getStrokeAndDistanceData()
+                    self.getHeartRateData()
+                })
+            }
+        }
+    }
+    
+    func refineSwimmingDataForServer(){
+        var swimmingDataList : [SwimmingWorkoutData] = []
+        if swimmingWorkoutList.count <= 0{
+            semaphore.wait()
+            print("semaphore wait")
+        }
+                
+        swimmingWorkoutList.forEach{ swimming in
+            swimming.isCompleted().bind(onNext: { isComplete in
+                print("swimming.metadata = \(swimming.metadata["HKLapLength"]), \(type(of: swimming.metadata["HKLapLength"]))")
+                let labsData = swimming.metadata["HKLapLength"] as? String
+                print("labsData = \(labsData)")
+                let perLab = Int(labsData?.components(separatedBy: " m")[0] ?? "25")
+                print("perLab = \(perLab), type = \(type(of: perLab))")
+                var recordList: [RecordLab] = []
+                swimming.strokeList.forEach{ stroke in
+                    let record = RecordLab(date: stroke.startDate.toKoreaTime(),
+                                                    time: stroke.endDate.timeIntervalSince(stroke.startDate), strokeType: stroke.strokeStyle)
+                    recordList.append(record)
+                }
+                
+                let swimmingData = SwimmingWorkoutData(startWorkoutDate: swimming.startDate.toKoreaTime(),
+                                                       totalBeatPerMinute: swimming.averageHeartRate,
+                                                       totalEnergyBurned: swimming.totalEnergyBured,
+                                                       distancePerLabs: 25,
+                                                       totalSwimmingStrokeCount: Int(swimming.totalSwimmingStrokeCount),
+                                                       recordLabsList: recordList)
+                swimmingDataList.append(swimmingData)
+            }).disposed(by: DisposeBag())
+
+        }
+        swimmingSubject.onNext(swimmingDataList)
     }
     
     private func getStrokeAndDistanceData(){
         for index in 0..<swimmingWorkoutList.count {
             swimmingStorage.refineSwimmingStrokeData(start: swimmingWorkoutList[index].startDate,
-                                                     end:  swimmingWorkoutList[index].endDate) { strokes, error in
+                                                     end: swimmingWorkoutList[index].endDate) { strokes, error in
                 self.swimmingWorkoutList[index].strokeList = strokes
             }
-            swimmingStorage.refineSwimmingDistanceData(start: swimmingWorkoutList[index].startDate,
-                                                       end: swimmingWorkoutList[index].endDate) { distances, error in
-                self.swimmingWorkoutList[index].distanceList = distances
-            }
         }
     }
     
-    private func makeSwimmingDateToCSVFile(){
-        let documentURL = setNewCSVFile(fileName: "swimmingDetailData.csv")
-        print("-----------------------")
-        print(documentURL)
-        print("-----------------------")
-        
-        let stream = OutputStream(url: documentURL , append: true)!
-        let csv = try! CSVWriter(stream: stream)
-        try! csv.write(row: ["시작시간", "종료시간", "운동시간", "style번호"])
-        
-        for workout in swimmingWorkoutList {
-            for index in 0..<workout.distanceList.count{
-                var rowData: [String] = []
-                rowData.append(workout.distanceList[index].startDate.toKoreaTime())
-                rowData.append(workout.distanceList[index].endDate.toKoreaTime())
-                rowData.append(workout.distanceList[index].timeInterval.description)
-                rowData.append(workout.strokeList[index].strokeStyle.description)
-                try! csv.write(row: rowData)
+    private func getHeartRateData(){
+        for index in 0..<swimmingWorkoutList.count {
+            swimmingStorage.readHeartRate(start: swimmingWorkoutList[index].startDate,
+                                          end: swimmingWorkoutList[index].endDate) { heartRate, error in
+                self.swimmingWorkoutList[index].averageHeartRate = heartRate
             }
-            try! csv.write(row: ["------","------","------","------"])
         }
-        
-    }
-    
-    func setNewCSVFile(fileName: String) -> URL{
-        //fileManager 이용
-        //core data 도 함께
-        print(NSHomeDirectory())
-        let fileManager = FileManager.default // 파일 매니저의 싱글톤 객체 리턴
-        
-        // document dir url
-        let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        print(documentsURL)
-        
-        let fileURL = documentsURL.appendingPathComponent(fileName)
-        let myText = NSString(string:"")
-
-        //빈파일로 다시 만들기
-        try? myText.write(to: fileURL, atomically: true, encoding: String.Encoding.utf8.rawValue)
-        return fileURL
-        
     }
     
 }
