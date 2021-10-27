@@ -7,6 +7,7 @@
 
 import Foundation
 import HealthKit
+import RxSwift
 
 //TODO: MetaData에서 "HKLapLength": 25 m 값 추출하기
 struct SwimWorkoutData {
@@ -15,7 +16,7 @@ struct SwimWorkoutData {
     var duration : Double
     var totalDistance : Double
     var totalEnergyBured : Double
-    var workourActivityType: HKWorkoutActivityType
+    var averageHeartRate : Double
     var totalSwimmingStrokeCount: Double
     var metadata: [String : Any]
     var distanceList: [SwimmingDistanceData] = []
@@ -27,11 +28,23 @@ struct SwimWorkoutData {
         print("endDate =  \(endDate)")
         print("duration =  \(duration)")
         print("totalDistance =  \(totalDistance)")
+        print("totalDistance =  \(totalEnergyBured)")
         print("totalEnergyBured =  \(totalEnergyBured)")
-        print("workourActivityType =  \(workourActivityType)")
         print("totalSwimmingStrokeCount =  \(totalSwimmingStrokeCount)")
         print("metadata =  \(metadata)")
         print("---------------------------")
+    }
+    
+    func isCompleted() -> Observable<Bool>{
+        while(totalEnergyBured == -1 &&
+              strokeList.count == 0){
+            print("아직 아님")
+        }
+//        if totalEnergyBured != -1 &&
+//            strokeList.count > 0{
+//            return Observable.of(true)
+//        }
+        return Observable.just(true)
     }
 }
 
