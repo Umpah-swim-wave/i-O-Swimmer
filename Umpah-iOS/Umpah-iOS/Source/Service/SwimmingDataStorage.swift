@@ -124,6 +124,29 @@ class SwimmingDataStorage{
         }
     }
     
+    func readHeartRate(start: Date, end: Date, completion: @escaping(Double, Error?) -> Void){
+        guard let sampleType = HKObjectType.quantityType(forIdentifier: .heartRate) else {return}
+        let datePredicate = HKQuery.predicateForSamples(withStart: start, end: end, options: .strictEndDate)
+        let query = HKSampleQuery(sampleType: sampleType,
+                                  predicate: datePredicate,
+                                  limit: 0,
+                                  sortDescriptors: [sortDescriptor]) { query, result, error in
+            
+            guard let sampleList = result else {
+               completion(-1, error)
+                return
+            }
+            var heartSum = 0.0
+            sampleList.forEach{
+                guard let sample = $0 as? HKQuantitySample else{ return }
+                let heartRate = sample.quantity.doubleValue(for: HKUnit(from: "count/min"))
+                heartSum += heartRate
+            }
+            completion(heartSum/Double(sampleList.count), nil)
+        }
+        healthStore.execute(query)
+    }
+    
     func readSwimmingStrokeData(start: Date, end: Date, completion: @escaping ([HKSample], Error?) -> Void){
         guard let sampleType = HKObjectType.quantityType(forIdentifier: .swimmingStrokeCount) else{ return }
         let datePredicate = HKQuery.predicateForSamples(withStart: start, end: end, options: .strictEndDate)
@@ -164,5 +187,7 @@ class SwimmingDataStorage{
             completion(strokeDataList, nil)
         }
     }
+    
+    
     
 }
