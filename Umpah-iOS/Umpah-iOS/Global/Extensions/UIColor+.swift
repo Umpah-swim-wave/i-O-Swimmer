@@ -32,6 +32,10 @@ extension UIColor {
         return UIColor(red: 78.0 / 255.0, green: 149.0 / 255.0, blue: 185.0 / 255.0, alpha: 1.0)
     }
     
+    @nonobjc class var upuhBlue2: UIColor {
+        return UIColor(red: 92.0 / 255.0, green: 188.0 / 255.0, blue: 194.0 / 255.0, alpha: 1.0)
+    }
+    
     @nonobjc class var upuhSubBlue: UIColor {
         return UIColor(red: 7 / 255.0, green: 147.0 / 255.0, blue: 182.0 / 255.0, alpha: 1.0)
     }

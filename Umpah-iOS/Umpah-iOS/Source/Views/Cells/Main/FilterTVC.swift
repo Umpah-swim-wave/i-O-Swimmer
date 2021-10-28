@@ -66,7 +66,7 @@ class FilterTVC: UITableViewCell, ReusableView {
         configuration.titlePadding = titlePadding
         configuration.imagePadding = imagePadding
         configuration.baseForegroundColor = backgroundColor
-        configuration.attributedTitle = AttributedString(title, attributes: AttributeContainer([NSAttributedString.Key.foregroundColor: UIColor.upuhGreen, NSAttributedString.Key.font: UIFont.IBMPlexSansText(ofSize: 14)]))
+        configuration.attributedTitle = AttributedString(title, attributes: AttributeContainer([NSAttributedString.Key.foregroundColor: UIColor.upuhGreen, NSAttributedString.Key.font: UIFont.IBMPlexSansSemiBold(ofSize: 14)]))
         
         return configuration
     }

@@ -16,8 +16,8 @@ class SelectedStrokeView: UIView {
         $0.setTitle("영법 수정하기", for: .normal)
         $0.titleLabel?.font = .IBMPlexSansSemiBold(ofSize: 16)
         $0.setTitleColor(.white, for: .normal)
-        $0.setBackgroundColor(.upuhSubBlue, for: .normal)
-        $0.setBackgroundColor(.upuhSubBlue.withAlphaComponent(0.7), for: .highlighted)
+        $0.setBackgroundColor(.upuhBlue2, for: .normal)
+        $0.setBackgroundColor(.upuhBlue2.withAlphaComponent(0.7), for: .highlighted)
         $0.layer.cornerRadius = 23
         $0.layer.masksToBounds = true
     }
@@ -35,7 +35,7 @@ class SelectedStrokeView: UIView {
         addSubview(selectButton)
         
         selectButton.snp.makeConstraints {
-            $0.height.equalTo(44)
+            $0.height.equalTo(49)
             $0.leading.trailing.equalToSuperview().inset(17)
             $0.top.equalToSuperview()
         }

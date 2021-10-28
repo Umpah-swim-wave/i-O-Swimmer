@@ -30,7 +30,7 @@ class ModifyElementTVC: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         checkImageView.isHidden = selected ? false : true
-        nameLabel.textColor = selected ? .upuhBlue : .upuhBlack
+        nameLabel.textColor = selected ? .upuhBlue2 : .upuhBlack
     }
     
     func setupLayout(){
