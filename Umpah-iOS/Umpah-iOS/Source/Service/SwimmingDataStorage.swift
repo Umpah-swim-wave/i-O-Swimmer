@@ -25,7 +25,7 @@ class SwimmingDataStorage{
     let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
     
     //MARK: 가장먼저 source를 가져와야함.
-    func loadWorkoutHKSource(complition: @escaping (Bool, Error?) -> Void){
+    func loadWorkoutHKSource(completion: @escaping (Bool, Error?) -> Void){
         let sampleType = HKObjectType.workoutType()
         let predicate = HKQuery.predicateForSamples(withStart: startDate, end: Date(), options: .strictEndDate)
         
@@ -33,7 +33,7 @@ class SwimmingDataStorage{
                                              samplePredicate: datePredicate){ (query, result, error) in
             guard let sources = result else{
                 print("source nil")
-                complition(false, error)
+                completion(false, error)
                 return
             }
             self.sourceSet.removeAll()
@@ -42,8 +42,7 @@ class SwimmingDataStorage{
                 print("source 가져와졌음, src.bundleIdentifier = \(src.bundleIdentifier)")
                 self.sourceSet.insert(src)
             }
-            complition(true, error)
-            
+            completion(true, error)
         }
         healthStore.execute(sourceQuery)
     }
