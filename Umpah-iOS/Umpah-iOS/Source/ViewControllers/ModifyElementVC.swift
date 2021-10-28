@@ -41,7 +41,7 @@ class ModifyElementVC: UIViewController{
     
     public var titleLabel = UILabel().then{
         $0.textColor = .upuhBlack
-        $0.font = .boldSystemFont(ofSize: 18)
+        $0.font = .IBMPlexSansSemiBold(ofSize: 18)
     }
     
     public var contentView = UIView().then{
