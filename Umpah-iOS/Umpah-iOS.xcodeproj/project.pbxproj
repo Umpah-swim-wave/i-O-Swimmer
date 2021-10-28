@@ -21,6 +21,10 @@
 		3C7F688D27157EDE00758733 /* RoutineTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C7F688B27157EDE00758733 /* RoutineTVC.xib */; };
 		3C8CE32A26BCBE6B002BBFE5 /* RoutineSetTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C8CE32826BCBE6B002BBFE5 /* RoutineSetTVC.xib */; };
 		3C8CE32D26BCC318002BBFE5 /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8CE32C26BCC318002BBFE5 /* UITableView+.swift */; };
+		3CA621EA2727C71E002CB901 /* SwimmingRecordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA621E92727C71E002CB901 /* SwimmingRecordRequest.swift */; };
+		3CA621ED2727C943002CB901 /* GeneralAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA621EC2727C943002CB901 /* GeneralAPI.swift */; };
+		3CA621EF2727C9F1002CB901 /* NetworkLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA621EE2727C9F1002CB901 /* NetworkLoggerPlugin.swift */; };
+		3CA621F12727CB68002CB901 /* RecordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA621F02727CB68002CB901 /* RecordService.swift */; };
 		3CAD1F2626CBDA64001CD535 /* UIWindow+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CAD1F2526CBDA64001CD535 /* UIWindow+.swift */; };
 		3CB4B33226BBB396003C578D /* RoutineItemTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CB4B33026BBB396003C578D /* RoutineItemTVC.xib */; };
 		3CE4D67926DD2786007E4193 /* CALayer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE4D67826DD2786007E4193 /* CALayer+.swift */; };
@@ -167,6 +171,10 @@
 		3C7F688B27157EDE00758733 /* RoutineTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RoutineTVC.xib; sourceTree = "<group>"; };
 		3C8CE32826BCBE6B002BBFE5 /* RoutineSetTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RoutineSetTVC.xib; path = "Umpah-iOS/Resource/Xibs/RoutineScene/RoutineSetTVC.xib"; sourceTree = SOURCE_ROOT; };
 		3C8CE32C26BCC318002BBFE5 /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
+		3CA621E92727C71E002CB901 /* SwimmingRecordRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwimmingRecordRequest.swift; sourceTree = "<group>"; };
+		3CA621EC2727C943002CB901 /* GeneralAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralAPI.swift; sourceTree = "<group>"; };
+		3CA621EE2727C9F1002CB901 /* NetworkLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLoggerPlugin.swift; sourceTree = "<group>"; };
+		3CA621F02727CB68002CB901 /* RecordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordService.swift; sourceTree = "<group>"; };
 		3CAD1F2526CBDA64001CD535 /* UIWindow+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIWindow+.swift"; sourceTree = "<group>"; };
 		3CB4B33026BBB396003C578D /* RoutineItemTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RoutineItemTVC.xib; path = "Umpah-iOS/Resource/Xibs/RoutineScene/RoutineItemTVC.xib"; sourceTree = SOURCE_ROOT; };
 		3CE4D67826DD2786007E4193 /* CALayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+.swift"; sourceTree = "<group>"; };
@@ -308,6 +316,7 @@
 				3C7479EA2702EFAE006752EE /* RoutineStorage.swift */,
 				3C662B5F271988E70061E133 /* HealthKitSetupAssistant.swift */,
 				3CF4E90F2719C09A00FE8802 /* SwimmingDataStorage.swift */,
+				3CA621F02727CB68002CB901 /* RecordService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -320,6 +329,23 @@
 				3CB4B33026BBB396003C578D /* RoutineItemTVC.xib */,
 			);
 			path = RoutineScene;
+			sourceTree = "<group>";
+		};
+		3CA621E82727C6D1002CB901 /* Record */ = {
+			isa = PBXGroup;
+			children = (
+				3CA621E92727C71E002CB901 /* SwimmingRecordRequest.swift */,
+			);
+			path = Record;
+			sourceTree = "<group>";
+		};
+		3CA621EB2727C931002CB901 /* APIServices */ = {
+			isa = PBXGroup;
+			children = (
+				3CA621EC2727C943002CB901 /* GeneralAPI.swift */,
+				3CA621EE2727C9F1002CB901 /* NetworkLoggerPlugin.swift */,
+			);
+			path = APIServices;
 			sourceTree = "<group>";
 		};
 		3CF69DF226E781C3002FD6DB /* ModifyElementScene */ = {
@@ -533,6 +559,7 @@
 		EDD4401026483CC300C866F3 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
+				3CA621EB2727C931002CB901 /* APIServices */,
 				EDD43FDC26483C9600C866F3 /* Assets.xcassets */,
 				EDD3CCF32701BE9100AFED4B /* Font */,
 				EDD4401A26483D4900C866F3 /* Xibs */,
@@ -587,6 +614,7 @@
 		EDD4401626483D1A00C866F3 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				3CA621E82727C6D1002CB901 /* Record */,
 				3C7F68882715704F00758733 /* RoutineDataModel.swift */,
 				3CF4E9112719C0F100FE8802 /* SwimmingDataModel.swift */,
 			);
@@ -955,6 +983,7 @@
 				3CF69DF026E781B5002FD6DB /* ModifyElementTVC.swift in Sources */,
 				3C7479E12702E577006752EE /* RoutineItemTVC.swift in Sources */,
 				ED5396ED26B977320061722F /* UIApplication+.swift in Sources */,
+				3CA621ED2727C943002CB901 /* GeneralAPI.swift in Sources */,
 				3C7479E22702E577006752EE /* RoutineSetTVC.swift in Sources */,
 				3C7479E92702EDB5006752EE /* RoutineStorageType.swift in Sources */,
 				EDEF3B56271E962400C852E7 /* BaseViewController.swift in Sources */,
@@ -963,6 +992,7 @@
 				EDE550BE2700F80D004422CE /* DateTVC.swift in Sources */,
 				ED78843C26DE4551006D8787 /* ExpandedWeekTVC.swift in Sources */,
 				ED5396F526B977A20061722F /* UIScreen+.swift in Sources */,
+				3CA621EF2727C9F1002CB901 /* NetworkLoggerPlugin.swift in Sources */,
 				3CF4E9122719C0F100FE8802 /* SwimmingDataModel.swift in Sources */,
 				EDD7C43C26CB903F00D93306 /* ChartTVC.swift in Sources */,
 				3CF4E9142719C6C600FE8802 /* Date+.swift in Sources */,
@@ -981,8 +1011,10 @@
 				ED5396F726B977BB0061722F /* UIViewController+.swift in Sources */,
 				3C8CE32D26BCC318002BBFE5 /* UITableView+.swift in Sources */,
 				3CF69DEA26E7776C002FD6DB /* ModifyElementVC.swift in Sources */,
+				3CA621EA2727C71E002CB901 /* SwimmingRecordRequest.swift in Sources */,
 				3C662B60271988E70061E133 /* HealthKitSetupAssistant.swift in Sources */,
 				3CE4D67926DD2786007E4193 /* CALayer+.swift in Sources */,
+				3CA621F12727CB68002CB901 /* RecordService.swift in Sources */,
 				ED8AB6A62702EDC20066CD02 /* StrokesTVC.swift in Sources */,
 				3C7F68892715704F00758733 /* RoutineDataModel.swift in Sources */,
 				ED78843E26DE4C50006D8787 /* SelectedStrokeView.swift in Sources */,
@@ -1189,14 +1221,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4QG3GC35LA;
+				DEVELOPMENT_TEAM = J8A843466G;
 				INFOPLIST_FILE = "Umpah-iOS WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tiekle.Umpah-iOS.watchkit.extension";
+				PRODUCT_BUNDLE_IDENTIFIER = com.swimis.uhpuh.watchkit.extension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1212,14 +1244,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4QG3GC35LA;
+				DEVELOPMENT_TEAM = J8A843466G;
 				INFOPLIST_FILE = "Umpah-iOS WatchKit Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tiekle.Umpah-iOS.watchkit.extension";
+				PRODUCT_BUNDLE_IDENTIFIER = com.swimis.uhpuh.watchkit.extension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1238,10 +1270,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4QG3GC35LA;
+				DEVELOPMENT_TEAM = J8A843466G;
 				IBSC_MODULE = Umpah_iOS_WatchKit_Extension;
 				INFOPLIST_FILE = "Umpah-iOS WatchKit App/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tiekle.Umpah-iOS.watchkit";
+				PRODUCT_BUNDLE_IDENTIFIER = com.swimis.uhpuh.watchkit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1259,10 +1291,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4QG3GC35LA;
+				DEVELOPMENT_TEAM = J8A843466G;
 				IBSC_MODULE = Umpah_iOS_WatchKit_Extension;
 				INFOPLIST_FILE = "Umpah-iOS WatchKit App/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tiekle.Umpah-iOS.watchkit";
+				PRODUCT_BUNDLE_IDENTIFIER = com.swimis.uhpuh.watchkit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -1281,14 +1313,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Umpah-iOS/Umpah-iOS.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4QG3GC35LA;
+				DEVELOPMENT_TEAM = J8A843466G;
 				INFOPLIST_FILE = "Umpah-iOS/Global/Supports/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tiekle.Umpah-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.swimis.uhpuh;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;
@@ -1304,14 +1336,14 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Umpah-iOS/Umpah-iOS.entitlements";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 4QG3GC35LA;
+				DEVELOPMENT_TEAM = J8A843466G;
 				INFOPLIST_FILE = "Umpah-iOS/Global/Supports/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "com.tiekle.Umpah-iOS";
+				PRODUCT_BUNDLE_IDENTIFIER = com.swimis.uhpuh;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SWIFT_VERSION = 5.0;

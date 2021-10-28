@@ -58,7 +58,7 @@
       <RemoteRunnable
          runnableDebuggingMode = "2"
          BundleIdentifier = "com.apple.Carousel"
-         RemotePath = "/Umpah-iOS WatchKit App">
+         RemotePath = "/Uhpuh WatchKit App">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EDD43FE326483C9600C866F3"
@@ -78,7 +78,7 @@
       <RemoteRunnable
          runnableDebuggingMode = "2"
          BundleIdentifier = "com.apple.Carousel"
-         RemotePath = "/Umpah-iOS WatchKit App">
+         RemotePath = "/Uhpuh WatchKit App">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "EDD43FE326483C9600C866F3"

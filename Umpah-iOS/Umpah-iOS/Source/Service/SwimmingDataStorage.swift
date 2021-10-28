@@ -7,11 +7,17 @@
 
 import Foundation
 import HealthKit
+import RxSwift
 
 class SwimmingDataStorage{
-    
+    let semaphore = DispatchSemaphore(value: 0)
     let healthStore = HKHealthStore()
-    var sourceSet: Set<HKSource> = []
+    var sourceSet: Set<HKSource> = []{
+        didSet{
+            semaphore.signal()
+            print("signal 불림")
+        }
+    }
     let startDate = Calendar.current.date(byAdding: .year, value: -1, to: Date())
     let datePredicate = HKQuery.predicateForSamples(withStart: Calendar.current.date(byAdding: .year, value: -1, to: Date()),
                                                     end: Date(),
@@ -19,7 +25,7 @@ class SwimmingDataStorage{
     let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
     
     //MARK: 가장먼저 source를 가져와야함.
-    func loadWorkoutHKSource() {
+    func loadWorkoutHKSource(completion: @escaping (Bool, Error?) -> Void){
         let sampleType = HKObjectType.workoutType()
         let predicate = HKQuery.predicateForSamples(withStart: startDate, end: Date(), options: .strictEndDate)
         
@@ -27,15 +33,16 @@ class SwimmingDataStorage{
                                              samplePredicate: datePredicate){ (query, result, error) in
             guard let sources = result else{
                 print("source nil")
+                completion(false, error)
                 return
             }
-            print("source 가져와졌음 \(sources.count)")
             self.sourceSet.removeAll()
             for src in sources {
                 print("source 가져와졌음, src.name = \(src.name)")
                 print("source 가져와졌음, src.bundleIdentifier = \(src.bundleIdentifier)")
                 self.sourceSet.insert(src)
             }
+            completion(true, error)
         }
         healthStore.execute(sourceQuery)
     }
@@ -43,6 +50,12 @@ class SwimmingDataStorage{
     //MARK: 수영 전체 workoutData
     //TODO: start, end data 언제 제대로 처리할 지
     func readSwimmingWorkout(completion: @escaping ([HKSample], Error?) -> Void ){
+        //loadWorkoutHKSource()
+        if sourceSet == []{
+            semaphore.wait()
+            print("sourceSet is empty")
+        }
+        print("source data 시작")
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
         //let predicate = HKQuery.predicateForSamples(withStart: startDate, end: Date(), options: .strictEndDate)
         let swimmingPredicate = HKQuery.predicateForWorkouts(with: .swimming)
@@ -76,7 +89,6 @@ class SwimmingDataStorage{
                 let kiloCalorie = HKUnit.kilocalorie()
                 let totalEnergy = src.totalEnergyBurned?.doubleValue(for: kiloCalorie) ?? 0
                 
-                let workoutType = src.workoutActivityType
                 let strokes = src.totalSwimmingStrokeCount?.doubleValue(for: HKUnit.count()) ?? 0
                 let metaData = src.metadata ?? [:]
                 
@@ -85,7 +97,7 @@ class SwimmingDataStorage{
                                                duration: duration,
                                                totalDistance: totalDistance,
                                                totalEnergyBured: totalEnergy,
-                                               workourActivityType: workoutType,
+                                               averageHeartRate: -1,
                                                totalSwimmingStrokeCount: strokes,
                                                metadata: metaData)
                 swimmingWorkoutList.append(swimming)
@@ -122,6 +134,29 @@ class SwimmingDataStorage{
             }
             completion(list, nil)
         }
+    }
+    
+    func readHeartRate(start: Date, end: Date, completion: @escaping(Double, Error?) -> Void){
+        guard let sampleType = HKObjectType.quantityType(forIdentifier: .heartRate) else {return}
+        let datePredicate = HKQuery.predicateForSamples(withStart: start, end: end, options: .strictEndDate)
+        let query = HKSampleQuery(sampleType: sampleType,
+                                  predicate: datePredicate,
+                                  limit: 0,
+                                  sortDescriptors: [sortDescriptor]) { query, result, error in
+            
+            guard let sampleList = result else {
+               completion(-1, error)
+                return
+            }
+            var heartSum = 0.0
+            sampleList.forEach{
+                guard let sample = $0 as? HKQuantitySample else{ return }
+                let heartRate = sample.quantity.doubleValue(for: HKUnit(from: "count/min"))
+                heartSum += heartRate
+            }
+            completion(heartSum/Double(sampleList.count), nil)
+        }
+        healthStore.execute(query)
     }
     
     func readSwimmingStrokeData(start: Date, end: Date, completion: @escaping ([HKSample], Error?) -> Void){
@@ -164,5 +199,7 @@ class SwimmingDataStorage{
             completion(strokeDataList, nil)
         }
     }
+    
+    
     
 }

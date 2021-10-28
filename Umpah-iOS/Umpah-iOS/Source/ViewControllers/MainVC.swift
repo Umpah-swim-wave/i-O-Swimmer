@@ -11,6 +11,7 @@ import Then
 import RxSwift
 import RxCocoa
 import Charts
+import Moya
 
 final class MainVC: BaseViewController {
 
@@ -53,6 +54,8 @@ final class MainVC: BaseViewController {
         $0.dateFormat = "YY/MM/dd"
         $0.locale = Locale.init(identifier: "ko-KR")
     }
+    
+    private let authProvider = MoyaProvider<RecordService>()
     
     // MARK: - Routine data
     
@@ -466,7 +469,45 @@ extension MainVC {
                 return
             }
             print("HealthKit Successfully Authorized.")
+            self.postRecordData()
             self.swimmingViewModel.initSwimmingData()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3){
+                self.swimmingViewModel.refineSwimmingDataForServer()
+                print("refineSwimmingDataForServer.")
+            }
         }
+    }
+}
+
+extension MainVC{
+    private func postRecordData(){
+        swimmingViewModel
+            .swimmingSubject
+            .bind(onNext: { workoutList in
+                print("workoutList.count------------\(workoutList.count)---------------")
+                workoutList.forEach{
+                    print("\($0.display())")
+                    print("count = \($0.recordLabsList.count)")
+                }
+                print("----------------------------")
+                let param = SwimmingRecordRequest(userID: 1,
+                                                  workoutList: workoutList)
+                self.authProvider.request(.sendSwimmingRecord(param: param)) { response in
+                    switch response{
+                    case .success(let result):
+                        do{
+                            print(result)
+                            let reposneData = try result.map(CommonRespose.self)
+                            print("-----------response-----------")
+                            print(reposneData)
+                            print("------------------------------")
+                        }catch(let err){
+                            print(err.localizedDescription)
+                        }
+                    case .failure(let err):
+                        print(err.localizedDescription)
+                    }
+                }
+            }).disposed(by: disposeBag)
     }
 }
