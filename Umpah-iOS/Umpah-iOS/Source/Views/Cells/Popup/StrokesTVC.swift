@@ -16,7 +16,7 @@ class StrokesTVC: UITableViewCell {
     override var isSelected: Bool {
         willSet {
             checkButton.isHidden = !isSelected
-            strokeLabel.textColor = isSelected ? .upuhBlue : .upuhBlack
+            strokeLabel.textColor = isSelected ? .upuhBlue2 : .upuhBlack
         }
     }
     
