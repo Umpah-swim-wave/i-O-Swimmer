@@ -39,7 +39,7 @@ class RoutineTVC: UITableViewCell, NibLoadableView, ReusableView {
         $0.titleLabel?.font = .IBMPlexSansBold(ofSize: 12)
         $0.layer.cornerRadius = 8
         $0.setTitleColor(.white, for: .normal)
-        $0.backgroundColor = .upuhSubOrange
+        $0.backgroundColor = .upuhBadgeOrange
         $0.isUserInteractionEnabled = true
         $0.contentEdgeInsets = UIEdgeInsets(top: 6, left: 10, bottom: 6, right: 10)
     }
@@ -49,7 +49,7 @@ class RoutineTVC: UITableViewCell, NibLoadableView, ReusableView {
         $0.titleLabel?.font = .IBMPlexSansBold(ofSize: 12)
         $0.layer.cornerRadius = 8
         $0.setTitleColor(.white, for: .normal)
-        $0.backgroundColor = .upuhSubOrange
+        $0.backgroundColor = .upuhBadgeOrange
         $0.isUserInteractionEnabled = false
         $0.contentEdgeInsets = UIEdgeInsets(top: 6, left: 10, bottom: 6, right: 10)
     }
