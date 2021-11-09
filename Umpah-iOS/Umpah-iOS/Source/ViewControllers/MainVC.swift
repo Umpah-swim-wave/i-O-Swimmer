@@ -43,7 +43,7 @@ final class MainVC: BaseViewController {
     // MARK: - Properties
     
     private lazy var dateText: String = dateformatter.string(from: Date())
-    private lazy var rangeText: String = serverDateformatter.string(from: Date())
+    private lazy var rangeTexts: [String] = [serverDateformatter.string(from: Date()), ""]
     private var cardViewTopConstraint: NSLayoutConstraint?
     private var cardPanStartingTopConstant : CGFloat = 20.0
     private var cardPanMaxVelocity: CGFloat = 1500.0
@@ -74,8 +74,6 @@ final class MainVC: BaseViewController {
         super.viewDidLoad()
         addClosureToChangeState()
         authorizeHealthKit()
-        
-        print(rangeText)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -421,8 +419,8 @@ extension MainVC: SelectedRangeDelegate {
             self.strokeState = .none
             
             // fetch day response
-            self.rangeText = "\(year)-\(transMonth)-\(transDay)"
-            self.storage.dispatchDayRecord(date: self.rangeText, stroke: "") {
+            self.rangeTexts[0] = "\(year)-\(transMonth)-\(transDay)"
+            self.storage.dispatchDayRecord(date: self.rangeTexts[0], stroke: "") {
                 print("day Record")
                 
                 self.baseTableView.reloadSections(IndexSet(1...1), with: .fade)
@@ -435,8 +433,19 @@ extension MainVC: SelectedRangeDelegate {
             self.cardView.dateText = self.dateText
             self.currentState = .week
             self.strokeState = .none
-            self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
-            self.cardView.currentState = self.currentState
+            
+            // fetch week response
+            self.rangeTexts[0] = "2021-10-18"
+            self.rangeTexts[1] = "2021-10-24"
+            
+            self.storage.dispatchWeekRecord(startDate: self.rangeTexts[0],
+                                            endDate: self.rangeTexts[1],
+                                            stroke: "") {
+                print("Week Record")
+                
+                self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
+                self.cardView.currentState = self.currentState
+            }
         }
         vc.monthData = { year, month in
             print("monthData : \(year) \(month)")
@@ -463,7 +472,19 @@ extension MainVC: SelectedRangeDelegate {
         vc.strokeData = { style in
             print(style)
             self.strokeState = style
-            self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
+            
+            switch self.currentState {
+            case .week:
+                self.storage.dispatchWeekRecord(startDate: self.rangeTexts[0],
+                                                endDate: self.rangeTexts[1],
+                                                stroke: style.rawValue) {
+                    print("Week Record with stroke")
+                    
+                    self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
+                }
+            default:
+                break
+            }
         }
         
         present(vc, animated: true, completion: nil)
