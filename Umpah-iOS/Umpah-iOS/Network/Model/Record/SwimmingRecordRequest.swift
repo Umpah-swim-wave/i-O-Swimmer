@@ -46,7 +46,7 @@ struct RecordLab: Codable {
     let strokeType: Int
 }
 
-struct CommonRespose: Codable {
+struct CommonResponse: Codable {
     let status: Int
     let message: String
     let success: Bool

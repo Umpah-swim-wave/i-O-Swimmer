@@ -28,10 +28,10 @@ enum RangeState {
     case none
 }
 
-enum Stroke {
-    case freestyle
-    case breaststroke
-    case backstroke
-    case butterfly
+enum Stroke: String, CaseIterable {
+    case freestyle = "FREESTYLE"
+    case breaststroke = "BREAST"
+    case backstroke = "BACK"
+    case butterfly = "BUTTERFLY"
     case none
 }

@@ -10,6 +10,7 @@ import Moya
 
 enum RecordService{
     case sendSwimmingRecord(param: SwimmingRecordRequest)
+    case askDayRecord(param: DayRecordRequest)
 }
 
 extension RecordService: TargetType{
@@ -21,12 +22,15 @@ extension RecordService: TargetType{
         switch self {
         case .sendSwimmingRecord:
             return "/record"
+        case .askDayRecord:
+            return "/dayRecord/list"
         }
     }
     
     var method: Moya.Method {
         switch self{
-        case .sendSwimmingRecord:
+        case .sendSwimmingRecord,
+             .askDayRecord:
             return .post
         }
     }
@@ -38,6 +42,8 @@ extension RecordService: TargetType{
     var task: Task {
         switch self {
         case .sendSwimmingRecord(let param):
+            return .requestJSONEncodable(param)
+        case .askDayRecord(let param):
             return .requestJSONEncodable(param)
         }
     }

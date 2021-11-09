@@ -11,7 +11,6 @@ import Then
 import RxSwift
 import RxCocoa
 import Charts
-import Moya
 
 final class MainVC: BaseViewController {
 
@@ -44,6 +43,7 @@ final class MainVC: BaseViewController {
     // MARK: - Properties
     
     private lazy var dateText: String = dateformatter.string(from: Date())
+    private lazy var rangeText: String = serverDateformatter.string(from: Date())
     private var cardViewTopConstraint: NSLayoutConstraint?
     private var cardPanStartingTopConstant : CGFloat = 20.0
     private var cardPanMaxVelocity: CGFloat = 1500.0
@@ -54,13 +54,19 @@ final class MainVC: BaseViewController {
         $0.dateFormat = "YY/MM/dd"
         $0.locale = Locale.init(identifier: "ko-KR")
     }
-    
-    private let authProvider = MoyaProvider<RecordService>()
+    private var serverDateformatter = DateFormatter().then {
+        $0.dateFormat = "YYYY-MM-dd"
+        $0.locale = Locale.init(identifier: "ko-KR")
+    }
     
     // MARK: - Routine data
     
     var routineOverViewList: [RoutineOverviewData] = []
     let swimmingViewModel = SwimmingDataViewModel()
+    
+    // MARK: - Storage
+    
+    let storage = RecordStorage.shared
     
     // MARK: - Life Cycle
     
@@ -68,6 +74,8 @@ final class MainVC: BaseViewController {
         super.viewDidLoad()
         addClosureToChangeState()
         authorizeHealthKit()
+        
+        print(rangeText)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -411,8 +419,15 @@ extension MainVC: SelectedRangeDelegate {
             self.cardView.dateText = self.dateText
             self.currentState = (self.dateText == self.dateformatter.string(from: Date())) ? .base : .day
             self.strokeState = .none
-            self.baseTableView.reloadSections(IndexSet(1...1), with: .fade)
-            self.cardView.currentState = self.currentState
+            
+            // fetch day response
+            self.rangeText = "\(year)-\(transMonth)-\(transDay)"
+            self.storage.dispatchDayRecord(date: self.rangeText, stroke: "") {
+                print("day Record")
+                
+                self.baseTableView.reloadSections(IndexSet(1...1), with: .fade)
+                self.cardView.currentState = self.currentState
+            }
         }
         vc.weekData = { week in
             print("weekData : \(week)")
@@ -483,30 +498,18 @@ extension MainVC{
     private func postRecordData(){
         swimmingViewModel
             .swimmingSubject
-            .bind(onNext: { workoutList in
+            .bind(onNext: { [weak self] workoutList in
+                guard let self = self else { return }
+                
                 print("workoutList.count------------\(workoutList.count)---------------")
                 workoutList.forEach{
                     print("\($0.display())")
                     print("count = \($0.recordLabsList.count)")
                 }
                 print("----------------------------")
-                let param = SwimmingRecordRequest(userID: 1,
-                                                  workoutList: workoutList)
-                self.authProvider.request(.sendSwimmingRecord(param: param)) { response in
-                    switch response{
-                    case .success(let result):
-                        do{
-                            print(result)
-                            let reposneData = try result.map(CommonRespose.self)
-                            print("-----------response-----------")
-                            print(reposneData)
-                            print("------------------------------")
-                        }catch(let err){
-                            print(err.localizedDescription)
-                        }
-                    case .failure(let err):
-                        print(err.localizedDescription)
-                    }
+                
+                self.storage.dispatchRecord(workoutList: workoutList) {
+                    print("success")
                 }
             }).disposed(by: disposeBag)
     }

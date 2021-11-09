@@ -22,7 +22,6 @@
 		3C8CE32A26BCBE6B002BBFE5 /* RoutineSetTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C8CE32826BCBE6B002BBFE5 /* RoutineSetTVC.xib */; };
 		3C8CE32D26BCC318002BBFE5 /* UITableView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C8CE32C26BCC318002BBFE5 /* UITableView+.swift */; };
 		3CA621EA2727C71E002CB901 /* SwimmingRecordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA621E92727C71E002CB901 /* SwimmingRecordRequest.swift */; };
-		3CA621ED2727C943002CB901 /* GeneralAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA621EC2727C943002CB901 /* GeneralAPI.swift */; };
 		3CA621EF2727C9F1002CB901 /* NetworkLoggerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA621EE2727C9F1002CB901 /* NetworkLoggerPlugin.swift */; };
 		3CA621F12727CB68002CB901 /* RecordService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CA621F02727CB68002CB901 /* RecordService.swift */; };
 		3CAD1F2626CBDA64001CD535 /* UIWindow+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CAD1F2526CBDA64001CD535 /* UIWindow+.swift */; };
@@ -42,6 +41,9 @@
 		ECF21C0C9372B4F1A806C262 /* Pods_Umpah_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB7CF8BBFF32001FC0A7E689 /* Pods_Umpah_iOS.framework */; };
 		ED1DC478271FD94D002FF766 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1DC477271FD94D002FF766 /* BaseView.swift */; };
 		ED1DC47C2721814B002FF766 /* Alertable+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1DC47B2721814B002FF766 /* Alertable+UIViewController.swift */; };
+		ED22C692273A554200036CF7 /* GeneralAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED22C691273A554200036CF7 /* GeneralAPI.swift */; };
+		ED22C698273A573500036CF7 /* DayRecordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED22C697273A573500036CF7 /* DayRecordRequest.swift */; };
+		ED22C69B273A588A00036CF7 /* RecordStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED22C69A273A588A00036CF7 /* RecordStorage.swift */; };
 		ED2ACAF626E41A4F00C5A772 /* FilterTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2ACAF526E41A4F00C5A772 /* FilterTVC.swift */; };
 		ED2ACAF826E41C7200C5A772 /* FilterCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2ACAF726E41C7200C5A772 /* FilterCVC.swift */; };
 		ED5396E226B975AD0061722F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED5396E126B975AD0061722F /* Main.storyboard */; };
@@ -172,7 +174,6 @@
 		3C8CE32826BCBE6B002BBFE5 /* RoutineSetTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RoutineSetTVC.xib; path = "Umpah-iOS/Resource/Xibs/RoutineScene/RoutineSetTVC.xib"; sourceTree = SOURCE_ROOT; };
 		3C8CE32C26BCC318002BBFE5 /* UITableView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+.swift"; sourceTree = "<group>"; };
 		3CA621E92727C71E002CB901 /* SwimmingRecordRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwimmingRecordRequest.swift; sourceTree = "<group>"; };
-		3CA621EC2727C943002CB901 /* GeneralAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralAPI.swift; sourceTree = "<group>"; };
 		3CA621EE2727C9F1002CB901 /* NetworkLoggerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLoggerPlugin.swift; sourceTree = "<group>"; };
 		3CA621F02727CB68002CB901 /* RecordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordService.swift; sourceTree = "<group>"; };
 		3CAD1F2526CBDA64001CD535 /* UIWindow+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIWindow+.swift"; sourceTree = "<group>"; };
@@ -196,6 +197,9 @@
 		E2A34E7653F7869CEB27C154 /* Pods-Umpah-iOS WatchKit Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Umpah-iOS WatchKit Extension.debug.xcconfig"; path = "Target Support Files/Pods-Umpah-iOS WatchKit Extension/Pods-Umpah-iOS WatchKit Extension.debug.xcconfig"; sourceTree = "<group>"; };
 		ED1DC477271FD94D002FF766 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		ED1DC47B2721814B002FF766 /* Alertable+UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alertable+UIViewController.swift"; sourceTree = "<group>"; };
+		ED22C691273A554200036CF7 /* GeneralAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralAPI.swift; sourceTree = "<group>"; };
+		ED22C697273A573500036CF7 /* DayRecordRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRecordRequest.swift; sourceTree = "<group>"; };
+		ED22C69A273A588A00036CF7 /* RecordStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordStorage.swift; sourceTree = "<group>"; };
 		ED2ACAF526E41A4F00C5A772 /* FilterTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTVC.swift; sourceTree = "<group>"; };
 		ED2ACAF726E41C7200C5A772 /* FilterCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCVC.swift; sourceTree = "<group>"; };
 		ED5396E126B975AD0061722F /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -312,11 +316,7 @@
 		3C7479E72702ED62006752EE /* Service */ = {
 			isa = PBXGroup;
 			children = (
-				3C7479E82702EDB5006752EE /* RoutineStorageType.swift */,
-				3C7479EA2702EFAE006752EE /* RoutineStorage.swift */,
 				3C662B5F271988E70061E133 /* HealthKitSetupAssistant.swift */,
-				3CF4E90F2719C09A00FE8802 /* SwimmingDataStorage.swift */,
-				3CA621F02727CB68002CB901 /* RecordService.swift */,
 			);
 			path = Service;
 			sourceTree = "<group>";
@@ -331,19 +331,10 @@
 			path = RoutineScene;
 			sourceTree = "<group>";
 		};
-		3CA621E82727C6D1002CB901 /* Record */ = {
-			isa = PBXGroup;
-			children = (
-				3CA621E92727C71E002CB901 /* SwimmingRecordRequest.swift */,
-			);
-			path = Record;
-			sourceTree = "<group>";
-		};
 		3CA621EB2727C931002CB901 /* APIServices */ = {
 			isa = PBXGroup;
 			children = (
-				3CA621EC2727C943002CB901 /* GeneralAPI.swift */,
-				3CA621EE2727C9F1002CB901 /* NetworkLoggerPlugin.swift */,
+				3CA621F02727CB68002CB901 /* RecordService.swift */,
 			);
 			path = APIServices;
 			sourceTree = "<group>";
@@ -375,6 +366,56 @@
 				ED1DC47B2721814B002FF766 /* Alertable+UIViewController.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		ED22C693273A55F800036CF7 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				ED22C699273A584F00036CF7 /* Storage */,
+				ED22C695273A56DB00036CF7 /* Model */,
+				ED22C694273A560E00036CF7 /* Foundation */,
+				3CA621EB2727C931002CB901 /* APIServices */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		ED22C694273A560E00036CF7 /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+				3CA621EE2727C9F1002CB901 /* NetworkLoggerPlugin.swift */,
+				ED22C691273A554200036CF7 /* GeneralAPI.swift */,
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
+		ED22C695273A56DB00036CF7 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				ED22C696273A56E700036CF7 /* Record */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		ED22C696273A56E700036CF7 /* Record */ = {
+			isa = PBXGroup;
+			children = (
+				3CA621E92727C71E002CB901 /* SwimmingRecordRequest.swift */,
+				3C7F68882715704F00758733 /* RoutineDataModel.swift */,
+				3CF4E9112719C0F100FE8802 /* SwimmingDataModel.swift */,
+				ED22C697273A573500036CF7 /* DayRecordRequest.swift */,
+			);
+			path = Record;
+			sourceTree = "<group>";
+		};
+		ED22C699273A584F00036CF7 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				3C7479E82702EDB5006752EE /* RoutineStorageType.swift */,
+				3C7479EA2702EFAE006752EE /* RoutineStorage.swift */,
+				3CF4E90F2719C09A00FE8802 /* SwimmingDataStorage.swift */,
+				ED22C69A273A588A00036CF7 /* RecordStorage.swift */,
+			);
+			path = Storage;
 			sourceTree = "<group>";
 		};
 		ED78842726DC9B96006D8787 /* Views */ = {
@@ -517,6 +558,7 @@
 			isa = PBXGroup;
 			children = (
 				3C662B6127198AE90061E133 /* Umpah-iOS.entitlements */,
+				ED22C693273A55F800036CF7 /* Network */,
 				EDEF3B53271E95CA00C852E7 /* Global */,
 				EDD4400F26483CBC00C866F3 /* Source */,
 				EDD4401026483CC300C866F3 /* Resource */,
@@ -548,7 +590,6 @@
 			isa = PBXGroup;
 			children = (
 				ED78842726DC9B96006D8787 /* Views */,
-				EDD4401626483D1A00C866F3 /* Models */,
 				EDD4401526483D1600C866F3 /* ViewModels */,
 				EDD4401726483D2100C866F3 /* ViewControllers */,
 				3C7479E72702ED62006752EE /* Service */,
@@ -559,7 +600,6 @@
 		EDD4401026483CC300C866F3 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
-				3CA621EB2727C931002CB901 /* APIServices */,
 				EDD43FDC26483C9600C866F3 /* Assets.xcassets */,
 				EDD3CCF32701BE9100AFED4B /* Font */,
 				EDD4401A26483D4900C866F3 /* Xibs */,
@@ -609,16 +649,6 @@
 				3CF4E9152719F43700FE8802 /* SwimmingDataViewModel.swift */,
 			);
 			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		EDD4401626483D1A00C866F3 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				3CA621E82727C6D1002CB901 /* Record */,
-				3C7F68882715704F00758733 /* RoutineDataModel.swift */,
-				3CF4E9112719C0F100FE8802 /* SwimmingDataModel.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		EDD4401726483D2100C866F3 /* ViewControllers */ = {
@@ -983,7 +1013,6 @@
 				3CF69DF026E781B5002FD6DB /* ModifyElementTVC.swift in Sources */,
 				3C7479E12702E577006752EE /* RoutineItemTVC.swift in Sources */,
 				ED5396ED26B977320061722F /* UIApplication+.swift in Sources */,
-				3CA621ED2727C943002CB901 /* GeneralAPI.swift in Sources */,
 				3C7479E22702E577006752EE /* RoutineSetTVC.swift in Sources */,
 				3C7479E92702EDB5006752EE /* RoutineStorageType.swift in Sources */,
 				EDEF3B56271E962400C852E7 /* BaseViewController.swift in Sources */,
@@ -999,6 +1028,8 @@
 				ED8AB6A92703157A0066CD02 /* SelectedRangeDelegate.swift in Sources */,
 				EDD3CCDC27019A7200AFED4B /* RangeView.swift in Sources */,
 				EDC1EDDF26BF8FF600DCB215 /* Charts+.swift in Sources */,
+				ED22C69B273A588A00036CF7 /* RecordStorage.swift in Sources */,
+				ED22C698273A573500036CF7 /* DayRecordRequest.swift in Sources */,
 				EDD7C44226CBDCE200D93306 /* DetailView.swift in Sources */,
 				ED1DC47C2721814B002FF766 /* Alertable+UIViewController.swift in Sources */,
 				EDD3CCDE2701B16A00AFED4B /* UIFont+.swift in Sources */,
@@ -1036,6 +1067,7 @@
 				EDD46F4B26BE99F900FA91F2 /* NormalStateView.swift in Sources */,
 				ED5396F926B977D10061722F /* UIView+.swift in Sources */,
 				ED2ACAF626E41A4F00C5A772 /* FilterTVC.swift in Sources */,
+				ED22C692273A554200036CF7 /* GeneralAPI.swift in Sources */,
 				ED8AB6AB2703158F0066CD02 /* States.swift in Sources */,
 				3CF4E9162719F43700FE8802 /* SwimmingDataViewModel.swift in Sources */,
 				EDD7C44026CBDB4600D93306 /* DetailTVC.swift in Sources */,
