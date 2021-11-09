@@ -39,6 +39,7 @@ final class RecordStorage {
                 }
             case .failure(let err):
                 print(err.localizedDescription)
+                completion()
             }
         }
     }
@@ -56,11 +57,12 @@ final class RecordStorage {
                     print(responseData)
                     print("------------------------------")
                     completion()
-                }catch(let err){
+                } catch(let err){
                     print(err.localizedDescription)
                 }
             case .failure(let err):
                 print(err.localizedDescription)
+                completion()
             }
         }
     }
