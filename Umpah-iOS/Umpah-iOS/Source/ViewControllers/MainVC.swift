@@ -454,8 +454,15 @@ extension MainVC: SelectedRangeDelegate {
             self.cardView.dateText = self.dateText
             self.currentState = .month
             self.strokeState = .none
-            self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
-            self.cardView.currentState = self.currentState
+            
+            // fetch month response
+            self.rangeTexts[0] = "\(year)-\(transMonth)"
+            self.storage.dispatchDayRecord(date: self.rangeTexts[0], stroke: "") {
+                print("month Record")
+                
+                self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
+                self.cardView.currentState = self.currentState
+            }
         }
         
         present(vc, animated: true, completion: nil)
@@ -479,6 +486,13 @@ extension MainVC: SelectedRangeDelegate {
                                                 endDate: self.rangeTexts[1],
                                                 stroke: style.rawValue) {
                     print("Week Record with stroke")
+                    
+                    self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
+                }
+            case .month:
+                self.storage.dispatchMonthRecord(date: self.rangeTexts[0],
+                                                 stroke: style.rawValue) {
+                    print("Month Record with stroke")
                     
                     self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
                 }

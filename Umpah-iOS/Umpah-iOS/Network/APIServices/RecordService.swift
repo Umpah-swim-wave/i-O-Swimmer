@@ -10,8 +10,9 @@ import Moya
 
 enum RecordService{
     case sendSwimmingRecord(param: SwimmingRecordRequest)
-    case askDayRecord(param: DayRecordRequest)
+    case askDayRecord(param: CommonRecordRequest)
     case askWeekRecord(param: WeekRecordRequest)
+    case askMonthRecord(param: CommonRecordRequest)
 }
 
 extension RecordService: TargetType{
@@ -27,6 +28,8 @@ extension RecordService: TargetType{
             return "/dayRecord/list"
         case .askWeekRecord:
             return "/weekRecord/list"
+        case .askMonthRecord:
+            return "/monthRecord/list"
         }
     }
     
@@ -34,7 +37,8 @@ extension RecordService: TargetType{
         switch self{
         case .sendSwimmingRecord,
              .askDayRecord,
-             .askWeekRecord:
+             .askWeekRecord,
+             .askMonthRecord:
             return .post
         }
     }
@@ -50,6 +54,8 @@ extension RecordService: TargetType{
         case .askDayRecord(let param):
             return .requestJSONEncodable(param)
         case .askWeekRecord(let param):
+            return .requestJSONEncodable(param)
+        case .askMonthRecord(let param):
             return .requestJSONEncodable(param)
         }
     }

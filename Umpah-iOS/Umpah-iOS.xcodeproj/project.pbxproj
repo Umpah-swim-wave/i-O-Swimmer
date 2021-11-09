@@ -42,7 +42,7 @@
 		ED1DC478271FD94D002FF766 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1DC477271FD94D002FF766 /* BaseView.swift */; };
 		ED1DC47C2721814B002FF766 /* Alertable+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1DC47B2721814B002FF766 /* Alertable+UIViewController.swift */; };
 		ED22C692273A554200036CF7 /* GeneralAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED22C691273A554200036CF7 /* GeneralAPI.swift */; };
-		ED22C698273A573500036CF7 /* DayRecordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED22C697273A573500036CF7 /* DayRecordRequest.swift */; };
+		ED22C698273A573500036CF7 /* CommonRecordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED22C697273A573500036CF7 /* CommonRecordRequest.swift */; };
 		ED22C69B273A588A00036CF7 /* RecordStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED22C69A273A588A00036CF7 /* RecordStorage.swift */; };
 		ED22C69D273A619800036CF7 /* WeekRecordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED22C69C273A619800036CF7 /* WeekRecordRequest.swift */; };
 		ED2ACAF626E41A4F00C5A772 /* FilterTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2ACAF526E41A4F00C5A772 /* FilterTVC.swift */; };
@@ -199,7 +199,7 @@
 		ED1DC477271FD94D002FF766 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		ED1DC47B2721814B002FF766 /* Alertable+UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alertable+UIViewController.swift"; sourceTree = "<group>"; };
 		ED22C691273A554200036CF7 /* GeneralAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralAPI.swift; sourceTree = "<group>"; };
-		ED22C697273A573500036CF7 /* DayRecordRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRecordRequest.swift; sourceTree = "<group>"; };
+		ED22C697273A573500036CF7 /* CommonRecordRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonRecordRequest.swift; sourceTree = "<group>"; };
 		ED22C69A273A588A00036CF7 /* RecordStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordStorage.swift; sourceTree = "<group>"; };
 		ED22C69C273A619800036CF7 /* WeekRecordRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekRecordRequest.swift; sourceTree = "<group>"; };
 		ED2ACAF526E41A4F00C5A772 /* FilterTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTVC.swift; sourceTree = "<group>"; };
@@ -404,7 +404,7 @@
 				3CA621E92727C71E002CB901 /* SwimmingRecordRequest.swift */,
 				3C7F68882715704F00758733 /* RoutineDataModel.swift */,
 				3CF4E9112719C0F100FE8802 /* SwimmingDataModel.swift */,
-				ED22C697273A573500036CF7 /* DayRecordRequest.swift */,
+				ED22C697273A573500036CF7 /* CommonRecordRequest.swift */,
 				ED22C69C273A619800036CF7 /* WeekRecordRequest.swift */,
 			);
 			path = Record;
@@ -1032,7 +1032,7 @@
 				EDD3CCDC27019A7200AFED4B /* RangeView.swift in Sources */,
 				EDC1EDDF26BF8FF600DCB215 /* Charts+.swift in Sources */,
 				ED22C69B273A588A00036CF7 /* RecordStorage.swift in Sources */,
-				ED22C698273A573500036CF7 /* DayRecordRequest.swift in Sources */,
+				ED22C698273A573500036CF7 /* CommonRecordRequest.swift in Sources */,
 				EDD7C44226CBDCE200D93306 /* DetailView.swift in Sources */,
 				ED1DC47C2721814B002FF766 /* Alertable+UIViewController.swift in Sources */,
 				EDD3CCDE2701B16A00AFED4B /* UIFont+.swift in Sources */,
