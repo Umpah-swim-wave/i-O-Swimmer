@@ -433,7 +433,6 @@ extension MainVC: SelectedRangeDelegate {
             self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
             self.cardView.currentState = self.currentState
         }
-        
         present(vc, animated: true, completion: nil)
     }
     
@@ -497,7 +496,7 @@ extension MainVC{
                     case .success(let result):
                         do{
                             print(result)
-                            let reposneData = try result.map(CommonRespose.self)
+                            let reposneData = try result.map(CommonResponse.self)
                             print("-----------response-----------")
                             print(reposneData)
                             print("------------------------------")
