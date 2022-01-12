@@ -18,17 +18,29 @@ class SwimmingDataStorage{
             print("signal 불림")
         }
     }
-    let startDate = Calendar.current.date(byAdding: .year, value: -1, to: Date())
-    let datePredicate = HKQuery.predicateForSamples(withStart: Calendar.current.date(byAdding: .year, value: -1, to: Date()),
+    
+    let datePredicate = HKQuery.predicateForSamples(withStart: Calendar.current.date(byAdding: .year,
+                                                                                     value: -1,
+                                                                                     to: Date()),
                                                     end: Date(),
                                                     options: .strictEndDate)
     let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
     
+    func getlastestWorkoutDate() -> Date?{
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+        formatter.timeZone = TimeZone(identifier: "Asia/Seoul")
+        if let lastestData = UserDefaults.standard.string(forKey: "lastestWorkoutDate") {
+            print("저장된 이전 날짜가 있음 \(lastestData)")
+            return formatter.date(from: lastestData)
+        }
+        return nil
+    }
+    
+    
     //MARK: 가장먼저 source를 가져와야함.
     func loadWorkoutHKSource(completion: @escaping (Bool, Error?) -> Void){
         let sampleType = HKObjectType.workoutType()
-        let predicate = HKQuery.predicateForSamples(withStart: startDate, end: Date(), options: .strictEndDate)
-        
         let sourceQuery = HKSourceQuery.init(sampleType: sampleType,
                                              samplePredicate: datePredicate){ (query, result, error) in
             guard let sources = result else{
@@ -57,11 +69,15 @@ class SwimmingDataStorage{
         }
         print("source data 시작")
         let sortDescriptor = NSSortDescriptor(key: HKSampleSortIdentifierStartDate, ascending: false)
-        //let predicate = HKQuery.predicateForSamples(withStart: startDate, end: Date(), options: .strictEndDate)
+        let startDate = getlastestWorkoutDate() ?? Calendar.current.date(byAdding: .year,
+                                                                         value: -1,
+                                                                         to: Date())
+        let datePredicate = HKQuery.predicateForSamples(withStart: startDate,
+                                                    end: Date(), options: .strictEndDate)
         let swimmingPredicate = HKQuery.predicateForWorkouts(with: .swimming)
         let sourcePredicate = HKQuery.predicateForObjects(from: sourceSet)
-        let compound = NSCompoundPredicate(andPredicateWithSubpredicates: [swimmingPredicate, sourcePredicate])
-        
+        let compound = NSCompoundPredicate(andPredicateWithSubpredicates: [swimmingPredicate,
+                                                                           sourcePredicate, datePredicate])
         let query = HKSampleQuery(sampleType: HKObjectType.workoutType(),
                                   predicate: compound,
                                   limit: 0,
@@ -103,6 +119,10 @@ class SwimmingDataStorage{
                 swimmingWorkoutList.append(swimming)
                 swimming.display()
             }
+            UserDefaults.standard.set(swimmingWorkoutList[swimmingWorkoutList.count - 1].endDate,
+                                      forKey: "lastestWorkoutDate")
+            print()
+            print("마지막 날짜 설정 \(UserDefaults.standard.string(forKey: "lastestWorkoutDate"))")
             completion(swimmingWorkoutList, nil)
         }
     }

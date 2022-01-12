@@ -73,6 +73,7 @@ final class MainVC: BaseViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         decideTopConstraint(of: .normal)
+        swimmingViewModel.getNewSwimmingData()
     }
     
     // MARK: - Override Method
@@ -488,6 +489,7 @@ extension MainVC{
                     print("\($0.display())")
                     print("count = \($0.recordLabsList.count)")
                 }
+                UserDefaults.standard.set(workoutList.last?.startWorkoutDate, forKey: "lastestStartWorkoutDate")
                 print("----------------------------")
                 let param = SwimmingRecordRequest(userID: 1,
                                                   workoutList: workoutList)

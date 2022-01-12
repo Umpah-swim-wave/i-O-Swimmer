@@ -21,7 +21,6 @@ extension Date{
         //formatter.timeZone = TimeZone.init(abbreviation: "UTC")
         formatter.timeZone = TimeZone(identifier: "Asia/Seoul")
         let localTime = formatter.string(from: self)
-        
         return localTime
     }
 }

@@ -15,12 +15,26 @@ class SwimmingDataViewModel{
     lazy var swimmingWorkoutList: [SwimWorkoutData] = [] {
         didSet {
             semaphore.signal()
-            print("semaphore 시드널 불림")
         }
     }
     let swimmingSubject = PublishSubject<[SwimmingWorkoutData]>()
 
     func initSwimmingData(){
+        swimmingStorage.loadWorkoutHKSource { completed, error in
+            print("complete = \(completed)")
+            if completed {
+                self.swimmingStorage.refineSwimmingWorkoutData(completion: { workoutList, error in
+                    self.swimmingWorkoutList = workoutList
+                    self.getStrokeAndDistanceData()
+                    self.getHeartRateData()
+                })
+            }
+        }
+    }
+    
+    func getNewSwimmingData(){
+        print("----------------getNewSwimmingData---------------------")
+        print("lastest swiming date = \(UserDefaults.standard.string(forKey: "lastestWorkoutDate"))")
         swimmingStorage.loadWorkoutHKSource { completed, error in
             print("complete = \(completed)")
             if completed {
@@ -42,11 +56,8 @@ class SwimmingDataViewModel{
                 
         swimmingWorkoutList.forEach{ swimming in
             swimming.isCompleted().bind(onNext: { isComplete in
-                print("swimming.metadata = \(swimming.metadata["HKLapLength"]), \(type(of: swimming.metadata["HKLapLength"]))")
                 let labsData = swimming.metadata["HKLapLength"] as? String
-                print("labsData = \(labsData)")
                 let perLab = Int(labsData?.components(separatedBy: " m")[0] ?? "25")
-                print("perLab = \(perLab), type = \(type(of: perLab))")
                 var recordList: [RecordLab] = []
                 swimming.strokeList.forEach{ stroke in
                     let record = RecordLab(date: stroke.startDate.toKoreaTime(),
