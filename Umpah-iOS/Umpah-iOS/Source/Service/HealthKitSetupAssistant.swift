@@ -45,8 +45,9 @@ class HealthKitSetupAssistant{
                                                        dateOfBirth,
                                                        biologicalSex,
                                                        HKObjectType.workoutType()]
+        let healthKitTypesToWrite: Set<HKSampleType> = []
         
-        HKHealthStore().requestAuthorization(toShare: nil,
+        HKHealthStore().requestAuthorization(toShare: healthKitTypesToWrite,
                                              read: healthKitTypesToRead) { (success, error) in
             completion(success, error)
         }
