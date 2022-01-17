@@ -37,8 +37,6 @@
 		3CF69DF026E781B5002FD6DB /* ModifyElementTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF69DEE26E781B5002FD6DB /* ModifyElementTVC.swift */; };
 		3CF69DF126E781B5002FD6DB /* ModifyElementTVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3CF69DEF26E781B5002FD6DB /* ModifyElementTVC.xib */; };
 		3CF69DF426E79A68002FD6DB /* RoutineViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF69DF326E79A68002FD6DB /* RoutineViewModel.swift */; };
-		65BD8F2201A9C1AFD7C2D8DD /* Pods_Umpah_iOS_WatchKit_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86DD879FC3C4E84D7E3F34D5 /* Pods_Umpah_iOS_WatchKit_App.framework */; };
-		D1F464F8FC2774B0D55FFF79 /* Pods_Umpah_iOS_WatchKit_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C521171D608E01D7F8B2492 /* Pods_Umpah_iOS_WatchKit_Extension.framework */; };
 		ECF21C0C9372B4F1A806C262 /* Pods_Umpah_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB7CF8BBFF32001FC0A7E689 /* Pods_Umpah_iOS.framework */; };
 		ED1DC478271FD94D002FF766 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1DC477271FD94D002FF766 /* BaseView.swift */; };
 		ED1DC47C2721814B002FF766 /* Alertable+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1DC47B2721814B002FF766 /* Alertable+UIViewController.swift */; };
@@ -86,14 +84,6 @@
 		EDD43FD626483C9500C866F3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD43FD526483C9500C866F3 /* SceneDelegate.swift */; };
 		EDD43FDD26483C9600C866F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDD43FDC26483C9600C866F3 /* Assets.xcassets */; };
 		EDD43FE026483C9600C866F3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDD43FDE26483C9600C866F3 /* LaunchScreen.storyboard */; };
-		EDD43FE526483C9600C866F3 /* Umpah-iOS WatchKit App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = EDD43FE426483C9600C866F3 /* Umpah-iOS WatchKit App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		EDD43FEB26483C9600C866F3 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EDD43FE926483C9600C866F3 /* Interface.storyboard */; };
-		EDD43FED26483C9600C866F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDD43FEC26483C9600C866F3 /* Assets.xcassets */; };
-		EDD43FF426483C9700C866F3 /* Umpah-iOS WatchKit Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = EDD43FF326483C9700C866F3 /* Umpah-iOS WatchKit Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		EDD43FF926483C9700C866F3 /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD43FF826483C9700C866F3 /* InterfaceController.swift */; };
-		EDD43FFB26483C9700C866F3 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD43FFA26483C9700C866F3 /* ExtensionDelegate.swift */; };
-		EDD43FFD26483C9700C866F3 /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD43FFC26483C9700C866F3 /* ComplicationController.swift */; };
-		EDD43FFF26483C9700C866F3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EDD43FFE26483C9700C866F3 /* Assets.xcassets */; };
 		EDD46F4B26BE99F900FA91F2 /* NormalStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD46F4A26BE99F900FA91F2 /* NormalStateView.swift */; };
 		EDD46F4D26BE9C0200FA91F2 /* ExpandedStateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD46F4C26BE9C0200FA91F2 /* ExpandedStateView.swift */; };
 		EDD46F5226BEEA3B00FA91F2 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD46F5126BEEA3B00FA91F2 /* UILabel+.swift */; };
@@ -111,42 +101,13 @@
 		EDFC6EE72702387500B718C6 /* RangeButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDFC6EE62702387500B718C6 /* RangeButton.swift */; };
 /* End PBXBuildFile section */
 
-/* Begin PBXContainerItemProxy section */
-		EDD43FE626483C9600C866F3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EDD43FC826483C9500C866F3 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = EDD43FE326483C9600C866F3;
-			remoteInfo = "Umpah-iOS WatchKit App";
-		};
-		EDD43FF526483C9700C866F3 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = EDD43FC826483C9500C866F3 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = EDD43FF226483C9700C866F3;
-			remoteInfo = "Umpah-iOS WatchKit Extension";
-		};
-/* End PBXContainerItemProxy section */
-
 /* Begin PBXCopyFilesBuildPhase section */
-		EDD4400626483C9700C866F3 /* Embed App Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				EDD43FF426483C9700C866F3 /* Umpah-iOS WatchKit Extension.appex in Embed App Extensions */,
-			);
-			name = "Embed App Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		EDD4400A26483C9700C866F3 /* Embed Watch Content */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				EDD43FE526483C9600C866F3 /* Umpah-iOS WatchKit App.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -177,6 +138,7 @@
 		3CA621F02727CB68002CB901 /* RecordService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordService.swift; sourceTree = "<group>"; };
 		3CAD1F2526CBDA64001CD535 /* UIWindow+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIWindow+.swift"; sourceTree = "<group>"; };
 		3CB4B33026BBB396003C578D /* RoutineItemTVC.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = RoutineItemTVC.xib; path = "Umpah-iOS/Resource/Xibs/RoutineScene/RoutineItemTVC.xib"; sourceTree = SOURCE_ROOT; };
+		3CB600D02794BEC700BE00F5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		3CE4D67826DD2786007E4193 /* CALayer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CALayer+.swift"; sourceTree = "<group>"; };
 		3CF4E90F2719C09A00FE8802 /* SwimmingDataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwimmingDataStorage.swift; sourceTree = "<group>"; };
 		3CF4E9112719C0F100FE8802 /* SwimmingDataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwimmingDataModel.swift; sourceTree = "<group>"; };
@@ -242,11 +204,9 @@
 		EDD43FDC26483C9600C866F3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EDD43FDF26483C9600C866F3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		EDD43FE126483C9600C866F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EDD43FE426483C9600C866F3 /* Umpah-iOS WatchKit App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Umpah-iOS WatchKit App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDD43FEA26483C9600C866F3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		EDD43FEC26483C9600C866F3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		EDD43FEE26483C9600C866F3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		EDD43FF326483C9700C866F3 /* Umpah-iOS WatchKit Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Umpah-iOS WatchKit Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EDD43FF826483C9700C866F3 /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
 		EDD43FFA26483C9700C866F3 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
 		EDD43FFC26483C9700C866F3 /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
@@ -276,22 +236,6 @@
 			files = (
 				ECF21C0C9372B4F1A806C262 /* Pods_Umpah_iOS.framework in Frameworks */,
 				3C662B6327198AEA0061E133 /* HealthKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		EDD43FF026483C9700C866F3 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				D1F464F8FC2774B0D55FFF79 /* Pods_Umpah_iOS_WatchKit_Extension.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		F115ED41B247AF9B233EDCA4 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				65BD8F2201A9C1AFD7C2D8DD /* Pods_Umpah_iOS_WatchKit_App.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -346,6 +290,14 @@
 				3CA621EE2727C9F1002CB901 /* NetworkLoggerPlugin.swift */,
 			);
 			path = APIServices;
+			sourceTree = "<group>";
+		};
+		3CBF13872794B37D0013937D /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				EDD43FEE26483C9600C866F3 /* Info.plist */,
+			);
+			path = Resource;
 			sourceTree = "<group>";
 		};
 		3CF69DF226E781C3002FD6DB /* ModifyElementScene */ = {
@@ -507,8 +459,6 @@
 			isa = PBXGroup;
 			children = (
 				EDD43FD026483C9500C866F3 /* Umpah-iOS.app */,
-				EDD43FE426483C9600C866F3 /* Umpah-iOS WatchKit App.app */,
-				EDD43FF326483C9700C866F3 /* Umpah-iOS WatchKit Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -527,9 +477,10 @@
 		EDD43FE826483C9600C866F3 /* Umpah-iOS WatchKit App */ = {
 			isa = PBXGroup;
 			children = (
+				3CBF13872794B37D0013937D /* Resource */,
 				EDD43FE926483C9600C866F3 /* Interface.storyboard */,
 				EDD43FEC26483C9600C866F3 /* Assets.xcassets */,
-				EDD43FEE26483C9600C866F3 /* Info.plist */,
+				3CB600D02794BEC700BE00F5 /* Images.xcassets */,
 			);
 			path = "Umpah-iOS WatchKit App";
 			sourceTree = "<group>";
@@ -762,49 +713,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				EDD43FE726483C9600C866F3 /* PBXTargetDependency */,
 			);
 			name = "Umpah-iOS";
 			productName = "Umpah-iOS";
 			productReference = EDD43FD026483C9500C866F3 /* Umpah-iOS.app */;
 			productType = "com.apple.product-type.application";
-		};
-		EDD43FE326483C9600C866F3 /* Umpah-iOS WatchKit App */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = EDD4400726483C9700C866F3 /* Build configuration list for PBXNativeTarget "Umpah-iOS WatchKit App" */;
-			buildPhases = (
-				E6B7A0407377A8690883EAE3 /* [CP] Check Pods Manifest.lock */,
-				EDD43FE226483C9600C866F3 /* Resources */,
-				EDD4400626483C9700C866F3 /* Embed App Extensions */,
-				F115ED41B247AF9B233EDCA4 /* Frameworks */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				EDD43FF626483C9700C866F3 /* PBXTargetDependency */,
-			);
-			name = "Umpah-iOS WatchKit App";
-			productName = "Umpah-iOS WatchKit App";
-			productReference = EDD43FE426483C9600C866F3 /* Umpah-iOS WatchKit App.app */;
-			productType = "com.apple.product-type.application.watchapp2";
-		};
-		EDD43FF226483C9700C866F3 /* Umpah-iOS WatchKit Extension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = EDD4400326483C9700C866F3 /* Build configuration list for PBXNativeTarget "Umpah-iOS WatchKit Extension" */;
-			buildPhases = (
-				306C15AEF9F47FEBB0645B84 /* [CP] Check Pods Manifest.lock */,
-				EDD43FEF26483C9700C866F3 /* Sources */,
-				EDD43FF026483C9700C866F3 /* Frameworks */,
-				EDD43FF126483C9700C866F3 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "Umpah-iOS WatchKit Extension";
-			productName = "Umpah-iOS WatchKit Extension";
-			productReference = EDD43FF326483C9700C866F3 /* Umpah-iOS WatchKit Extension.appex */;
-			productType = "com.apple.product-type.watchkit2-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -816,12 +729,6 @@
 				LastUpgradeCheck = 1250;
 				TargetAttributes = {
 					EDD43FCF26483C9500C866F3 = {
-						CreatedOnToolsVersion = 12.5;
-					};
-					EDD43FE326483C9600C866F3 = {
-						CreatedOnToolsVersion = 12.5;
-					};
-					EDD43FF226483C9700C866F3 = {
 						CreatedOnToolsVersion = 12.5;
 					};
 				};
@@ -840,8 +747,6 @@
 			projectRoot = "";
 			targets = (
 				EDD43FCF26483C9500C866F3 /* Umpah-iOS */,
-				EDD43FE326483C9600C866F3 /* Umpah-iOS WatchKit App */,
-				EDD43FF226483C9700C866F3 /* Umpah-iOS WatchKit Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -870,23 +775,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EDD43FE226483C9600C866F3 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				EDD43FED26483C9600C866F3 /* Assets.xcassets in Resources */,
-				EDD43FEB26483C9600C866F3 /* Interface.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		EDD43FF126483C9700C866F3 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				EDD43FFF26483C9700C866F3 /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -907,28 +795,6 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Umpah-iOS/Pods-Umpah-iOS-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		306C15AEF9F47FEBB0645B84 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Umpah-iOS WatchKit Extension-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
 		9F40BF3040A19512C3E636BD /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -945,28 +811,6 @@
 			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-Umpah-iOS-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E6B7A0407377A8690883EAE3 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Umpah-iOS WatchKit App-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -1057,30 +901,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		EDD43FEF26483C9700C866F3 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				EDD43FFB26483C9700C866F3 /* ExtensionDelegate.swift in Sources */,
-				EDD43FF926483C9700C866F3 /* InterfaceController.swift in Sources */,
-				EDD43FFD26483C9700C866F3 /* ComplicationController.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		EDD43FE726483C9600C866F3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = EDD43FE326483C9600C866F3 /* Umpah-iOS WatchKit App */;
-			targetProxy = EDD43FE626483C9600C866F3 /* PBXContainerItemProxy */;
-		};
-		EDD43FF626483C9700C866F3 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = EDD43FF226483C9700C866F3 /* Umpah-iOS WatchKit Extension */;
-			targetProxy = EDD43FF526483C9700C866F3 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		EDD43FDE26483C9600C866F3 /* LaunchScreen.storyboard */ = {
@@ -1215,98 +1036,6 @@
 			};
 			name = Release;
 		};
-		EDD4400426483C9700C866F3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = E2A34E7653F7869CEB27C154 /* Pods-Umpah-iOS WatchKit Extension.debug.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = J8A843466G;
-				INFOPLIST_FILE = "Umpah-iOS WatchKit Extension/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.swimis.uhpuh.watchkit.extension;
-				PRODUCT_NAME = "${TARGET_NAME}";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 7.4;
-			};
-			name = Debug;
-		};
-		EDD4400526483C9700C866F3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2D05BFF43235C874BA8005FE /* Pods-Umpah-iOS WatchKit Extension.release.xcconfig */;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = J8A843466G;
-				INFOPLIST_FILE = "Umpah-iOS WatchKit Extension/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.swimis.uhpuh.watchkit.extension;
-				PRODUCT_NAME = "${TARGET_NAME}";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 7.4;
-			};
-			name = Release;
-		};
-		EDD4400826483C9700C866F3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 30E19E303BB4F713D525DDCC /* Pods-Umpah-iOS WatchKit App.debug.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = J8A843466G;
-				IBSC_MODULE = Umpah_iOS_WatchKit_Extension;
-				INFOPLIST_FILE = "Umpah-iOS WatchKit App/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = com.swimis.uhpuh.watchkit;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 7.4;
-			};
-			name = Debug;
-		};
-		EDD4400926483C9700C866F3 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 5C22123FD09CFCBFA7BA82AB /* Pods-Umpah-iOS WatchKit App.release.xcconfig */;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = J8A843466G;
-				IBSC_MODULE = Umpah_iOS_WatchKit_Extension;
-				INFOPLIST_FILE = "Umpah-iOS WatchKit App/Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = com.swimis.uhpuh.watchkit;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				VALIDATE_PRODUCT = YES;
-				WATCHOS_DEPLOYMENT_TARGET = 7.4;
-			};
-			name = Release;
-		};
 		EDD4400C26483C9700C866F3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B53DA869B8F832A627BB5D6C /* Pods-Umpah-iOS.debug.xcconfig */;
@@ -1317,11 +1046,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J8A843466G;
 				INFOPLIST_FILE = "Umpah-iOS/Global/Supports/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.swimis.uhpuh;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -1340,11 +1070,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J8A843466G;
 				INFOPLIST_FILE = "Umpah-iOS/Global/Supports/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.swimis.uhpuh;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
@@ -1362,24 +1093,6 @@
 			buildConfigurations = (
 				EDD4400126483C9700C866F3 /* Debug */,
 				EDD4400226483C9700C866F3 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		EDD4400326483C9700C866F3 /* Build configuration list for PBXNativeTarget "Umpah-iOS WatchKit Extension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				EDD4400426483C9700C866F3 /* Debug */,
-				EDD4400526483C9700C866F3 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		EDD4400726483C9700C866F3 /* Build configuration list for PBXNativeTarget "Umpah-iOS WatchKit App" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				EDD4400826483C9700C866F3 /* Debug */,
-				EDD4400926483C9700C866F3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
