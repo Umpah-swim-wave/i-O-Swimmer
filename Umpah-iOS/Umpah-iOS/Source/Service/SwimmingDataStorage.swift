@@ -119,9 +119,13 @@ class SwimmingDataStorage{
                 swimmingWorkoutList.append(swimming)
                 swimming.display()
             }
-            UserDefaults.standard.set(swimmingWorkoutList[swimmingWorkoutList.count - 1].endDate,
-                                      forKey: "lastestWorkoutDate")
-            print()
+            
+            if swimmingWorkoutList.isEmpty {
+                print("수영데이터가 없는 사용자입니다.")
+            }else{
+                UserDefaults.standard.set(swimmingWorkoutList[swimmingWorkoutList.count - 1].endDate,
+                                          forKey: "lastestWorkoutDate")
+            }
             print("마지막 날짜 설정 \(UserDefaults.standard.string(forKey: "lastestWorkoutDate"))")
             completion(swimmingWorkoutList, nil)
         }
