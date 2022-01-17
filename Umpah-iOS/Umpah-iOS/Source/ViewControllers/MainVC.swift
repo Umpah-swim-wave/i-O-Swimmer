@@ -355,6 +355,15 @@ extension MainVC: UITableViewDelegate {
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if currentState == .routine {
+            let storyboard = UIStoryboard(name: "Routine", bundle: nil)
+            guard let routineVC = storyboard.instantiateViewController(withIdentifier: RoutineVC.identifier) as? RoutineVC else {return}
+            routineVC.modalPresentationStyle = .overFullScreen
+            present(routineVC, animated: true, completion: nil)
+        }
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let y = scrollView.contentOffset.y
 
