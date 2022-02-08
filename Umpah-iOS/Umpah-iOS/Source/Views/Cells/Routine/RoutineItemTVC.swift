@@ -29,17 +29,17 @@ class RoutineItemTVC: UITableViewCell {
         $0.imageEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: 0)
         $0.setTitleColor(.upuhBlack, for: .normal)
         $0.contentHorizontalAlignment = .left
-        $0.titleLabel?.font = .IBMPlexSansRegular(ofSize: 14)
+        $0.titleLabel?.font = .IBMPlexSansText(ofSize: 14)
     }
     
     private var distanceTextField = UITextField().then {
-        $0.font = .IBMPlexSansRegular(ofSize: 14)
+        $0.font = .IBMPlexSansText(ofSize: 14)
         $0.textColor = .upuhBlack
         $0.tintColor = .clear
     }
     
     private var timeTextField = UITextField().then {
-        $0.font = .IBMPlexSansRegular(ofSize: 14)
+        $0.font = .IBMPlexSansText(ofSize: 14)
         $0.textColor = .upuhBlack
         $0.tintColor = .clear
     }
