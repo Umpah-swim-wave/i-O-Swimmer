@@ -17,6 +17,7 @@ class StrokesTVC: UITableViewCell {
         willSet {
             checkButton.isHidden = !isSelected
             strokeLabel.textColor = isSelected ? .upuhBlue2 : .upuhBlack
+            strokeLabel.font = isSelected ? .IBMPlexSansSemiBold(ofSize: 16) : .IBMPlexSansText(ofSize: 16)
         }
     }
     

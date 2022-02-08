@@ -64,6 +64,17 @@ extension StrokesView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: StrokesTVC.identifier) as? StrokesTVC else { return UITableViewCell() }
         cell.strokeLabel.text = strokes[indexPath.row]
+        switch style {
+        case .freestyle:
+            if indexPath.row == 0 { cell.isSelected = true }
+        case .breaststroke:
+            if indexPath.row == 1 { cell.isSelected = true }
+        case .backstroke:
+            if indexPath.row == 2 { cell.isSelected = true }
+        case .butterfly:
+            if indexPath.row == 3 { cell.isSelected = true }
+        case .none: break
+        }
         return cell
     }
 }

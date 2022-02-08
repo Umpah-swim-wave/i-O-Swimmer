@@ -475,7 +475,7 @@ extension MainVC: SelectedRangeDelegate {
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "SelectedStrokeVC") as? SelectedStrokeVC else { return }
         vc.modalPresentationStyle = .overCurrentContext
         vc.modalTransitionStyle = .crossDissolve
-        
+        vc.style = self.strokeState
         vc.strokeData = { style in
             print(style)
             self.strokeState = style
