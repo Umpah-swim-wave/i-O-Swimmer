@@ -44,6 +44,7 @@ class RoutineVC: UIViewController {
     
     private lazy var titleTextField = UITextField().then{
         $0.font = .IBMPlexSansSemiBold(ofSize: 20)
+        $0.textColor = .upuhBlack
         $0.isUserInteractionEnabled = false
         $0.text = "1km 기본루틴"
         $0.returnKeyType = .done
@@ -65,7 +66,7 @@ class RoutineVC: UIViewController {
         $0.titleLabel?.font = .IBMPlexSansBold(ofSize: 12)
         $0.layer.cornerRadius = 8
         $0.setTitleColor(.white, for: .normal)
-        $0.backgroundColor = .upuhOrange
+        $0.backgroundColor = .upuhBadgeOrange
         $0.isUserInteractionEnabled = true
         $0.contentEdgeInsets = UIEdgeInsets(top: 6, left: 10, bottom: 6, right: 10)
     }
@@ -75,7 +76,7 @@ class RoutineVC: UIViewController {
         $0.titleLabel?.font = .IBMPlexSansBold(ofSize: 12)
         $0.layer.cornerRadius = 8
         $0.setTitleColor(.white, for: .normal)
-        $0.backgroundColor = .upuhOrange
+        $0.backgroundColor = .upuhBadgeOrange
         $0.isUserInteractionEnabled = false
         $0.contentEdgeInsets = UIEdgeInsets(top: 6, left: 10, bottom: 6, right: 10)
     }
@@ -90,6 +91,18 @@ class RoutineVC: UIViewController {
         $0.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         $0.textContainer.lineBreakMode = .byTruncatingTail
         $0.isUserInteractionEnabled = false
+        
+        let kernSpacing: CGFloat = -0.6
+        let style = NSMutableParagraphStyle()
+        style.lineSpacing = -0.9
+        $0.attributedText = NSAttributedString(string: $0.text, attributes: [.paragraphStyle: style,
+                                                                             .kern: kernSpacing,
+                                                                             .foregroundColor: UIColor.upuhBlack,
+                                                                             .font: UIFont.IBMPlexSansText(ofSize: 14)])
+        $0.typingAttributes = [.paragraphStyle: style,
+                               .kern: kernSpacing,
+                               .foregroundColor: UIColor.upuhBlack,
+                               .font: UIFont.IBMPlexSansText(ofSize: 14)]
     }
     
     private let headerUnderlineView = UIView().then{
@@ -439,7 +452,7 @@ extension RoutineVC {
         }
         
         levelButton.snp.makeConstraints{
-            $0.top.equalTo(titleUnderlineView.snp.bottom).offset(12)
+            $0.top.equalTo(titleUnderlineView.snp.bottom).offset(5)
             $0.leading.equalTo(titleTextField.snp.leading)
             $0.height.equalTo(24)
         }
