@@ -61,6 +61,11 @@ class RoutineTVC: UITableViewCell, NibLoadableView, ReusableView {
         $0.numberOfLines = 2
     }
     
+    private let deleteButton = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 22, height: 22))).then {
+        $0.setImage(UIImage(named: "ic_trash"), for: .normal)
+        $0.addTarget(self, action: #selector(touchUpDelete), for: .touchUpInside)
+    }
+    
     override func awakeFromNib(){
         super.awakeFromNib()
         setupLayout()
@@ -118,7 +123,8 @@ class RoutineTVC: UITableViewCell, NibLoadableView, ReusableView {
                                            levelButton,
                                            distanceButton,
                                            timeButton,
-                                           descriptionLabel])
+                                           descriptionLabel,
+                                           deleteButton])
         
         routineTitleLabel.snp.makeConstraints{
             $0.top.equalToSuperview().offset(20)
@@ -148,6 +154,11 @@ class RoutineTVC: UITableViewCell, NibLoadableView, ReusableView {
             $0.leading.equalTo(routineTitleLabel.snp.leading)
             $0.trailing.equalToSuperview().offset(-20)
         }
+        
+        deleteButton.snp.makeConstraints {
+            $0.top.equalTo(routineTitleLabel)
+            $0.trailing.equalToSuperview().inset(20)
+        }
     }
     
 //    func updateFirstLayout(){
@@ -155,5 +166,10 @@ class RoutineTVC: UITableViewCell, NibLoadableView, ReusableView {
 //            $0.top.equalToSuperview().inset(24)
 //        }
 //    }
+    
+    @objc
+    private func touchUpDelete() {
+        print("touch Delete")
+    }
 }
 
