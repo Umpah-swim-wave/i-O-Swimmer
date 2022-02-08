@@ -26,7 +26,7 @@ class RoutineSetTVC: UITableViewCell {
     public var routineSetTitle = ""
     public var titleLabel = UILabel().then{
         $0.font = .nexaBold(ofSize: 14)
-        $0.textColor = .black
+        $0.textColor = .upuhBlack
     }
     private var tableBackgroundView = UIView().then{
         $0.backgroundColor = .white
@@ -110,6 +110,7 @@ class RoutineSetTVC: UITableViewCell {
     public func setRoutineContent(title: String, viewModel: RoutineViewModel){
         routineSetTitle = title
         titleLabel.text = routineSetTitle.uppercased() + " SET"
+        titleLabel.addCharacterSpacing(kernValue: 2.0)
         self.viewModel = viewModel
         routineListInSet = viewModel.routineStorage.routineList[title] ?? []
         initRoutineItemCells()
