@@ -290,7 +290,7 @@ extension RoutineSetTVC {
                 
         distanceLabel.snp.makeConstraints{
             $0.centerY.equalTo(strokeLabel.snp.centerY)
-            $0.trailing.equalTo(timeLabel.snp.leading).offset(-51)
+            $0.trailing.equalTo(timeLabel.snp.leading).offset(-40)
         }
         
         timeLabel.snp.makeConstraints{
@@ -326,7 +326,7 @@ extension RoutineSetTVC {
         }
         
         distanceLabel.snp.updateConstraints{
-            $0.trailing.equalTo(timeLabel.snp.leading).offset(-51)
+            $0.trailing.equalTo(timeLabel.snp.leading).offset(-40)
         }
         
         timeLabel.snp.updateConstraints {
