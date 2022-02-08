@@ -8,7 +8,7 @@
 import Foundation
 
 struct RoutineOverviewData{
-    let title: String = "어푸 추천 루틴"
+    let title: String = "사용자가생성한루틴"
     var level: Int = 0
     var totalDistance: Int = 2500
     let totalTime: Int = 4500

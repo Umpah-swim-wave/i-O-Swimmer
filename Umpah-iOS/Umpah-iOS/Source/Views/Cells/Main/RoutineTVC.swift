@@ -22,7 +22,8 @@ class RoutineTVC: UITableViewCell, NibLoadableView, ReusableView {
     
     private let routineTitleLabel = UILabel().then{
         $0.font = .IBMPlexSansSemiBold(ofSize: 14)
-        $0.addCharacterSpacing(kernValue: 0.2)
+        $0.textColor = .upuhBlack
+        $0.addCharacterSpacing(kernValue: -0.2)
     }
     
     private let levelButton = UIButton().then{
@@ -39,7 +40,7 @@ class RoutineTVC: UITableViewCell, NibLoadableView, ReusableView {
         $0.titleLabel?.font = .IBMPlexSansBold(ofSize: 12)
         $0.layer.cornerRadius = 8
         $0.setTitleColor(.white, for: .normal)
-        $0.backgroundColor = .upuhSubOrange
+        $0.backgroundColor = .upuhBadgeOrange
         $0.isUserInteractionEnabled = true
         $0.contentEdgeInsets = UIEdgeInsets(top: 6, left: 10, bottom: 6, right: 10)
     }
@@ -49,13 +50,14 @@ class RoutineTVC: UITableViewCell, NibLoadableView, ReusableView {
         $0.titleLabel?.font = .IBMPlexSansBold(ofSize: 12)
         $0.layer.cornerRadius = 8
         $0.setTitleColor(.white, for: .normal)
-        $0.backgroundColor = .upuhSubOrange
+        $0.backgroundColor = .upuhBadgeOrange
         $0.isUserInteractionEnabled = false
         $0.contentEdgeInsets = UIEdgeInsets(top: 6, left: 10, bottom: 6, right: 10)
     }
     
     private let descriptionLabel = UILabel().then{
         $0.font = .IBMPlexSansText(ofSize: 12)
+        $0.textColor = .upuhBlack
         $0.numberOfLines = 2
     }
     
@@ -78,10 +80,12 @@ class RoutineTVC: UITableViewCell, NibLoadableView, ReusableView {
     public func setContentData(overview: RoutineOverviewData){
         routineOverviewData = overview
         routineTitleLabel.text = overview.title
+        routineTitleLabel.addCharacterSpacing(kernValue: -0.2)
         changeLevelButtonStyle(level: overview.level)
         distanceButton.setTitle(overview.getDistanceToString(), for: .normal)
         timeButton.setTitle(overview.getTimeToString(), for: .normal)
         descriptionLabel.text = overview.description
+        descriptionLabel.addCharacterSpacing(kernValue: -0.4, lineSpacing: -4.0)
     }
     
     func changeLevelButtonStyle(level: Int){
@@ -107,7 +111,7 @@ class RoutineTVC: UITableViewCell, NibLoadableView, ReusableView {
         backgroundContentView.snp.makeConstraints{
             $0.bottom.equalToSuperview().inset(8)
             $0.leading.trailing.equalToSuperview().inset(16)
-            $0.height.equalTo(152)
+            $0.height.equalTo(155)
         }
         
         backgroundContentView.addSubviews([routineTitleLabel,
@@ -117,7 +121,7 @@ class RoutineTVC: UITableViewCell, NibLoadableView, ReusableView {
                                            descriptionLabel])
         
         routineTitleLabel.snp.makeConstraints{
-            $0.top.equalToSuperview().offset(24)
+            $0.top.equalToSuperview().offset(20)
             $0.leading.equalToSuperview().offset(20)
         }
         

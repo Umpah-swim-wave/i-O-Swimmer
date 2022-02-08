@@ -8,12 +8,13 @@
 import UIKit
 
 extension UILabel {
-    func addCharacterSpacing(kernValue: Double = -0.22) {
-        if let labelText = text, labelText.count > 0 {
-            let attributedString = NSMutableAttributedString(string: labelText)
-            attributedString.addAttribute(NSAttributedString.Key.kern, value: kernValue, range: NSRange(location: 0, length: attributedString.length - 1))
-            attributedText = attributedString
-            
+    func addCharacterSpacing(kernValue: Double = -0.22, lineSpacing: CGFloat = 0.0) {
+        if let labelText = self.text, labelText.count > 0 {
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineSpacing = lineSpacing
+            attributedText = NSAttributedString(string: labelText,
+                                                attributes: [.kern: kernValue,
+                                                             .paragraphStyle: paragraphStyle])
             if #available(iOS 14.0, *) {
                 lineBreakStrategy = .hangulWordPriority
             } else {
