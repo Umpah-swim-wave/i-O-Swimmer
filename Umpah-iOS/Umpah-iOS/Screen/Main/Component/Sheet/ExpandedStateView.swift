@@ -39,7 +39,7 @@ class ExpandedStateView: UIView {
         
     var state: CurrentState?
     var isModified = false
-    var root: MainVC?
+    var root: MainCardVC?
     
     //MARK: about Routine
     var upuhRoutineOverViewList: [RoutineOverviewData] = []

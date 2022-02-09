@@ -25,7 +25,7 @@ final class CardView: BaseView, Alertable {
     
     // MARK: - Private Properties
     
-    private var rootVC: MainVC?
+    private var rootVC: MainCardVC?
     private var canScrollMore = true
     private var dateformatter = DateFormatter().then {
         $0.dateFormat = "YY/MM/dd"
@@ -45,7 +45,7 @@ final class CardView: BaseView, Alertable {
     }
 
     // MARK: - Initalizing
-    init(rootVC: MainVC) {
+    init(rootVC: MainCardVC) {
         super.init(frame: .zero)
         self.rootVC = rootVC
         expandedView.root = rootVC

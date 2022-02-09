@@ -39,6 +39,8 @@
 		65BD8F2201A9C1AFD7C2D8DD /* Pods_Umpah_iOS_WatchKit_App.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 86DD879FC3C4E84D7E3F34D5 /* Pods_Umpah_iOS_WatchKit_App.framework */; };
 		D1F464F8FC2774B0D55FFF79 /* Pods_Umpah_iOS_WatchKit_Extension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7C521171D608E01D7F8B2492 /* Pods_Umpah_iOS_WatchKit_Extension.framework */; };
 		ECF21C0C9372B4F1A806C262 /* Pods_Umpah_iOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB7CF8BBFF32001FC0A7E689 /* Pods_Umpah_iOS.framework */; };
+		ED017D9627B39F03009AFCAD /* MainTableVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED017D9527B39F03009AFCAD /* MainTableVC.swift */; };
+		ED017D9827B3A084009AFCAD /* MainCardVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED017D9727B3A084009AFCAD /* MainCardVC.swift */; };
 		ED1DC478271FD94D002FF766 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1DC477271FD94D002FF766 /* BaseView.swift */; };
 		ED1DC47C2721814B002FF766 /* Alertable+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1DC47B2721814B002FF766 /* Alertable+UIViewController.swift */; };
 		ED22C692273A554200036CF7 /* GeneralAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED22C691273A554200036CF7 /* GeneralAPI.swift */; };
@@ -196,6 +198,8 @@
 		B53DA869B8F832A627BB5D6C /* Pods-Umpah-iOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Umpah-iOS.debug.xcconfig"; path = "Target Support Files/Pods-Umpah-iOS/Pods-Umpah-iOS.debug.xcconfig"; sourceTree = "<group>"; };
 		DB7CF8BBFF32001FC0A7E689 /* Pods_Umpah_iOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Umpah_iOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E2A34E7653F7869CEB27C154 /* Pods-Umpah-iOS WatchKit Extension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Umpah-iOS WatchKit Extension.debug.xcconfig"; path = "Target Support Files/Pods-Umpah-iOS WatchKit Extension/Pods-Umpah-iOS WatchKit Extension.debug.xcconfig"; sourceTree = "<group>"; };
+		ED017D9527B39F03009AFCAD /* MainTableVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTableVC.swift; sourceTree = "<group>"; };
+		ED017D9727B3A084009AFCAD /* MainCardVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCardVC.swift; sourceTree = "<group>"; };
 		ED1DC477271FD94D002FF766 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		ED1DC47B2721814B002FF766 /* Alertable+UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alertable+UIViewController.swift"; sourceTree = "<group>"; };
 		ED22C691273A554200036CF7 /* GeneralAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralAPI.swift; sourceTree = "<group>"; };
@@ -381,6 +385,8 @@
 				EDD3CCD8270192D200AFED4B /* SelectedRangeVC.swift */,
 				ED8AB6A02702E55D0066CD02 /* SelectedStrokeVC.swift */,
 				ED5396E326B975D70061722F /* MainVC.swift */,
+				ED017D9727B3A084009AFCAD /* MainCardVC.swift */,
+				ED017D9527B39F03009AFCAD /* MainTableVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1115,6 +1121,7 @@
 				ED78843426DCA965006D8787 /* TopView.swift in Sources */,
 				EDD3CCD9270192D200AFED4B /* SelectedRangeVC.swift in Sources */,
 				EDEF3B5E271EA37500C852E7 /* ViewModelBindableType.swift in Sources */,
+				ED017D9627B39F03009AFCAD /* MainTableVC.swift in Sources */,
 				EDD43FD426483C9500C866F3 /* AppDelegate.swift in Sources */,
 				ED5396E826B975F60061722F /* RoutineVC.swift in Sources */,
 				ED1DC478271FD94D002FF766 /* BaseView.swift in Sources */,
@@ -1142,6 +1149,7 @@
 				EDEF3B60271EC92F00C852E7 /* ViewModelType.swift in Sources */,
 				3C358BB626E5B2970025ABDC /* UITableViewCell+.swift in Sources */,
 				EDEF3B5C271E9C0900C852E7 /* NibLoadableView.swift in Sources */,
+				ED017D9827B3A084009AFCAD /* MainCardVC.swift in Sources */,
 				3CAD1F2626CBDA64001CD535 /* UIWindow+.swift in Sources */,
 				EDFC6EE72702387500B718C6 /* RangeButton.swift in Sources */,
 				EDEF3B63271EF70000C852E7 /* CardView.swift in Sources */,
