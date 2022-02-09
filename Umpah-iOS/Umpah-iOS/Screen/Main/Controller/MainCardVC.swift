@@ -9,6 +9,8 @@ import UIKit
 
 class MainCardVC: BaseViewController {
     
+    // MARK: - properties
+    
     lazy var cardView = CardView(rootVC: self)
     var cardViewTopConstraint: NSLayoutConstraint?
     var cardPanStartingTopConstant : CGFloat = 20.0
@@ -28,9 +30,13 @@ class MainCardVC: BaseViewController {
     }
     lazy var dateText: String = dateformatter.string(from: Date())
 
+    // MARK: - life cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
+    // MARK: - func
     
     func decideTopConstraint(of state: CardViewState) {
         switch state {
