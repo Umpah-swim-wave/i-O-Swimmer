@@ -139,12 +139,12 @@ extension MainVC {
     }
     
     private func addClosureToChangeState(){
-        headerView.changeState = { isRecord in
-            //어떻게 하면 좋을지,,
-            if !isRecord{
+        headerView.changeState = { [weak self] isRoutine in
+            guard let self = self else { return }
+            if isRoutine && self.currentState != .routine {
                 self.cacheState = self.currentState
                 self.currentState = .routine
-            }else{
+            } else if !isRoutine {
                 self.currentState = self.cacheState
             }
             self.cardView.currentState = self.currentState
