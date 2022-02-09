@@ -6,15 +6,16 @@
 //
 
 import UIKit
+
+import Charts
+import RxCocoa
+import RxSwift
 import SnapKit
 import Then
-import RxSwift
-import RxCocoa
-import Charts
 
 final class MainVC: BaseViewController {
 
-    // MARK: - UI
+    // MARK: - properties
     
     public lazy var baseTableView = UITableView().then {
         $0.delegate = self
@@ -39,9 +40,6 @@ final class MainVC: BaseViewController {
     private let topView = TopView()
     private let headerView = HeaderView()
     private let statusBar = StatusBar()
-    
-    // MARK: - Properties
-    
     private lazy var dateText: String = dateformatter.string(from: Date())
     private lazy var rangeTexts: [String] = [serverDateformatter.string(from: Date()), ""]
     private var cardViewTopConstraint: NSLayoutConstraint?
@@ -58,17 +56,12 @@ final class MainVC: BaseViewController {
         $0.dateFormat = "YYYY-MM-dd"
         $0.locale = Locale.init(identifier: "ko-KR")
     }
-    
-    // MARK: - Routine data
-    
+
     var routineOverViewList: [RoutineOverviewData] = []
     let swimmingViewModel = SwimmingDataViewModel()
-    
-    // MARK: - Storage
-    
     let storage = RecordStorage.shared
     
-    // MARK: - Life Cycle
+    // MARK: - life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
