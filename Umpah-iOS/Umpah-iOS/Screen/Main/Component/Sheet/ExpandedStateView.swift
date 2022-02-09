@@ -37,7 +37,7 @@ class ExpandedStateView: UIView {
     let days: [String] = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
     let weeks: [String] = ["WEEK1", "WEEK2", "WEEK3", "WEEK4", "WEEK5"]
         
-    var state: CurrentState?
+    var state: CurrentMainViewState?
     var isModified = false
     var root: MainCardVC?
     

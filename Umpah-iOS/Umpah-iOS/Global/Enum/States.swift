@@ -13,7 +13,7 @@ enum CardViewState {
     case fail
 }
 
-enum CurrentState {
+enum CurrentMainViewState {
     case base
     case day
     case week

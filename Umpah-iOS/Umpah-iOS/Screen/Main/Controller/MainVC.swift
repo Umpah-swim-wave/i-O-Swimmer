@@ -34,7 +34,7 @@ final class MainVC: MainTableVC {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        decideTopConstraint(of: .normal)
+        applyCardViewTopConstraint(with: .normal)
     }
     
     // MARK: - Override Method
@@ -71,15 +71,7 @@ final class MainVC: MainTableVC {
     
     override func configUI() {
         super.configUI()
-        initGestureView()
         initRoutineOverViewList()
-    }
-    
-    private func initGestureView() {
-        let viewPan = UIPanGestureRecognizer(target: self, action: #selector(viewPanned(_:)))
-        viewPan.delaysTouchesBegan = false
-        viewPan.delaysTouchesEnded = false
-        view.addGestureRecognizer(viewPan)
     }
     
     private func initRoutineOverViewList(){
@@ -94,13 +86,13 @@ final class MainVC: MainTableVC {
     private func addClosureToChangeState(){
         headerView.changeState = { [weak self] isRoutine in
             guard let self = self else { return }
-            if isRoutine && self.currentState != .routine {
-                self.cacheState = self.currentState
-                self.currentState = .routine
+            if isRoutine && self.currentMainViewState != .routine {
+                self.cacheMainViewState = self.currentMainViewState
+                self.currentMainViewState = .routine
             } else if !isRoutine {
-                self.currentState = self.cacheState
+                self.currentMainViewState = self.cacheMainViewState
             }
-            self.cardView.currentState = self.currentState
+            self.cardView.currentState = self.currentMainViewState
             self.baseTableView.reloadData()
         }
     }
@@ -154,7 +146,7 @@ extension MainVC{
 // MARK: - UITableViewDelegate
 extension MainVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if currentState == .routine {
+        if currentMainViewState == .routine {
             return indexPath.row == 0 ? 184 : 170
         }else {
             switch indexPath.row {
@@ -221,7 +213,7 @@ extension MainVC: UITableViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         if cardView.cardViewState == .expanded {
             cardView.cardViewState = .normal
-            decideTopConstraint(of: .normal)
+            applyCardViewTopConstraint(with: .normal)
         }
     }
 }

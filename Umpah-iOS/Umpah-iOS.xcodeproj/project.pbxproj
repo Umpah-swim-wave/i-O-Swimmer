@@ -385,8 +385,8 @@
 				EDD3CCD8270192D200AFED4B /* SelectedRangeVC.swift */,
 				ED8AB6A02702E55D0066CD02 /* SelectedStrokeVC.swift */,
 				ED5396E326B975D70061722F /* MainVC.swift */,
-				ED017D9727B3A084009AFCAD /* MainCardVC.swift */,
 				ED017D9527B39F03009AFCAD /* MainTableVC.swift */,
+				ED017D9727B3A084009AFCAD /* MainCardVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

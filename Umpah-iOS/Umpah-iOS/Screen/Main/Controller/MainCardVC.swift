@@ -9,89 +9,114 @@ import UIKit
 
 class MainCardVC: BaseViewController {
     
+    private enum Size {
+        static let defaultTopConstant = 20.0
+    }
+    
     // MARK: - properties
     
     lazy var cardView = CardView(rootVC: self)
     var cardViewTopConstraint: NSLayoutConstraint?
-    var cardPanStartingTopConstant : CGFloat = 20.0
-    var cardPanMaxVelocity: CGFloat = 1500.0
-    var currentState: CurrentState = .base
-    var cacheState: CurrentState = .base
+    var cardViewMaxVelocity: CGFloat = 1500.0
+    var cardViewTopConstant : CGFloat = 20.0
+    
+    var currentMainViewState: CurrentMainViewState = .base
+    var cacheMainViewState: CurrentMainViewState = .base
     var strokeState: Stroke = .none
-    let storage = RecordStorage.shared
-    lazy var rangeTexts: [String] = [serverDateformatter.string(from: Date()), ""]
-    var dateformatter = DateFormatter().then {
-        $0.dateFormat = "YY/MM/dd"
-        $0.locale = Locale.init(identifier: "ko-KR")
-    }
-    var serverDateformatter = DateFormatter().then {
+    
+    lazy var selectedDates: [String] = [dateformatterForServer.string(from: Date()), ""]
+    lazy var dateText: String = dateformatterForScreen.string(from: Date())
+    var dateformatterForServer = DateFormatter().then {
         $0.dateFormat = "YYYY-MM-dd"
         $0.locale = Locale.init(identifier: "ko-KR")
     }
-    lazy var dateText: String = dateformatter.string(from: Date())
-
-    // MARK: - life cycle
+    var dateformatterForScreen = DateFormatter().then {
+        $0.dateFormat = "YY/MM/dd"
+        $0.locale = Locale.init(identifier: "ko-KR")
+    }
+    let storage = RecordStorage.shared
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    // MARK: - override
+    
+    override func configUI() {
+        super.configUI()
+        setupPanGestureRecognizer()
     }
     
     // MARK: - func
     
-    func decideTopConstraint(of state: CardViewState) {
+    func applyCardViewTopConstraint(with state: CardViewState) {
+        let screenHeight = UIScreen.main.bounds.size.height
+        var topConstraint: CGFloat = 0
+        
         switch state {
         case .normal:
-            cardViewTopConstraint?.constant = UIScreen.main.hasNotch ? UIScreen.main.bounds.size.height * 0.8 : UIScreen.main.bounds.size.height * 0.87
+            topConstraint = UIScreen.main.hasNotch ? screenHeight * 0.8 : screenHeight * 0.87
         case .expanded:
-            switch currentState {
+            switch currentMainViewState {
             case .week:
-                cardViewTopConstraint?.constant = UIScreen.main.bounds.size.height * 0.24
+                topConstraint = screenHeight * 0.24
             case .month:
-                cardViewTopConstraint?.constant = UIScreen.main.bounds.size.height * 0.38
+                topConstraint = screenHeight * 0.38
             default:
-                cardViewTopConstraint?.constant = 20.0
+                topConstraint = Size.defaultTopConstant
             }
-        case .fail:
+        default:
             break
         }
+        
+        cardViewTopConstraint?.constant = topConstraint
+    }
+    
+    private func setupPanGestureRecognizer() {
+        let viewPan = UIPanGestureRecognizer(target: self, action: #selector(cardViewScrolled(with:)))
+        viewPan.delaysTouchesBegan = false
+        viewPan.delaysTouchesEnded = false
+        view.addGestureRecognizer(viewPan)
     }
     
     @objc
-    func viewPanned(_ panRecognizer: UIPanGestureRecognizer) {
+    private func cardViewScrolled(with panRecognizer: UIPanGestureRecognizer) {
         let velocity = panRecognizer.velocity(in: self.view)
         let translation = panRecognizer.translation(in: self.view)
+        let isBlockedScroll = cardView.expandedView.isModified
         
-        if cardView.expandedView.isModified {
+        if isBlockedScroll {
             panRecognizer.state = .failed
         }
         
         switch panRecognizer.state {
         case .began:
-            cardPanStartingTopConstant = cardViewTopConstraint?.constant ?? 0
+            cardViewTopConstant = cardViewTopConstraint?.constant ?? 0
         case .changed:
-            if self.cardPanStartingTopConstant + translation.y > 20.0 {
-                self.cardViewTopConstraint?.constant = self.cardPanStartingTopConstant + translation.y
+            let isScrolling = cardViewTopConstant + translation.y > Size.defaultTopConstant
+            if isScrolling {
+                cardViewTopConstraint?.constant = self.cardViewTopConstant + translation.y
             }
         case .ended:
-            if velocity.y > cardPanMaxVelocity {
-                cardView.cardViewState = .normal
-                decideTopConstraint(of: .normal)
-                return
+            if let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) {
+                scrolledToFinish(with: window)
             }
-            
-            let window = UIApplication.shared.windows.first { $0.isKeyWindow }
-            if let safeAreaHeight = window?.safeAreaLayoutGuide.layoutFrame.size.height,
-               let bottomPadding = window?.safeAreaInsets.bottom {
-                if self.cardViewTopConstraint?.constant ?? 0 < (safeAreaHeight + bottomPadding) * 0.6 {
-                    cardView.cardViewState = .expanded
-                    decideTopConstraint(of: .expanded)
-                } else  {
-                    cardView.cardViewState = .normal
-                    decideTopConstraint(of: .normal)
-                }
-            }
+            scrolledToFinish(with: velocity)
         default:
             cardView.cardViewState = .fail
         }
+    }
+    
+    private func scrolledToFinish(with velocity: CGPoint) {
+        let scrolledToFinish = velocity.y > cardViewMaxVelocity
+        if scrolledToFinish {
+            cardView.cardViewState = .normal
+            applyCardViewTopConstraint(with: .normal)
+        }
+    }
+    
+    private func scrolledToFinish(with window: UIWindow) {
+        let safeAreaHeight = window.safeAreaLayoutGuide.layoutFrame.size.height
+        let bottomPadding = window.safeAreaInsets.bottom
+        let isOverTheMiddleOfHeight = cardViewTopConstraint?.constant ?? 0 >= (safeAreaHeight + bottomPadding) * 0.6
+        
+        cardView.cardViewState = isOverTheMiddleOfHeight ? .normal : .expanded
+        applyCardViewTopConstraint(with: isOverTheMiddleOfHeight ? .normal : .expanded)
     }
 }

@@ -27,7 +27,7 @@ class FilterTVC: UITableViewCell, ReusableView {
     
     let categorys: [String] = ["기간", "일간", "주간", "월간"]
     let strokes: [String] = ["영법", "자유형", "평영", "배영", "접영"]
-    var state: CurrentState = .base
+    var state: CurrentMainViewState = .base
     var stroke: Stroke = .none
     var delegate: SelectedRangeDelegate?
 

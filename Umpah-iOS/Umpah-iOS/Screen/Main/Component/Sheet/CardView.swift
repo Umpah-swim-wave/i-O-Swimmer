@@ -13,7 +13,7 @@ final class CardView: BaseView, Alertable {
     
     // MARK: - Public Properties
     
-    public var currentState: CurrentState = .base {
+    public var currentState: CurrentMainViewState = .base {
         didSet { showCard() }
     }
     
@@ -122,7 +122,7 @@ final class CardView: BaseView, Alertable {
                 let alert = makeRequestAlert(okAction: { _ in
                     self.expandedView.isModified = false
                     self.cardViewState = .normal
-                    self.rootVC?.decideTopConstraint(of: .normal)
+                    self.rootVC?.applyCardViewTopConstraint(with: .normal)
                     self.expandedView.bottomView.selectButton.setTitle("영법 수정하기", for: .normal)
                     self.canScrollMore = true
                 }, cancelAction: { _ in
@@ -136,7 +136,7 @@ final class CardView: BaseView, Alertable {
         expandedView.changeTableViewLayout()
     }
     
-    public func applyExpandedTitle(of state: CurrentState) -> String {
+    public func applyExpandedTitle(of state: CurrentMainViewState) -> String {
         switch state {
         case .base:
             return dateformatter.string(from: Date())
@@ -176,7 +176,7 @@ extension CardView {
         showCard.startAnimation()
     }
     
-    private func decideHiddenState(by state: CurrentState) -> Bool {
+    private func decideHiddenState(by state: CurrentMainViewState) -> Bool {
         switch state {
         case .day, .base:
             return false

@@ -48,7 +48,7 @@ extension MainTableVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 1:
-            if currentState != .routine {
+            if currentMainViewState != .routine {
                 return 5
             } else {
                 return routineOverViewList.count
@@ -59,14 +59,14 @@ extension MainTableVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch currentState {
+        switch currentMainViewState {
         case .day,
              .base:
             switch indexPath.row {
             case 0:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: FilterTVC.identifier) as? FilterTVC else { return UITableViewCell() }
                 cell.delegate = self
-                cell.state = currentState
+                cell.state = currentMainViewState
                 return cell
             case 1:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DateTVC.identifier) as? DateTVC else { return UITableViewCell() }
@@ -96,7 +96,7 @@ extension MainTableVC: UITableViewDataSource {
             case 0:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: FilterTVC.identifier) as? FilterTVC else { return UITableViewCell() }
                 cell.delegate = self
-                cell.state = currentState
+                cell.state = currentMainViewState
                 cell.stroke = strokeState
                 return cell
             case 1:
@@ -113,7 +113,7 @@ extension MainTableVC: UITableViewDataSource {
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: ChartTVC.identifier) as? ChartTVC else { return UITableViewCell() }
                 cell.combineChartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .linear)
                 
-                if currentState == .week {
+                if currentMainViewState == .week {
                     cell.titleLabel.text = "WEEKLY RECORD"
                     cell.titleLabel.addCharacterSpacing(kernValue: 2)
                 } else {
@@ -124,7 +124,7 @@ extension MainTableVC: UITableViewDataSource {
             case 3:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
                 
-                if currentState == .week {
+                if currentMainViewState == .week {
                     cell.titleLabel.text = "WEEKLY OVERVIEW"
                     cell.titleLabel.addCharacterSpacing(kernValue: 2)
                 } else {
@@ -151,7 +151,7 @@ extension MainTableVC: UITableViewDataSource {
 extension MainTableVC: SelectedRangeDelegate {
     func didClickedRangeButton() {
         cardView.cardViewState = .normal
-        decideTopConstraint(of: .normal)
+        applyCardViewTopConstraint(with: .normal)
         
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "SelectedRangeVC") as? SelectedRangeVC else { return }
         vc.modalPresentationStyle = .overCurrentContext
@@ -164,36 +164,36 @@ extension MainTableVC: SelectedRangeDelegate {
             let transDay = (day.count == 1) ? "0\(day)" : day
             self.dateText = "\(transYear)/\(transMonth)/\(transDay)"
             self.cardView.dateText = self.dateText
-            self.currentState = (self.dateText == self.dateformatter.string(from: Date())) ? .base : .day
+            self.currentMainViewState = (self.dateText == self.dateformatterForScreen.string(from: Date())) ? .base : .day
             self.strokeState = .none
             
             // fetch day response
-            self.rangeTexts[0] = "\(year)-\(transMonth)-\(transDay)"
-            self.storage.dispatchDayRecord(date: self.rangeTexts[0], stroke: "") {
+            self.selectedDates[0] = "\(year)-\(transMonth)-\(transDay)"
+            self.storage.dispatchDayRecord(date: self.selectedDates[0], stroke: "") {
                 print("day Record")
                 
                 self.baseTableView.reloadSections(IndexSet(1...1), with: .fade)
-                self.cardView.currentState = self.currentState
+                self.cardView.currentState = self.currentMainViewState
             }
         }
         vc.weekData = { week in
             print("weekData : \(week)")
             self.dateText = week
             self.cardView.dateText = self.dateText
-            self.currentState = .week
+            self.currentMainViewState = .week
             self.strokeState = .none
             
             // fetch week response
-            self.rangeTexts[0] = "2021-10-18"
-            self.rangeTexts[1] = "2021-10-24"
+            self.selectedDates[0] = "2021-10-18"
+            self.selectedDates[1] = "2021-10-24"
             
-            self.storage.dispatchWeekRecord(startDate: self.rangeTexts[0],
-                                            endDate: self.rangeTexts[1],
+            self.storage.dispatchWeekRecord(startDate: self.selectedDates[0],
+                                            endDate: self.selectedDates[1],
                                             stroke: "") {
                 print("Week Record")
                 
                 self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
-                self.cardView.currentState = self.currentState
+                self.cardView.currentState = self.currentMainViewState
             }
         }
         vc.monthData = { year, month in
@@ -201,16 +201,16 @@ extension MainTableVC: SelectedRangeDelegate {
             let transMonth = (month.count == 1) ? "0\(month)" : month
             self.dateText = "\(year)/\(transMonth)"
             self.cardView.dateText = self.dateText
-            self.currentState = .month
+            self.currentMainViewState = .month
             self.strokeState = .none
             
             // fetch month response
-            self.rangeTexts[0] = "\(year)-\(transMonth)"
-            self.storage.dispatchDayRecord(date: self.rangeTexts[0], stroke: "") {
+            self.selectedDates[0] = "\(year)-\(transMonth)"
+            self.storage.dispatchDayRecord(date: self.selectedDates[0], stroke: "") {
                 print("month Record")
                 
                 self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
-                self.cardView.currentState = self.currentState
+                self.cardView.currentState = self.currentMainViewState
             }
         }
         
@@ -219,7 +219,7 @@ extension MainTableVC: SelectedRangeDelegate {
     
     func didClickedStrokeButton(indexPath: Int = 0) {
         cardView.cardViewState = .normal
-        decideTopConstraint(of: .normal)
+        applyCardViewTopConstraint(with: .normal)
         
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "SelectedStrokeVC") as? SelectedStrokeVC else { return }
         vc.modalPresentationStyle = .overCurrentContext
@@ -229,17 +229,17 @@ extension MainTableVC: SelectedRangeDelegate {
             print(style)
             self.strokeState = style
             
-            switch self.currentState {
+            switch self.currentMainViewState {
             case .week:
-                self.storage.dispatchWeekRecord(startDate: self.rangeTexts[0],
-                                                endDate: self.rangeTexts[1],
+                self.storage.dispatchWeekRecord(startDate: self.selectedDates[0],
+                                                endDate: self.selectedDates[1],
                                                 stroke: style.rawValue) {
                     print("Week Record with stroke")
                     
                     self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
                 }
             case .month:
-                self.storage.dispatchMonthRecord(date: self.rangeTexts[0],
+                self.storage.dispatchMonthRecord(date: self.selectedDates[0],
                                                  stroke: style.rawValue) {
                     print("Month Record with stroke")
                     
