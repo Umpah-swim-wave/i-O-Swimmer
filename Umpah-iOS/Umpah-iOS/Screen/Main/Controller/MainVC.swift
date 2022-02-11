@@ -144,11 +144,13 @@ final class MainVC: MainTableVC {
 // MARK: - UITableViewDelegate
 extension MainVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if currentMainViewState == .routine {
-            return indexPath.row == 0 ? 184 : 170
-        }else {
-            switch indexPath.row {
-            case 4:
+        switch currentMainViewState {
+        case .routine:
+            return indexPath.row == .zero ? 184 : 170
+        default:
+            guard let dayBaseRowType = DayBaseRowType(rawValue: indexPath.row) else { return 0 }
+            switch dayBaseRowType {
+            case .footer:
                 return 105
             default:
                 return UITableView.automaticDimension

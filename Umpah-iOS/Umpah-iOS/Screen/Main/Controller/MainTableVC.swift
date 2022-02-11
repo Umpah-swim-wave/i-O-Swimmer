@@ -17,7 +17,7 @@ class MainTableVC: MainCardVC {
         case content
     }
     
-    private enum DayBaseRowType: Int, CaseIterable {
+    enum DayBaseRowType: Int, CaseIterable {
         case filter
         case date
         case detail
@@ -25,7 +25,7 @@ class MainTableVC: MainCardVC {
         case footer
     }
     
-    private enum WeekMonthRowType: Int, CaseIterable {
+    enum WeekMonthRowType: Int, CaseIterable {
         case filter
         case date
         case chart
