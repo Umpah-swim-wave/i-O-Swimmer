@@ -17,8 +17,8 @@ class ExpandedStateView: UIView {
         $0.dataSource = self
         $0.register(ExpandedDayTVC.self, forCellReuseIdentifier: ExpandedDayTVC.identifier)
         $0.register(ExpandedWeekTVC.self, forCellReuseIdentifier: ExpandedWeekTVC.identifier)
-        $0.register(RoutineTVC.self, forCellReuseIdentifier: RoutineTVC.identifier)
-        $0.registerCustomXib(name: RoutineTVC.identifier)
+        $0.register(RoutineTVC.self, forCellReuseIdentifier: RoutineTVC.className)
+        $0.registerCustomXib(name: RoutineTVC.className)
         $0.showsVerticalScrollIndicator = false
         
         if #available(iOS 15.0, *) {
@@ -182,7 +182,7 @@ extension ExpandedStateView: UITableViewDataSource {
             cell.dayLabel.text = weeks[indexPath.row]
             return cell
         case .routine:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineTVC.identifier) as? RoutineTVC else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineTVC.className) as? RoutineTVC else { return UITableViewCell() }
             cell.setContentData(overview: upuhRoutineOverViewList[indexPath.row])
             return cell
         default:

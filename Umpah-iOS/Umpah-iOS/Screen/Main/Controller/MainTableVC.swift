@@ -159,7 +159,7 @@ extension MainTableVC: UITableViewDataSource {
                 return cell
             }
         case .routine:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineTVC.identifier) as? RoutineTVC else { return UITableViewCell()}
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineTVC.className) as? RoutineTVC else { return UITableViewCell()}
             cell.setContentData(overview: routineOverViewList[indexPath.row])
             return cell
         }
