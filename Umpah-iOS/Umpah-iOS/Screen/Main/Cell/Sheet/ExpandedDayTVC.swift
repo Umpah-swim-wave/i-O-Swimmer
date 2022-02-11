@@ -51,7 +51,7 @@ class ExpandedDayTVC: UITableViewCell {
         $0.addTarget(self, action: #selector(touchUpMerge), for: .touchUpInside)
     }
     
-    weak var delegate: SelectedRangeDelegate?
+    weak var delegate: SelectedButtonDelegate?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -130,12 +130,12 @@ class ExpandedDayTVC: UITableViewCell {
     // MARK: - @objc
     @objc
     private func touchUpChangeStroke() {
-        delegate?.didClickedStrokeButton(indexPath: getTableCellIndexPath())
+        delegate?.didClickedStrokeFilterButton(with: getTableCellIndexPath())
     }
     
     @objc
     private func touchUpMerge() {
         print("can merge")
-        delegate?.didClickedMergeButton(indexPath: getTableCellIndexPath())
+        delegate?.didClickedMergeButton(with: getTableCellIndexPath())
     }
 }

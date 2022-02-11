@@ -262,8 +262,8 @@ extension ExpandedStateView: UITableViewDelegate {
 }
 
 // MARK: - SelectedRangeDelegate
-extension ExpandedStateView: SelectedRangeDelegate {
-    func didClickedStrokeButton(indexPath: Int) {
+extension ExpandedStateView: SelectedButtonDelegate {
+    func didClickedStrokeButton(with indexPath: Int) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let vc = storyboard.instantiateViewController(withIdentifier: "SelectedStrokeVC") as? SelectedStrokeVC else { return }
         vc.modalPresentationStyle = .overCurrentContext
@@ -288,7 +288,7 @@ extension ExpandedStateView: SelectedRangeDelegate {
         root?.present(vc, animated: true, completion: nil)
     }
     
-    func didClickedMergeButton(indexPath: Int) {
+    func didClickedMergeButton(with indexPath: Int) {
         strokes.remove(at: indexPath)
         listTableView.reloadSections(IndexSet(0...0), with: .fade)
     }

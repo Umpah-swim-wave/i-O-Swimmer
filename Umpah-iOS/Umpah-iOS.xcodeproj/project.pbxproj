@@ -72,7 +72,7 @@
 		ED8AB6A12702E55D0066CD02 /* SelectedStrokeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8AB6A02702E55D0066CD02 /* SelectedStrokeVC.swift */; };
 		ED8AB6A32702E73F0066CD02 /* StrokesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8AB6A22702E73F0066CD02 /* StrokesView.swift */; };
 		ED8AB6A62702EDC20066CD02 /* StrokesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8AB6A52702EDC20066CD02 /* StrokesTVC.swift */; };
-		ED8AB6A92703157A0066CD02 /* SelectedRangeDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8AB6A82703157A0066CD02 /* SelectedRangeDelegate.swift */; };
+		ED8AB6A92703157A0066CD02 /* SelectedButtonDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8AB6A82703157A0066CD02 /* SelectedButtonDelegate.swift */; };
 		ED8AB6AB2703158F0066CD02 /* States.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8AB6AA2703158F0066CD02 /* States.swift */; };
 		EDB91D8626C2A4F300F4562D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EDB91D8526C2A4F300F4562D /* GoogleService-Info.plist */; };
 		EDC1EDDF26BF8FF600DCB215 /* Charts+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC1EDDE26BF8FF600DCB215 /* Charts+.swift */; };
@@ -231,7 +231,7 @@
 		ED8AB6A02702E55D0066CD02 /* SelectedStrokeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedStrokeVC.swift; sourceTree = "<group>"; };
 		ED8AB6A22702E73F0066CD02 /* StrokesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokesView.swift; sourceTree = "<group>"; };
 		ED8AB6A52702EDC20066CD02 /* StrokesTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokesTVC.swift; sourceTree = "<group>"; };
-		ED8AB6A82703157A0066CD02 /* SelectedRangeDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedRangeDelegate.swift; sourceTree = "<group>"; };
+		ED8AB6A82703157A0066CD02 /* SelectedButtonDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedButtonDelegate.swift; sourceTree = "<group>"; };
 		ED8AB6AA2703158F0066CD02 /* States.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = States.swift; sourceTree = "<group>"; };
 		EDB91D8526C2A4F300F4562D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EDC1EDDE26BF8FF600DCB215 /* Charts+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Charts+.swift"; sourceTree = "<group>"; };
@@ -824,7 +824,7 @@
 		EDEF3B57271E9B6100C852E7 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
-				ED8AB6A82703157A0066CD02 /* SelectedRangeDelegate.swift */,
+				ED8AB6A82703157A0066CD02 /* SelectedButtonDelegate.swift */,
 				EDEF3B59271E9BAD00C852E7 /* ReusableView.swift */,
 				EDEF3B5B271E9C0900C852E7 /* NibLoadableView.swift */,
 				EDEF3B5D271EA37500C852E7 /* ViewModelBindableType.swift */,
@@ -1090,7 +1090,7 @@
 				3CF4E9122719C0F100FE8802 /* SwimmingDataModel.swift in Sources */,
 				EDD7C43C26CB903F00D93306 /* ChartTVC.swift in Sources */,
 				3CF4E9142719C6C600FE8802 /* Date+.swift in Sources */,
-				ED8AB6A92703157A0066CD02 /* SelectedRangeDelegate.swift in Sources */,
+				ED8AB6A92703157A0066CD02 /* SelectedButtonDelegate.swift in Sources */,
 				EDD3CCDC27019A7200AFED4B /* RangeView.swift in Sources */,
 				EDC1EDDF26BF8FF600DCB215 /* Charts+.swift in Sources */,
 				ED22C69B273A588A00036CF7 /* RecordStorage.swift in Sources */,

@@ -29,7 +29,7 @@ class FilterTVC: UITableViewCell, ReusableView {
     let strokes: [String] = ["영법", "자유형", "평영", "배영", "접영"]
     var state: CurrentMainViewState = .base
     var stroke: Stroke = .none
-    var delegate: SelectedRangeDelegate?
+    var delegate: SelectedButtonDelegate?
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -242,9 +242,9 @@ extension FilterTVC: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch indexPath.item {
         case 0:
-            delegate?.didClickedRangeButton()
+            delegate?.didClickedPeriodFilterButton()
         default:
-            delegate?.didClickedStrokeButton(indexPath: 0)
+            delegate?.didClickedStrokeFilterButton(with: 0)
         }
     }
 }

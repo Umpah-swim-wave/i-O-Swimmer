@@ -144,8 +144,8 @@ extension MainTableVC: UITableViewDataSource {
 }
 
 // MARK: - SelectedRange Delegate
-extension MainTableVC: SelectedRangeDelegate {
-    func didClickedRangeButton() {
+extension MainTableVC: SelectedButtonDelegate {
+    func didClickedPeriodFilterButton() {
         setupCardViewState(to: .normal)
         
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "SelectedRangeVC") as? SelectedRangeVC else { return }
@@ -212,7 +212,7 @@ extension MainTableVC: SelectedRangeDelegate {
         present(vc, animated: true, completion: nil)
     }
     
-    func didClickedStrokeButton(indexPath: Int = 0) {
+    func didClickedStrokeFilterButton(with indexPath: Int = 0) {
         setupCardViewState(to: .normal)
         
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "SelectedStrokeVC") as? SelectedStrokeVC else { return }
