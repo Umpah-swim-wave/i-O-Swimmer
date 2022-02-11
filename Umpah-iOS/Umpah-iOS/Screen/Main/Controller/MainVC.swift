@@ -34,7 +34,7 @@ final class MainVC: MainTableVC {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        applyCardViewTopConstraint(with: .normal)
+        setupCardViewState(to: .normal)
     }
     
     // MARK: - Override Method
@@ -212,8 +212,7 @@ extension MainVC: UITableViewDelegate {
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         if cardView.cardViewState == .expanded {
-            cardView.cardViewState = .normal
-            applyCardViewTopConstraint(with: .normal)
+            setupCardViewState(to: .normal)
         }
     }
 }

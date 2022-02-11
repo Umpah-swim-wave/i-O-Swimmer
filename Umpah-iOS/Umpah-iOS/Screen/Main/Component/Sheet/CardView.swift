@@ -121,8 +121,7 @@ final class CardView: BaseView, Alertable {
                 
                 let alert = makeRequestAlert(okAction: { _ in
                     self.expandedView.isModified = false
-                    self.cardViewState = .normal
-                    self.rootVC?.applyCardViewTopConstraint(with: .normal)
+                    self.rootVC?.setupCardViewState(to: .normal)
                     self.expandedView.bottomView.selectButton.setTitle("영법 수정하기", for: .normal)
                     self.canScrollMore = true
                 }, cancelAction: { _ in

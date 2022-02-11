@@ -47,7 +47,12 @@ class MainCardVC: BaseViewController {
     
     // MARK: - func
     
-    func applyCardViewTopConstraint(with state: CardViewState) {
+    func setupCardViewState(to state: CardViewState) {
+        cardView.cardViewState = state
+        applyCardViewTopConstraint(with: state)
+    }
+    
+    private func applyCardViewTopConstraint(with state: CardViewState) {
         let screenHeight = UIScreen.main.bounds.size.height
         var topConstraint: CGFloat = 0
         
@@ -108,8 +113,7 @@ class MainCardVC: BaseViewController {
     private func scrolledToFinish(with velocity: CGPoint) {
         let scrolledToFinish = velocity.y > cardViewMaxVelocity
         if scrolledToFinish {
-            cardView.cardViewState = .normal
-            applyCardViewTopConstraint(with: .normal)
+            setupCardViewState(to: .normal)
         }
     }
     
@@ -118,7 +122,6 @@ class MainCardVC: BaseViewController {
         let bottomPadding = window.safeAreaInsets.bottom
         let isOverTheMiddleOfHeight = cardViewTopConstraint?.constant ?? 0 >= (safeAreaHeight + bottomPadding) * 0.6
         
-        cardView.cardViewState = isOverTheMiddleOfHeight ? .normal : .expanded
-        applyCardViewTopConstraint(with: isOverTheMiddleOfHeight ? .normal : .expanded)
+        setupCardViewState(to: isOverTheMiddleOfHeight ? .normal : .expanded)
     }
 }

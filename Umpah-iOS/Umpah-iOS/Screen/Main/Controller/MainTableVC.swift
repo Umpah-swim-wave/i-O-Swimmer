@@ -146,8 +146,7 @@ extension MainTableVC: UITableViewDataSource {
 // MARK: - SelectedRange Delegate
 extension MainTableVC: SelectedRangeDelegate {
     func didClickedRangeButton() {
-        cardView.cardViewState = .normal
-        applyCardViewTopConstraint(with: .normal)
+        setupCardViewState(to: .normal)
         
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "SelectedRangeVC") as? SelectedRangeVC else { return }
         vc.modalPresentationStyle = .overCurrentContext
@@ -214,8 +213,7 @@ extension MainTableVC: SelectedRangeDelegate {
     }
     
     func didClickedStrokeButton(indexPath: Int = 0) {
-        cardView.cardViewState = .normal
-        applyCardViewTopConstraint(with: .normal)
+        setupCardViewState(to: .normal)
         
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "SelectedStrokeVC") as? SelectedStrokeVC else { return }
         vc.modalPresentationStyle = .overCurrentContext
