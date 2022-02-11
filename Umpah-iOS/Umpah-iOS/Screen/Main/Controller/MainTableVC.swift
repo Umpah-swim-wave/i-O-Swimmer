@@ -59,7 +59,7 @@ class MainTableVC: MainCardVC {
     
     // MARK: - func
     
-    private func changeViewState(to state: CurrentMainViewState, with dateText: String) {
+    private func setupMainViewState(to state: CurrentMainViewState, with dateText: String) {
         self.dateText = dateText
         cardView.dateText = dateText
         currentMainViewState = state
@@ -165,7 +165,7 @@ extension MainTableVC: SelectedButtonDelegate {
             let transDay = (day.count == 1) ? "0\(day)" : day
             let date = "\(transYear)/\(transMonth)/\(transDay)"
             let state: CurrentMainViewState = (date == self.dateformatterForScreen.string(from: Date())) ? .base : .day
-            self.changeViewState(to: state, with: date)
+            self.setupMainViewState(to: state, with: date)
 
             self.selectedDates[0] = "\(year)-\(transMonth)-\(transDay)"
             self.storage.dispatchDayRecord(date: self.selectedDates[0], stroke: "") {
@@ -174,7 +174,7 @@ extension MainTableVC: SelectedButtonDelegate {
         }
         vc.weekData = { [weak self] week in
             guard let self = self else { return }
-            self.changeViewState(to: .week, with: week)
+            self.setupMainViewState(to: .week, with: week)
             
             self.selectedDates[0] = "2021-10-18"
             self.selectedDates[1] = "2021-10-24"
@@ -188,7 +188,7 @@ extension MainTableVC: SelectedButtonDelegate {
             guard let self = self else { return }
             let transMonth = (month.count == 1) ? "0\(month)" : month
             let date = "\(year)/\(transMonth)"
-            self.changeViewState(to: .month, with: date)
+            self.setupMainViewState(to: .month, with: date)
             
             self.selectedDates[0] = "\(year)-\(transMonth)"
             self.storage.dispatchDayRecord(date: self.selectedDates[0], stroke: "") {
@@ -206,8 +206,8 @@ extension MainTableVC: SelectedButtonDelegate {
         
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "SelectedStrokeVC") as? SelectedStrokeVC else { return }
 
-        vc.strokeData = { style in
-            print(style)
+        vc.strokeData = { [weak self] style in
+            guard let self = self else { return }
             self.strokeState = style
             
             switch self.currentMainViewState {
@@ -215,15 +215,11 @@ extension MainTableVC: SelectedButtonDelegate {
                 self.storage.dispatchWeekRecord(startDate: self.selectedDates[0],
                                                 endDate: self.selectedDates[1],
                                                 stroke: style.rawValue) {
-                    print("Week Record with stroke")
-                    
                     self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
                 }
             case .month:
                 self.storage.dispatchMonthRecord(date: self.selectedDates[0],
                                                  stroke: style.rawValue) {
-                    print("Month Record with stroke")
-                    
                     self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
                 }
             default:
@@ -231,7 +227,7 @@ extension MainTableVC: SelectedButtonDelegate {
             }
         }
         
-        vc.style = self.strokeState
+        vc.style = strokeState
         vc.modalPresentationStyle = .overCurrentContext
         vc.modalTransitionStyle = .crossDissolve
         present(vc, animated: true, completion: nil)
