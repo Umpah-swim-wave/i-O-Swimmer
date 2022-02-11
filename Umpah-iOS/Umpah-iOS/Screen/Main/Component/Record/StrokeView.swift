@@ -19,7 +19,7 @@ class StrokeView: UIView {
         $0.contentInset = UIEdgeInsets(top: -20, left: 0, bottom: 0, right: 0)
         $0.separatorColor = .clear
         $0.separatorStyle = .none
-        $0.register(InsideStrokeTVC.self, forCellReuseIdentifier: InsideStrokeTVC.identifier)
+        $0.register(InsideStrokeTVC.self, forCellReuseIdentifier: InsideStrokeTVC.className)
     }
     
     let strokes: [String] = ["자유형", "평영", "배영", "접영", "혼영"]
@@ -49,7 +49,7 @@ extension StrokeView: UITableViewDataSource {
     }
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: InsideStrokeTVC.identifier) as? InsideStrokeTVC else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: InsideStrokeTVC.className) as? InsideStrokeTVC else { return UITableViewCell() }
         cell.setupLabelData(stroke: strokes[indexPath.row], index: indexPath.row)
         cell.backgroundColor = .clear
         return cell

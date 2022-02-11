@@ -7,57 +7,56 @@
 
 import UIKit
 
-import Then
 import SnapKit
+import Then
 
-class InsideStrokeTVC: UITableViewCell {
-    static let identifier = "InsideStrokeTVC"
+final class InsideStrokeTVC: UITableViewCell {
 
-    // MARK: - Properties
-    var strokeLabel = UILabel().then {
+    // MARK: - properties
+    
+    private let strokeLabel = UILabel().then {
         $0.font = .IBMPlexSansText(ofSize: 14)
         $0.textColor = .upuhBlack
     }
-    var distanceLabel = UILabel().then {
+    private let distanceLabel = UILabel().then {
         $0.text = "9999m"
         $0.font = .IBMPlexSansText(ofSize: 14)
         $0.addCharacterSpacing(kernValue: -1)
     }
-    var averageSpeedLabel = UILabel().then {
+    private let averageSpeedLabel = UILabel().then {
         $0.text = "1.7m/s"
         $0.font = .IBMPlexSansText(ofSize: 14)
         $0.addCharacterSpacing(kernValue: -1)
     }
-    var bottomLine = UIView().then {
+    private let bottomLine = UIView().then {
         $0.backgroundColor = .upuhDivider
     }
+    
+    // MARK: - init
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        setupLayout()
+        render()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    fileprivate func setupLayout() {
-        addSubviews([strokeLabel,
-                     distanceLabel,
-                     averageSpeedLabel,
-                     bottomLine])
+    // MARK: - func
+    
+    private func render() {
+        contentView.addSubviews([strokeLabel, distanceLabel, averageSpeedLabel])
         
         strokeLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(14)
             $0.bottom.equalToSuperview().inset(14)
             $0.leading.equalToSuperview().inset(24)
         }
-        
         distanceLabel.snp.makeConstraints {
             $0.top.equalTo(strokeLabel)
             $0.trailing.equalToSuperview().inset(130)
         }
-        
         averageSpeedLabel.snp.makeConstraints {
             $0.top.equalTo(strokeLabel)
             $0.trailing.equalToSuperview().inset(43)
@@ -68,6 +67,7 @@ class InsideStrokeTVC: UITableViewCell {
         strokeLabel.text = stroke
         
         if index != 4 {
+            contentView.addSubview(bottomLine)
             bottomLine.snp.makeConstraints {
                 $0.leading.trailing.equalToSuperview().inset(18)
                 $0.bottom.equalToSuperview()
