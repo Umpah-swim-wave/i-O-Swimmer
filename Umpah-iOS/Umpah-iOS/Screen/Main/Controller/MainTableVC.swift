@@ -78,13 +78,9 @@ extension MainTableVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard
-            let dayBaseRowType = DayBaseRowType(rawValue: indexPath.row),
-            let weekMonthRowType = WeekMonthRowType(rawValue: indexPath.row)
-        else { return UITableViewCell() }
-        
         switch currentMainViewState {
         case .day, .base:
+            guard let dayBaseRowType = DayBaseRowType(rawValue: indexPath.row) else { return UITableViewCell() }
             switch dayBaseRowType {
             case .filter:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: FilterTVC.identifier) as? FilterTVC else { return UITableViewCell() }
@@ -109,6 +105,7 @@ extension MainTableVC: UITableViewDataSource {
                 return cell
             }
         case .week, .month:
+            guard let weekMonthRowType = WeekMonthRowType(rawValue: indexPath.row) else { return UITableViewCell() }
             switch weekMonthRowType {
             case .filter:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: FilterTVC.identifier) as? FilterTVC else { return UITableViewCell() }
