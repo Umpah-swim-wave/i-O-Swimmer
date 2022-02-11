@@ -7,34 +7,43 @@
 
 import UIKit
 
-import Then
 import SnapKit
+import Then
 
-class FilterTVC: UITableViewCell, ReusableView {
-    static let identifier = "FilterTVC"
+final class FilterTVC: UITableViewCell {
     
-    // MARK: - Properties
-    lazy var filterCollectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout).then {
+    private enum FilterSectionType: Int, CaseIterable {
+        case period
+        case stroke
+    }
+    
+    // MARK: - properties
+    private lazy var filterCollectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout).then {
         $0.dataSource = self
         $0.delegate = self
         $0.backgroundColor = .upuhBackground
         $0.contentInset = UIEdgeInsets(top: 0, left: 28, bottom: 0, right: 0)
         $0.register(FilterCVC.self, forCellWithReuseIdentifier: FilterCVC.identifier)
     }
-    var flowLayout = UICollectionViewFlowLayout().then {
+    private var flowLayout = UICollectionViewFlowLayout().then {
         $0.scrollDirection = .horizontal
+        $0.minimumLineSpacing = 8
+        $0.minimumInteritemSpacing = 8
+        $0.sectionInset = UIEdgeInsets(top: 22, left: 0, bottom: 8, right: 0)
     }
     
-    let categorys: [String] = ["기간", "일간", "주간", "월간"]
-    let strokes: [String] = ["영법", "자유형", "평영", "배영", "접영"]
-    var state: CurrentMainViewState = .base
+    private let categoryTypes: [String] = ["기간", "일간", "주간", "월간"]
+    private let strokeTypes: [String] = ["영법", "자유형", "평영", "배영", "접영"]
+    var currentMainViewState: CurrentMainViewState = .base
     var stroke: Stroke = .none
-    var delegate: SelectedButtonDelegate?
+    weak var delegate: SelectedButtonDelegate?
 
+    // MARK: - init
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
-        setupLayout()
+        render()
     }
     
     required init?(coder: NSCoder) {
@@ -45,9 +54,10 @@ class FilterTVC: UITableViewCell, ReusableView {
         filterCollectionView.reloadData()
     }
     
-    fileprivate func setupLayout() {
-        sendSubviewToBack(contentView)
-        addSubview(filterCollectionView)
+    // MARK: - func
+    
+    private func render() {
+        contentView.addSubview(filterCollectionView)
         
         filterCollectionView.snp.makeConstraints {
             $0.edges.equalToSuperview()
@@ -67,14 +77,14 @@ class FilterTVC: UITableViewCell, ReusableView {
         configuration.imagePadding = imagePadding
         configuration.baseForegroundColor = backgroundColor
         configuration.attributedTitle = AttributedString(title, attributes: AttributeContainer([NSAttributedString.Key.foregroundColor: UIColor.upuhGreen, NSAttributedString.Key.font: UIFont.IBMPlexSansSemiBold(ofSize: 14)]))
-        
         return configuration
     }
 }
 
+// MARK: - UICollectionViewDataSource
 extension FilterTVC: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        switch state {
+        switch currentMainViewState {
         case .day, .base:
             return 1
         default:
@@ -83,158 +93,85 @@ extension FilterTVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        switch indexPath.item {
-        case 0:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FilterCVC.identifier, for: indexPath) as? FilterCVC else { return UICollectionViewCell() }
-            
-            cell.backgroundColor = .white
-            
-            
-            switch state {
+        guard
+            let sectionType = FilterSectionType(rawValue: indexPath.item),
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FilterCVC.identifier, for: indexPath) as? FilterCVC
+        else { return UICollectionViewCell() }
+        let item = indexPath.item
+        
+        switch sectionType {
+        case .period:
+            switch currentMainViewState {
+            case .routine:
+                break
             case .base:
                 if #available(iOS 15, *) {
                     cell.filterButton.configuration = setupConfigurationButton(image: "plus",
                                                                                titlePadding: 0,
                                                                                imagePadding: 4,
                                                                                backgroundColor: .upuhGreen,
-                                                                               title: categorys[0])
+                                                                               title: categoryTypes[0])
                 } else {
-                    cell.filterButton.setTitle(categorys[0], for: .normal)
+                    cell.filterButton.setTitle(categoryTypes[0], for: .normal)
                     cell.filterButton.setImage(UIImage(named: "plus"), for: .normal)
                 }
                 cell.backgroundColor = .clear
-            case .day:
-                if #available(iOS 15, *) {
-                    cell.filterButton.configuration = setupConfigurationButton(image: "xmark",
-                                                                               titlePadding: 2,
-                                                                               imagePadding: 2,
-                                                                               backgroundColor: .upuhGreen,
-                                                                               title: categorys[1])
-                } else {
-                    cell.filterButton.setTitle(categorys[1], for: .normal)
-                    cell.filterButton.setImage(UIImage(named: "xmark"), for: .normal)
-                }
-            case .week:
-                if #available(iOS 15, *) {
-                    cell.filterButton.configuration = setupConfigurationButton(image: "xmark",
-                                                                               titlePadding: 2,
-                                                                               imagePadding: 2,
-                                                                               backgroundColor: .upuhGreen,
-                                                                               title: categorys[2])
-                } else {
-                    cell.filterButton.setTitle(categorys[2], for: .normal)
-                    cell.filterButton.setImage(UIImage(named: "xmark"), for: .normal)
-                }
-            case .month:
-                if #available(iOS 15, *) {
-                    cell.filterButton.configuration = setupConfigurationButton(image: "xmark",
-                                                                               titlePadding: 2,
-                                                                               imagePadding: 2,
-                                                                               backgroundColor: .upuhGreen,
-                                                                               title: categorys[3])
-                } else {
-                    cell.filterButton.setTitle(categorys[3], for: .normal)
-                    cell.filterButton.setImage(UIImage(named: "xmark"), for: .normal)
-                }
-            case .routine:
-                break
-            }
-            
-            return cell
-        default:
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FilterCVC.identifier, for: indexPath) as? FilterCVC else { return UICollectionViewCell() }
-            
-            cell.backgroundColor = .white
-            
-            switch stroke {
-            case .freestyle:
-                if #available(iOS 15, *) {
-                    cell.filterButton.configuration = setupConfigurationButton(image: "xmark",
-                                                                               titlePadding: 2,
-                                                                               imagePadding: 2,
-                                                                               backgroundColor: .upuhGreen,
-                                                                               title: strokes[1])
-                } else {
-                    cell.filterButton.setTitle(strokes[1], for: .normal)
-                    cell.filterButton.setImage(UIImage(named: "xmark"), for: .normal)
-                }
-            case .breaststroke:
-                if #available(iOS 15, *) {
-                    cell.filterButton.configuration = setupConfigurationButton(image: "xmark",
-                                                                               titlePadding: 2,
-                                                                               imagePadding: 2,
-                                                                               backgroundColor: .upuhGreen,
-                                                                               title: strokes[2])
-                } else {
-                    cell.filterButton.setTitle(strokes[2], for: .normal)
-                    cell.filterButton.setImage(UIImage(named: "xmark"), for: .normal)
-                }
-            case .backstroke:
-                if #available(iOS 15, *) {
-                    cell.filterButton.configuration = setupConfigurationButton(image: "xmark",
-                                                                               titlePadding: 2,
-                                                                               imagePadding: 2,
-                                                                               backgroundColor: .upuhGreen,
-                                                                               title: strokes[3])
-                } else {
-                    cell.filterButton.setTitle(strokes[3], for: .normal)
-                    cell.filterButton.setImage(UIImage(named: "xmark"), for: .normal)
-                }
-            case .butterfly:
-                if #available(iOS 15, *) {
-                    cell.filterButton.configuration = setupConfigurationButton(image: "xmark",
-                                                                               titlePadding: 2,
-                                                                               imagePadding: 2,
-                                                                               backgroundColor: .upuhGreen,
-                                                                               title: strokes[4])
-                } else {
-                    cell.filterButton.setTitle(strokes[4], for: .normal)
-                    cell.filterButton.setImage(UIImage(named: "xmark"), for: .normal)
-                }
             default:
+                if #available(iOS 15, *) {
+                    cell.filterButton.configuration = setupConfigurationButton(image: "xmark",
+                                                                               titlePadding: 2,
+                                                                               imagePadding: 2,
+                                                                               backgroundColor: .upuhGreen,
+                                                                               title: categoryTypes[item])
+                } else {
+                    cell.filterButton.setTitle(categoryTypes[item], for: .normal)
+                    cell.filterButton.setImage(UIImage(named: "xmark"), for: .normal)
+                }
+                cell.backgroundColor = .white
+            }
+        case .stroke:
+            switch stroke {
+            case .none:
                 if #available(iOS 15, *) {
                     cell.filterButton.configuration = setupConfigurationButton(image: "plus",
                                                                                titlePadding: 0,
                                                                                imagePadding: 4,
                                                                                backgroundColor: .upuhGreen,
-                                                                               title: strokes[0])
+                                                                               title: strokeTypes[0])
                 } else {
-                    cell.filterButton.setTitle(strokes[0], for: .normal)
+                    cell.filterButton.setTitle(strokeTypes[0], for: .normal)
                     cell.filterButton.setImage(UIImage(named: "plus"), for: .normal)
                 }
                 cell.backgroundColor = .clear
+            default:
+                if #available(iOS 15, *) {
+                    cell.filterButton.configuration = setupConfigurationButton(image: "xmark",
+                                                                               titlePadding: 2,
+                                                                               imagePadding: 2,
+                                                                               backgroundColor: .upuhGreen,
+                                                                               title: strokeTypes[item])
+                } else {
+                    cell.filterButton.setTitle(strokeTypes[item], for: .normal)
+                    cell.filterButton.setImage(UIImage(named: "xmark"), for: .normal)
+                }
+                cell.backgroundColor = .white
             }
-            
-            return cell
         }
+        
+        return cell
     }
 }
 
 extension FilterTVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        switch indexPath.item {
-        case 1:
-            switch stroke {
-            case .freestyle:
-                return CGSize(width: 91, height: 40)
-            default:
-                return CGSize(width: 79, height: 40)
-            }
+        guard let sectionType = FilterSectionType(rawValue: indexPath.item) else { return .zero }
+        
+        switch (sectionType, stroke) {
+        case (.stroke, .freestyle):
+            return CGSize(width: 91, height: 40)
         default:
             return CGSize(width: 79, height: 40)
         }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 8
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 8
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 22, left: 0, bottom: 8, right: 0)
     }
 }
 

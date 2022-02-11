@@ -43,7 +43,7 @@ class MainTableVC: MainCardVC {
         $0.showsVerticalScrollIndicator = false
         $0.register(ChartTVC.self, forCellReuseIdentifier: ChartTVC.className)
         $0.register(DetailTVC.self, forCellReuseIdentifier: DetailTVC.className)
-        $0.register(FilterTVC.self, forCellReuseIdentifier: FilterTVC.identifier)
+        $0.register(FilterTVC.self, forCellReuseIdentifier: FilterTVC.className)
         $0.register(StrokeTVC.self, forCellReuseIdentifier: StrokeTVC.identifier)
         $0.register(DateTVC.self, forCellReuseIdentifier: DateTVC.identifier)
         $0.register(RoutineTVC.self)
@@ -94,9 +94,9 @@ extension MainTableVC: UITableViewDataSource {
             guard let dayBaseRowType = DayBaseRowType(rawValue: indexPath.row) else { return UITableViewCell() }
             switch dayBaseRowType {
             case .filter:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: FilterTVC.identifier) as? FilterTVC else { return UITableViewCell() }
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: FilterTVC.className) as? FilterTVC else { return UITableViewCell() }
                 cell.delegate = self
-                cell.state = currentMainViewState
+                cell.currentMainViewState = self.currentMainViewState
                 return cell
             case .date:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DateTVC.identifier) as? DateTVC else { return UITableViewCell() }
@@ -119,9 +119,9 @@ extension MainTableVC: UITableViewDataSource {
             guard let weekMonthRowType = WeekMonthRowType(rawValue: indexPath.row) else { return UITableViewCell() }
             switch weekMonthRowType {
             case .filter:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: FilterTVC.identifier) as? FilterTVC else { return UITableViewCell() }
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: FilterTVC.className) as? FilterTVC else { return UITableViewCell() }
                 cell.delegate = self
-                cell.state = currentMainViewState
+                cell.currentMainViewState = self.currentMainViewState
                 cell.stroke = strokeState
                 return cell
             case .date:
