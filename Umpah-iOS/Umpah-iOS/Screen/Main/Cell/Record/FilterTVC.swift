@@ -7,6 +7,8 @@
 
 import UIKit
 
+import RxCocoa
+import RxSwift
 import SnapKit
 import Then
 
@@ -18,6 +20,7 @@ final class FilterTVC: UITableViewCell {
     }
     
     // MARK: - properties
+    
     private lazy var filterCollectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout).then {
         $0.dataSource = self
         $0.delegate = self
@@ -32,6 +35,7 @@ final class FilterTVC: UITableViewCell {
         $0.sectionInset = UIEdgeInsets(top: 22, left: 0, bottom: 8, right: 0)
     }
     
+    private let disposeBag = DisposeBag()
     private let categoryTypes: [String] = ["기간", "일간", "주간", "월간"]
     private let strokeTypes: [String] = ["영법", "자유형", "평영", "배영", "접영"]
     var currentMainViewState: CurrentMainViewState = .base
@@ -44,6 +48,7 @@ final class FilterTVC: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         selectionStyle = .none
         render()
+        bind()
     }
     
     required init?(coder: NSCoder) {
@@ -63,6 +68,24 @@ final class FilterTVC: UITableViewCell {
             $0.edges.equalToSuperview()
             $0.height.equalTo(70)
         }
+    }
+    
+    private func bind() {
+        filterCollectionView.rx.itemSelected
+            .bind(onNext: { [weak self] indexPath in
+                guard
+                    let self = self,
+                    let filterSectionType = FilterSectionType(rawValue: indexPath.item)
+                else { return }
+                
+                switch filterSectionType {
+                case .period:
+                    self.delegate?.didClickedPeriodFilterButton()
+                case .stroke:
+                    self.delegate?.didClickedStrokeFilterButton(with: 0)
+                }
+            })
+            .disposed(by: disposeBag)
     }
 }
 
@@ -131,17 +154,6 @@ extension FilterTVC: UICollectionViewDelegateFlowLayout {
             return CGSize(width: 91, height: 40)
         default:
             return CGSize(width: 79, height: 40)
-        }
-    }
-}
-
-extension FilterTVC: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        switch indexPath.item {
-        case 0:
-            delegate?.didClickedPeriodFilterButton()
-        default:
-            delegate?.didClickedStrokeFilterButton(with: 0)
         }
     }
 }
