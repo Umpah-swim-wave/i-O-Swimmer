@@ -7,6 +7,8 @@
 
 import UIKit
 
+import RxCocoa
+import RxSwift
 import SnapKit
 import Then
 
@@ -92,8 +94,8 @@ final class RoutineTVC: UITableViewCell, NibLoadableView, ReusableView {
     }
     private let deleteButton = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 22, height: 22))).then {
         $0.setImage(UIImage(named: "ic_trash"), for: .normal)
-        $0.addTarget(self, action: #selector(touchUpDelete), for: .touchUpInside)
     }
+    private let disposeBag = DisposeBag()
     var routineOverviewData: RoutineOverviewData?
     
     // MARK: - init
@@ -102,6 +104,7 @@ final class RoutineTVC: UITableViewCell, NibLoadableView, ReusableView {
         super.awakeFromNib()
         render()
         configUI()
+        bind()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -160,9 +163,13 @@ final class RoutineTVC: UITableViewCell, NibLoadableView, ReusableView {
         }
     }
     
-    @objc
-    private func touchUpDelete() {
-        print("touch Delete")
+    private func bind() {
+        deleteButton.rx.tap
+            .asDriver()
+            .drive(onNext: { _ in
+                print("touch Delete")
+            })
+            .disposed(by: disposeBag)
     }
     
     func setContentData(overview: RoutineOverviewData){
