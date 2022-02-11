@@ -45,7 +45,7 @@ class MainTableVC: MainCardVC {
         $0.register(DetailTVC.self, forCellReuseIdentifier: DetailTVC.className)
         $0.register(FilterTVC.self, forCellReuseIdentifier: FilterTVC.className)
         $0.register(StrokeTVC.self, forCellReuseIdentifier: StrokeTVC.className)
-        $0.register(DateTVC.self, forCellReuseIdentifier: DateTVC.identifier)
+        $0.register(DateTVC.self, forCellReuseIdentifier: DateTVC.className)
         $0.register(RoutineTVC.self)
         
         if #available(iOS 15.0, *) {
@@ -114,7 +114,7 @@ extension MainTableVC: UITableViewDataSource {
                 cell.currentMainViewState = self.currentMainViewState
                 return cell
             case .date:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: DateTVC.identifier) as? DateTVC else { return UITableViewCell() }
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: DateTVC.className) as? DateTVC else { return UITableViewCell() }
                 cell.setupDateLabel(with: dateText)
                 return cell
             case .detail:
@@ -140,7 +140,7 @@ extension MainTableVC: UITableViewDataSource {
                 cell.stroke = strokeState
                 return cell
             case .date:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: DateTVC.identifier) as? DateTVC else { return UITableViewCell() }
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: DateTVC.className) as? DateTVC else { return UITableViewCell() }
                 cell.setupDateLabel(with: dateText)
                 return cell
             case .chart:

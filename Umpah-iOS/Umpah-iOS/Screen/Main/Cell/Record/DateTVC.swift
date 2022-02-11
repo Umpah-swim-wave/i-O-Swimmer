@@ -7,30 +7,34 @@
 
 import UIKit
 
-import Then
 import SnapKit
+import Then
 
-class DateTVC: UITableViewCell {
-    static let identifier = "DateTVC"
+final class DateTVC: UITableViewCell {
     
-    // MARK: - Properties
-    let dateLabel = UILabel().then {
+    // MARK: - properties
+    
+    private let dateLabel = UILabel().then {
         $0.textColor = .upuhGreen
     }
+    
+    // MARK: - init
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         backgroundColor = .upuhBackground
         selectionStyle = .none
-        setupLayout()
+        render()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    fileprivate func setupLayout() {
-        addSubview(dateLabel)
+    // MARK: - func
+    
+    private func render() {
+        contentView.addSubview(dateLabel)
         
         dateLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(20)
@@ -43,7 +47,7 @@ class DateTVC: UITableViewCell {
         dateLabel.text = dateText
         dateLabel.addCharacterSpacing(kernValue: 2)
         
-        let specificWeek = (dateText == "이번주" || dateText == "지난주")
-        dateLabel.font = specificWeek ? .IBMPlexSansSemiBold(ofSize: 16) : .nexaBold(ofSize: 16)
+        let isSpecificWeek = (dateText == "이번주" || dateText == "지난주")
+        dateLabel.font = isSpecificWeek ? .IBMPlexSansSemiBold(ofSize: 16) : .nexaBold(ofSize: 16)
     }
 }
