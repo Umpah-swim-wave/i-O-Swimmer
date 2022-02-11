@@ -44,7 +44,7 @@ class MainTableVC: MainCardVC {
         $0.register(ChartTVC.self, forCellReuseIdentifier: ChartTVC.className)
         $0.register(DetailTVC.self, forCellReuseIdentifier: DetailTVC.className)
         $0.register(FilterTVC.self, forCellReuseIdentifier: FilterTVC.className)
-        $0.register(StrokeTVC.self, forCellReuseIdentifier: StrokeTVC.identifier)
+        $0.register(StrokeTVC.self, forCellReuseIdentifier: StrokeTVC.className)
         $0.register(DateTVC.self, forCellReuseIdentifier: DateTVC.identifier)
         $0.register(RoutineTVC.self)
         
@@ -122,7 +122,7 @@ extension MainTableVC: UITableViewDataSource {
                 cell.setupTitleLabel(with: currentMainViewState)
                 return cell
             case .stroke:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: StrokeTVC.identifier) as? StrokeTVC else { return UITableViewCell() }
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: StrokeTVC.className) as? StrokeTVC else { return UITableViewCell() }
                 return cell
             case .footer:
                 let cell = UITableViewCell(frame: .zero)
