@@ -42,6 +42,8 @@ class DateTVC: UITableViewCell {
     func setupDateLabel(with dateText: String) {
         dateLabel.text = dateText
         dateLabel.addCharacterSpacing(kernValue: 2)
-        dateLabel.font = .nexaBold(ofSize: 16)
+        
+        let specificWeek = (dateText == "이번주" || dateText == "지난주")
+        dateLabel.font = specificWeek ? .IBMPlexSansSemiBold(ofSize: 16) : .nexaBold(ofSize: 16)
     }
 }

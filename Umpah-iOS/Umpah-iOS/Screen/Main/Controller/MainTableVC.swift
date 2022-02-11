@@ -24,6 +24,14 @@ class MainTableVC: MainCardVC {
         case footer
     }
     
+    private enum WeekMonthRowType: Int, CaseIterable {
+        case filter
+        case date
+        case chart
+        case detail
+        case footer
+    }
+    
     // MARK: - properties
     
     lazy var baseTableView = UITableView().then {
@@ -70,7 +78,10 @@ extension MainTableVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let dayBaseRowType = DayBaseRowType(rawValue: indexPath.row) else { return UITableViewCell() }
+        guard
+            let dayBaseRowType = DayBaseRowType(rawValue: indexPath.row),
+            let weekMonthRowType = WeekMonthRowType(rawValue: indexPath.row)
+        else { return UITableViewCell() }
         
         switch currentMainViewState {
         case .day, .base:
@@ -98,40 +109,27 @@ extension MainTableVC: UITableViewDataSource {
                 return cell
             }
         case .week, .month:
-            switch indexPath.row {
-            case 0:
+            switch weekMonthRowType {
+            case .filter:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: FilterTVC.identifier) as? FilterTVC else { return UITableViewCell() }
                 cell.delegate = self
                 cell.state = currentMainViewState
                 cell.stroke = strokeState
                 return cell
-            case 1:
+            case .date:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DateTVC.identifier) as? DateTVC else { return UITableViewCell() }
-                cell.dateLabel.text = dateText
-                cell.dateLabel.addCharacterSpacing(kernValue: 2)
-                if dateText == "이번주" || dateText == "지난주" {
-                    cell.dateLabel.font = .IBMPlexSansSemiBold(ofSize: 16)
-                } else {
-                    cell.dateLabel.font = .nexaBold(ofSize: 16)
-                }
+                cell.setupDateLabel(with: dateText)
                 return cell
-            case 2:
+            case .chart:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: ChartTVC.identifier) as? ChartTVC else { return UITableViewCell() }
                 cell.combineChartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .linear)
-                
-                if currentMainViewState == .week {
-                    cell.titleLabel.text = "WEEKLY RECORD"
-                    cell.titleLabel.addCharacterSpacing(kernValue: 2)
-                } else {
-                    cell.titleLabel.text = "MONTHLY RECORD"
-                    cell.titleLabel.addCharacterSpacing(kernValue: 2)
-                }
+                cell.setupTitleLabel(with: currentMainViewState)
                 return cell
-            case 3:
+            case .detail:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
                 cell.setupTitleLabel(with: currentMainViewState)
                 return cell
-            default:
+            case .footer:
                 let cell = UITableViewCell(frame: .zero)
                 cell.backgroundColor = .upuhBackground
                 cell.selectionStyle = .none

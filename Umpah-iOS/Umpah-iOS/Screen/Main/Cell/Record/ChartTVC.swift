@@ -130,4 +130,9 @@ class ChartTVC: UITableViewCell {
         data.lineData = LineChartData(dataSet: line1)
         combineChartView.data = data
     }
+    
+    func setupTitleLabel(with state: CurrentMainViewState) {
+        titleLabel.text = (state == .week) ? "WEEKLY RECORD" : "MONTHLY RECORD"
+        titleLabel.addCharacterSpacing(kernValue: 2)
+    }
 }
