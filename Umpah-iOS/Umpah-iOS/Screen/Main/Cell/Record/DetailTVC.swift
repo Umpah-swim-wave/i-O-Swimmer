@@ -49,4 +49,18 @@ class DetailTVC: UITableViewCell {
             $0.bottom.equalToSuperview().inset(24)
         }
     }
+    
+    func setupTitleLabel(with state: CurrentMainViewState) {
+        switch state {
+        case .day, .base:
+            titleLabel.text = "OVERVIEW"
+        case .week:
+            titleLabel.text = "WEEKLY OVERVIEW"
+        case .month:
+            titleLabel.text = "MONTHLY OVERVIEW"
+        default:
+            break
+        }
+        titleLabel.addCharacterSpacing(kernValue: 2)
+    }
 }

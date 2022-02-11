@@ -7,22 +7,37 @@
 
 import UIKit
 
+import Then
+
 class MainTableVC: MainCardVC {
+    
+    private enum TotalSection: Int, CaseIterable {
+        case topHeader
+        case content
+    }
+    
+    private enum DayBaseRowType: Int, CaseIterable {
+        case filter
+        case date
+        case detail
+        case stroke
+        case footer
+    }
     
     // MARK: - properties
     
     lazy var baseTableView = UITableView().then {
         $0.dataSource = self
+        $0.backgroundColor = .clear
+        $0.separatorStyle = .none
+        $0.estimatedRowHeight = 100
+        $0.showsVerticalScrollIndicator = false
         $0.register(ChartTVC.self, forCellReuseIdentifier: ChartTVC.identifier)
         $0.register(DetailTVC.self, forCellReuseIdentifier: DetailTVC.identifier)
         $0.register(FilterTVC.self, forCellReuseIdentifier: FilterTVC.identifier)
         $0.register(StrokeTVC.self, forCellReuseIdentifier: StrokeTVC.identifier)
         $0.register(DateTVC.self, forCellReuseIdentifier: DateTVC.identifier)
         $0.register(RoutineTVC.self)
-        $0.backgroundColor = .clear
-        $0.estimatedRowHeight = 100
-        $0.separatorStyle = .none
-        $0.showsVerticalScrollIndicator = false
         
         if #available(iOS 15.0, *) {
             $0.sectionHeaderTopPadding = 0
@@ -33,65 +48,56 @@ class MainTableVC: MainCardVC {
     let statusBar = StatusBar()
 
     var routineOverViewList: [RoutineOverviewData] = []
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
 }
 
 // MARK: - UITableViewDataSource
 extension MainTableVC: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+        return TotalSection.allCases.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 1:
-            if currentMainViewState != .routine {
-                return 5
-            } else {
-                return routineOverViewList.count
-            }
-        default:
+        guard let sectionType = TotalSection(rawValue: section) else { return 0 }
+        
+        switch (sectionType, currentMainViewState) {
+        case (.topHeader, _):
             return 0
+        case (.content, .routine):
+            return routineOverViewList.count
+        default:
+            return 5
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let dayBaseRowType = DayBaseRowType(rawValue: indexPath.row) else { return UITableViewCell() }
+        
         switch currentMainViewState {
-        case .day,
-             .base:
-            switch indexPath.row {
-            case 0:
+        case .day, .base:
+            switch dayBaseRowType {
+            case .filter:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: FilterTVC.identifier) as? FilterTVC else { return UITableViewCell() }
                 cell.delegate = self
                 cell.state = currentMainViewState
                 return cell
-            case 1:
+            case .date:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DateTVC.identifier) as? DateTVC else { return UITableViewCell() }
-                cell.dateLabel.text = dateText
-                cell.dateLabel.addCharacterSpacing(kernValue: 2)
-                cell.dateLabel.font = .nexaBold(ofSize: 16)
+                cell.setupDateLabel(with: dateText)
                 return cell
-            case 2:
+            case .detail:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
-                cell.titleLabel.text = "OVERVIEW"
-                cell.titleLabel.addCharacterSpacing(kernValue: 2)
+                cell.setupTitleLabel(with: currentMainViewState)
                 return cell
-            case 3:
+            case .stroke:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: StrokeTVC.identifier) as? StrokeTVC else { return UITableViewCell() }
-                cell.titleLabel.text = "TOTAL"
-                cell.titleLabel.addCharacterSpacing(kernValue: 2)
                 return cell
-            default:
+            case .footer:
                 let cell = UITableViewCell(frame: .zero)
                 cell.backgroundColor = .upuhBackground
                 cell.selectionStyle = .none
                 return cell
             }
-        case .week,
-             .month:
+        case .week, .month:
             switch indexPath.row {
             case 0:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: FilterTVC.identifier) as? FilterTVC else { return UITableViewCell() }
@@ -123,15 +129,7 @@ extension MainTableVC: UITableViewDataSource {
                 return cell
             case 3:
                 guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
-                
-                if currentMainViewState == .week {
-                    cell.titleLabel.text = "WEEKLY OVERVIEW"
-                    cell.titleLabel.addCharacterSpacing(kernValue: 2)
-                } else {
-                    cell.titleLabel.text = "MONTHLY OVERVIEW"
-                    cell.titleLabel.addCharacterSpacing(kernValue: 2)
-                }
-                
+                cell.setupTitleLabel(with: currentMainViewState)
                 return cell
             default:
                 let cell = UITableViewCell(frame: .zero)

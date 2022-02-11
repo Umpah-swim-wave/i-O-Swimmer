@@ -7,6 +7,8 @@
 
 import UIKit
 
+import Then
+
 class MainCardVC: BaseViewController {
     
     private enum Size {

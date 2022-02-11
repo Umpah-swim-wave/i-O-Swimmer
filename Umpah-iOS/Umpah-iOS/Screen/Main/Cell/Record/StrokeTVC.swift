@@ -17,6 +17,8 @@ class StrokeTVC: UITableViewCell {
     let titleLabel = UILabel().then {
         $0.font = .nexaBold(ofSize: 12)
         $0.textColor = .upuhGray
+        $0.text = "TOTAL"
+        $0.addCharacterSpacing(kernValue: 2)
     }
     let strokeView = StrokeView().then {
         $0.layer.cornerRadius = 16

@@ -38,4 +38,10 @@ class DateTVC: UITableViewCell {
             $0.bottom.equalToSuperview().inset(27)
         }
     }
+    
+    func setupDateLabel(with dateText: String) {
+        dateLabel.text = dateText
+        dateLabel.addCharacterSpacing(kernValue: 2)
+        dateLabel.font = .nexaBold(ofSize: 16)
+    }
 }
