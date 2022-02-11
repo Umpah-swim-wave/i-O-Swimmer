@@ -75,6 +75,7 @@
 		ED8AB6A92703157A0066CD02 /* SelectedButtonDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8AB6A82703157A0066CD02 /* SelectedButtonDelegate.swift */; };
 		ED8AB6AB2703158F0066CD02 /* States.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8AB6AA2703158F0066CD02 /* States.swift */; };
 		EDB91D8626C2A4F300F4562D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EDB91D8526C2A4F300F4562D /* GoogleService-Info.plist */; };
+		EDB9E95927B6B4CD00559548 /* NSObject+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB9E95827B6B4CD00559548 /* NSObject+.swift */; };
 		EDC1EDDF26BF8FF600DCB215 /* Charts+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC1EDDE26BF8FF600DCB215 /* Charts+.swift */; };
 		EDD3CCD7270118DA00AFED4B /* StatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3CCD6270118DA00AFED4B /* StatusBar.swift */; };
 		EDD3CCD9270192D200AFED4B /* SelectedRangeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3CCD8270192D200AFED4B /* SelectedRangeVC.swift */; };
@@ -234,6 +235,7 @@
 		ED8AB6A82703157A0066CD02 /* SelectedButtonDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedButtonDelegate.swift; sourceTree = "<group>"; };
 		ED8AB6AA2703158F0066CD02 /* States.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = States.swift; sourceTree = "<group>"; };
 		EDB91D8526C2A4F300F4562D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EDB9E95827B6B4CD00559548 /* NSObject+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+.swift"; sourceTree = "<group>"; };
 		EDC1EDDE26BF8FF600DCB215 /* Charts+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Charts+.swift"; sourceTree = "<group>"; };
 		EDD3CCD6270118DA00AFED4B /* StatusBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBar.swift; sourceTree = "<group>"; };
 		EDD3CCD8270192D200AFED4B /* SelectedRangeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedRangeVC.swift; sourceTree = "<group>"; };
@@ -713,6 +715,7 @@
 				EDD3CCDD2701B16A00AFED4B /* UIFont+.swift */,
 				EDD3CCE52701B4EE00AFED4B /* UIColor+.swift */,
 				3CF4E9132719C6C600FE8802 /* Date+.swift */,
+				EDB9E95827B6B4CD00559548 /* NSObject+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1120,6 +1123,7 @@
 				ED5F1A1C26ECF1C7003FF801 /* StrokeView.swift in Sources */,
 				ED78843426DCA965006D8787 /* TopView.swift in Sources */,
 				EDD3CCD9270192D200AFED4B /* SelectedRangeVC.swift in Sources */,
+				EDB9E95927B6B4CD00559548 /* NSObject+.swift in Sources */,
 				EDEF3B5E271EA37500C852E7 /* ViewModelBindableType.swift in Sources */,
 				ED017D9627B39F03009AFCAD /* MainTableVC.swift in Sources */,
 				EDD43FD426483C9500C866F3 /* AppDelegate.swift in Sources */,
