@@ -67,6 +67,21 @@ class MainTableVC: MainCardVC {
         cardView.currentState = currentMainViewState
         strokeState = .none
     }
+    
+    private func applyStrokeString(with stroke: Stroke) -> String {
+        switch stroke {
+        case .freestyle:
+            return "FREESTYLE"
+        case .breaststroke:
+            return "BREAST"
+        case .backstroke:
+            return "BACK"
+        case .butterfly:
+            return "BUTTERFLY"
+        case .none:
+            return ""
+        }
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -215,12 +230,12 @@ extension MainTableVC: SelectedButtonDelegate {
             case .week:
                 self.storage.dispatchWeekRecord(startDate: self.selectedDates[0],
                                                 endDate: self.selectedDates[1],
-                                                stroke: style.rawValue) {
+                                                stroke: self.applyStrokeString(with: style)) {
                     self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
                 }
             case .month:
                 self.storage.dispatchMonthRecord(date: self.selectedDates[0],
-                                                 stroke: style.rawValue) {
+                                                 stroke: self.applyStrokeString(with: style)) {
                     self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
                 }
             default:

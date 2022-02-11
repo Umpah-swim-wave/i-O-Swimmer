@@ -97,7 +97,6 @@ extension FilterTVC: UICollectionViewDataSource {
             let sectionType = FilterSectionType(rawValue: indexPath.item),
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FilterCVC.identifier, for: indexPath) as? FilterCVC
         else { return UICollectionViewCell() }
-        let item = indexPath.item
         
         switch sectionType {
         case .period:
@@ -122,9 +121,9 @@ extension FilterTVC: UICollectionViewDataSource {
                                                                                titlePadding: 2,
                                                                                imagePadding: 2,
                                                                                backgroundColor: .upuhGreen,
-                                                                               title: categoryTypes[item])
+                                                                               title: categoryTypes[currentMainViewState.rawValue])
                 } else {
-                    cell.filterButton.setTitle(categoryTypes[item], for: .normal)
+                    cell.filterButton.setTitle(categoryTypes[currentMainViewState.rawValue], for: .normal)
                     cell.filterButton.setImage(UIImage(named: "xmark"), for: .normal)
                 }
                 cell.backgroundColor = .white
@@ -149,9 +148,9 @@ extension FilterTVC: UICollectionViewDataSource {
                                                                                titlePadding: 2,
                                                                                imagePadding: 2,
                                                                                backgroundColor: .upuhGreen,
-                                                                               title: strokeTypes[item])
+                                                                               title: strokeTypes[stroke.rawValue])
                 } else {
-                    cell.filterButton.setTitle(strokeTypes[item], for: .normal)
+                    cell.filterButton.setTitle(strokeTypes[stroke.rawValue], for: .normal)
                     cell.filterButton.setImage(UIImage(named: "xmark"), for: .normal)
                 }
                 cell.backgroundColor = .white

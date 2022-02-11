@@ -13,7 +13,7 @@ enum CardViewState {
     case fail
 }
 
-enum CurrentMainViewState {
+enum CurrentMainViewState: Int, CaseIterable {
     case base
     case day
     case week
@@ -28,10 +28,10 @@ enum RangeState {
     case none
 }
 
-enum Stroke: String, CaseIterable {
-    case freestyle = "FREESTYLE"
-    case breaststroke = "BREAST"
-    case backstroke = "BACK"
-    case butterfly = "BUTTERFLY"
-    case none
+enum Stroke: Int, CaseIterable {
+    case freestyle = 1
+    case breaststroke = 2
+    case backstroke = 3
+    case butterfly = 4
+    case none = 0
 }
