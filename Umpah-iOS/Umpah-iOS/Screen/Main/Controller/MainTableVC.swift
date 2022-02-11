@@ -41,7 +41,7 @@ class MainTableVC: MainCardVC {
         $0.separatorStyle = .none
         $0.estimatedRowHeight = 100
         $0.showsVerticalScrollIndicator = false
-        $0.register(ChartTVC.self, forCellReuseIdentifier: ChartTVC.identifier)
+        $0.register(ChartTVC.self, forCellReuseIdentifier: ChartTVC.className)
         $0.register(DetailTVC.self, forCellReuseIdentifier: DetailTVC.identifier)
         $0.register(FilterTVC.self, forCellReuseIdentifier: FilterTVC.identifier)
         $0.register(StrokeTVC.self, forCellReuseIdentifier: StrokeTVC.identifier)
@@ -129,8 +129,8 @@ extension MainTableVC: UITableViewDataSource {
                 cell.setupDateLabel(with: dateText)
                 return cell
             case .chart:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: ChartTVC.identifier) as? ChartTVC else { return UITableViewCell() }
-                cell.combineChartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .linear)
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: ChartTVC.className) as? ChartTVC else { return UITableViewCell() }
+                cell.playAnimation()
                 cell.setupTitleLabel(with: currentMainViewState)
                 return cell
             case .detail:
