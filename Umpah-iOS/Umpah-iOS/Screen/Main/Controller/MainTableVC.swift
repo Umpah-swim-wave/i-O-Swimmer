@@ -11,7 +11,7 @@ import Then
 
 class MainTableVC: MainCardVC {
     
-    private enum TotalSection: Int, CaseIterable {
+    enum TotalSection: Int, CaseIterable {
         case topHeader
         case content
     }

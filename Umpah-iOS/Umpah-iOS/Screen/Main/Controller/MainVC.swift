@@ -84,6 +84,24 @@ final class MainVC: MainTableVC {
         }
     }
     
+    private func postRecordData(){
+        swimmingViewModel
+            .swimmingSubject
+            .bind(onNext: { [weak self] workoutList in
+                guard let self = self else { return }
+                print("workoutList.count------------\(workoutList.count)---------------")
+                workoutList.forEach{
+                    print("\($0.display())")
+                    print("count = \($0.recordLabsList.count)")
+                }
+                print("----------------------------")
+                self.storage.dispatchRecord(workoutList: workoutList) {
+                    print("success")
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
     private func setupDummyRoutineOverViewList(){
         (0..<20).forEach {
             var data = RoutineOverviewData()
@@ -107,22 +125,22 @@ final class MainVC: MainTableVC {
         }
     }
     
-    private func postRecordData(){
-        swimmingViewModel
-            .swimmingSubject
-            .bind(onNext: { [weak self] workoutList in
-                guard let self = self else { return }
-                print("workoutList.count------------\(workoutList.count)---------------")
-                workoutList.forEach{
-                    print("\($0.display())")
-                    print("count = \($0.recordLabsList.count)")
-                }
-                print("----------------------------")
-                self.storage.dispatchRecord(workoutList: workoutList) {
-                    print("success")
-                }
-            })
-            .disposed(by: disposeBag)
+    private func changeTopAreaBackgroundColor(to headerColor: UIColor,
+                                              with statusBarColor: UIColor? = nil) {
+        headerView.backgroundColor = headerColor
+        if let statusBarColor = statusBarColor {
+            statusBar.backgroundColor = statusBarColor
+        }
+    }
+    
+    private func changeTopViewConfiguration(alpha: CGFloat,
+                                            transform: CGAffineTransform? = nil) {
+        if let transform = transform {
+            topView.titleLabel.transform = transform
+            topView.nameLabel.transform = transform
+        }
+        topView.titleLabel.alpha = alpha
+        topView.nameLabel.alpha = alpha
     }
 }
 
@@ -142,54 +160,48 @@ extension MainVC: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        switch section {
-        case 0:
+        guard let sectionType = TotalSection(rawValue: section) else { return UIView() }
+        switch sectionType {
+        case .topHeader:
             return topView
-        case 1:
+        case .content:
             return headerView
-        default:
-            return UIView()
         }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        switch section {
-        case 0:
+        guard let sectionType = TotalSection(rawValue: section) else { return 0 }
+        switch sectionType {
+        case .topHeader:
             return 143
-        case 1:
+        case .content:
             return 50
-        default:
-            return 0
         }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let y = scrollView.contentOffset.y
+        let offsetY = scrollView.contentOffset.y
+        let touchToSafeAreaTop = offsetY >= 188
+        let scrollingThroughTableView = (offsetY < 188) && ((offsetY / 188) > 0.3)
+        let scrollingThroughTableViewForTopView = offsetY > 0
 
-        if y >= 188 {
-            headerView.backgroundColor = .upuhSkyBlue
-            statusBar.backgroundColor = .upuhSkyBlue
-        } else if y < 188 && (y / 188) > 0.3 {
-            headerView.backgroundColor = .upuhSkyBlue.withAlphaComponent(y / 188)
-            statusBar.backgroundColor = .clear
+        if touchToSafeAreaTop {
+            changeTopAreaBackgroundColor(to: .upuhSkyBlue,
+                                         with: .upuhSkyBlue)
+        } else if scrollingThroughTableView {
+            changeTopAreaBackgroundColor(to: .upuhSkyBlue.withAlphaComponent(offsetY / 188),
+                                         with: .clear)
         } else {
-            headerView.backgroundColor = .upuhSkyBlue.withAlphaComponent(0.3)
+            changeTopAreaBackgroundColor(to: .upuhSkyBlue.withAlphaComponent(0.3))
         }
         
-        if y >= 188 {
-            topView.titleLabel.alpha = 0
-            topView.nameLabel.alpha = 0
-        } else if y > 0 {
-            topView.titleLabel.transform = CGAffineTransform(translationX: -y/140, y: 0)
-            topView.titleLabel.alpha = 1 - (y / 95)
-            topView.nameLabel.transform = CGAffineTransform(translationX: -y/140, y: 0)
-            topView.nameLabel.alpha = 1 - (y / 95)
-
+        if touchToSafeAreaTop {
+            changeTopViewConfiguration(alpha: 0)
+        } else if scrollingThroughTableViewForTopView {
+            changeTopViewConfiguration(alpha: 1 - (offsetY / 95),
+                                       transform: CGAffineTransform(translationX: -offsetY/140, y: 0))
         } else {
-            topView.titleLabel.transform = .identity
-            topView.titleLabel.alpha = 1
-            topView.nameLabel.transform = .identity
-            topView.nameLabel.alpha = 1
+            changeTopViewConfiguration(alpha: 1, transform: .identity)
         }
     }
     
