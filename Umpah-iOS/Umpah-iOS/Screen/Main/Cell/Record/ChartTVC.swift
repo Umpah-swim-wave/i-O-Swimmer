@@ -43,7 +43,7 @@ final class ChartTVC: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         backgroundColor = .upuhBackground
         selectionStyle = .none
-        setupLayout()
+        render()
         setupStackView()
         setupCharts()
     }
@@ -54,7 +54,7 @@ final class ChartTVC: UITableViewCell {
     
     // MARK: - func
     
-    private func setupLayout() {
+    private func render() {
         contentView.addSubviews([titleLabel, chartBackView])
         chartBackView.addSubviews([combineChartView, dateStackView])
         

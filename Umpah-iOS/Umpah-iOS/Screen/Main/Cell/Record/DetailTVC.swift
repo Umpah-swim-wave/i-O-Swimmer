@@ -7,42 +7,42 @@
 
 import UIKit
 
-import Then
-import SnapKit
 import Charts
+import SnapKit
+import Then
 
-class DetailTVC: UITableViewCell {
-    static let identifier = "DetailTVC"
+final class DetailTVC: UITableViewCell {
+
+    // MARK: - properties
     
-    // MARK: - Properties
-    let titleLabel = UILabel().then {
+    private let detailView = DetailView()
+    private let titleLabel = UILabel().then {
         $0.textColor = .upuhGray
         $0.font = .nexaBold(ofSize: 12)
     }
-    let detailView = DetailView()
 
+    // MARK: - init
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         backgroundColor = .upuhBackground
         selectionStyle = .none
-        setupLayout()
+        render()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Custom Method
-    private func setupLayout() {
-        sendSubviewToBack(contentView)
-        
-        addSubviews([titleLabel, detailView])
+    // MARK: - func
+    
+    private func render() {
+        contentView.addSubviews([titleLabel, detailView])
         
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview()
             $0.leading.equalToSuperview().inset(32)
         }
-        
         detailView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(20)
             $0.leading.trailing.equalToSuperview()
