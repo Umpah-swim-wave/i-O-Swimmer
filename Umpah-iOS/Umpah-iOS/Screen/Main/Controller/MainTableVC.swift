@@ -56,6 +56,16 @@ class MainTableVC: MainCardVC {
     let statusBar = StatusBar()
 
     var routineOverViewList: [RoutineOverviewData] = []
+    
+    // MARK: - func
+    
+    private func changeViewState(to state: CurrentMainViewState, with dateText: String) {
+        self.dateText = dateText
+        cardView.dateText = dateText
+        currentMainViewState = state
+        cardView.currentState = currentMainViewState
+        strokeState = .none
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -145,67 +155,49 @@ extension MainTableVC: SelectedButtonDelegate {
     func didClickedPeriodFilterButton() {
         setupCardViewState(to: .normal)
         
-        guard let vc = storyboard?.instantiateViewController(withIdentifier: "SelectedRangeVC") as? SelectedRangeVC else { return }
-        vc.modalPresentationStyle = .overCurrentContext
-        vc.modalTransitionStyle = .crossDissolve
+        guard let vc = storyboard?.instantiateViewController(withIdentifier: "SelectedRangeVC") as? SelectedRangeVC
+        else { return }
         
-        vc.dayData = { year, month, day in
-            print("dayData : \(year) \(month) \(day)")
+        vc.dayData = { [weak self] year, month, day in
+            guard let self = self else { return }
             let transYear = year[year.index(year.startIndex, offsetBy: 2)..<year.endIndex]
             let transMonth = (month.count == 1) ? "0\(month)" : month
             let transDay = (day.count == 1) ? "0\(day)" : day
-            self.dateText = "\(transYear)/\(transMonth)/\(transDay)"
-            self.cardView.dateText = self.dateText
-            self.currentMainViewState = (self.dateText == self.dateformatterForScreen.string(from: Date())) ? .base : .day
-            self.strokeState = .none
-            
-            // fetch day response
+            let date = "\(transYear)/\(transMonth)/\(transDay)"
+            let state: CurrentMainViewState = (date == self.dateformatterForScreen.string(from: Date())) ? .base : .day
+            self.changeViewState(to: state, with: date)
+
             self.selectedDates[0] = "\(year)-\(transMonth)-\(transDay)"
             self.storage.dispatchDayRecord(date: self.selectedDates[0], stroke: "") {
-                print("day Record")
-                
-                self.baseTableView.reloadSections(IndexSet(1...1), with: .fade)
-                self.cardView.currentState = self.currentMainViewState
+                self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
             }
         }
-        vc.weekData = { week in
-            print("weekData : \(week)")
-            self.dateText = week
-            self.cardView.dateText = self.dateText
-            self.currentMainViewState = .week
-            self.strokeState = .none
+        vc.weekData = { [weak self] week in
+            guard let self = self else { return }
+            self.changeViewState(to: .week, with: week)
             
-            // fetch week response
             self.selectedDates[0] = "2021-10-18"
             self.selectedDates[1] = "2021-10-24"
-            
             self.storage.dispatchWeekRecord(startDate: self.selectedDates[0],
                                             endDate: self.selectedDates[1],
                                             stroke: "") {
-                print("Week Record")
-                
                 self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
-                self.cardView.currentState = self.currentMainViewState
             }
         }
-        vc.monthData = { year, month in
-            print("monthData : \(year) \(month)")
+        vc.monthData = { [weak self] year, month in
+            guard let self = self else { return }
             let transMonth = (month.count == 1) ? "0\(month)" : month
-            self.dateText = "\(year)/\(transMonth)"
-            self.cardView.dateText = self.dateText
-            self.currentMainViewState = .month
-            self.strokeState = .none
+            let date = "\(year)/\(transMonth)"
+            self.changeViewState(to: .month, with: date)
             
-            // fetch month response
             self.selectedDates[0] = "\(year)-\(transMonth)"
             self.storage.dispatchDayRecord(date: self.selectedDates[0], stroke: "") {
-                print("month Record")
-                
                 self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
-                self.cardView.currentState = self.currentMainViewState
             }
         }
         
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.modalTransitionStyle = .crossDissolve
         present(vc, animated: true, completion: nil)
     }
     
@@ -213,9 +205,7 @@ extension MainTableVC: SelectedButtonDelegate {
         setupCardViewState(to: .normal)
         
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "SelectedStrokeVC") as? SelectedStrokeVC else { return }
-        vc.modalPresentationStyle = .overCurrentContext
-        vc.modalTransitionStyle = .crossDissolve
-        vc.style = self.strokeState
+
         vc.strokeData = { style in
             print(style)
             self.strokeState = style
@@ -241,6 +231,9 @@ extension MainTableVC: SelectedButtonDelegate {
             }
         }
         
+        vc.style = self.strokeState
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.modalTransitionStyle = .crossDissolve
         present(vc, animated: true, completion: nil)
     }
 }
