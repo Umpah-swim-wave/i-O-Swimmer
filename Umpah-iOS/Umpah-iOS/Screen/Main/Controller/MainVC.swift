@@ -17,19 +17,14 @@ final class MainVC: MainTableVC {
 
     // MARK: - properties
     
-
-    
-    let swimmingViewModel = SwimmingDataViewModel()
-    
+    private let swimmingViewModel = SwimmingDataViewModel()
     
     // MARK: - life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addClosureToChangeState()
+        changeStateWhenTappedHeaderTab()
         authorizeHealthKit()
-        
-        baseTableView.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -37,53 +32,68 @@ final class MainVC: MainTableVC {
         setupCardViewState(to: .normal)
     }
     
-    // MARK: - Override Method
-    
     override func render() {
-        view.add(statusBar) {
-            $0.snp.makeConstraints {
-                $0.top.leading.trailing.equalToSuperview()
-                $0.height.equalTo(StatusBarDelegate.shared.height)
-            }
+        view.addSubviews([statusBar, baseTableView, cardView])
+        
+        statusBar.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
+            $0.height.equalTo(StatusBarDelegate.shared.height)
         }
         
-        view.add(baseTableView) {
-            $0.snp.makeConstraints {
-                $0.top.equalTo(self.view.safeAreaLayoutGuide)
-                $0.leading.trailing.bottom.equalToSuperview()
-            }
+        baseTableView.snp.makeConstraints {
+            $0.top.equalTo(self.view.safeAreaLayoutGuide)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
         
-        view.add(cardView) {
-            $0.snp.makeConstraints {
-                $0.leading.trailing.bottom.equalToSuperview()
-            }
-            
-            self.cardViewTopConstraint = $0.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 20)
-            self.cardViewTopConstraint?.isActive = true
-            let window = UIApplication.shared.windows.first { $0.isKeyWindow }
-            if let safeAreaHeight = window?.safeAreaLayoutGuide.layoutFrame.size.height,
-              let bottomPadding = window?.safeAreaInsets.bottom {
-                self.cardViewTopConstraint?.constant = safeAreaHeight + bottomPadding
-            }
+        cardView.snp.makeConstraints {
+            $0.leading.trailing.bottom.equalToSuperview()
+        }
+        cardViewTopConstraint = cardView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20)
+        cardViewTopConstraint?.isActive = true
+        if let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) {
+            let safeAreaHeight = window.safeAreaLayoutGuide.layoutFrame.size.height
+            let bottomPadding = window.safeAreaInsets.bottom
+            cardViewTopConstraint?.constant = safeAreaHeight + bottomPadding
         }
     }
     
     override func configUI() {
         super.configUI()
-        initRoutineOverViewList()
+        baseTableView.delegate = self
+        setupDummyRoutineOverViewList()
     }
     
-    private func initRoutineOverViewList(){
-        for i in 0..<20 {
+    // MARK: - func
+    
+    private func authorizeHealthKit() {
+        HealthKitSetupAssistant.authorizeHealthKitAtSwimming { [weak self] authorized, error in
+            guard authorized else {
+                let baseMessage = "HealthKit Authorization Failed"
+                if let error = error {
+                    print("\(baseMessage). Reason: \(error.localizedDescription)")
+                }
+                return
+            }
+            print("HealthKit Successfully Authorized.")
+            self?.postRecordData()
+            self?.swimmingViewModel.initSwimmingData()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3){
+                self?.swimmingViewModel.refineSwimmingDataForServer()
+                print("refineSwimmingDataForServer.")
+            }
+        }
+    }
+    
+    private func setupDummyRoutineOverViewList(){
+        (0..<20).forEach {
             var data = RoutineOverviewData()
             data.level = Int.random(in: 0...2)
-            data.totalDistance = 1000 + i * 150
+            data.totalDistance = 1000 + $0 * 150
             routineOverViewList.append(data)
         }
     }
     
-    private func addClosureToChangeState(){
+    private func changeStateWhenTappedHeaderTab(){
         headerView.changeState = { [weak self] isRoutine in
             guard let self = self else { return }
             if isRoutine && self.currentMainViewState != .routine {
@@ -96,50 +106,23 @@ final class MainVC: MainTableVC {
             self.baseTableView.reloadData()
         }
     }
-}
-
-// MARK: - HealthKit
-extension MainVC {
-    private func authorizeHealthKit() {
-        HealthKitSetupAssistant.authorizeHealthKitAtSwimming { (authorized, error) in
-            guard authorized else {
-                let baseMessage = "HealthKit Authorization Failed"
-                if let error = error {
-                    print("\(baseMessage). Reason: \(error.localizedDescription)")
-                } else {
-                    print(baseMessage)
-                }
-                return
-            }
-            print("HealthKit Successfully Authorized.")
-            self.postRecordData()
-            self.swimmingViewModel.initSwimmingData()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3){
-                self.swimmingViewModel.refineSwimmingDataForServer()
-                print("refineSwimmingDataForServer.")
-            }
-        }
-    }
-}
-
-extension MainVC{
+    
     private func postRecordData(){
         swimmingViewModel
             .swimmingSubject
             .bind(onNext: { [weak self] workoutList in
                 guard let self = self else { return }
-                
                 print("workoutList.count------------\(workoutList.count)---------------")
                 workoutList.forEach{
                     print("\($0.display())")
                     print("count = \($0.recordLabsList.count)")
                 }
                 print("----------------------------")
-                
                 self.storage.dispatchRecord(workoutList: workoutList) {
                     print("success")
                 }
-            }).disposed(by: disposeBag)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
