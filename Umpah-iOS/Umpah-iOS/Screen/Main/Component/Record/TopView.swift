@@ -14,12 +14,12 @@ final class TopView: UIView {
     
     // MARK: - properties
     
-    private var nameLabel = UILabel().then {
+    var nameLabel = UILabel().then {
         $0.text = "어푸님,"
         $0.textColor = .upuhBlack
         $0.font = .IBMPlexSansSemiBold(ofSize: 20)
     }
-    private var titleLabel = UILabel().then {
+    var titleLabel = UILabel().then {
         $0.text = "수영하기 좋은 날이에요!"
         $0.textColor = .upuhBlack
         $0.font = .IBMPlexSansRegular(ofSize: 18)

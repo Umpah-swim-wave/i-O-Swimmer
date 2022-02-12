@@ -109,12 +109,12 @@ final class MainVC: MainTableVC {
     }
     
     private func changeStateWhenTappedHeaderTab(){
-        headerView.changeState = { [weak self] isRoutine in
+        headerView.pressedTabIsRecord = { [weak self] isRecord in
             guard let self = self else { return }
-            if isRoutine && self.currentMainViewState != .routine {
+            if !isRecord && self.currentMainViewState != .routine {
                 self.cacheMainViewState = self.currentMainViewState
                 self.currentMainViewState = .routine
-            } else if !isRoutine {
+            } else if isRecord {
                 self.currentMainViewState = self.cacheMainViewState
             }
             self.cardView.currentState = self.currentMainViewState
