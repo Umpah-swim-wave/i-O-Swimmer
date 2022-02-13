@@ -27,17 +27,17 @@ final class SelectedRangeVC: BaseViewController {
     }
 
     var rangeState: RangeState = .none
-    var dayData: ((String, String, String) -> ())?
-    var weekData: ((String) -> ())?
-    var monthData: ((String, String) -> ())?
-    var year: String = ""
-    var month: String = ""
-    var day: String = ""
-    var week: String = ""
-    var years: [String] = ["2022", "2021","2020","2019","2018","2017","2016","2015","2014","2013","2012","2011","2010"]
-    var months: [String] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
-    var days: [String] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"]
-    var weeks: [String] = ["이번주", "지난주", "10/18 ~ 10/24", "9/6 ~ 9/12", "8/30 ~ 8/5"]
+    var sendDayStateData: ((String, String, String) -> ())?
+    var sendWeekStateData: ((String) -> ())?
+    var sendMonthStateData: ((String, String) -> ())?
+    var selectedYear: String = ""
+    var selectedMonth: String = ""
+    var selectedDay: String = ""
+    var selectedWeek: String = ""
+    var dummyYears: [String] = ["2022", "2021","2020","2019","2018","2017","2016","2015","2014","2013","2012","2011","2010"]
+    var dummyMonths: [String] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+    var dummyDays: [String] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"]
+    var dummyWeeks: [String] = ["이번주", "지난주", "10/18 ~ 10/24", "9/6 ~ 9/12", "8/30 ~ 8/5"]
     
     // MARK: - life cycle
     
@@ -71,7 +71,7 @@ final class SelectedRangeVC: BaseViewController {
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
                 self.setupSelectedRangeState(daySelected: true)
-                self.setupRangeData(year: self.years[0], month: self.months[0], day: self.days[0], rangeState: .day)
+                self.setupRangeData(year: self.dummyYears[0], month: self.dummyMonths[0], day: self.dummyDays[0], rangeState: .day)
                 self.view.endEditing(true)
                 self.rangeView.setupPickerViewToTextField(with: .day)
             })
@@ -82,7 +82,7 @@ final class SelectedRangeVC: BaseViewController {
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
                 self.setupSelectedRangeState(weekSelected: true)
-                self.setupRangeData(week: self.weeks[0], rangeState: .week)
+                self.setupRangeData(week: self.dummyWeeks[0], rangeState: .week)
                 self.view.endEditing(true)
                 self.rangeView.setupPickerViewToTextField(with: .week)
             })
@@ -93,7 +93,7 @@ final class SelectedRangeVC: BaseViewController {
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
                 self.setupSelectedRangeState(monthSelected: true)
-                self.setupRangeData(year: self.years[0], month: self.months[0], rangeState: .month)
+                self.setupRangeData(year: self.dummyYears[0], month: self.dummyMonths[0], rangeState: .month)
                 self.view.endEditing(true)
                 self.rangeView.setupPickerViewToTextField(with: .month)
             })
@@ -113,21 +113,21 @@ final class SelectedRangeVC: BaseViewController {
                                 day: String = "",
                                 week: String = "",
                                 rangeState: RangeState) {
-        self.year = year
-        self.month = month
-        self.day = day
-        self.week = week
+        self.selectedYear = year
+        self.selectedMonth = month
+        self.selectedDay = day
+        self.selectedWeek = week
         self.rangeState = rangeState
     }
     
     func sendDateDataToParentViewController() {
         switch rangeState {
         case .day:
-            dayData?(year, month, day)
+            sendDayStateData?(selectedYear, selectedMonth, selectedDay)
         case .week:
-            weekData?(week)
+            sendWeekStateData?(selectedWeek)
         case .month:
-            monthData?(year, month)
+            sendMonthStateData?(selectedYear, selectedMonth)
         case .none:
             break
         }

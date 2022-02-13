@@ -145,16 +145,16 @@ extension RangeView: UIPickerViewDataSource {
         guard let rootVC = rootVC else { return 0 }
         switch rootVC.rangeState {
         case .week:
-            return rootVC.weeks.count
+            return rootVC.dummyWeeks.count
         default:
             guard let componentType = DateComponent(rawValue: component) else { return 0 }
             switch componentType {
             case .year:
-                return rootVC.years.count
+                return rootVC.dummyYears.count
             case .month:
-                return rootVC.months.count
+                return rootVC.dummyMonths.count
             case .day:
-                return rootVC.days.count
+                return rootVC.dummyDays.count
             }
         }
     }
@@ -166,16 +166,16 @@ extension RangeView: UIPickerViewDelegate {
         guard let rootVC = rootVC else { return "" }
         switch rootVC.rangeState {
         case .week:
-            return rootVC.weeks[row]
+            return rootVC.dummyWeeks[row]
         default:
             guard let componentType = DateComponent(rawValue: component) else { return "" }
             switch componentType {
             case .year:
-                return rootVC.years[row]
+                return rootVC.dummyYears[row]
             case .month:
-                return rootVC.months[row]
+                return rootVC.dummyMonths[row]
             case .day:
-                return rootVC.days[row]
+                return rootVC.dummyDays[row]
             }
         }
     }
@@ -187,21 +187,21 @@ extension RangeView: UIPickerViewDelegate {
             guard let componentType = DateComponent(rawValue: component) else { return }
             switch componentType {
             case .year:
-                rootVC.year = rootVC.years[row]
+                rootVC.selectedYear = rootVC.dummyYears[row]
             case .month:
-                rootVC.month = rootVC.months[row]
+                rootVC.selectedMonth = rootVC.dummyMonths[row]
             case .day:
-                rootVC.day = rootVC.days[row]
+                rootVC.selectedDay = rootVC.dummyDays[row]
             }
         case .week:
-            rootVC.week = rootVC.weeks[row]
+            rootVC.selectedWeek = rootVC.dummyWeeks[row]
         case .month:
             guard let componentType = DateComponent(rawValue: component) else { return }
             switch componentType {
             case .year:
-                rootVC.year = rootVC.years[row]
+                rootVC.selectedYear = rootVC.dummyYears[row]
             case .month:
-                rootVC.month = rootVC.months[row]
+                rootVC.selectedMonth = rootVC.dummyMonths[row]
             default:
                 break
             }

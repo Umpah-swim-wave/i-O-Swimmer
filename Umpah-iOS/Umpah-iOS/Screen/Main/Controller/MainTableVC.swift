@@ -174,7 +174,7 @@ extension MainTableVC: SelectedButtonDelegate {
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "SelectedRangeVC") as? SelectedRangeVC
         else { return }
         
-        vc.dayData = { [weak self] year, month, day in
+        vc.sendDayStateData = { [weak self] year, month, day in
             guard let self = self else { return }
             let transYear = year[year.index(year.startIndex, offsetBy: 2)..<year.endIndex]
             let transMonth = (month.count == 1) ? "0\(month)" : month
@@ -188,7 +188,7 @@ extension MainTableVC: SelectedButtonDelegate {
                 self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
             }
         }
-        vc.weekData = { [weak self] week in
+        vc.sendWeekStateData = { [weak self] week in
             guard let self = self else { return }
             self.setupMainViewState(to: .week, with: week)
             
@@ -200,7 +200,7 @@ extension MainTableVC: SelectedButtonDelegate {
                 self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
             }
         }
-        vc.monthData = { [weak self] year, month in
+        vc.sendMonthStateData = { [weak self] year, month in
             guard let self = self else { return }
             let transMonth = (month.count == 1) ? "0\(month)" : month
             let date = "\(year)/\(transMonth)"
