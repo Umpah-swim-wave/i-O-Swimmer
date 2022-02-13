@@ -269,7 +269,7 @@ extension ExpandedStateView: SelectedButtonDelegate {
         vc.modalPresentationStyle = .overCurrentContext
         vc.modalTransitionStyle = .crossDissolve
         
-        vc.strokeData = { style in
+        vc.sendStrokeStateData = { style in
             switch style {
             case .freestyle:
                 self.strokes[indexPath] = "자유형"

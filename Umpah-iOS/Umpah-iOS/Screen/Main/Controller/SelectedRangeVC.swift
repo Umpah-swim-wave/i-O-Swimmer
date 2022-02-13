@@ -18,7 +18,6 @@ final class SelectedRangeVC: BaseViewController {
 
     private var backgroundView = UIButton().then {
         $0.backgroundColor = .black.withAlphaComponent(0.6)
-        $0.addTarget(self, action: #selector(dismissWhenTappedBackView), for: .touchUpInside)
     }
     private lazy var rangeView = RangeView().then {
         $0.rootVC = self
@@ -66,6 +65,14 @@ final class SelectedRangeVC: BaseViewController {
     // MARK: - func
     
     private func bind() {
+        backgroundView.rx.tap
+            .asDriver()
+            .drive(onNext: { [weak self] in
+                guard let self = self else { return }
+                self.dismiss(animated: true, completion: nil)
+            })
+            .disposed(by: disposeBag)
+        
         rangeView.dayButton.rx.tap
             .asDriver()
             .drive(onNext: { [weak self] in

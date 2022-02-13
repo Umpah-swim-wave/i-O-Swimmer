@@ -119,7 +119,7 @@ extension StrokesView: UITableViewDelegate {
             style = .none
         }
         
-        rootVC?.strokeData?(style)
+        rootVC?.sendStrokeStateData?(style)
         rootVC?.dismiss(animated: true, completion: nil)
     }
 }

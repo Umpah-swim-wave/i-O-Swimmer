@@ -222,7 +222,7 @@ extension MainTableVC: SelectedButtonDelegate {
         
         guard let vc = storyboard?.instantiateViewController(withIdentifier: "SelectedStrokeVC") as? SelectedStrokeVC else { return }
 
-        vc.strokeData = { [weak self] style in
+        vc.sendStrokeStateData = { [weak self] style in
             guard let self = self else { return }
             self.strokeState = style
             
@@ -243,7 +243,7 @@ extension MainTableVC: SelectedButtonDelegate {
             }
         }
         
-        vc.style = strokeState
+        vc.strokeStyle = strokeState
         vc.modalPresentationStyle = .overCurrentContext
         vc.modalTransitionStyle = .crossDissolve
         present(vc, animated: true, completion: nil)
