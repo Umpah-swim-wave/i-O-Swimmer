@@ -1,5 +1,5 @@
 //
-//  SelectedStrokeView.swift
+//  CardBottomButtonView.swift
 //  Umpah-iOS
 //
 //  Created by SHIN YOON AH on 2021/08/31.
@@ -10,7 +10,7 @@ import UIKit
 import Then
 import SnapKit
 
-class SelectedStrokeView: UIView {
+class CardBottomButtonView: UIView {
     // MARK: - Properties
     let selectButton = UIButton().then {
         $0.setTitle("영법 수정하기", for: .normal)

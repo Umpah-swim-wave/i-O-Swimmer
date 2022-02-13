@@ -25,7 +25,7 @@ class ExpandedStateView: UIView {
             $0.sectionHeaderTopPadding = 0
         }
     }
-    lazy var bottomView = SelectedStrokeView().then {
+    lazy var bottomView = CardBottomButtonView().then {
         $0.backgroundColor = .white
     }
     let titleLabel = UILabel().then {

@@ -16,7 +16,8 @@ final class SelectedStrokeVC: BaseViewController {
     
     // MARK: - properties
     
-    private lazy var strokeView = StrokesView(self).then {
+    private lazy var strokeView = SelectedStrokeView().then {
+        $0.rootVC = self
         $0.layer.cornerRadius = 16
         $0.backgroundColor = .white
         $0.style = strokeStyle

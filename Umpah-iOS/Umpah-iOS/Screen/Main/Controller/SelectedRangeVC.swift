@@ -19,7 +19,7 @@ final class SelectedRangeVC: BaseViewController {
     private var backgroundView = UIButton().then {
         $0.backgroundColor = .black.withAlphaComponent(0.6)
     }
-    private lazy var rangeView = RangeView().then {
+    private lazy var rangeView = SelectedRangeView().then {
         $0.rootVC = self
         $0.layer.cornerRadius = 16
         $0.backgroundColor = .white

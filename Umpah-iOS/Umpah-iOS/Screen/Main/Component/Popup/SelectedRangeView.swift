@@ -1,5 +1,5 @@
 //
-//  RangeView.swift
+//  SelectedRangeView.swift
 //  Umpah-iOS
 //
 //  Created by SHIN YOON AH on 2021/09/27.
@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class RangeView: BaseView {
+final class SelectedRangeView: BaseView {
     
     private enum DateComponent: Int, CaseIterable {
         case year
@@ -112,7 +112,7 @@ final class RangeView: BaseView {
 }
 
 // MARK: - UIPickerViewDataSource
-extension RangeView: UIPickerViewDataSource {
+extension SelectedRangeView: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         guard let rootVC = rootVC else { return 0 }
         switch rootVC.rangeState {
@@ -147,7 +147,7 @@ extension RangeView: UIPickerViewDataSource {
 }
 
 // MARK: - UIPickerViewDelegate
-extension RangeView: UIPickerViewDelegate {
+extension SelectedRangeView: UIPickerViewDelegate {
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         guard let rootVC = rootVC else { return "" }
         switch rootVC.rangeState {
