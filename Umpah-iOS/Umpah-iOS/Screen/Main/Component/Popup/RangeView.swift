@@ -7,10 +7,10 @@
 
 import UIKit
 
-import Then
 import SnapKit
+import Then
 
-class RangeView: UIView {
+final class RangeView: BaseView {
     
     private enum DateComponent: Int, CaseIterable {
         case year
@@ -24,57 +24,43 @@ class RangeView: UIView {
         $0.delegate = self
         $0.dataSource = self
     }
-    let titleLabel = UILabel().then {
+    private let titleLabel = UILabel().then {
         $0.text = "기간 선택"
         $0.textColor = .upuhBlack
         $0.font = .IBMPlexSansSemiBold(ofSize: 18)
     }
-    let infoLabel = UILabel().then {
+    private let infoLabel = UILabel().then {
         $0.text = "기본값은 가장 최근 기록입니다!"
         $0.textColor = .upuhWarning
         $0.font = .IBMPlexSansRegular(ofSize: 11)
     }
-    let buttonStackView = UIStackView().then {
+    private let buttonStackView = UIStackView().then {
         $0.alignment = .center
         $0.axis = .horizontal
         $0.distribution = .fillEqually
         $0.spacing = 12
     }
+    private let dayTextField = UITextField()
+    private let weekTextField = UITextField()
+    private let monthTextField = UITextField()
     let dayButton = RangeButton(title: "일간")
     let weekButton = RangeButton(title: "주간")
     let monthButton = RangeButton(title: "월간")
-    let dayTextField = UITextField()
-    let weekTextField = UITextField()
-    let monthTextField = UITextField()
     
     weak var rootVC: SelectedRangeVC?
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupLayout()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    private func setupLayout() {
-        addSubviews([titleLabel, buttonStackView, infoLabel])
-        addSubviews([dayTextField, weekTextField, monthTextField])
-        buttonStackView.addArrangedSubview(dayButton)
-        buttonStackView.addArrangedSubview(weekButton)
-        buttonStackView.addArrangedSubview(monthButton)
+    override func render() {
+        addSubviews([titleLabel, buttonStackView, infoLabel, dayTextField, weekTextField, monthTextField])
+        buttonStackView.addArrangedSubviews([dayButton, weekButton, monthButton])
         
         titleLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.top.equalToSuperview().inset(32)
         }
-        
         buttonStackView.snp.makeConstraints{
             $0.centerX.equalToSuperview()
             $0.top.equalTo(titleLabel.snp.bottom).offset(32)
         }
-        
         infoLabel.snp.makeConstraints {
             $0.centerX.equalToSuperview()
             $0.top.equalTo(buttonStackView.snp.bottom).offset(20)
