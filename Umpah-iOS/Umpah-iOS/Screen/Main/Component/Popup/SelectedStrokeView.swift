@@ -22,7 +22,7 @@ final class SelectedStrokeView: BaseView {
         $0.delegate = self
         $0.dataSource = self
         $0.isScrollEnabled = false
-        $0.register(StrokesTVC.self, forCellReuseIdentifier: StrokesTVC.identifier)
+        $0.register(SelectedStrokeTVC.self, forCellReuseIdentifier: SelectedStrokeTVC.className)
     }
     private let titleLabel = UILabel().then {
         $0.text = "영법 선택"
@@ -57,7 +57,7 @@ extension SelectedStrokeView: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: StrokesTVC.identifier) as? StrokesTVC else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: SelectedStrokeTVC.className) as? SelectedStrokeTVC else { return UITableViewCell() }
         cell.strokeLabel.text = strokes[indexPath.row]
         switch style {
         case .freestyle:
@@ -95,10 +95,10 @@ extension SelectedStrokeView: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let deselectedIndexPath = IndexPath(row: currentSelection, section: 0)
-        if let deselectedCell = tableView.cellForRow(at: deselectedIndexPath) as? StrokesTVC {
+        if let deselectedCell = tableView.cellForRow(at: deselectedIndexPath) as? SelectedStrokeTVC {
             deselectedCell.isSelected = false
         }
-        guard let cell = tableView.cellForRow(at: indexPath) as? StrokesTVC else { return }
+        guard let cell = tableView.cellForRow(at: indexPath) as? SelectedStrokeTVC else { return }
         cell.isSelected = true
         switch indexPath.row {
         case 0:

@@ -71,7 +71,7 @@
 		ED78843E26DE4C50006D8787 /* CardBottomButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED78843D26DE4C50006D8787 /* CardBottomButtonView.swift */; };
 		ED8AB6A12702E55D0066CD02 /* SelectedStrokeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8AB6A02702E55D0066CD02 /* SelectedStrokeVC.swift */; };
 		ED8AB6A32702E73F0066CD02 /* SelectedStrokeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8AB6A22702E73F0066CD02 /* SelectedStrokeView.swift */; };
-		ED8AB6A62702EDC20066CD02 /* StrokesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8AB6A52702EDC20066CD02 /* StrokesTVC.swift */; };
+		ED8AB6A62702EDC20066CD02 /* SelectedStrokeTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8AB6A52702EDC20066CD02 /* SelectedStrokeTVC.swift */; };
 		ED8AB6A92703157A0066CD02 /* SelectedButtonDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8AB6A82703157A0066CD02 /* SelectedButtonDelegate.swift */; };
 		ED8AB6AB2703158F0066CD02 /* States.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8AB6AA2703158F0066CD02 /* States.swift */; };
 		EDB91D8626C2A4F300F4562D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EDB91D8526C2A4F300F4562D /* GoogleService-Info.plist */; };
@@ -233,7 +233,7 @@
 		ED78843D26DE4C50006D8787 /* CardBottomButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBottomButtonView.swift; sourceTree = "<group>"; };
 		ED8AB6A02702E55D0066CD02 /* SelectedStrokeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedStrokeVC.swift; sourceTree = "<group>"; };
 		ED8AB6A22702E73F0066CD02 /* SelectedStrokeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedStrokeView.swift; sourceTree = "<group>"; };
-		ED8AB6A52702EDC20066CD02 /* StrokesTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokesTVC.swift; sourceTree = "<group>"; };
+		ED8AB6A52702EDC20066CD02 /* SelectedStrokeTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedStrokeTVC.swift; sourceTree = "<group>"; };
 		ED8AB6A82703157A0066CD02 /* SelectedButtonDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedButtonDelegate.swift; sourceTree = "<group>"; };
 		ED8AB6AA2703158F0066CD02 /* States.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = States.swift; sourceTree = "<group>"; };
 		EDB91D8526C2A4F300F4562D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -459,7 +459,7 @@
 		ED017D8A27B38386009AFCAD /* Popup */ = {
 			isa = PBXGroup;
 			children = (
-				ED8AB6A52702EDC20066CD02 /* StrokesTVC.swift */,
+				ED8AB6A52702EDC20066CD02 /* SelectedStrokeTVC.swift */,
 			);
 			path = Popup;
 			sourceTree = "<group>";
@@ -1121,7 +1121,7 @@
 				3C662B60271988E70061E133 /* HealthKitSetupAssistant.swift in Sources */,
 				3CE4D67926DD2786007E4193 /* CALayer+.swift in Sources */,
 				3CA621F12727CB68002CB901 /* RecordService.swift in Sources */,
-				ED8AB6A62702EDC20066CD02 /* StrokesTVC.swift in Sources */,
+				ED8AB6A62702EDC20066CD02 /* SelectedStrokeTVC.swift in Sources */,
 				3C7F68892715704F00758733 /* RoutineDataModel.swift in Sources */,
 				ED78843E26DE4C50006D8787 /* CardBottomButtonView.swift in Sources */,
 				3C7F688C27157EDE00758733 /* RoutineTVC.swift in Sources */,
