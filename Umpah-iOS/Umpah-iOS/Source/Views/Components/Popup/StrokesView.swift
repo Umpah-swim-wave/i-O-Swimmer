@@ -28,6 +28,7 @@ class StrokesView: UIView {
     
     let strokes: [String] = ["자유형", "평영", "배영", "접영"]
     var style: Stroke = .none
+    var currentSelection = -1
     var rootVC: SelectedStrokeVC?
     
     init(_ vc: SelectedStrokeVC) {
@@ -64,6 +65,23 @@ extension StrokesView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: StrokesTVC.identifier) as? StrokesTVC else { return UITableViewCell() }
         cell.strokeLabel.text = strokes[indexPath.row]
+        switch style {
+        case .freestyle:
+            currentSelection = 0
+        case .breaststroke:
+            currentSelection = 1
+        case .backstroke:
+            currentSelection = 2
+        case .butterfly:
+            currentSelection = 3
+        case .none:
+            currentSelection = -1
+        }
+        
+        if indexPath.row == currentSelection {
+            cell.isSelected = true
+        }
+        
         return cell
     }
 }
@@ -79,7 +97,14 @@ extension StrokesView: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) as? StrokesTVC else { return }
+        let deselectedIndexPath = IndexPath(row: currentSelection, section: 0)
+        if let deselectedCell = tableView.cellForRow(at: deselectedIndexPath) as? StrokesTVC {
+            deselectedCell.isSelected = false
+        }
+        
+        guard
+            let cell = tableView.cellForRow(at: indexPath) as? StrokesTVC
+        else { return }
         cell.isSelected = true
         switch indexPath.row {
         case 0:

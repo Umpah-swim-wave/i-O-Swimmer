@@ -22,6 +22,7 @@ class SelectedStrokeVC: UIViewController {
         $0.backgroundColor = .black.withAlphaComponent(0.6)
         $0.addTarget(self, action: #selector(dismissWhenTappedBackView), for: .touchUpInside)
     }
+    var style: Stroke = .none
     var strokeData: ((Stroke) -> ())?
 
     override func viewDidLoad() {
@@ -32,6 +33,8 @@ class SelectedStrokeVC: UIViewController {
     
     private func configUI() {
         view.backgroundColor = .clear.withAlphaComponent(0)
+        
+        strokeView.style = style
     }
     
     private func setupLayout() {
