@@ -11,7 +11,6 @@ import Then
 import RxSwift
 import RxCocoa
 import Charts
-import Moya
 
 final class MainVC: BaseViewController {
 
@@ -44,6 +43,7 @@ final class MainVC: BaseViewController {
     // MARK: - Properties
     
     private lazy var dateText: String = dateformatter.string(from: Date())
+    private lazy var rangeTexts: [String] = [serverDateformatter.string(from: Date()), ""]
     private var cardViewTopConstraint: NSLayoutConstraint?
     private var cardPanStartingTopConstant : CGFloat = 20.0
     private var cardPanMaxVelocity: CGFloat = 1500.0
@@ -54,13 +54,19 @@ final class MainVC: BaseViewController {
         $0.dateFormat = "YY/MM/dd"
         $0.locale = Locale.init(identifier: "ko-KR")
     }
-    
-    private let authProvider = MoyaProvider<RecordService>()
+    private var serverDateformatter = DateFormatter().then {
+        $0.dateFormat = "YYYY-MM-dd"
+        $0.locale = Locale.init(identifier: "ko-KR")
+    }
     
     // MARK: - Routine data
     
     var routineOverViewList: [RoutineOverviewData] = []
     let swimmingViewModel = SwimmingDataViewModel()
+    
+    // MARK: - Storage
+    
+    let storage = RecordStorage.shared
     
     // MARK: - Life Cycle
     
@@ -411,8 +417,15 @@ extension MainVC: SelectedRangeDelegate {
             self.cardView.dateText = self.dateText
             self.currentState = (self.dateText == self.dateformatter.string(from: Date())) ? .base : .day
             self.strokeState = .none
-            self.baseTableView.reloadSections(IndexSet(1...1), with: .fade)
-            self.cardView.currentState = self.currentState
+            
+            // fetch day response
+            self.rangeTexts[0] = "\(year)-\(transMonth)-\(transDay)"
+            self.storage.dispatchDayRecord(date: self.rangeTexts[0], stroke: "") {
+                print("day Record")
+                
+                self.baseTableView.reloadSections(IndexSet(1...1), with: .fade)
+                self.cardView.currentState = self.currentState
+            }
         }
         vc.weekData = { week in
             print("weekData : \(week)")
@@ -420,8 +433,19 @@ extension MainVC: SelectedRangeDelegate {
             self.cardView.dateText = self.dateText
             self.currentState = .week
             self.strokeState = .none
-            self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
-            self.cardView.currentState = self.currentState
+            
+            // fetch week response
+            self.rangeTexts[0] = "2021-10-18"
+            self.rangeTexts[1] = "2021-10-24"
+            
+            self.storage.dispatchWeekRecord(startDate: self.rangeTexts[0],
+                                            endDate: self.rangeTexts[1],
+                                            stroke: "") {
+                print("Week Record")
+                
+                self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
+                self.cardView.currentState = self.currentState
+            }
         }
         vc.monthData = { year, month in
             print("monthData : \(year) \(month)")
@@ -430,8 +454,15 @@ extension MainVC: SelectedRangeDelegate {
             self.cardView.dateText = self.dateText
             self.currentState = .month
             self.strokeState = .none
-            self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
-            self.cardView.currentState = self.currentState
+            
+            // fetch month response
+            self.rangeTexts[0] = "\(year)-\(transMonth)"
+            self.storage.dispatchDayRecord(date: self.rangeTexts[0], stroke: "") {
+                print("month Record")
+                
+                self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
+                self.cardView.currentState = self.currentState
+            }
         }
         
         present(vc, animated: true, completion: nil)
@@ -448,7 +479,26 @@ extension MainVC: SelectedRangeDelegate {
         vc.strokeData = { style in
             print(style)
             self.strokeState = style
-            self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
+            
+            switch self.currentState {
+            case .week:
+                self.storage.dispatchWeekRecord(startDate: self.rangeTexts[0],
+                                                endDate: self.rangeTexts[1],
+                                                stroke: style.rawValue) {
+                    print("Week Record with stroke")
+                    
+                    self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
+                }
+            case .month:
+                self.storage.dispatchMonthRecord(date: self.rangeTexts[0],
+                                                 stroke: style.rawValue) {
+                    print("Month Record with stroke")
+                    
+                    self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
+                }
+            default:
+                break
+            }
         }
         
         present(vc, animated: true, completion: nil)
@@ -483,30 +533,18 @@ extension MainVC{
     private func postRecordData(){
         swimmingViewModel
             .swimmingSubject
-            .bind(onNext: { workoutList in
+            .bind(onNext: { [weak self] workoutList in
+                guard let self = self else { return }
+                
                 print("workoutList.count------------\(workoutList.count)---------------")
                 workoutList.forEach{
                     print("\($0.display())")
                     print("count = \($0.recordLabsList.count)")
                 }
                 print("----------------------------")
-                let param = SwimmingRecordRequest(userID: 1,
-                                                  workoutList: workoutList)
-                self.authProvider.request(.sendSwimmingRecord(param: param)) { response in
-                    switch response{
-                    case .success(let result):
-                        do{
-                            print(result)
-                            let reposneData = try result.map(CommonRespose.self)
-                            print("-----------response-----------")
-                            print(reposneData)
-                            print("------------------------------")
-                        }catch(let err){
-                            print(err.localizedDescription)
-                        }
-                    case .failure(let err):
-                        print(err.localizedDescription)
-                    }
+                
+                self.storage.dispatchRecord(workoutList: workoutList) {
+                    print("success")
                 }
             }).disposed(by: disposeBag)
     }
