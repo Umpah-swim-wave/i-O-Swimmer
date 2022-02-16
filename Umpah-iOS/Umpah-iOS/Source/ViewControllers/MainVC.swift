@@ -327,7 +327,7 @@ extension MainVC: UITableViewDataSource {
 extension MainVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if currentState == .routine {
-            return indexPath.row == 0 ? 184 : 168
+            return indexPath.row == 0 ? 184 : 170
         }else {
             switch indexPath.row {
             case 4:

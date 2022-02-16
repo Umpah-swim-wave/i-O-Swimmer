@@ -22,7 +22,8 @@ class RoutineTVC: UITableViewCell, NibLoadableView, ReusableView {
     
     private let routineTitleLabel = UILabel().then{
         $0.font = .IBMPlexSansSemiBold(ofSize: 14)
-        $0.addCharacterSpacing(kernValue: 0.2)
+        $0.textColor = .upuhBlack
+        $0.addCharacterSpacing(kernValue: -0.2)
     }
     
     private let levelButton = UIButton().then{
@@ -56,7 +57,13 @@ class RoutineTVC: UITableViewCell, NibLoadableView, ReusableView {
     
     private let descriptionLabel = UILabel().then{
         $0.font = .IBMPlexSansText(ofSize: 12)
+        $0.textColor = .upuhBlack
         $0.numberOfLines = 2
+    }
+    
+    private let deleteButton = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 22, height: 22))).then {
+        $0.setImage(UIImage(named: "ic_trash"), for: .normal)
+        $0.addTarget(self, action: #selector(touchUpDelete), for: .touchUpInside)
     }
     
     override func awakeFromNib(){
@@ -78,10 +85,12 @@ class RoutineTVC: UITableViewCell, NibLoadableView, ReusableView {
     public func setContentData(overview: RoutineOverviewData){
         routineOverviewData = overview
         routineTitleLabel.text = overview.title
+        routineTitleLabel.addCharacterSpacing(kernValue: -0.2)
         changeLevelButtonStyle(level: overview.level)
         distanceButton.setTitle(overview.getDistanceToString(), for: .normal)
         timeButton.setTitle(overview.getTimeToString(), for: .normal)
         descriptionLabel.text = overview.description
+        descriptionLabel.addCharacterSpacing(kernValue: -0.4, lineSpacing: -4.0)
     }
     
     func changeLevelButtonStyle(level: Int){
@@ -107,17 +116,18 @@ class RoutineTVC: UITableViewCell, NibLoadableView, ReusableView {
         backgroundContentView.snp.makeConstraints{
             $0.bottom.equalToSuperview().inset(8)
             $0.leading.trailing.equalToSuperview().inset(16)
-            $0.height.equalTo(152)
+            $0.height.equalTo(155)
         }
         
         backgroundContentView.addSubviews([routineTitleLabel,
                                            levelButton,
                                            distanceButton,
                                            timeButton,
-                                           descriptionLabel])
+                                           descriptionLabel,
+                                           deleteButton])
         
         routineTitleLabel.snp.makeConstraints{
-            $0.top.equalToSuperview().offset(24)
+            $0.top.equalToSuperview().offset(20)
             $0.leading.equalToSuperview().offset(20)
         }
         
@@ -144,6 +154,11 @@ class RoutineTVC: UITableViewCell, NibLoadableView, ReusableView {
             $0.leading.equalTo(routineTitleLabel.snp.leading)
             $0.trailing.equalToSuperview().offset(-20)
         }
+        
+        deleteButton.snp.makeConstraints {
+            $0.top.equalTo(routineTitleLabel)
+            $0.trailing.equalToSuperview().inset(20)
+        }
     }
     
 //    func updateFirstLayout(){
@@ -151,5 +166,10 @@ class RoutineTVC: UITableViewCell, NibLoadableView, ReusableView {
 //            $0.top.equalToSuperview().inset(24)
 //        }
 //    }
+    
+    @objc
+    private func touchUpDelete() {
+        print("touch Delete")
+    }
 }
 
