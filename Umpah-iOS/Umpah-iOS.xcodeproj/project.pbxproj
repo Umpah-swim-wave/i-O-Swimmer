@@ -78,6 +78,7 @@
 		EDB9E95927B6B4CD00559548 /* NSObject+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB9E95827B6B4CD00559548 /* NSObject+.swift */; };
 		EDBA9D9E27B767F500E8E3B5 /* StrokeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBA9D9D27B767F500E8E3B5 /* StrokeHeaderView.swift */; };
 		EDC1EDDF26BF8FF600DCB215 /* Charts+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC1EDDE26BF8FF600DCB215 /* Charts+.swift */; };
+		EDC7642D27BEB254006CBD51 /* ExpandedStateTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC7642C27BEB254006CBD51 /* ExpandedStateTableView.swift */; };
 		EDD3CCD7270118DA00AFED4B /* StatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3CCD6270118DA00AFED4B /* StatusBar.swift */; };
 		EDD3CCD9270192D200AFED4B /* SelectedRangeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3CCD8270192D200AFED4B /* SelectedRangeVC.swift */; };
 		EDD3CCDC27019A7200AFED4B /* SelectedRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3CCDB27019A7200AFED4B /* SelectedRangeView.swift */; };
@@ -240,6 +241,7 @@
 		EDB9E95827B6B4CD00559548 /* NSObject+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+.swift"; sourceTree = "<group>"; };
 		EDBA9D9D27B767F500E8E3B5 /* StrokeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeHeaderView.swift; sourceTree = "<group>"; };
 		EDC1EDDE26BF8FF600DCB215 /* Charts+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Charts+.swift"; sourceTree = "<group>"; };
+		EDC7642C27BEB254006CBD51 /* ExpandedStateTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedStateTableView.swift; sourceTree = "<group>"; };
 		EDD3CCD6270118DA00AFED4B /* StatusBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBar.swift; sourceTree = "<group>"; };
 		EDD3CCD8270192D200AFED4B /* SelectedRangeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedRangeVC.swift; sourceTree = "<group>"; };
 		EDD3CCDB27019A7200AFED4B /* SelectedRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedRangeView.swift; sourceTree = "<group>"; };
@@ -486,6 +488,7 @@
 				ED78843926DE3F63006D8787 /* WeekMonthHeader.swift */,
 				EDD46F4A26BE99F900FA91F2 /* NormalStateView.swift */,
 				EDD46F4C26BE9C0200FA91F2 /* ExpandedStateView.swift */,
+				EDC7642C27BEB254006CBD51 /* ExpandedStateTableView.swift */,
 			);
 			path = Sheet;
 			sourceTree = "<group>";
@@ -1092,6 +1095,7 @@
 				EDEF3B56271E962400C852E7 /* BaseViewController.swift in Sources */,
 				3C7479EB2702EFAE006752EE /* RoutineStorage.swift in Sources */,
 				EDD46F5226BEEA3B00FA91F2 /* UILabel+.swift in Sources */,
+				EDC7642D27BEB254006CBD51 /* ExpandedStateTableView.swift in Sources */,
 				EDE550BE2700F80D004422CE /* DateTVC.swift in Sources */,
 				ED78843C26DE4551006D8787 /* ExpandedWeekTVC.swift in Sources */,
 				ED5396F526B977A20061722F /* UIScreen+.swift in Sources */,
