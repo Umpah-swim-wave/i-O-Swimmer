@@ -238,13 +238,10 @@ extension ExpandedStateView: UITableViewDelegate {
              .base:
             let header = DayHeader()
             return header
-        case .week:
+        case .week,
+             .month:
             let header = WeekMonthHeader()
-            header.dateTitle.text = "요일"
-            return header
-        case .month:
-            let header = WeekMonthHeader()
-            header.dateTitle.text = "주차"
+            header.setupDateTitle(with: state ?? .week)
             return header
         default:
             return UIView()

@@ -7,66 +7,56 @@
 
 import UIKit
 
-import Then
 import SnapKit
+import Then
 
-class DayHeader: UIView {
-    // MARK: - Properties
-    let strokeTitle = UILabel().then {
+final class DayHeader: BaseView {
+    
+    // MARK: - properties
+    
+    private let strokeTitle = UILabel().then {
         $0.text = "영법"
         $0.font = .IBMPlexSansRegular(ofSize: 12)
         $0.textColor = .upuhHeaderGray
     }
-    let distanceTitle = UILabel().then {
+    private let distanceTitle = UILabel().then {
         $0.text = "거리"
         $0.font = .IBMPlexSansRegular(ofSize: 12)
         $0.textColor = .upuhHeaderGray
     }
-    let velocityTitle = UILabel().then {
+    private let velocityTitle = UILabel().then {
         $0.text = "속도"
         $0.font = .IBMPlexSansRegular(ofSize: 12)
         $0.textColor = .upuhHeaderGray
     }
-    let timeTitle = UILabel().then {
+    private let timeTitle = UILabel().then {
         $0.text = "시간"
         $0.font = .IBMPlexSansRegular(ofSize: 12)
         $0.textColor = .upuhHeaderGray
     }
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        backgroundColor = .white
-        setupLayout()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    fileprivate func setupLayout() {
-        addSubviews([strokeTitle,
-                     distanceTitle,
-                     velocityTitle,
-                     timeTitle])
+    override func render() {
+        addSubviews([strokeTitle, distanceTitle, velocityTitle, timeTitle])
         
         strokeTitle.snp.makeConstraints {
             $0.top.bottom.equalToSuperview().inset(20)
             $0.leading.equalToSuperview().inset(50)
         }
-        
         timeTitle.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview().inset(20)
+            $0.top.bottom.equalTo(strokeTitle)
             $0.trailing.equalToSuperview().inset(58)
         }
-        
         velocityTitle.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview().inset(20)
+            $0.top.bottom.equalTo(strokeTitle)
             $0.trailing.equalTo(timeTitle.snp.leading).offset(-30)
         }
-        
         distanceTitle.snp.makeConstraints {
-            $0.top.bottom.equalToSuperview().inset(20)
+            $0.top.bottom.equalTo(strokeTitle)
             $0.trailing.equalTo(velocityTitle.snp.leading).offset(-31)
         }
+    }
+    
+    override func configUI() {
+        backgroundColor = .white
     }
 }
