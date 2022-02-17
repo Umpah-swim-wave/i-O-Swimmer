@@ -300,7 +300,7 @@ extension ExpandedStateView{
         self.layer.cornerRadius = 32
         self.layer.maskedCorners = CACornerMask(arrayLiteral: .layerMinXMinYCorner, .layerMaxXMinYCorner)
         addSubview(routineFilterView)
-        routineFilterView.setupRoutineHeaderLayout()
+        routineFilterView.setupRoutineHeader()
         routineFilterView.snp.makeConstraints{
             $0.top.equalTo(titleLabel.snp.bottom).offset(16)
             $0.leading.trailing.equalToSuperview()
