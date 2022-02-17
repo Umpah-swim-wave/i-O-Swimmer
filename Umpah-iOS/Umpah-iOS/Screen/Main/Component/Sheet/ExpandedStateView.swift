@@ -21,16 +21,14 @@ final class ExpandedStateView: ExpandedStateTableView {
         $0.font = .IBMPlexSansSemiBold(ofSize: 16)
         $0.textColor = .upuhGreen
     }
-    
-    //MARK: about Routine
-
     let routineFilterView = RoutineFilterView()
+    
+    // MARK: - init
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupLayout()
         setupModifyButton()
-        initRoutineOverViewList()
+        setupDummyRoutineOverViewList()
         setupRoutineFilterActions()
     }
     
@@ -38,29 +36,24 @@ final class ExpandedStateView: ExpandedStateTableView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Custom Method
-    private func setupLayout() {
+    override func render() {
         addSubviews([titleLabel, listTableView, bottomView])
         
         titleLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(34)
             $0.centerX.equalToSuperview()
         }
-        
         listTableView.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(36)
             $0.leading.trailing.bottom.equalToSuperview()
         }
-        
         bottomView.snp.makeConstraints {
             $0.leading.trailing.bottom.equalToSuperview()
             $0.height.equalTo(UIScreen.main.hasNotch ? 93 : 49)
         }
     }
     
-    private func setupModifyButton() {
-        bottomView.selectButton.addTarget(self, action: #selector(touchUpModify), for: .touchUpInside)
-    }
+    // MARK: - func
     
     func changeTableViewLayout() {
         switch currentMainViewState {
@@ -87,7 +80,7 @@ final class ExpandedStateView: ExpandedStateTableView {
         }
     }
     
-    func setupRoutineFilterLayout(){
+    private func setupRoutineFilterLayout(){
         backgroundColor = .upuhBackground
         listTableView.backgroundColor = .upuhBackground
         self.layer.cornerRadius = 32
@@ -100,7 +93,8 @@ final class ExpandedStateView: ExpandedStateTableView {
             $0.height.equalTo(77)
         }
     }
-    func deleteRoutineFilterLayout(){
+    
+    private func deleteRoutineFilterLayout(){
         routineFilterView.removeFromSuperview()
         backgroundColor = .clear
         listTableView.backgroundColor = .clear
@@ -110,11 +104,9 @@ final class ExpandedStateView: ExpandedStateTableView {
         let presentinglevelAction = UIAction { _ in
             self.presentToModifyElement(elementType: .level)
         }
-    
         let presentingStrokeAction = UIAction { _ in
             self.presentToModifyElement(elementType: .exceptStorke)
         }
-        
         let changeOrderingDistanceAction = UIAction { _ in
             self.routineFilterView.changeDistanceButton()
         }
@@ -124,9 +116,9 @@ final class ExpandedStateView: ExpandedStateTableView {
         routineFilterView.distanceOrderButton.addAction(changeOrderingDistanceAction, for: .touchUpInside)
     }
     
-    //MARK: 서버통신 후 삭제할 더미 함수
-    private func initRoutineOverViewList(){
-        for i in 0..<20 {
+    // TODO: - 서버통신 후 삭제할 더미 함수
+    private func setupDummyRoutineOverViewList(){
+        for _ in 0..<20 {
             var data = RoutineOverviewData()
             data.level = Int.random(in: 0...2)
             upuhRoutineOverViewList.append(data)
@@ -146,21 +138,9 @@ final class ExpandedStateView: ExpandedStateTableView {
             self.rootVC?.present(nextVC, animated: true, completion: nil)
         })
     }
-    private func applyToFilterData(){
-        
-    }
     
-    private func getLevelText(level: Int) -> String{
-        switch level{
-        case 0:
-            return "초급"
-        case 1:
-            return "중급"
-        case 2:
-            return "고급"
-        default:
-            return "잘못된값"
-        }
+    private func setupModifyButton() {
+        bottomView.selectButton.addTarget(self, action: #selector(touchUpModify), for: .touchUpInside)
     }
     
     // MARK: - @objc
