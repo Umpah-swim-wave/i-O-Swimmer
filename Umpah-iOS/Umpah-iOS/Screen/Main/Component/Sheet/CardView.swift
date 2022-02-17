@@ -107,7 +107,7 @@ final class CardView: BaseView, Alertable {
                 presentAlertWhenBlockScroll()
             }
         }
-        normalView.titleLabel.text = decideTitle(of: cardViewState)
+        normalView.setupTitle(to: decideTitle(of: cardViewState)) 
         expandedView.changeTableViewLayout()
     }
     
