@@ -19,6 +19,29 @@ enum CurrentMainViewState: Int, CaseIterable {
     case week
     case month
     case routine
+    
+    var title: String {
+        switch self {
+        case .week:
+            return "요일별 기록 보기"
+        case .month:
+            return "주간별 기록 보기"
+        case .routine:
+            return "어푸가 추천하는 루틴 보기"
+        default:
+            return "랩스 기록 보기"
+        }
+    }
+    
+    var isHidden: Bool {
+        switch self {
+        case .day,
+             .base:
+            return false
+        default:
+            return true
+        }
+    }
 }
 
 enum RangeState {
