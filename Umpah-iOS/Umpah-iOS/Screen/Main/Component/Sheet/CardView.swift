@@ -42,7 +42,7 @@ final class CardView: BaseView, Alertable {
     init(rootVC: MainCardVC) {
         self.rootVC = rootVC
         super.init(frame: .zero)
-        expandedView.root = rootVC
+        expandedView.rootVC = rootVC
         showCard()
     }
     
@@ -93,7 +93,7 @@ final class CardView: BaseView, Alertable {
             expandedView.fadeOut()
             startAnimation()
         case .expanded:
-            expandedView.state = currentState
+            expandedView.currentMainViewState = currentState
             expandedView.titleLabel.text = applyExpandedTitle(of: currentState)
             expandedView.bottomView.isHidden = decideHiddenState(by: currentState)
             expandedView.listTableView.reloadData()

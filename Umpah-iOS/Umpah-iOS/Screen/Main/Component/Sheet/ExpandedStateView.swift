@@ -63,7 +63,7 @@ final class ExpandedStateView: ExpandedStateTableView {
     }
     
     func changeTableViewLayout() {
-        switch state {
+        switch currentMainViewState {
         case .base,
              .day:
             deleteRoutineFilterLayout()
@@ -141,9 +141,9 @@ final class ExpandedStateView: ExpandedStateTableView {
         nextVC.elementType = elementType
         nextVC.modalPresentationStyle = .fullScreen
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1 , execute: {
-            nextVC.backgroundImage = self.root?.view.asImage()
+            nextVC.backgroundImage = self.rootVC?.view.asImage()
             nextVC.modalTransitionStyle = .crossDissolve
-            self.root?.present(nextVC, animated: true, completion: nil)
+            self.rootVC?.present(nextVC, animated: true, completion: nil)
         })
     }
     private func applyToFilterData(){
