@@ -62,9 +62,9 @@ class MainCardVC: BaseViewController {
         case .expanded:
             switch currentMainViewState {
             case .week:
-                topConstraint = screenHeight * 0.24
+                topConstraint = screenHeight * 0.20
             case .month:
-                topConstraint = screenHeight * 0.38
+                topConstraint = screenHeight * 0.35
             default:
                 topConstraint = Size.defaultTopConstant
             }
