@@ -180,7 +180,7 @@ extension MainTableVC: SelectedButtonDelegate {
             let transMonth = (month.count == 1) ? "0\(month)" : month
             let transDay = (day.count == 1) ? "0\(day)" : day
             let date = "\(transYear)/\(transMonth)/\(transDay)"
-            let state: CurrentMainViewState = (date == self.dateformatterForScreen.string(from: Date())) ? .base : .day
+            let state: CurrentMainViewState = (date == Date().getTimeString()) ? .base : .day
             self.setupMainViewState(to: state, with: date)
 
             self.selectedDates[0] = "\(year)-\(transMonth)-\(transDay)"

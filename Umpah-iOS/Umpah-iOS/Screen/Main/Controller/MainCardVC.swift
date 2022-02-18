@@ -26,16 +26,8 @@ class MainCardVC: BaseViewController {
     var cacheMainViewState: CurrentMainViewState = .base
     var strokeState: Stroke = .none
     
-    lazy var selectedDates: [String] = [dateformatterForServer.string(from: Date()), ""]
-    lazy var dateText: String = dateformatterForScreen.string(from: Date())
-    var dateformatterForServer = DateFormatter().then {
-        $0.dateFormat = "YYYY-MM-dd"
-        $0.locale = Locale.init(identifier: "ko-KR")
-    }
-    var dateformatterForScreen = DateFormatter().then {
-        $0.dateFormat = "YY/MM/dd"
-        $0.locale = Locale.init(identifier: "ko-KR")
-    }
+    lazy var selectedDates: [String] = [Date().getTimeString(dateFormat: "YYYY-MM-dd"), ""]
+    lazy var dateText: String = Date().getTimeString()
     let storage = RecordStorage.shared
     
     // MARK: - override
