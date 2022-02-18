@@ -55,10 +55,6 @@ final class RecordStorage {
             case .success(let result):
                 do{
                     print(result)
-                    let responseData = try result.map(CommonResponse.self)
-                    print("-----------DayRecordRequest response-----------")
-                    print(responseData)
-                    print("------------------------------")
                     completion()
                 } catch(let err){
                     print(err.localizedDescription)
@@ -71,21 +67,15 @@ final class RecordStorage {
     }
     
     // MARK: - GET /weekRecord/list
-    func fetchWeekRecord(startDate: String,
-                         endDate: String,
-                         stroke: String,
+    func fetchWeekRecord(date: String,
+                         week: Int,
+                         stroke: String? = nil,
                          completion: @escaping (() -> ())) {
-        let query = WeekRecordRequest(startDate: startDate, endDate: endDate, stroke: stroke)
-        
-        self.authProvider.request(.askWeekRecord(query: query)) { response in
+        self.authProvider.request(.askWeekRecord(date: date, week: week, stroke: stroke)) { response in
             switch response {
             case .success(let result):
                 do{
                     print(result)
-                    let responseData = try result.map(CommonResponse.self)
-                    print("-----------response-----------")
-                    print(responseData)
-                    print("------------------------------")
                     completion()
                 } catch(let err){
                     print(err.localizedDescription)
@@ -99,11 +89,9 @@ final class RecordStorage {
     
     // MARK: - GET /monthRecord/list
     func fetchMonthRecord(date: String,
-                          stroke: String,
+                          stroke: String? = nil,
                           completion: @escaping (() -> ())) {
-        let query = MonthRecordRequest(date: date, stroke: stroke)
-        
-        self.authProvider.request(.askMonthRecord(query: query)) { response in
+        self.authProvider.request(.askMonthRecord(date: date, stroke: stroke)) { response in
             switch response {
             case .success(let result):
                 do{

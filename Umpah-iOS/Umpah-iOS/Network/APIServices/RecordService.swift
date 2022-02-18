@@ -11,8 +11,8 @@ import Moya
 enum RecordService{
     case sendSwimmingRecord(param: SwimmingRecordRequest)
     case askDayRecord(query: DayRecordRequest)
-    case askWeekRecord(query: WeekRecordRequest)
-    case askMonthRecord(query: MonthRecordRequest)
+    case askWeekRecord(date: String, week: Int, stroke: String?)
+    case askMonthRecord(date: String, stroke: String?)
 }
 
 extension RecordService: TargetType, AccessTokenAuthorizable {
@@ -54,10 +54,16 @@ extension RecordService: TargetType, AccessTokenAuthorizable {
             return .requestJSONEncodable(param)
         case .askDayRecord(let query):
             return .requestParameters(parameters: try! query.asDictionary(), encoding: URLEncoding.default)
-        case .askWeekRecord(let query):
-            return .requestParameters(parameters: try! query.asDictionary(), encoding: URLEncoding.default)
-        case .askMonthRecord(let query):
-            return .requestParameters(parameters: try! query.asDictionary(), encoding: URLEncoding.default)
+        case .askWeekRecord(let date, let week, let stroke):
+            if let stroke = stroke {
+                return .requestParameters(parameters: ["date" : date, "week" : week, "stroke": stroke], encoding: URLEncoding.default)
+            }
+            return .requestParameters(parameters: ["date" : date, "week" : week], encoding: URLEncoding.default)
+        case .askMonthRecord(let date, let stroke):
+            if let stroke = stroke {
+                return .requestParameters(parameters: ["date" : date, "stroke": stroke], encoding: URLEncoding.default)
+            }
+            return .requestParameters(parameters: ["date" : date], encoding: URLEncoding.default)
         }
     }
     

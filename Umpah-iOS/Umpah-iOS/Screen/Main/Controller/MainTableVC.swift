@@ -184,19 +184,18 @@ extension MainTableVC: SelectedButtonDelegate {
             self.setupMainViewState(to: state, with: date)
 
             self.selectedDates[0] = "\(year)-\(transMonth)-\(transDay)"
-//            self.storage.fetchDayRecord(date: self.selectedDates[0]) {
-//                self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
-//            }
+            self.storage.fetchDayRecord(date: self.selectedDates[0]) {
+                self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
+            }
         }
         vc.sendWeekStateData = { [weak self] week in
             guard let self = self else { return }
             self.setupMainViewState(to: .week, with: week)
             
-            self.selectedDates[0] = "2021-10-18"
-            self.selectedDates[1] = "2021-10-24"
-            self.storage.fetchWeekRecord(startDate: self.selectedDates[0],
-                                         endDate: self.selectedDates[1],
-                                         stroke: "") {
+            self.selectedDates[0] = "2021-05-18"
+            self.selectedDates[1] = "2021-05-24"
+            self.storage.fetchWeekRecord(date: "2021-05",
+                                         week: 3) {
                 self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
             }
         }
@@ -228,14 +227,14 @@ extension MainTableVC: SelectedButtonDelegate {
             
             switch self.currentMainViewState {
             case .week:
-                self.storage.fetchWeekRecord(startDate: self.selectedDates[0],
-                                                endDate: self.selectedDates[1],
-                                                stroke: self.applyStrokeString(with: style)) {
+                self.storage.fetchWeekRecord(date: "2021-05",
+                                             week: 4,
+                                             stroke: self.applyStrokeString(with: style)) {
                     self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
                 }
             case .month:
                 self.storage.fetchMonthRecord(date: self.selectedDates[0],
-                                                 stroke: self.applyStrokeString(with: style)) {
+                                              stroke: self.applyStrokeString(with: style)) {
                     self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
                 }
             default:
