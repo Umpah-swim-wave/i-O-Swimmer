@@ -131,9 +131,7 @@ final class ExpandedStateView: ExpandedStateTableView {
         guard let nextVC = storyboard.instantiateViewController(withIdentifier: ModifyElementVC.identifier) as? ModifyElementVC else {return}
         
         nextVC.sendFilterData = { [weak self] in
-            DispatchQueue.main.asyncAfter(deadline: .now()+0.1 , execute: {
-                self?.rootVC?.setupCardViewState(to: .expanded)
-            })
+            self?.rootVC?.setupCardViewState(to: .expanded)
         }
         
         nextVC.elementType = elementType
