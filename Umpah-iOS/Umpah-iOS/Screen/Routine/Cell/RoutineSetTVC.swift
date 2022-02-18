@@ -17,7 +17,6 @@ protocol RoutineCellDelegate{
 }
 
 class RoutineSetTVC: UITableViewCell {
-    static let identifier = "RoutineSetTVC"
     public var viewModel: RoutineViewModel?
     private var routineListInSet : [RoutineItemData] = []
     public var routineItemCellList: [RoutineItemTVC] = []
@@ -57,7 +56,7 @@ class RoutineSetTVC: UITableViewCell {
     }
     
     public var tableView = UITableView().then{
-        $0.registerCustomXib(name: RoutineItemTVC.identifier)
+        $0.registerCustomXib(name: RoutineItemTVC.className)
     }
     
     private var reorderControlImageView: UIImageView? {
@@ -137,7 +136,7 @@ class RoutineSetTVC: UITableViewCell {
     }
 
     private func getRoutineItemCell(item: RoutineItemData) -> RoutineItemTVC {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineItemTVC.identifier) as? RoutineItemTVC else{
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineItemTVC.className) as? RoutineItemTVC else{
             return RoutineItemTVC()
         }
         cell.setRoutineItem(item: item, isEditing: isEditingMode)

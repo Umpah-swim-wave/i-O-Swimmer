@@ -102,10 +102,10 @@ final class ExpandedStateView: ExpandedStateTableView {
     
     private func setupRoutineFilterActions(){
         let presentinglevelAction = UIAction { _ in
-            self.presentToModifyElement(elementType: .level)
+            self.presentToModifyElementView(of: .level, before: self.routineFilterView.levelText)
         }
         let presentingStrokeAction = UIAction { _ in
-            self.presentToModifyElement(elementType: .exceptStorke)
+            self.presentToModifyElementView(of: .exceptStorke, before: self.routineFilterView.exceptionStrokeText)
         }
         let changeOrderingDistanceAction = UIAction { _ in
             self.routineFilterView.changeDistanceButton()
@@ -125,19 +125,22 @@ final class ExpandedStateView: ExpandedStateTableView {
         }
         filteredOverViewList = upuhRoutineOverViewList
     }
-
-    private func presentToModifyElement(elementType: ModifyElementType){
-        let storyboard = UIStoryboard(name: "ModifyElement", bundle: nil)
-        guard let nextVC = storyboard.instantiateViewController(withIdentifier: ModifyElementVC.identifier) as? ModifyElementVC else {return}
-        
-        nextVC.elementType = elementType
-        nextVC.modalPresentationStyle = .fullScreen
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1 , execute: {
-            nextVC.backgroundImage = self.rootVC?.view.asImage()
-            nextVC.modalTransitionStyle = .crossDissolve
-            self.rootVC?.present(nextVC, animated: true, completion: nil)
-        })
-    }
+    
+    func presentToModifyElementView(of type: ModifyElementType, setTitle: String = "", index: Int = 0, before data: String = ""){
+            let storyboard = UIStoryboard(name: "ModifyElement", bundle: nil)
+            guard let nextVC = storyboard.instantiateViewController(identifier: ModifyElementVC.className) as? ModifyElementVC else {
+                return
+            }
+            nextVC.setupModificationContent(of: type,
+                                            setTitle: setTitle,
+                                            index: index, before: data)
+            nextVC.modalPresentationStyle = .fullScreen
+             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1 , execute: {
+                nextVC.backgroundImage = self.rootVC?.view.asImage()
+                 nextVC.modalTransitionStyle = .crossDissolve
+                 self.rootVC?.present(nextVC, animated: true, completion: nil)
+             })
+        }
     
     private func setupModifyButton() {
         bottomView.selectButton.addTarget(self, action: #selector(touchUpModify), for: .touchUpInside)

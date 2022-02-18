@@ -10,9 +10,10 @@ import SnapKit
 import Then
 
 class RoutineItemTVC: UITableViewCell {
-    static let identifier = "RoutineItemTVC"
     
-    public var selectStorke: (() -> ())?
+    //MARK: Properties
+    
+    public var selectStorke: ((String) -> ())?
     public var selectDistance: ((Int) -> ())?
     public var selectTime: ((Int) -> ())?
     public var isSelectedDistance: Bool = true
@@ -93,7 +94,7 @@ class RoutineItemTVC: UITableViewCell {
     }
     
     func addActions(){
-        let touchUpToselectStorke = UIAction {_ in self.selectStorke?()}
+        let touchUpToselectStorke = UIAction { _ in self.selectStorke?(self.routineItem?.stroke ?? "")}
         let checkDistanceAction = UIAction{ _ in
             print("checkDistanceAction isSelectedDistance = \(self.isSelectedDistance)")
             self.isSelectedDistance = true

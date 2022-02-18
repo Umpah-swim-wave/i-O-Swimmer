@@ -9,8 +9,6 @@ import UIKit
 
 class ModifyElementTVC: UITableViewCell {
 
-    static let identifier = "ModifyElementTVC"
-    
     public var nameLabel = UILabel().then{
         $0.textColor = .upuhBlack
         $0.font = .IBMPlexSansRegular(ofSize: 16)
