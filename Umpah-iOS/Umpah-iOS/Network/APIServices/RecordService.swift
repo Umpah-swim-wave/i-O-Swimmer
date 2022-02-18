@@ -35,11 +35,12 @@ extension RecordService: TargetType{
     
     var method: Moya.Method {
         switch self{
-        case .sendSwimmingRecord,
-             .askDayRecord,
+        case .sendSwimmingRecord:
+            return .post
+        case .askDayRecord,
              .askWeekRecord,
              .askMonthRecord:
-            return .post
+            return .get
         }
     }
     
