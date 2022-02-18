@@ -74,6 +74,7 @@ extension ExpandedStateTableView: UITableViewDataSource {
         case .routine:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineTVC.className) as? RoutineTVC else { return UITableViewCell() }
             cell.setContentData(overview: upuhRoutineOverViewList[indexPath.row])
+            cell.deleteButton.isHidden = true
             return cell
         default:
             return UITableViewCell()
@@ -115,6 +116,8 @@ extension ExpandedStateTableView: UITableViewDelegate {
                 cell.separatorInset = .init(top: 0, left: 80, bottom: 0, right: 20)
             case .month:
                 cell.separatorInset = .init(top: 0, left: 90, bottom: 0, right: 20)
+            case .routine:
+                tableView.backgroundColor = .upuhBackground
             default:
                 break
             }
