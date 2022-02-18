@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class StrokeView: UIView {
+final class StrokeView: BaseView {
     
     // MARK: - properties
     
@@ -24,22 +24,8 @@ final class StrokeView: UIView {
         $0.register(InsideStrokeTVC.self, forCellReuseIdentifier: InsideStrokeTVC.className)
     }
     private let strokeTypes: [String] = ["자유형", "평영", "배영", "접영", "혼영"]
-
-    // MARK: - init
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        render()
-        configUI()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - func
-    
-    private func render() {
+    override func render() {
         addSubview(strokeTableView)
         
         strokeTableView.snp.makeConstraints {
@@ -48,7 +34,7 @@ final class StrokeView: UIView {
         }
     }
     
-    private func configUI() {
+    override func configUI() {
         makeShadow(.upuhSkyBlue, 0.6, CGSize(width: 0, height: 0), 7)
     }
 }

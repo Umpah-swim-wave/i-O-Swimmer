@@ -140,7 +140,7 @@ final class ExpandedStateView: ExpandedStateTableView {
                  nextVC.modalTransitionStyle = .crossDissolve
                  self.rootVC?.present(nextVC, animated: true, completion: nil)
              })
-        }
+    }
     
     private func setupModifyButton() {
         bottomView.selectButton.addTarget(self, action: #selector(touchUpModify), for: .touchUpInside)

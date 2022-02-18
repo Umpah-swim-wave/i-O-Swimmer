@@ -23,6 +23,17 @@ final class RoutineFilterView: BaseView {
     var levelText = "레벨"
     var exceptionStrokeText = "제외할 영법"
     
+    // MARK: - init
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setAttributeRoutineButton(button: distanceOrderButton, title: "거리순")
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func render() {
         addSubviews([levelButton,
                      exceptionButton,
@@ -56,7 +67,6 @@ final class RoutineFilterView: BaseView {
     func setupRoutineHeader() {
         setAttributeRoutineButton(button: levelButton, title: levelText)
         setAttributeRoutineButton(button: exceptionButton, title: exceptionStrokeText)
-        setAttributeRoutineButton(button: distanceOrderButton, title: "거리순")
     }
     
     private func setAttributeRoutineButton(button: UIButton, title: String) {
