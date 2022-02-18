@@ -7,11 +7,13 @@
 
 import UIKit
 
-import Then
 import SnapKit
+import Then
 
-class TopView: UIView {
-    // MARK: - Properties
+final class TopView: UIView {
+    
+    // MARK: - properties
+    
     var nameLabel = UILabel().then {
         $0.text = "어푸님,"
         $0.textColor = .upuhBlack
@@ -22,29 +24,35 @@ class TopView: UIView {
         $0.textColor = .upuhBlack
         $0.font = .IBMPlexSansRegular(ofSize: 18)
     }
+    
+    // MARK: - init
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupLayout()
-        backgroundColor = .clear
+        render()
+        configUI()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupLayout() {
-        addSubviews([nameLabel,
-                     titleLabel])
+    // MARK: - func
+    
+    private func render() {
+        addSubviews([nameLabel, titleLabel])
         
         nameLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(49)
             $0.leading.equalToSuperview().inset(36)
         }
-        
         titleLabel.snp.makeConstraints {
             $0.top.equalTo(nameLabel.snp.bottom).offset(5)
             $0.leading.equalToSuperview().inset(36)
         }
+    }
+    
+    private func configUI() {
+        backgroundColor = .clear
     }
 }

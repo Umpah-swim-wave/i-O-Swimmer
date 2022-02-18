@@ -37,6 +37,7 @@ final class InsideStrokeTVC: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         render()
+        configUI()
     }
     
     required init?(coder: NSCoder) {
@@ -63,10 +64,13 @@ final class InsideStrokeTVC: UITableViewCell {
         }
     }
     
-    func setupLabelData(stroke: String, index: Int) {
-        strokeLabel.text = stroke
-        
-        if index != 4 {
+    private func configUI() {
+        backgroundColor = .clear
+    }
+    
+    func setupStrokeLabel(to stroke: String, with index: Int) {
+        let isLastData = (index == 4)
+        if !isLastData {
             contentView.addSubview(bottomLine)
             bottomLine.snp.makeConstraints {
                 $0.leading.trailing.equalToSuperview().inset(18)
@@ -74,5 +78,7 @@ final class InsideStrokeTVC: UITableViewCell {
                 $0.height.equalTo(0.5)
             }
         }
+        
+        strokeLabel.text = stroke
     }
 }

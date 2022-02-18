@@ -7,12 +7,14 @@
 
 import UIKit
 
-import Then
 import SnapKit
+import Then
 
-class DetailView: UIView {
-    // MARK: - Properties
-    let topView = UIView().then {
+final class DetailView: UIView {
+    
+    // MARK: - properties
+    
+    private let topView = UIView().then {
         $0.backgroundColor = .white
         $0.layer.cornerRadius = 16
         $0.layer.borderWidth = 2
@@ -69,7 +71,7 @@ class DetailView: UIView {
             $0.leading.equalTo(timeIconImage.snp.trailing).offset(6)
         }
     }
-    let bottomView = UIView().then {
+    private let bottomView = UIView().then {
         $0.backgroundColor = .white
         $0.layer.cornerRadius = 16
         $0.layer.borderWidth = 2
@@ -106,7 +108,7 @@ class DetailView: UIView {
             $0.height.equalTo(22)
         }
     }
-    let warningLabel = UILabel().then {
+    private let warningLabel = UILabel().then {
         $0.text = "휴식시간을 포함한 평균값입니다. 애플 피트니스의 값과 다를 수 있습니다."
         $0.font = .IBMPlexSansRegular(ofSize: 11)
         $0.textColor = .upuhWarning
@@ -121,42 +123,45 @@ class DetailView: UIView {
             $0.centerY.equalToSuperview()
         }
     }
-    let distanceLabel = UILabel().then {
+    private let distanceLabel = UILabel().then {
         $0.text = "5.4km"
         $0.textColor = .upuhBlack
         $0.font = .nexaBold(ofSize: 35)
         $0.changeCharacterAttribute(words: ["km"], size: 22, kernValue: 1)
     }
-    let timeLabel = UILabel().then {
+    private let timeLabel = UILabel().then {
         $0.text = "2h 11m"
         $0.textColor = .upuhBlack
         $0.font = .nexaBold(ofSize: 35)
         $0.changeCharacterAttribute(words: ["h", "m"], size: 22, kernValue: -0.1)
     }
-    let kcalLabel = UILabel().then {
+    private let kcalLabel = UILabel().then {
         $0.text = "390kcal"
         $0.textColor = .upuhBlack
         $0.font = .nexaBold(ofSize: 22)
         $0.changeCharacterAttribute(words: ["kcal"], size: 18, kernValue: 2)
     }
-    let bpmLabel = UILabel().then {
+    private let bpmLabel = UILabel().then {
         $0.text = "120bpm"
         $0.textColor = .upuhBlack
         $0.font = .nexaBold(ofSize: 22)
         $0.changeCharacterAttribute(words: ["bpm"], size: 18, kernValue: 2)
     }
+    
+    // MARK: - init
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setupLayout()
+        render()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - Custom Methods
-    private func setupLayout() {
+    // MARK: - func
+    
+    private func render() {
         addSubviews([topView, bottomView, warningLabel])
         topView.addSubviews([distanceLabel, timeLabel])
         bottomView.addSubviews([kcalLabel, bpmLabel])
@@ -166,13 +171,11 @@ class DetailView: UIView {
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.height.equalTo(110)
         }
-        
         bottomView.snp.makeConstraints {
             $0.top.equalTo(topView.snp.bottom).offset(16)
             $0.leading.trailing.equalTo(topView)
             $0.height.equalTo(70)
         }
-        
         warningLabel.snp.makeConstraints {
             $0.bottom.equalToSuperview()
             $0.top.equalTo(bottomView.snp.bottom).offset(20)
@@ -183,7 +186,6 @@ class DetailView: UIView {
             $0.top.equalToSuperview().inset(52)
             $0.leading.equalToSuperview().inset(32)
         }
-        
         timeLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(52)
             $0.leading.equalTo(topView.snp.centerX).offset(30)
@@ -193,7 +195,6 @@ class DetailView: UIView {
             $0.top.equalToSuperview().inset(26)
             $0.leading.equalToSuperview().inset(64)
         }
-        
         bpmLabel.snp.makeConstraints {
             $0.top.equalToSuperview().inset(26)
             $0.leading.equalTo(bottomView.snp.centerX).offset(54)
