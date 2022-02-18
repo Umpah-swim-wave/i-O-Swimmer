@@ -14,4 +14,3 @@ struct DayRecordRequest: Codable {
         self.date = date
     }
 }
-

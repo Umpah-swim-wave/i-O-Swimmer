@@ -22,9 +22,13 @@ final class MainVC: MainTableVC {
         super.viewDidLoad()
         authorizeHealthKit()
         // TODO: Dummy Record
-        storage.fetchDayRecord(date: "2021-05-19") { [weak self] in
-            self?.baseTableView.reloadData()
-            print("reload 성공")
+//        storage.fetchDayRecord(date: "2021-05-19") { [weak self] in
+//            self?.baseTableView.reloadData()
+//            print("reload 성공")
+//        }
+        let loginStorage = LoginStorage.shared
+        loginStorage.dispatchSignUp(nickname: "", phone: "") {
+            print("와우 회원가입 완료")
         }
     }
     
