@@ -13,7 +13,7 @@ final class CardView: BaseView, Alertable {
     
     // MARK: - Public Properties
     
-    public var currentState: CurrentState = .base {
+    public var currentState: CurrentMainViewState = .base {
         didSet { showCard() }
     }
     
@@ -25,12 +25,8 @@ final class CardView: BaseView, Alertable {
     
     // MARK: - Private Properties
     
-    private var rootVC: MainVC?
+    private var rootVC: MainCardVC?
     private var canScrollMore = true
-    private var dateformatter = DateFormatter().then {
-        $0.dateFormat = "YY/MM/dd"
-        $0.locale = Locale.init(identifier: "ko-KR")
-    }
     
     // MARK: - UI
     
@@ -45,7 +41,7 @@ final class CardView: BaseView, Alertable {
     }
 
     // MARK: - Initalizing
-    init(rootVC: MainVC) {
+    init(rootVC: MainCardVC) {
         super.init(frame: .zero)
         self.rootVC = rootVC
         expandedView.root = rootVC
@@ -121,8 +117,7 @@ final class CardView: BaseView, Alertable {
                 
                 let alert = makeRequestAlert(okAction: { _ in
                     self.expandedView.isModified = false
-                    self.cardViewState = .normal
-                    self.rootVC?.decideTopConstraint(of: .normal)
+                    self.rootVC?.setupCardViewState(to: .normal)
                     self.expandedView.bottomView.selectButton.setTitle("영법 수정하기", for: .normal)
                     self.canScrollMore = true
                 }, cancelAction: { _ in
@@ -136,10 +131,10 @@ final class CardView: BaseView, Alertable {
         expandedView.changeTableViewLayout()
     }
     
-    public func applyExpandedTitle(of state: CurrentState) -> String {
+    public func applyExpandedTitle(of state: CurrentMainViewState) -> String {
         switch state {
         case .base:
-            return dateformatter.string(from: Date())
+            return Date().getTimeString()
         case .routine:
             return "어푸가 추천하는 수영 루틴들"
         default:
@@ -176,7 +171,7 @@ extension CardView {
         showCard.startAnimation()
     }
     
-    private func decideHiddenState(by state: CurrentState) -> Bool {
+    private func decideHiddenState(by state: CurrentMainViewState) -> Bool {
         switch state {
         case .day, .base:
             return false

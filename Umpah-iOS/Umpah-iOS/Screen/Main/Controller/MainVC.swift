@@ -6,331 +6,151 @@
 //
 
 import UIKit
+
 import SnapKit
 import Then
-import RxSwift
-import RxCocoa
-import Charts
 
-final class MainVC: BaseViewController {
+final class MainVC: MainTableVC {
 
-    // MARK: - UI
+    // MARK: - properties
     
-    public lazy var baseTableView = UITableView().then {
-        $0.delegate = self
-        $0.dataSource = self
-        $0.register(ChartTVC.self, forCellReuseIdentifier: ChartTVC.identifier)
-        $0.register(DetailTVC.self, forCellReuseIdentifier: DetailTVC.identifier)
-        $0.register(FilterTVC.self, forCellReuseIdentifier: FilterTVC.identifier)
-        $0.register(StrokeTVC.self, forCellReuseIdentifier: StrokeTVC.identifier)
-        $0.register(DateTVC.self, forCellReuseIdentifier: DateTVC.identifier)
-        $0.register(RoutineTVC.self)
-        $0.backgroundColor = .clear
-        $0.estimatedRowHeight = 100
-        $0.separatorStyle = .none
-        $0.showsVerticalScrollIndicator = false
-        
-        if #available(iOS 15.0, *) {
-            $0.sectionHeaderTopPadding = 0
-        }
-    }
-    public lazy var cardView = CardView(rootVC: self)
+    private let swimmingViewModel = SwimmingDataViewModel()
     
-    private let topView = TopView()
-    private let headerView = HeaderView()
-    private let statusBar = StatusBar()
-    
-    // MARK: - Properties
-    
-    private lazy var dateText: String = dateformatter.string(from: Date())
-    private lazy var rangeTexts: [String] = [serverDateformatter.string(from: Date()), ""]
-    private var cardViewTopConstraint: NSLayoutConstraint?
-    private var cardPanStartingTopConstant : CGFloat = 20.0
-    private var cardPanMaxVelocity: CGFloat = 1500.0
-    private var currentState: CurrentState = .base
-    private var cacheState: CurrentState = .base
-    private var strokeState: Stroke = .none
-    private var dateformatter = DateFormatter().then {
-        $0.dateFormat = "YY/MM/dd"
-        $0.locale = Locale.init(identifier: "ko-KR")
-    }
-    private var serverDateformatter = DateFormatter().then {
-        $0.dateFormat = "YYYY-MM-dd"
-        $0.locale = Locale.init(identifier: "ko-KR")
-    }
-    
-    // MARK: - Routine data
-    
-    var routineOverViewList: [RoutineOverviewData] = []
-    let swimmingViewModel = SwimmingDataViewModel()
-    
-    // MARK: - Storage
-    
-    let storage = RecordStorage.shared
-    
-    // MARK: - Life Cycle
+    // MARK: - life cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addClosureToChangeState()
+        changeStateWhenTappedHeaderTab()
         authorizeHealthKit()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        decideTopConstraint(of: .normal)
+        setupCardViewState(to: .normal)
     }
     
-    // MARK: - Override Method
-    
     override func render() {
-        view.add(statusBar) {
-            $0.snp.makeConstraints {
-                $0.top.leading.trailing.equalToSuperview()
-                $0.height.equalTo(StatusBarDelegate.shared.height)
-            }
+        view.addSubviews([statusBar, baseTableView, cardView])
+        
+        statusBar.snp.makeConstraints {
+            $0.top.leading.trailing.equalToSuperview()
+            $0.height.equalTo(StatusBarDelegate.shared.height)
         }
         
-        view.add(baseTableView) {
-            $0.snp.makeConstraints {
-                $0.top.equalTo(self.view.safeAreaLayoutGuide)
-                $0.leading.trailing.bottom.equalToSuperview()
-            }
+        baseTableView.snp.makeConstraints {
+            $0.top.equalTo(self.view.safeAreaLayoutGuide)
+            $0.leading.trailing.bottom.equalToSuperview()
         }
         
-        view.add(cardView) {
-            $0.snp.makeConstraints {
-                $0.leading.trailing.bottom.equalToSuperview()
-            }
-            
-            self.cardViewTopConstraint = $0.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 20)
-            self.cardViewTopConstraint?.isActive = true
-            let window = UIApplication.shared.windows.first { $0.isKeyWindow }
-            if let safeAreaHeight = window?.safeAreaLayoutGuide.layoutFrame.size.height,
-              let bottomPadding = window?.safeAreaInsets.bottom {
-                self.cardViewTopConstraint?.constant = safeAreaHeight + bottomPadding
-            }
+        cardView.snp.makeConstraints {
+            $0.leading.trailing.bottom.equalToSuperview()
+        }
+        cardViewTopConstraint = cardView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20)
+        cardViewTopConstraint?.isActive = true
+        if let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) {
+            let safeAreaHeight = window.safeAreaLayoutGuide.layoutFrame.size.height
+            let bottomPadding = window.safeAreaInsets.bottom
+            cardViewTopConstraint?.constant = safeAreaHeight + bottomPadding
         }
     }
     
     override func configUI() {
         super.configUI()
-        initGestureView()
-        initRoutineOverViewList()
-    }
-}
-
-// MARK: - Custom Methods
-extension MainVC {
-    private func initGestureView() {
-        let viewPan = UIPanGestureRecognizer(target: self, action: #selector(viewPanned(_:)))
-        viewPan.delaysTouchesBegan = false
-        viewPan.delaysTouchesEnded = false
-        view.addGestureRecognizer(viewPan)
+        baseTableView.delegate = self
+        setupDummyRoutineOverViewList()
     }
     
-    private func initRoutineOverViewList(){
-        for i in 0..<20 {
+    // MARK: - func
+    
+    private func authorizeHealthKit() {
+        HealthKitSetupAssistant.authorizeHealthKitAtSwimming { [weak self] authorized, error in
+            guard authorized else {
+                let baseMessage = "HealthKit Authorization Failed"
+                if let error = error {
+                    print("\(baseMessage). Reason: \(error.localizedDescription)")
+                }
+                return
+            }
+            print("HealthKit Successfully Authorized.")
+            self?.postRecordData()
+            self?.swimmingViewModel.initSwimmingData()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3){
+                self?.swimmingViewModel.refineSwimmingDataForServer()
+                print("refineSwimmingDataForServer.")
+            }
+        }
+    }
+    
+    private func postRecordData(){
+        swimmingViewModel
+            .swimmingSubject
+            .bind(onNext: { [weak self] workoutList in
+                guard let self = self else { return }
+                print("workoutList.count------------\(workoutList.count)---------------")
+                workoutList.forEach{
+                    print("\($0.display())")
+                    print("count = \($0.recordLabsList.count)")
+                }
+                print("----------------------------")
+                self.storage.dispatchRecord(workoutList: workoutList) {
+                    print("success")
+                }
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func setupDummyRoutineOverViewList(){
+        (0..<20).forEach {
             var data = RoutineOverviewData()
             data.level = Int.random(in: 0...2)
-            data.totalDistance = 1000 + i * 150
+            data.totalDistance = 1000 + $0 * 150
             routineOverViewList.append(data)
         }
     }
     
-    private func addClosureToChangeState(){
+    private func changeStateWhenTappedHeaderTab(){
         headerView.changeState = { [weak self] isRoutine in
             guard let self = self else { return }
-            if isRoutine && self.currentState != .routine {
-                self.cacheState = self.currentState
-                self.currentState = .routine
+            if isRoutine && self.currentMainViewState != .routine {
+                self.cacheMainViewState = self.currentMainViewState
+                self.currentMainViewState = .routine
             } else if !isRoutine {
-                self.currentState = self.cacheState
+                self.currentMainViewState = self.cacheMainViewState
             }
-            self.cardView.currentState = self.currentState
+            self.cardView.currentState = self.currentMainViewState
             self.baseTableView.reloadData()
         }
     }
-}
-
-// MARK: - Animation
-extension MainVC {
-    // MARK: - @objc
     
-    @objc
-    func viewPanned(_ panRecognizer: UIPanGestureRecognizer) {
-        let velocity = panRecognizer.velocity(in: self.view)
-        let translation = panRecognizer.translation(in: self.view)
-        
-        if cardView.expandedView.isModified {
-            panRecognizer.state = .failed
-        }
-        
-        switch panRecognizer.state {
-        case .began:
-            cardPanStartingTopConstant = cardViewTopConstraint?.constant ?? 0
-        case .changed:
-            if self.cardPanStartingTopConstant + translation.y > 20.0 {
-                self.cardViewTopConstraint?.constant = self.cardPanStartingTopConstant + translation.y
-            }
-        case .ended:
-            if velocity.y > cardPanMaxVelocity {
-                cardView.cardViewState = .normal
-                decideTopConstraint(of: .normal)
-                return
-            }
-            
-            let window = UIApplication.shared.windows.first { $0.isKeyWindow }
-            if let safeAreaHeight = window?.safeAreaLayoutGuide.layoutFrame.size.height,
-               let bottomPadding = window?.safeAreaInsets.bottom {
-                if self.cardViewTopConstraint?.constant ?? 0 < (safeAreaHeight + bottomPadding) * 0.6 {
-                    cardView.cardViewState = .expanded
-                    decideTopConstraint(of: .expanded)
-                } else  {
-                    cardView.cardViewState = .normal
-                    decideTopConstraint(of: .normal)
-                }
-            }
-        default:
-            cardView.cardViewState = .fail
+    private func changeTopAreaBackgroundColor(to headerColor: UIColor,
+                                              with statusBarColor: UIColor? = nil) {
+        headerView.backgroundColor = headerColor
+        if let statusBarColor = statusBarColor {
+            statusBar.backgroundColor = statusBarColor
         }
     }
     
-    public func decideTopConstraint(of state: CardViewState) {
-        switch state {
-        case .normal:
-            cardViewTopConstraint?.constant = UIScreen.main.hasNotch ? UIScreen.main.bounds.size.height * 0.8 : UIScreen.main.bounds.size.height * 0.87
-        case .expanded:
-            switch currentState {
-            case .week:
-                cardViewTopConstraint?.constant = UIScreen.main.bounds.size.height * 0.24
-            case .month:
-                cardViewTopConstraint?.constant = UIScreen.main.bounds.size.height * 0.38
-            default:
-                cardViewTopConstraint?.constant = 20.0
-            }
-        case .fail:
-            break
+    private func changeTopViewConfiguration(alpha: CGFloat,
+                                            transform: CGAffineTransform? = nil) {
+        if let transform = transform {
+            topView.titleLabel.transform = transform
+            topView.nameLabel.transform = transform
         }
-    }
-}
-
-// MARK: - UITableViewDataSource
-extension MainVC: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
-    }
-
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        switch section {
-        case 1:
-            if currentState != .routine {
-                return 5
-            } else {
-                return routineOverViewList.count
-            }
-        default:
-            return 0
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        switch currentState {
-        case .day,
-             .base:
-            switch indexPath.row {
-            case 0:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: FilterTVC.identifier) as? FilterTVC else { return UITableViewCell() }
-                cell.delegate = self
-                cell.state = currentState
-                return cell
-            case 1:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: DateTVC.identifier) as? DateTVC else { return UITableViewCell() }
-                cell.dateLabel.text = dateText
-                cell.dateLabel.addCharacterSpacing(kernValue: 2)
-                cell.dateLabel.font = .nexaBold(ofSize: 16)
-                return cell
-            case 2:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
-                cell.titleLabel.text = "OVERVIEW"
-                cell.titleLabel.addCharacterSpacing(kernValue: 2)
-                return cell
-            case 3:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: StrokeTVC.identifier) as? StrokeTVC else { return UITableViewCell() }
-                cell.titleLabel.text = "TOTAL"
-                cell.titleLabel.addCharacterSpacing(kernValue: 2)
-                return cell
-            default:
-                let cell = UITableViewCell(frame: .zero)
-                cell.backgroundColor = .upuhBackground
-                cell.selectionStyle = .none
-                return cell
-            }
-        case .week,
-             .month:
-            switch indexPath.row {
-            case 0:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: FilterTVC.identifier) as? FilterTVC else { return UITableViewCell() }
-                cell.delegate = self
-                cell.state = currentState
-                cell.stroke = strokeState
-                return cell
-            case 1:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: DateTVC.identifier) as? DateTVC else { return UITableViewCell() }
-                cell.dateLabel.text = dateText
-                cell.dateLabel.addCharacterSpacing(kernValue: 2)
-                if dateText == "이번주" || dateText == "지난주" {
-                    cell.dateLabel.font = .IBMPlexSansSemiBold(ofSize: 16)
-                } else {
-                    cell.dateLabel.font = .nexaBold(ofSize: 16)
-                }
-                return cell
-            case 2:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: ChartTVC.identifier) as? ChartTVC else { return UITableViewCell() }
-                cell.combineChartView.animate(xAxisDuration: 1.0, yAxisDuration: 1.0, easingOption: .linear)
-                
-                if currentState == .week {
-                    cell.titleLabel.text = "WEEKLY RECORD"
-                    cell.titleLabel.addCharacterSpacing(kernValue: 2)
-                } else {
-                    cell.titleLabel.text = "MONTHLY RECORD"
-                    cell.titleLabel.addCharacterSpacing(kernValue: 2)
-                }
-                return cell
-            case 3:
-                guard let cell = tableView.dequeueReusableCell(withIdentifier: DetailTVC.identifier) as? DetailTVC else { return UITableViewCell() }
-                
-                if currentState == .week {
-                    cell.titleLabel.text = "WEEKLY OVERVIEW"
-                    cell.titleLabel.addCharacterSpacing(kernValue: 2)
-                } else {
-                    cell.titleLabel.text = "MONTHLY OVERVIEW"
-                    cell.titleLabel.addCharacterSpacing(kernValue: 2)
-                }
-                
-                return cell
-            default:
-                let cell = UITableViewCell(frame: .zero)
-                cell.backgroundColor = .upuhBackground
-                cell.selectionStyle = .none
-                return cell
-            }
-        case .routine:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineTVC.identifier) as? RoutineTVC else { return UITableViewCell()}
-            cell.setContentData(overview: routineOverViewList[indexPath.row])
-            return cell
-        }
+        topView.titleLabel.alpha = alpha
+        topView.nameLabel.alpha = alpha
     }
 }
 
 // MARK: - UITableViewDelegate
 extension MainVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if currentState == .routine {
-            return indexPath.row == 0 ? 184 : 170
-        }else {
-            switch indexPath.row {
-            case 4:
+        switch currentMainViewState {
+        case .routine:
+            return indexPath.row == .zero ? 184 : 170
+        default:
+            guard let dayBaseRowType = DayBaseRowType(rawValue: indexPath.row) else { return 0 }
+            switch dayBaseRowType {
+            case .footer:
                 return 105
             default:
                 return UITableView.automaticDimension
@@ -339,213 +159,54 @@ extension MainVC: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        switch section {
-        case 0:
+        guard let sectionType = TotalSection(rawValue: section) else { return UIView() }
+        switch sectionType {
+        case .topHeader:
             return topView
-        case 1:
+        case .content:
             return headerView
-        default:
-            return UIView()
         }
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        switch section {
-        case 0:
+        guard let sectionType = TotalSection(rawValue: section) else { return 0 }
+        switch sectionType {
+        case .topHeader:
             return 143
-        case 1:
+        case .content:
             return 50
-        default:
-            return 0
         }
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let y = scrollView.contentOffset.y
+        let offsetY = scrollView.contentOffset.y
+        let touchToSafeAreaTop = offsetY >= 188
+        let scrollingThroughTableView = (offsetY < 188) && ((offsetY / 188) > 0.3)
+        let scrollingThroughTableViewForTopView = offsetY > 0
 
-        if y >= 188 {
-            headerView.backgroundColor = .upuhSkyBlue
-            statusBar.backgroundColor = .upuhSkyBlue
-        } else if y < 188 && (y / 188) > 0.3 {
-            headerView.backgroundColor = .upuhSkyBlue.withAlphaComponent(y / 188)
-            statusBar.backgroundColor = .clear
+        if touchToSafeAreaTop {
+            changeTopAreaBackgroundColor(to: .upuhSkyBlue,
+                                         with: .upuhSkyBlue)
+        } else if scrollingThroughTableView {
+            changeTopAreaBackgroundColor(to: .upuhSkyBlue.withAlphaComponent(offsetY / 188),
+                                         with: .clear)
         } else {
-            headerView.backgroundColor = .upuhSkyBlue.withAlphaComponent(0.3)
+            changeTopAreaBackgroundColor(to: .upuhSkyBlue.withAlphaComponent(0.3))
         }
         
-        if y >= 188 {
-            topView.titleLabel.alpha = 0
-            topView.nameLabel.alpha = 0
-        } else if y > 0 {
-            topView.titleLabel.transform = CGAffineTransform(translationX: -y/140, y: 0)
-            topView.titleLabel.alpha = 1 - (y / 95)
-            topView.nameLabel.transform = CGAffineTransform(translationX: -y/140, y: 0)
-            topView.nameLabel.alpha = 1 - (y / 95)
-
+        if touchToSafeAreaTop {
+            changeTopViewConfiguration(alpha: 0)
+        } else if scrollingThroughTableViewForTopView {
+            changeTopViewConfiguration(alpha: 1 - (offsetY / 95),
+                                       transform: CGAffineTransform(translationX: -offsetY/140, y: 0))
         } else {
-            topView.titleLabel.transform = .identity
-            topView.titleLabel.alpha = 1
-            topView.nameLabel.transform = .identity
-            topView.nameLabel.alpha = 1
+            changeTopViewConfiguration(alpha: 1, transform: .identity)
         }
     }
     
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         if cardView.cardViewState == .expanded {
-            cardView.cardViewState = .normal
-            decideTopConstraint(of: .normal)
+            setupCardViewState(to: .normal)
         }
-    }
-}
-
-// MARK: - SelectedRange Delegate
-extension MainVC: SelectedRangeDelegate {
-    func didClickedRangeButton() {
-        cardView.cardViewState = .normal
-        decideTopConstraint(of: .normal)
-        
-        guard let vc = storyboard?.instantiateViewController(withIdentifier: "SelectedRangeVC") as? SelectedRangeVC else { return }
-        vc.modalPresentationStyle = .overCurrentContext
-        vc.modalTransitionStyle = .crossDissolve
-        
-        vc.dayData = { year, month, day in
-            print("dayData : \(year) \(month) \(day)")
-            let transYear = year[year.index(year.startIndex, offsetBy: 2)..<year.endIndex]
-            let transMonth = (month.count == 1) ? "0\(month)" : month
-            let transDay = (day.count == 1) ? "0\(day)" : day
-            self.dateText = "\(transYear)/\(transMonth)/\(transDay)"
-            self.cardView.dateText = self.dateText
-            self.currentState = (self.dateText == self.dateformatter.string(from: Date())) ? .base : .day
-            self.strokeState = .none
-            
-            // fetch day response
-            self.rangeTexts[0] = "\(year)-\(transMonth)-\(transDay)"
-            self.storage.dispatchDayRecord(date: self.rangeTexts[0], stroke: "") {
-                print("day Record")
-                
-                self.baseTableView.reloadSections(IndexSet(1...1), with: .fade)
-                self.cardView.currentState = self.currentState
-            }
-        }
-        vc.weekData = { week in
-            print("weekData : \(week)")
-            self.dateText = week
-            self.cardView.dateText = self.dateText
-            self.currentState = .week
-            self.strokeState = .none
-            
-            // fetch week response
-            self.rangeTexts[0] = "2021-10-18"
-            self.rangeTexts[1] = "2021-10-24"
-            
-            self.storage.dispatchWeekRecord(startDate: self.rangeTexts[0],
-                                            endDate: self.rangeTexts[1],
-                                            stroke: "") {
-                print("Week Record")
-                
-                self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
-                self.cardView.currentState = self.currentState
-            }
-        }
-        vc.monthData = { year, month in
-            print("monthData : \(year) \(month)")
-            let transMonth = (month.count == 1) ? "0\(month)" : month
-            self.dateText = "\(year)/\(transMonth)"
-            self.cardView.dateText = self.dateText
-            self.currentState = .month
-            self.strokeState = .none
-            
-            // fetch month response
-            self.rangeTexts[0] = "\(year)-\(transMonth)"
-            self.storage.dispatchDayRecord(date: self.rangeTexts[0], stroke: "") {
-                print("month Record")
-                
-                self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
-                self.cardView.currentState = self.currentState
-            }
-        }
-        
-        present(vc, animated: true, completion: nil)
-    }
-    
-    func didClickedStrokeButton(indexPath: Int = 0) {
-        cardView.cardViewState = .normal
-        decideTopConstraint(of: .normal)
-        
-        guard let vc = storyboard?.instantiateViewController(withIdentifier: "SelectedStrokeVC") as? SelectedStrokeVC else { return }
-        vc.modalPresentationStyle = .overCurrentContext
-        vc.modalTransitionStyle = .crossDissolve
-        vc.style = self.strokeState
-        vc.strokeData = { style in
-            print(style)
-            self.strokeState = style
-            
-            switch self.currentState {
-            case .week:
-                self.storage.dispatchWeekRecord(startDate: self.rangeTexts[0],
-                                                endDate: self.rangeTexts[1],
-                                                stroke: style.rawValue) {
-                    print("Week Record with stroke")
-                    
-                    self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
-                }
-            case .month:
-                self.storage.dispatchMonthRecord(date: self.rangeTexts[0],
-                                                 stroke: style.rawValue) {
-                    print("Month Record with stroke")
-                    
-                    self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
-                }
-            default:
-                break
-            }
-        }
-        
-        present(vc, animated: true, completion: nil)
-    }
-}
-
-// MARK: - HealthKit
-extension MainVC {
-    private func authorizeHealthKit() {
-        HealthKitSetupAssistant.authorizeHealthKitAtSwimming { (authorized, error) in
-            guard authorized else {
-                let baseMessage = "HealthKit Authorization Failed"
-                if let error = error {
-                    print("\(baseMessage). Reason: \(error.localizedDescription)")
-                } else {
-                    print(baseMessage)
-                }
-                return
-            }
-            print("HealthKit Successfully Authorized.")
-            self.postRecordData()
-            self.swimmingViewModel.initSwimmingData()
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3){
-                self.swimmingViewModel.refineSwimmingDataForServer()
-                print("refineSwimmingDataForServer.")
-            }
-        }
-    }
-}
-
-extension MainVC{
-    private func postRecordData(){
-        swimmingViewModel
-            .swimmingSubject
-            .bind(onNext: { [weak self] workoutList in
-                guard let self = self else { return }
-                
-                print("workoutList.count------------\(workoutList.count)---------------")
-                workoutList.forEach{
-                    print("\($0.display())")
-                    print("count = \($0.recordLabsList.count)")
-                }
-                print("----------------------------")
-                
-                self.storage.dispatchRecord(workoutList: workoutList) {
-                    print("success")
-                }
-            }).disposed(by: disposeBag)
     }
 }

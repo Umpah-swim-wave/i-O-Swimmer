@@ -6,36 +6,35 @@
 //
 
 import UIKit
-import SnapKit
-import Then
-import RxSwift
-import RxCocoa
 
-class BaseViewController: UIViewController{
+import RxSwift
+
+class BaseViewController: UIViewController {
         
-    // MARK: - Rx
+    // MARK: - properties
     
-    public let disposeBag = DisposeBag()
+    let disposeBag = DisposeBag()
     
-    // MARK: - View Life Cycle
+    // MARK: - init
     
-    override func viewDidLoad() {
-        render()
-        configUI()
-        setLocalization()
-        setData()
+    init() {
+        super.init(nibName: nil, bundle: nil)
     }
     
-    // MARK: - Manage Memory
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
-        print("deinit BaseViewController instance")
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        /// Dispose of any resources that can be recreated.
+    // MARK: - life cycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        render()
+        configUI()
     }
     
     // MARK: - Override Method
@@ -45,18 +44,10 @@ class BaseViewController: UIViewController{
     }
     
     func configUI() {
-        // 기본 음파 배경 설정
+        // configuration
         view.backgroundColor = .upuhBlue
     }
-    
-    func setLocalization() {
-        // Override Localization
-    }
-    
-    func setData() {
-        // Override Set Data
-    }
-    
+
     // MARK: - @objc
     
     @objc

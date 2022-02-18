@@ -17,8 +17,8 @@ class ExpandedStateView: UIView {
         $0.dataSource = self
         $0.register(ExpandedDayTVC.self, forCellReuseIdentifier: ExpandedDayTVC.identifier)
         $0.register(ExpandedWeekTVC.self, forCellReuseIdentifier: ExpandedWeekTVC.identifier)
-        $0.register(RoutineTVC.self, forCellReuseIdentifier: RoutineTVC.identifier)
-        $0.registerCustomXib(name: RoutineTVC.identifier)
+        $0.register(RoutineTVC.self, forCellReuseIdentifier: RoutineTVC.className)
+        $0.registerCustomXib(name: RoutineTVC.className)
         $0.showsVerticalScrollIndicator = false
         
         if #available(iOS 15.0, *) {
@@ -37,9 +37,9 @@ class ExpandedStateView: UIView {
     let days: [String] = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
     let weeks: [String] = ["WEEK1", "WEEK2", "WEEK3", "WEEK4", "WEEK5"]
         
-    var state: CurrentState?
+    var state: CurrentMainViewState?
     var isModified = false
-    var root: MainVC?
+    var root: MainCardVC?
     
     //MARK: about Routine
     var upuhRoutineOverViewList: [RoutineOverviewData] = []
@@ -182,7 +182,7 @@ extension ExpandedStateView: UITableViewDataSource {
             cell.dayLabel.text = weeks[indexPath.row]
             return cell
         case .routine:
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineTVC.identifier) as? RoutineTVC else { return UITableViewCell() }
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineTVC.className) as? RoutineTVC else { return UITableViewCell() }
             cell.setContentData(overview: upuhRoutineOverViewList[indexPath.row])
             return cell
         default:
@@ -262,8 +262,8 @@ extension ExpandedStateView: UITableViewDelegate {
 }
 
 // MARK: - SelectedRangeDelegate
-extension ExpandedStateView: SelectedRangeDelegate {
-    func didClickedStrokeButton(indexPath: Int) {
+extension ExpandedStateView: SelectedButtonDelegate {
+    func didClickedStrokeButton(with indexPath: Int) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         guard let vc = storyboard.instantiateViewController(withIdentifier: "SelectedStrokeVC") as? SelectedStrokeVC else { return }
         vc.modalPresentationStyle = .overCurrentContext
@@ -288,7 +288,7 @@ extension ExpandedStateView: SelectedRangeDelegate {
         root?.present(vc, animated: true, completion: nil)
     }
     
-    func didClickedMergeButton(indexPath: Int) {
+    func didClickedMergeButton(with indexPath: Int) {
         strokes.remove(at: indexPath)
         listTableView.reloadSections(IndexSet(0...0), with: .fade)
     }
