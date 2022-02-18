@@ -61,6 +61,14 @@ final class ExpandedDayTVC: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func prepareForReuse() {
+        rowLabel.text = ""
+        strokeLabel.text = ""
+        distanceLabel.text = ""
+        velocityLabel.text = ""
+        timeLabel.text = ""
+    }
+    
     private func render() {
         contentView.addSubviews([rowLabel, strokeButton, strokeLabel, distanceLabel,
                      velocityLabel, timeLabel, mergeButton])
@@ -96,10 +104,25 @@ final class ExpandedDayTVC: UITableViewCell {
         }
     }
     
+    private func applyKoreanStrokeNaming(with strokeName: String) -> String {
+        switch strokeName {
+        case "FREESTYLE":
+            return "자유형"
+        case "BREAST":
+            return "평영"
+        case "BACK":
+            return "배영"
+        case "BUTTERFLY":
+            return "접영"
+        default:
+            return "혼영"
+        }
+    }
+    
     func setupLabels(with data: RecordLabsList, index: Int) {
-        let isSingleDigitNumber = (index < 10)
+        let isSingleDigitNumber = (index < 9)
         
-        strokeLabel.text = data.stroke
+        strokeLabel.text = applyKoreanStrokeNaming(with: data.stroke) 
         rowLabel.text = isSingleDigitNumber ? "0\(index + 1)" : "\(index + 1)"
         distanceLabel.text = "\(data.distance)"
         velocityLabel.text = data.speed
@@ -113,13 +136,14 @@ final class ExpandedDayTVC: UITableViewCell {
             configuration.titlePadding = 0
             configuration.imagePadding = 2
             configuration.baseForegroundColor = .upuhBlack
-            configuration.attributedTitle = AttributedString(data.stroke, attributes: attributeContainer)
+            configuration.attributedTitle = AttributedString(applyKoreanStrokeNaming(with: data.stroke),
+                                                             attributes: attributeContainer)
             configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
             strokeButton.configuration = configuration
         } else {
             strokeButton.setImage(UIImage(named: "ic_drop"), for: .normal)
             strokeButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: 0)
-            strokeButton.setTitle(data.stroke, for: .normal)
+            strokeButton.setTitle(applyKoreanStrokeNaming(with: data.stroke), for: .normal)
             strokeButton.titleLabel?.font = .IBMPlexSansText(ofSize: 14)
             strokeButton.setTitleColor(.upuhBlack, for: .normal)
             strokeButton.sizeToFit()
@@ -127,6 +151,7 @@ final class ExpandedDayTVC: UITableViewCell {
     }
 
     func changeCellConfiguration(_ isModified: Bool,_ compareStroke: Bool) {
+        print(compareStroke)
         if isModified && compareStroke {
             strokeLabel.isHidden = true
             strokeButton.isHidden = false
