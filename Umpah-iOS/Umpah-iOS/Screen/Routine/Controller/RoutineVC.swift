@@ -33,7 +33,7 @@ class RoutineVC: BaseViewController {
         $0.layer.cornerRadius = 25
         $0.setBackgroundColor(.upuhBlue2, for: .normal)
         $0.setBackgroundColor(.upuhBlue2.withAlphaComponent(0.7), for: .highlighted)
-        $0.setTitle("어푸님만의 루틴 만들기", for: .normal)
+        $0.setTitle("어푸님만의 루틴 저장하기", for: .normal)
         $0.titleLabel?.font = .IBMPlexSansSemiBold(ofSize: 16)
         $0.titleLabel?.textColor = .white
         $0.addTarget(self, action: #selector(changeTableViewEditingMode), for: .touchUpInside)
@@ -88,7 +88,6 @@ class RoutineVC: BaseViewController {
         $0.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         $0.textContainer.lineBreakMode = .byTruncatingTail
         $0.isUserInteractionEnabled = false
-        
         let kernSpacing: CGFloat = -0.6
         let style = NSMutableParagraphStyle()
         style.lineSpacing = -0.9
@@ -239,14 +238,6 @@ class RoutineVC: BaseViewController {
             })
             .disposed(by: disposeBag)
         
-//        backButton.rx.tap
-//            .asDriver()
-//            .drive(onNext: { [weak self] _ in
-//                print("왜 안돼?")
-//                self?.changeTableViewEditingMode()
-//            })
-//            .disposed(by: disposeBag)
-//        
         backButton.rx.tap
             .asDriver()
             .drive(onNext: { [weak self] _ in
@@ -256,6 +247,7 @@ class RoutineVC: BaseViewController {
     }
 }
 
+//MARK: - UITableViewDelegate
 extension RoutineVC: UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -284,6 +276,7 @@ extension RoutineVC: UITableViewDelegate{
     }
 }
 
+//MARK: - UITableViewDataSource
 extension RoutineVC: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -307,6 +300,7 @@ extension RoutineVC: UITextFieldDelegate {
     }
 }
 
+//MARK: - RoutineCellDelegate
 extension RoutineVC: RoutineCellDelegate{
     func routineItemCellForAdding(cell: RoutineSetTVC, index: Int) {
         cell.routineItemCellList[index].selectStorke = { [weak self] strokeName in
@@ -346,7 +340,10 @@ extension RoutineVC: RoutineCellDelegate{
     }
 }
 
+//MARK: - TextView Delegate
 
+
+//MARK: - Modify Element
 extension RoutineVC {
     func presentToModifyElementView(of type: ModifyElementType, setTitle: String = "", index: Int = 0, before data: String = ""){
         let storyboard = UIStoryboard(name: "ModifyElement", bundle: nil)
@@ -377,6 +374,7 @@ extension RoutineVC {
     }
 }
 
+//MARK: - configure UI
 extension RoutineVC {
     private func setupConstraints(){
         view.addSubviews([navigationView,
@@ -484,12 +482,12 @@ extension RoutineVC {
         
         let titleButton = UIButton().then{
             $0.setTitle("세트 추가하기", for: .normal)
-            $0.titleLabel?.font = .systemFont(ofSize: 14)
-            $0.setTitleColor(.gray, for: .normal)
+            $0.titleLabel?.font = .IBMPlexSansSemiBold(ofSize: 14)
+            $0.setTitleColor(.upuhGreen, for: .normal)
         }
         
         let titleUnderline = UIView().then{
-            $0.backgroundColor = .gray
+            $0.backgroundColor = .upuhGreen
         }
         
         let presentingAction = UIAction{ [weak self] _ in
@@ -500,16 +498,16 @@ extension RoutineVC {
         
         view.addSubviews([titleButton,
                           titleUnderline])
-        titleButton.snp.makeConstraints{
-            $0.centerX.equalTo(UIScreen.getDeviceWidth() / 2.0)
-            $0.centerY.equalToSuperview()
-        }
         
+        titleButton.snp.makeConstraints{
+            $0.center.equalToSuperview()
+        }
+    
         titleUnderline.snp.makeConstraints{
-            $0.top.equalTo(titleButton.snp.bottom).offset(-3)
+            $0.top.equalTo(titleButton.snp.bottom).offset(-10)
             $0.centerX.equalTo(titleButton.snp.centerX)
             $0.width.equalTo(titleButton.snp.width)
-            $0.height.equalTo(1)
+            $0.height.equalTo(1.5)
         }
         return view
     }

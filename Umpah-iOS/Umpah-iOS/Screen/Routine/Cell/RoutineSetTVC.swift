@@ -195,7 +195,7 @@ extension RoutineSetTVC: UITableViewDataSource{
     
     public func setTableViewFooter() -> UIView{
         let view = UIView(frame: CGRect(x: 0, y: 0,
-                                        width: UIScreen.getDeviceWidth(),
+                                        width: tableView.frame.width,
                                         height: 68))
 
         let titleButton = UIButton().then{
@@ -211,18 +211,20 @@ extension RoutineSetTVC: UITableViewDataSource{
         
         view.addSubviews([titleButton,
                           titleUnderline])
-        let centerX = UIScreen.getDeviceWidth() / 2.0
-        print("centerX = \(centerX)")
+        let titleButtonX = (view.frame.width - titleButton.frame.width) / 2.0
+        print("titleButtonX = \(titleButtonX)")
+        print("view.midX = \(view.frame.midX)")
+        print("view.CenterX = \(view.snp.centerX)")
         titleButton.snp.makeConstraints{
-            $0.center.equalToSuperview()
+            $0.centerY.equalToSuperview()
+            $0.centerX.equalToSuperview().offset(6)
         }
-        titleButton.center.x = centerX
         
         titleUnderline.snp.makeConstraints{
-            $0.top.equalTo(titleButton.snp.bottom).offset(-8)
+            $0.top.equalTo(titleButton.snp.bottom).offset(-9)
             $0.centerX.equalTo(titleButton.snp.centerX)
             $0.width.equalTo(titleButton.snp.width)
-            $0.height.equalTo(1)
+            $0.height.equalTo(1.5)
         }
         return view
     }
