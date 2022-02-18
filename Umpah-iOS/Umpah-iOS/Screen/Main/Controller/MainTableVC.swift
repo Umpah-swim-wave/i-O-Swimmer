@@ -68,7 +68,7 @@ class MainTableVC: MainCardVC {
         strokeState = .none
     }
     
-    private func applyStrokeString(with stroke: Stroke) -> String {
+    private func applyStrokeString(with stroke: Stroke) -> String? {
         switch stroke {
         case .freestyle:
             return "FREESTYLE"
@@ -79,7 +79,7 @@ class MainTableVC: MainCardVC {
         case .butterfly:
             return "BUTTERFLY"
         case .none:
-            return ""
+            return nil
         }
     }
 }
@@ -206,9 +206,9 @@ extension MainTableVC: SelectedButtonDelegate {
             self.setupMainViewState(to: .month, with: date)
             
             self.selectedDates[0] = "\(year)-\(transMonth)"
-//            self.storage.fetchDayRecord(date: self.selectedDates[0]) {
-//                self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
-//            }
+            self.storage.fetchMonthRecord(date: self.selectedDates[0]) {
+                self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
+            }
         }
         
         vc.modalPresentationStyle = .overCurrentContext
@@ -228,7 +228,7 @@ extension MainTableVC: SelectedButtonDelegate {
             switch self.currentMainViewState {
             case .week:
                 self.storage.fetchWeekRecord(date: "2021-05",
-                                             week: 4,
+                                             week: 3,
                                              stroke: self.applyStrokeString(with: style)) {
                     self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
                 }

@@ -96,10 +96,6 @@ final class RecordStorage {
             case .success(let result):
                 do{
                     print(result)
-                    let responseData = try result.map(CommonResponse.self)
-                    print("-----------response-----------")
-                    print(responseData)
-                    print("------------------------------")
                     completion()
                 } catch(let err){
                     print(err.localizedDescription)
