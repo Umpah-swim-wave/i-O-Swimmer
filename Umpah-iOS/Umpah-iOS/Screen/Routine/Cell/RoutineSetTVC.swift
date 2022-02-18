@@ -17,7 +17,6 @@ protocol RoutineCellDelegate{
 }
 
 class RoutineSetTVC: UITableViewCell {
-    static let identifier = "RoutineSetTVC"
     public var viewModel: RoutineViewModel?
     private var routineListInSet : [RoutineItemData] = []
     public var routineItemCellList: [RoutineItemTVC] = []
@@ -57,7 +56,7 @@ class RoutineSetTVC: UITableViewCell {
     }
     
     public var tableView = UITableView().then{
-        $0.registerCustomXib(name: RoutineItemTVC.identifier)
+        $0.registerCustomXib(name: RoutineItemTVC.className)
     }
     
     private var reorderControlImageView: UIImageView? {
@@ -71,7 +70,6 @@ class RoutineSetTVC: UITableViewCell {
         
     public var isEditingMode: Bool = false {
         didSet{
-            print("routine set에서 바뀔꺼임 \(isEditingMode)")
             if isEditingMode{
                 changeLayoutAtEditingMode()
                 tableView.tableFooterView = setTableViewFooter()
@@ -80,7 +78,6 @@ class RoutineSetTVC: UITableViewCell {
                 tableView.tableFooterView = nil
             }
             routineItemCellList.forEach{
-                print("item에 넣어줄 editing mode \(isEditingMode)")
                 $0.isEditingMode = isEditingMode
             }
         }
@@ -137,7 +134,7 @@ class RoutineSetTVC: UITableViewCell {
     }
 
     private func getRoutineItemCell(item: RoutineItemData) -> RoutineItemTVC {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineItemTVC.identifier) as? RoutineItemTVC else{
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineItemTVC.className) as? RoutineItemTVC else{
             return RoutineItemTVC()
         }
         cell.setRoutineItem(item: item, isEditing: isEditingMode)
@@ -174,7 +171,6 @@ extension RoutineSetTVC: UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        print("indexPath = \(indexPath), editingStyle = \(editingStyle)")
         if editingStyle == .delete{
             viewModel?.routineStorage.delete(setTitle: routineSetTitle, index: indexPath.row)
             routineItemCellList.remove(at: indexPath.row)
@@ -196,7 +192,7 @@ extension RoutineSetTVC: UITableViewDataSource{
     
     public func setTableViewFooter() -> UIView{
         let view = UIView(frame: CGRect(x: 0, y: 0,
-                                        width: UIScreen.getDeviceWidth(),
+                                        width: tableView.frame.width,
                                         height: 68))
 
         let titleButton = UIButton().then{
@@ -212,18 +208,17 @@ extension RoutineSetTVC: UITableViewDataSource{
         
         view.addSubviews([titleButton,
                           titleUnderline])
-        let centerX = UIScreen.getDeviceWidth() / 2.0
-        print("centerX = \(centerX)")
+        let titleButtonX = (view.frame.width - titleButton.frame.width) / 2.0
         titleButton.snp.makeConstraints{
-            $0.center.equalToSuperview()
+            $0.centerY.equalToSuperview()
+            $0.centerX.equalToSuperview().offset(6)
         }
-        titleButton.center.x = centerX
         
         titleUnderline.snp.makeConstraints{
-            $0.top.equalTo(titleButton.snp.bottom).offset(-8)
+            $0.top.equalTo(titleButton.snp.bottom).offset(-9)
             $0.centerX.equalTo(titleButton.snp.centerX)
             $0.width.equalTo(titleButton.snp.width)
-            $0.height.equalTo(1)
+            $0.height.equalTo(1.5)
         }
         return view
     }
@@ -250,8 +245,6 @@ extension RoutineSetTVC: UITableViewDataSource{
         cell.isEditingMode = true
         routineItemCellList.append(cell)
         tableView.reloadData()
-        
-        print("cell.editingStyle = \(cell.editingStyle.rawValue)")
     }
 }
 
@@ -335,12 +328,9 @@ extension RoutineSetTVC {
     }
     
     public func updateReorderImageView(){
-        print("reorderControlImageView?.frame = \(reorderControlImageView?.frame)")
         reorderImageView.snp.remakeConstraints{
             $0.centerY.equalTo(titleLabel.snp.centerY)
             $0.trailing.equalToSuperview().inset(24)
-//            $0.height.equalTo(reorderControlImageView?.frame.height ?? 30)
-//            $0.width.equalTo(reorderControlImageView?.frame.width ?? 30)
             $0.height.equalTo(30)
             $0.width.equalTo(30)
 
