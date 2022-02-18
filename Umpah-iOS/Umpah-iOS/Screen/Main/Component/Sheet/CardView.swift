@@ -89,6 +89,9 @@ final class CardView: BaseView, Alertable {
         
         switch cardViewState {
         case .normal:
+            expandedView.routineFilterView.levelText = "레벨"
+            expandedView.routineFilterView.exceptionStrokeText = "제외할 영법"
+            
             normalView.fadeIn()
             expandedView.fadeOut()
             startAnimation()
