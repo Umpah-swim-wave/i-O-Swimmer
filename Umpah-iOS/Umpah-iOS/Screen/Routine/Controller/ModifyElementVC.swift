@@ -34,6 +34,8 @@ class ModifyElementVC: UIViewController{
     
     private var contentViewHeight = 0
     
+    var sendFilterData: (() -> Void)?
+    
     private var dimmerView = UIView().then{
         $0.backgroundColor = .black
         $0.alpha = 0.6
@@ -103,9 +105,11 @@ class ModifyElementVC: UIViewController{
         case .level:
             let presentingVC = presentingViewController as? MainVC
             presentingVC?.cardView.expandedView.routineFilterView.levelText = selectedContent ?? "레벨"
+            sendFilterData?()
         case .exceptStorke:
             let presentingVC = presentingViewController as? MainVC
             presentingVC?.cardView.expandedView.routineFilterView.exceptionStrokeText = selectedContent ?? "제외할 영법"
+            sendFilterData?()
         case .none:
             elementList = []
         }

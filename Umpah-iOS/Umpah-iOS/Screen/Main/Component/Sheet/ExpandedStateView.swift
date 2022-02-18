@@ -130,13 +130,15 @@ final class ExpandedStateView: ExpandedStateTableView {
         let storyboard = UIStoryboard(name: "ModifyElement", bundle: nil)
         guard let nextVC = storyboard.instantiateViewController(withIdentifier: ModifyElementVC.identifier) as? ModifyElementVC else {return}
         
+        nextVC.sendFilterData = { [weak self] in
+            self?.rootVC?.setupCardViewState(to: .expanded)
+        }
+        
         nextVC.elementType = elementType
-        nextVC.modalPresentationStyle = .fullScreen
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1 , execute: {
-            nextVC.backgroundImage = self.rootVC?.view.asImage()
-            nextVC.modalTransitionStyle = .crossDissolve
-            self.rootVC?.present(nextVC, animated: true, completion: nil)
-        })
+        nextVC.backgroundImage = self.rootVC?.view.asImage()
+        nextVC.modalPresentationStyle = .overCurrentContext
+        nextVC.modalTransitionStyle = .crossDissolve
+        self.rootVC?.present(nextVC, animated: true, completion: nil)
     }
     
     private func setupModifyButton() {
