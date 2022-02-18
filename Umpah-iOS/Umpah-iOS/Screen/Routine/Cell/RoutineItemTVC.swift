@@ -90,11 +90,13 @@ class RoutineItemTVC: UITableViewCell {
         }
         strokeButton.setTitle(item.stroke, for: .normal)
         distanceTextField.text = "\(item.distance)m"
-        timeTextField.text = item.getTimeToString()
+        timeTextField.text = item.getAutomaticTimeToString()
     }
     
     func addActions(){
-        let touchUpToselectStorke = UIAction { _ in self.selectStorke?(self.routineItem?.stroke ?? "")}
+        let touchUpToselectStorke = UIAction { _ in
+            self.selectStorke?(self.routineItem?.stroke ?? "")
+        }
         let checkDistanceAction = UIAction{ _ in
             print("checkDistanceAction isSelectedDistance = \(self.isSelectedDistance)")
             self.isSelectedDistance = true
@@ -169,6 +171,7 @@ extension RoutineItemTVC: UIPickerViewDelegate{
         if isSelectedDistance {
             distanceTextField.text = "\(distanceList[row])m"
             routineItem?.distance = distanceList[row]
+            timeTextField.text = routineItem?.getAutomaticTimeToString()
         }else{
             if component == 0{
                 selectedTime.0 = miniteList[row]*60
