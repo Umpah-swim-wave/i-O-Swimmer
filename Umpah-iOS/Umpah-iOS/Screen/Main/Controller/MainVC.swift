@@ -26,10 +26,6 @@ final class MainVC: MainTableVC {
 //            self?.baseTableView.reloadData()
 //            print("reload 성공")
 //        }
-        let loginStorage = LoginStorage.shared
-        loginStorage.dispatchSignUp(nickname: "", phone: "") {
-            print("와우 회원가입 완료")
-        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

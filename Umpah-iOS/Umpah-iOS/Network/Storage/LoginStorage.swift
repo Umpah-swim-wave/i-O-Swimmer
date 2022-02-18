@@ -39,4 +39,25 @@ final class LoginStorage {
             }
         }
     }
+    
+    // MARK: - POST /auth/signin
+    func dispatchLogin(phone: String,
+                       completion: @escaping (() -> ())) {
+        let param = LoginRequest(phone: "01012345678")
+        
+        self.authProvider.request(.login(param)) { response in
+            switch response{
+            case .success(let result):
+                do{
+                    print(result)
+                    completion()
+                }catch(let err){
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+                print("와 실패다!")
+            }
+        }
+    }
 }
