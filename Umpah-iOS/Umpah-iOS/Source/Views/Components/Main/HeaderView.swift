@@ -74,7 +74,7 @@ class HeaderView: UIView {
         recordButton.titleLabel?.font = .IBMPlexSansSemiBold(ofSize: 16)
         routineButton.titleLabel?.font = .IBMPlexSansRegular(ofSize: 16)
         moveRecordDirection()
-        changeState?(true)
+        changeState?(false)
     }
     
     @objc
@@ -85,7 +85,7 @@ class HeaderView: UIView {
         routineButton.titleLabel?.font = .IBMPlexSansSemiBold(ofSize: 16)
         recordButton.titleLabel?.font = .IBMPlexSansRegular(ofSize: 16)
         moveRoutineDirection()
-        changeState?(false)
+        changeState?(true)
     }
 }
 
