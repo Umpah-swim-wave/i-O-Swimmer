@@ -151,11 +151,9 @@ class RoutineVC: BaseViewController {
     
     private func initRoutineSetCells(){
         viewModel.routineStorage.routineSetTitleList.forEach{
-            print("setTitle = \($0)")
             let cell = getInitRoutineSetCell(setTitle: $0)
             routineSetCellList.append(cell)
         }
-        print(routineSetCellList.count)
     }
     
     private func getInitRoutineSetCell(setTitle: String) -> RoutineSetTVC{
@@ -190,14 +188,12 @@ class RoutineVC: BaseViewController {
             }
             cell.routineItemCellList[index].isEditingMode = true
             cell.tableView.setEditing(true, animated: true)
-            print("cell.routineItemCellList[index].showsReorderControl = \(cell.routineItemCellList[index].showsReorderControl)")
         }
         return cell
     }
     
     @objc
     func changeTableViewEditingMode(){
-        print("changeTableViewEditingMode")
         let mode = tableView.isEditing ? false : true
         tableView.isEditing = mode
         tableView.tableFooterView = mode ? getFooterViewLayout() : nil
@@ -262,7 +258,6 @@ extension RoutineVC: UITableViewDelegate{
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let imageView = cell.subviews.first(where: {$0.description.contains("Reorder")})?
             .subviews.first(where: {$0 is UIImageView}) as? UIImageView
-        print("imageView reorder = \(imageView?.frame)")
         imageView?.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
     }
     

@@ -111,19 +111,10 @@ class ModifyElementVC: BaseViewController{
                                             index: self.presentingItemIndex ?? 0)
         case .level:
             let presentingVC = presentingViewController as? MainVC
-<<<<<<< HEAD
             presentingVC?.cardView.expandedView.routineFilterView.levelText = selectedContent ?? (cacheData == "" ? "레벨" : cacheData)
         case .exceptStorke:
             let presentingVC = presentingViewController as? MainVC
             presentingVC?.cardView.expandedView.routineFilterView.exceptionStrokeText = selectedContent ?? (cacheData == "" ? "제외할 영법" : cacheData)
-=======
-            presentingVC?.cardView.expandedView.routineFilterView.levelText = selectedContent ?? "레벨"
-            sendFilterData?()
-        case .exceptStorke:
-            let presentingVC = presentingViewController as? MainVC
-            presentingVC?.cardView.expandedView.routineFilterView.exceptionStrokeText = selectedContent ?? "제외할 영법"
-            sendFilterData?()
->>>>>>> develop
         case .none:
             elementList = []
         }

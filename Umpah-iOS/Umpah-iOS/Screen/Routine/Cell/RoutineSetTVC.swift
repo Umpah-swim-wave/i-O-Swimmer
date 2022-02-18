@@ -70,7 +70,6 @@ class RoutineSetTVC: UITableViewCell {
         
     public var isEditingMode: Bool = false {
         didSet{
-            print("routine set에서 바뀔꺼임 \(isEditingMode)")
             if isEditingMode{
                 changeLayoutAtEditingMode()
                 tableView.tableFooterView = setTableViewFooter()
@@ -79,7 +78,6 @@ class RoutineSetTVC: UITableViewCell {
                 tableView.tableFooterView = nil
             }
             routineItemCellList.forEach{
-                print("item에 넣어줄 editing mode \(isEditingMode)")
                 $0.isEditingMode = isEditingMode
             }
         }
@@ -173,7 +171,6 @@ extension RoutineSetTVC: UITableViewDelegate{
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        print("indexPath = \(indexPath), editingStyle = \(editingStyle)")
         if editingStyle == .delete{
             viewModel?.routineStorage.delete(setTitle: routineSetTitle, index: indexPath.row)
             routineItemCellList.remove(at: indexPath.row)
@@ -212,9 +209,6 @@ extension RoutineSetTVC: UITableViewDataSource{
         view.addSubviews([titleButton,
                           titleUnderline])
         let titleButtonX = (view.frame.width - titleButton.frame.width) / 2.0
-        print("titleButtonX = \(titleButtonX)")
-        print("view.midX = \(view.frame.midX)")
-        print("view.CenterX = \(view.snp.centerX)")
         titleButton.snp.makeConstraints{
             $0.centerY.equalToSuperview()
             $0.centerX.equalToSuperview().offset(6)
@@ -251,8 +245,6 @@ extension RoutineSetTVC: UITableViewDataSource{
         cell.isEditingMode = true
         routineItemCellList.append(cell)
         tableView.reloadData()
-        
-        print("cell.editingStyle = \(cell.editingStyle.rawValue)")
     }
 }
 
@@ -336,12 +328,9 @@ extension RoutineSetTVC {
     }
     
     public func updateReorderImageView(){
-        print("reorderControlImageView?.frame = \(reorderControlImageView?.frame)")
         reorderImageView.snp.remakeConstraints{
             $0.centerY.equalTo(titleLabel.snp.centerY)
             $0.trailing.equalToSuperview().inset(24)
-//            $0.height.equalTo(reorderControlImageView?.frame.height ?? 30)
-//            $0.width.equalTo(reorderControlImageView?.frame.width ?? 30)
             $0.height.equalTo(30)
             $0.width.equalTo(30)
 
