@@ -27,10 +27,6 @@ final class CardView: BaseView, Alertable {
     
     private var rootVC: MainCardVC?
     private var canScrollMore = true
-    private var dateformatter = DateFormatter().then {
-        $0.dateFormat = "YY/MM/dd"
-        $0.locale = Locale.init(identifier: "ko-KR")
-    }
     
     // MARK: - UI
     
@@ -138,7 +134,7 @@ final class CardView: BaseView, Alertable {
     public func applyExpandedTitle(of state: CurrentMainViewState) -> String {
         switch state {
         case .base:
-            return dateformatter.string(from: Date())
+            return Date().getTimeString()
         case .routine:
             return "어푸가 추천하는 수영 루틴들"
         default:
