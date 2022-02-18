@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class StrokeHeaderView: UIView {
+final class StrokeHeaderView: BaseView {
 
     // MARK: - properties
     
@@ -30,18 +30,9 @@ final class StrokeHeaderView: UIView {
         $0.textColor = .upuhHeaderGray
     }
     
-    // MARK: - init
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        render()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    override func layoutSubviews() {
+    override func render() {
+        addSubviews([strokeLabel, distanceLabel, speedLabel])
+        
         strokeLabel.snp.makeConstraints {
             $0.top.leading.equalToSuperview().inset(24)
             $0.bottom.equalToSuperview().inset(16)
@@ -54,11 +45,5 @@ final class StrokeHeaderView: UIView {
             $0.top.equalTo(strokeLabel)
             $0.trailing.equalToSuperview().inset(43)
         }
-    }
-    
-    // MARK: - func
-    
-    private func render() {
-        addSubviews([strokeLabel, distanceLabel, speedLabel])
     }
 }

@@ -12,7 +12,7 @@ import RxSwift
 import SnapKit
 import Then
 
-final class HeaderView: UIView {
+final class HeaderView: BaseView {
     
     // MARK: - properties
     
@@ -41,8 +41,6 @@ final class HeaderView: UIView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        render()
-        configUI()
         bind()
     }
     
@@ -50,9 +48,7 @@ final class HeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    // MARK: - func
-    
-    private func render() {
+    override func render() {
         addSubviews([recordButton, routineButton, bottomView])
         
         recordButton.snp.makeConstraints {
@@ -73,9 +69,11 @@ final class HeaderView: UIView {
         }
     }
     
-    private func configUI() {
+    override func configUI() {
         backgroundColor = .white.withAlphaComponent(0.3)
     }
+    
+    // MARK: - func
     
     private func bind() {
         recordButton.rx.tap
