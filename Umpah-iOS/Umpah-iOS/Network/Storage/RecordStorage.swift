@@ -124,4 +124,40 @@ final class RecordStorage {
             }
         }
     }
+    
+    // MARK: - GET /weekRecord/recent-record-date/list
+    func fetchUserWeekRecord(completion: @escaping (() -> ())) {
+        self.authProvider.request(.userWeekRecord) { response in
+            switch response {
+            case .success(let result):
+                do{
+                    print(result)
+                    completion()
+                } catch(let err){
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+                print("와 실패다!")
+            }
+        }
+    }
+    
+    // MARK: - GET /monthRecord/recent-record-date/list
+    func fetchUserMonthRecord(completion: @escaping (() -> ())) {
+        self.authProvider.request(.userMonthRecord) { response in
+            switch response {
+            case .success(let result):
+                do{
+                    print(result)
+                    completion()
+                } catch(let err){
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+                print("와 실패다!")
+            }
+        }
+    }
 }
