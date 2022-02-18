@@ -7,37 +7,39 @@
 
 import UIKit
 
-import Then
+import RxCocoa
+import RxSwift
 import SnapKit
+import Then
 
-class SelectedStrokeVC: UIViewController {
-    // MARK: - Lazy Properties
-    lazy var strokeView = StrokesView(self).then {
+final class SelectedStrokeVC: BaseViewController {
+    
+    // MARK: - properties
+    
+    private lazy var strokeView = SelectedStrokeView().then {
+        $0.rootVC = self
         $0.layer.cornerRadius = 16
         $0.backgroundColor = .white
+        $0.style = strokeStyle
     }
-    
-    // MARK: - Properties
-    var backgroundView = UIButton().then {
+    private var backgroundView = UIButton().then {
         $0.backgroundColor = .black.withAlphaComponent(0.6)
-        $0.addTarget(self, action: #selector(dismissWhenTappedBackView), for: .touchUpInside)
     }
-    var style: Stroke = .none
-    var strokeData: ((Stroke) -> ())?
+    var strokeStyle: Stroke = .none
+    var sendStrokeStateData: ((Stroke) -> ())?
 
+    // MARK: - life cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        configUI()
-        setupLayout()
+        bind()
     }
     
-    private func configUI() {
+    override func configUI() {
         view.backgroundColor = .clear.withAlphaComponent(0)
-        
-        strokeView.style = style
     }
     
-    private func setupLayout() {
+    override func render() {
         view.addSubviews([backgroundView, strokeView])
         
         backgroundView.snp.makeConstraints {
@@ -49,5 +51,17 @@ class SelectedStrokeVC: UIViewController {
             $0.leading.trailing.equalToSuperview().inset(16)
             $0.height.equalTo(268)
         }
+    }
+    
+    // MARK: - func
+    
+    private func bind() {
+        backgroundView.rx.tap
+            .asDriver()
+            .drive(onNext: { [weak self] in
+                guard let self = self else { return }
+                self.dismiss(animated: true, completion: nil)
+            })
+            .disposed(by: disposeBag)
     }
 }

@@ -7,61 +7,54 @@
 
 import UIKit
 
-import Then
+import RxCocoa
+import RxSwift
 import SnapKit
+import Then
 
-class SelectedRangeVC: UIViewController {
-    // MARK: - Properties
-    var backgroundView = UIButton().then {
+final class SelectedRangeVC: BaseViewController {
+    
+    // MARK: - properties
+
+    private var backgroundView = UIButton().then {
         $0.backgroundColor = .black.withAlphaComponent(0.6)
-        $0.addTarget(self, action: #selector(dismissWhenTappedBackView), for: .touchUpInside)
     }
-    let rangeView = RangeView().then {
+    private lazy var rangeView = SelectedRangeView().then {
+        $0.rootVC = self
         $0.layer.cornerRadius = 16
         $0.backgroundColor = .white
     }
-    
-    var state: RangeState = .none
-    var year: String = ""
-    var month: String = ""
-    var day: String = ""
-    var week: String = ""
-    var dayData: ((String, String, String) -> ())?
-    var weekData: ((String) -> ())?
-    var monthData: ((String, String) -> ())?
-    
-    // MARK: - Lazy Properties
-    lazy var pickerView = UIPickerView().then {
-        $0.delegate = self
-        $0.dataSource = self
-    }
-    
-    var years: [String] = ["2021","2020","2019","2018","2017","2016","2015","2014","2013","2012","2011","2010"]
-    var months: [String] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
-    var days: [String] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"]
-    var weeks: [String] = ["이번주", "지난주", "10/18 ~ 10/24", "9/6 ~ 9/12", "8/30 ~ 8/5"]
 
+    var rangeState: RangeState = .none
+    var sendDayStateData: ((String, String, String) -> ())?
+    var sendWeekStateData: ((String) -> ())?
+    var sendMonthStateData: ((String, String) -> ())?
+    var selectedYear: String = ""
+    var selectedMonth: String = ""
+    var selectedDay: String = ""
+    var selectedWeek: String = ""
+    var dummyYears: [String] = ["2022", "2021","2020","2019","2018","2017","2016","2015","2014","2013","2012","2011","2010"]
+    var dummyMonths: [String] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"]
+    var dummyDays: [String] = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"]
+    var dummyWeeks: [String] = ["이번주", "지난주", "10/18 ~ 10/24", "9/6 ~ 9/12", "8/30 ~ 8/5"]
+    
+    // MARK: - life cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        configUI()
-        setupLayout()
+        bind()
     }
-    
-    private func configUI() {
+
+    override func configUI() {
         view.backgroundColor = .clear.withAlphaComponent(0)
-        
-        rangeView.dayButton.addTarget(self, action: #selector(didTappedDay), for: .touchUpInside)
-        rangeView.weekButton.addTarget(self, action: #selector(didTappedWeek), for: .touchUpInside)
-        rangeView.monthButton.addTarget(self, action: #selector(didTappedMonth), for: .touchUpInside)
     }
     
-    private func setupLayout() {
+    override func render() {
         view.addSubviews([backgroundView, rangeView])
         
         backgroundView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
-        
         rangeView.snp.makeConstraints {
             $0.centerY.equalToSuperview()
             $0.leading.trailing.equalToSuperview().inset(16)
@@ -69,166 +62,79 @@ class SelectedRangeVC: UIViewController {
         }
     }
     
-    private func configureToolBar() -> UIToolbar {
-        let toolbar = UIToolbar();
-        toolbar.sizeToFit()
-        let cancelButton = UIBarButtonItem(title: "취소", style: .plain, target: self, action: #selector(cancelDatePicker))
-        let spaceButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.flexibleSpace, target: nil, action: nil)
-        let doneButton = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(donedatePicker))
+    // MARK: - func
+    
+    private func bind() {
+        backgroundView.rx.tap
+            .asDriver()
+            .drive(onNext: { [weak self] in
+                guard let self = self else { return }
+                self.dismiss(animated: true, completion: nil)
+            })
+            .disposed(by: disposeBag)
         
+        rangeView.dayButton.rx.tap
+            .asDriver()
+            .drive(onNext: { [weak self] in
+                guard let self = self else { return }
+                self.setupSelectedRangeState(daySelected: true)
+                self.setupRangeData(year: self.dummyYears[0], month: self.dummyMonths[0], day: self.dummyDays[0], rangeState: .day)
+                self.view.endEditing(true)
+                self.rangeView.setupPickerViewToTextField(with: .day)
+            })
+            .disposed(by: disposeBag)
         
-        toolbar.setItems([cancelButton, spaceButton, doneButton], animated: false)
+        rangeView.weekButton.rx.tap
+            .asDriver()
+            .drive(onNext: { [weak self] in
+                guard let self = self else { return }
+                self.setupSelectedRangeState(weekSelected: true)
+                self.setupRangeData(week: self.dummyWeeks[0], rangeState: .week)
+                self.view.endEditing(true)
+                self.rangeView.setupPickerViewToTextField(with: .week)
+            })
+            .disposed(by: disposeBag)
         
-        return toolbar
+        rangeView.monthButton.rx.tap
+            .asDriver()
+            .drive(onNext: { [weak self] in
+                guard let self = self else { return }
+                self.setupSelectedRangeState(monthSelected: true)
+                self.setupRangeData(year: self.dummyYears[0], month: self.dummyMonths[0], rangeState: .month)
+                self.view.endEditing(true)
+                self.rangeView.setupPickerViewToTextField(with: .month)
+            })
+            .disposed(by: disposeBag)
     }
     
-    // MARK: - @Objc
-    @objc
-    func didTappedDay() {
-        print("day")
-        rangeView.dayButton.isSelected = true
-        rangeView.weekButton.isSelected = false
-        rangeView.monthButton.isSelected = false
-        year = years[0]
-        month = months[0]
-        day = days[0]
-        
-        view.endEditing(true)
-        state = .day
-        rangeView.dayTextField.inputView = pickerView
-        rangeView.dayTextField.inputAccessoryView = configureToolBar()
-        rangeView.dayTextField.becomeFirstResponder()
+    private func setupSelectedRangeState(daySelected: Bool = false,
+                                         weekSelected: Bool = false,
+                                         monthSelected: Bool = false) {
+        rangeView.dayButton.isSelected = daySelected
+        rangeView.weekButton.isSelected = weekSelected
+        rangeView.monthButton.isSelected = monthSelected
     }
     
-    @objc
-    func didTappedWeek() {
-        print("week")
-        rangeView.dayButton.isSelected = false
-        rangeView.weekButton.isSelected = true
-        rangeView.monthButton.isSelected = false
-        week = weeks[0]
-        
-        view.endEditing(true)
-        state = .week
-        rangeView.weekTextField.inputView = pickerView
-        rangeView.weekTextField.inputAccessoryView = configureToolBar()
-        rangeView.weekTextField.becomeFirstResponder()
+    private func setupRangeData(year: String = "",
+                                month: String = "",
+                                day: String = "",
+                                week: String = "",
+                                rangeState: RangeState) {
+        self.selectedYear = year
+        self.selectedMonth = month
+        self.selectedDay = day
+        self.selectedWeek = week
+        self.rangeState = rangeState
     }
     
-    @objc
-    func didTappedMonth() {
-        print("month")
-        rangeView.dayButton.isSelected = false
-        rangeView.weekButton.isSelected = false
-        rangeView.monthButton.isSelected = true
-        year = years[0]
-        month = months[0]
-        
-        view.endEditing(true)
-        state = .month
-        rangeView.monthTextField.inputView = pickerView
-        rangeView.monthTextField.inputAccessoryView = configureToolBar()
-        rangeView.monthTextField.becomeFirstResponder()
-    }
-    
-    @objc
-    func donedatePicker(){
-        switch state {
+    func sendDateDataToParentViewController() {
+        switch rangeState {
         case .day:
-            dayData?(year, month, day)
+            sendDayStateData?(selectedYear, selectedMonth, selectedDay)
         case .week:
-            weekData?(week)
+            sendWeekStateData?(selectedWeek)
         case .month:
-            monthData?(year, month)
-        case .none:
-            break
-        }
-        dismiss(animated: true, completion: nil)
-    }
-    
-    @objc
-    func cancelDatePicker(){
-        rangeView.dayButton.isSelected = false
-        rangeView.weekButton.isSelected = false
-        rangeView.monthButton.isSelected = false
-        view.endEditing(true)
-    }
-}
-
-// MARK: - UIPickerViewDataSource
-extension SelectedRangeVC: UIPickerViewDataSource {
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        switch state {
-        case .day:
-            return 3
-        case .week:
-            return 1
-        case .month:
-            return 2
-        case .none:
-            return 0
-        }
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        switch state {
-        case .week:
-            return weeks.count
-        default:
-            switch component {
-            case 0:
-                return years.count
-            case 1:
-                return months.count
-            case 2:
-                return days.count
-            default:
-                return 0
-            }
-        }
-    }
-}
-
-// MARK: - UIPickerViewDelegate
-extension SelectedRangeVC: UIPickerViewDelegate {
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        switch state {
-        case .week:
-            return weeks[row]
-        default:
-            switch component {
-            case 0:
-                return years[row]
-            case 1:
-                return months[row]
-            case 2:
-                return days[row]
-            default:
-                return ""
-            }
-        }
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        switch state {
-        case .day:
-            switch component {
-            case 0:
-                year = years[row]
-            case 1:
-                month = months[row]
-            default:
-                day = days[row]
-            }
-        case .week:
-            week = weeks[row]
-        case .month:
-            switch component {
-            case 0:
-                year = years[row]
-            default:
-                month = months[row]
-            }
+            sendMonthStateData?(selectedYear, selectedMonth)
         case .none:
             break
         }

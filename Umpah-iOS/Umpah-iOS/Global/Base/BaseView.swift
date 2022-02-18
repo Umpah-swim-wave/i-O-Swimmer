@@ -15,8 +15,6 @@ class BaseView: UIView {
         super.init(frame: frame)
         render()
         configUI()
-        setLocalization()
-        setData()
     }
     
     required init?(coder: NSCoder) {
@@ -31,13 +29,5 @@ class BaseView: UIView {
     
     func configUI() {
         // Override Configuration
-    }
-    
-    func setLocalization() {
-        // Override Localization
-    }
-    
-    func setData() {
-        // Override Set Data
     }
 }

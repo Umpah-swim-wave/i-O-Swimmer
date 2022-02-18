@@ -68,10 +68,10 @@
 		ED78843826DE3D18006D8787 /* DayHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED78843726DE3D18006D8787 /* DayHeader.swift */; };
 		ED78843A26DE3F63006D8787 /* WeekMonthHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED78843926DE3F63006D8787 /* WeekMonthHeader.swift */; };
 		ED78843C26DE4551006D8787 /* ExpandedWeekTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED78843B26DE4551006D8787 /* ExpandedWeekTVC.swift */; };
-		ED78843E26DE4C50006D8787 /* SelectedStrokeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED78843D26DE4C50006D8787 /* SelectedStrokeView.swift */; };
+		ED78843E26DE4C50006D8787 /* CardBottomButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED78843D26DE4C50006D8787 /* CardBottomButtonView.swift */; };
 		ED8AB6A12702E55D0066CD02 /* SelectedStrokeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8AB6A02702E55D0066CD02 /* SelectedStrokeVC.swift */; };
-		ED8AB6A32702E73F0066CD02 /* StrokesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8AB6A22702E73F0066CD02 /* StrokesView.swift */; };
-		ED8AB6A62702EDC20066CD02 /* StrokesTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8AB6A52702EDC20066CD02 /* StrokesTVC.swift */; };
+		ED8AB6A32702E73F0066CD02 /* SelectedStrokeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8AB6A22702E73F0066CD02 /* SelectedStrokeView.swift */; };
+		ED8AB6A62702EDC20066CD02 /* SelectedStrokeTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8AB6A52702EDC20066CD02 /* SelectedStrokeTVC.swift */; };
 		ED8AB6A92703157A0066CD02 /* SelectedButtonDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8AB6A82703157A0066CD02 /* SelectedButtonDelegate.swift */; };
 		ED8AB6AB2703158F0066CD02 /* States.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8AB6AA2703158F0066CD02 /* States.swift */; };
 		EDB91D8626C2A4F300F4562D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EDB91D8526C2A4F300F4562D /* GoogleService-Info.plist */; };
@@ -80,7 +80,7 @@
 		EDC1EDDF26BF8FF600DCB215 /* Charts+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC1EDDE26BF8FF600DCB215 /* Charts+.swift */; };
 		EDD3CCD7270118DA00AFED4B /* StatusBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3CCD6270118DA00AFED4B /* StatusBar.swift */; };
 		EDD3CCD9270192D200AFED4B /* SelectedRangeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3CCD8270192D200AFED4B /* SelectedRangeVC.swift */; };
-		EDD3CCDC27019A7200AFED4B /* RangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3CCDB27019A7200AFED4B /* RangeView.swift */; };
+		EDD3CCDC27019A7200AFED4B /* SelectedRangeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3CCDB27019A7200AFED4B /* SelectedRangeView.swift */; };
 		EDD3CCDE2701B16A00AFED4B /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3CCDD2701B16A00AFED4B /* UIFont+.swift */; };
 		EDD3CCE62701B4EE00AFED4B /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD3CCE52701B4EE00AFED4B /* UIColor+.swift */; };
 		EDD3CCEB2701B77D00AFED4B /* IBMPlexSansKR-Text.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EDD3CCE72701B77D00AFED4B /* IBMPlexSansKR-Text.ttf */; };
@@ -108,6 +108,7 @@
 		EDD7C43E26CBD3EF00D93306 /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD7C43D26CBD3EF00D93306 /* UIButton+.swift */; };
 		EDD7C44026CBDB4600D93306 /* DetailTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD7C43F26CBDB4600D93306 /* DetailTVC.swift */; };
 		EDD7C44226CBDCE200D93306 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDD7C44126CBDCE200D93306 /* DetailView.swift */; };
+		EDE19B6127B8CFD500340E5D /* UIStackView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE19B6027B8CFD500340E5D /* UIStackView+.swift */; };
 		EDE550BE2700F80D004422CE /* DateTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDE550BD2700F80D004422CE /* DateTVC.swift */; };
 		EDEF3B56271E962400C852E7 /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEF3B55271E962400C852E7 /* BaseViewController.swift */; };
 		EDEF3B5A271E9BAD00C852E7 /* ReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDEF3B59271E9BAD00C852E7 /* ReusableView.swift */; };
@@ -229,10 +230,10 @@
 		ED78843726DE3D18006D8787 /* DayHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayHeader.swift; sourceTree = "<group>"; };
 		ED78843926DE3F63006D8787 /* WeekMonthHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekMonthHeader.swift; sourceTree = "<group>"; };
 		ED78843B26DE4551006D8787 /* ExpandedWeekTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExpandedWeekTVC.swift; sourceTree = "<group>"; };
-		ED78843D26DE4C50006D8787 /* SelectedStrokeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedStrokeView.swift; sourceTree = "<group>"; };
+		ED78843D26DE4C50006D8787 /* CardBottomButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardBottomButtonView.swift; sourceTree = "<group>"; };
 		ED8AB6A02702E55D0066CD02 /* SelectedStrokeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedStrokeVC.swift; sourceTree = "<group>"; };
-		ED8AB6A22702E73F0066CD02 /* StrokesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokesView.swift; sourceTree = "<group>"; };
-		ED8AB6A52702EDC20066CD02 /* StrokesTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokesTVC.swift; sourceTree = "<group>"; };
+		ED8AB6A22702E73F0066CD02 /* SelectedStrokeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedStrokeView.swift; sourceTree = "<group>"; };
+		ED8AB6A52702EDC20066CD02 /* SelectedStrokeTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedStrokeTVC.swift; sourceTree = "<group>"; };
 		ED8AB6A82703157A0066CD02 /* SelectedButtonDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedButtonDelegate.swift; sourceTree = "<group>"; };
 		ED8AB6AA2703158F0066CD02 /* States.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = States.swift; sourceTree = "<group>"; };
 		EDB91D8526C2A4F300F4562D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -241,7 +242,7 @@
 		EDC1EDDE26BF8FF600DCB215 /* Charts+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Charts+.swift"; sourceTree = "<group>"; };
 		EDD3CCD6270118DA00AFED4B /* StatusBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusBar.swift; sourceTree = "<group>"; };
 		EDD3CCD8270192D200AFED4B /* SelectedRangeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedRangeVC.swift; sourceTree = "<group>"; };
-		EDD3CCDB27019A7200AFED4B /* RangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeView.swift; sourceTree = "<group>"; };
+		EDD3CCDB27019A7200AFED4B /* SelectedRangeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedRangeView.swift; sourceTree = "<group>"; };
 		EDD3CCDD2701B16A00AFED4B /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 		EDD3CCE52701B4EE00AFED4B /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 		EDD3CCE72701B77D00AFED4B /* IBMPlexSansKR-Text.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSansKR-Text.ttf"; sourceTree = "<group>"; };
@@ -273,6 +274,7 @@
 		EDD7C43D26CBD3EF00D93306 /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		EDD7C43F26CBDB4600D93306 /* DetailTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailTVC.swift; path = "Umpah-iOS/Screen/Main/Cell/Record/DetailTVC.swift"; sourceTree = SOURCE_ROOT; };
 		EDD7C44126CBDCE200D93306 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DetailView.swift; path = "Umpah-iOS/Screen/Main/Component/Record/DetailView.swift"; sourceTree = SOURCE_ROOT; };
+		EDE19B6027B8CFD500340E5D /* UIStackView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIStackView+.swift"; sourceTree = "<group>"; };
 		EDE550BD2700F80D004422CE /* DateTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateTVC.swift; sourceTree = "<group>"; };
 		EDEF3B55271E962400C852E7 /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		EDEF3B59271E9BAD00C852E7 /* ReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableView.swift; sourceTree = "<group>"; };
@@ -457,7 +459,7 @@
 		ED017D8A27B38386009AFCAD /* Popup */ = {
 			isa = PBXGroup;
 			children = (
-				ED8AB6A52702EDC20066CD02 /* StrokesTVC.swift */,
+				ED8AB6A52702EDC20066CD02 /* SelectedStrokeTVC.swift */,
 			);
 			path = Popup;
 			sourceTree = "<group>";
@@ -479,7 +481,7 @@
 			children = (
 				EDEF3B62271EF70000C852E7 /* CardView.swift */,
 				3C0D3FB1271692DE0019A763 /* RoutineFilterView.swift */,
-				ED78843D26DE4C50006D8787 /* SelectedStrokeView.swift */,
+				ED78843D26DE4C50006D8787 /* CardBottomButtonView.swift */,
 				ED78843726DE3D18006D8787 /* DayHeader.swift */,
 				ED78843926DE3F63006D8787 /* WeekMonthHeader.swift */,
 				EDD46F4A26BE99F900FA91F2 /* NormalStateView.swift */,
@@ -492,8 +494,8 @@
 			isa = PBXGroup;
 			children = (
 				EDFC6EE62702387500B718C6 /* RangeButton.swift */,
-				EDD3CCDB27019A7200AFED4B /* RangeView.swift */,
-				ED8AB6A22702E73F0066CD02 /* StrokesView.swift */,
+				EDD3CCDB27019A7200AFED4B /* SelectedRangeView.swift */,
+				ED8AB6A22702E73F0066CD02 /* SelectedStrokeView.swift */,
 			);
 			path = Popup;
 			sourceTree = "<group>";
@@ -719,6 +721,7 @@
 				EDD3CCE52701B4EE00AFED4B /* UIColor+.swift */,
 				3CF4E9132719C6C600FE8802 /* Date+.swift */,
 				EDB9E95827B6B4CD00559548 /* NSObject+.swift */,
+				EDE19B6027B8CFD500340E5D /* UIStackView+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1098,7 +1101,7 @@
 				3CF4E9142719C6C600FE8802 /* Date+.swift in Sources */,
 				EDBA9D9E27B767F500E8E3B5 /* StrokeHeaderView.swift in Sources */,
 				ED8AB6A92703157A0066CD02 /* SelectedButtonDelegate.swift in Sources */,
-				EDD3CCDC27019A7200AFED4B /* RangeView.swift in Sources */,
+				EDD3CCDC27019A7200AFED4B /* SelectedRangeView.swift in Sources */,
 				EDC1EDDF26BF8FF600DCB215 /* Charts+.swift in Sources */,
 				ED22C69B273A588A00036CF7 /* RecordStorage.swift in Sources */,
 				ED22C698273A573500036CF7 /* CommonRecordRequest.swift in Sources */,
@@ -1118,12 +1121,13 @@
 				3C662B60271988E70061E133 /* HealthKitSetupAssistant.swift in Sources */,
 				3CE4D67926DD2786007E4193 /* CALayer+.swift in Sources */,
 				3CA621F12727CB68002CB901 /* RecordService.swift in Sources */,
-				ED8AB6A62702EDC20066CD02 /* StrokesTVC.swift in Sources */,
+				ED8AB6A62702EDC20066CD02 /* SelectedStrokeTVC.swift in Sources */,
 				3C7F68892715704F00758733 /* RoutineDataModel.swift in Sources */,
-				ED78843E26DE4C50006D8787 /* SelectedStrokeView.swift in Sources */,
+				ED78843E26DE4C50006D8787 /* CardBottomButtonView.swift in Sources */,
 				3C7F688C27157EDE00758733 /* RoutineTVC.swift in Sources */,
 				3CF4E9102719C09A00FE8802 /* SwimmingDataStorage.swift in Sources */,
 				ED8AB6A12702E55D0066CD02 /* SelectedStrokeVC.swift in Sources */,
+				EDE19B6127B8CFD500340E5D /* UIStackView+.swift in Sources */,
 				ED5F1A1C26ECF1C7003FF801 /* StrokeView.swift in Sources */,
 				ED78843426DCA965006D8787 /* TopView.swift in Sources */,
 				EDD3CCD9270192D200AFED4B /* SelectedRangeVC.swift in Sources */,
@@ -1150,7 +1154,7 @@
 				ED78843826DE3D18006D8787 /* DayHeader.swift in Sources */,
 				EDD3CCE62701B4EE00AFED4B /* UIColor+.swift in Sources */,
 				EDD43FD626483C9500C866F3 /* SceneDelegate.swift in Sources */,
-				ED8AB6A32702E73F0066CD02 /* StrokesView.swift in Sources */,
+				ED8AB6A32702E73F0066CD02 /* SelectedStrokeView.swift in Sources */,
 				ED5396F326B977920061722F /* UITextField+.swift in Sources */,
 				EDD3CCD7270118DA00AFED4B /* StatusBar.swift in Sources */,
 				EDEF3B5A271E9BAD00C852E7 /* ReusableView.swift in Sources */,

@@ -25,7 +25,7 @@ class ExpandedStateView: UIView {
             $0.sectionHeaderTopPadding = 0
         }
     }
-    lazy var bottomView = SelectedStrokeView().then {
+    lazy var bottomView = CardBottomButtonView().then {
         $0.backgroundColor = .white
     }
     let titleLabel = UILabel().then {
@@ -269,7 +269,7 @@ extension ExpandedStateView: SelectedButtonDelegate {
         vc.modalPresentationStyle = .overCurrentContext
         vc.modalTransitionStyle = .crossDissolve
         
-        vc.strokeData = { style in
+        vc.sendStrokeStateData = { style in
             switch style {
             case .freestyle:
                 self.strokes[indexPath] = "자유형"
