@@ -16,7 +16,8 @@ final class RecordStorage {
     
     // MARK: - Network
     
-    private let authProvider = MoyaProvider<RecordService>(plugins: [NetworkLoggerPlugin(verbose: true)])
+    private let authPlugin = AccessTokenPlugin { _ in GeneralAPI.token }
+    private lazy var authProvider = MoyaProvider<RecordService>(plugins: [authPlugin, NetworkLoggerPlugin(verbose: true)])
     
     // MARK: - POST /record
     func dispatchRecord(workoutList: [SwimmingWorkoutData],
@@ -39,16 +40,15 @@ final class RecordStorage {
                 }
             case .failure(let err):
                 print(err.localizedDescription)
-                completion()
+                print("와 실패다!")
             }
         }
     }
     
     // MARK: - GET /dayRecord/list
     func fetchDayRecord(date: String,
-                        stroke: String,
                         completion: @escaping (() -> ())) {
-        let query = CommonRecordRequest(date: date, stroke: stroke)
+        let query = DayRecordRequest(date: date)
         
         self.authProvider.request(.askDayRecord(query: query)) { response in
             switch response {
@@ -56,7 +56,7 @@ final class RecordStorage {
                 do{
                     print(result)
                     let responseData = try result.map(CommonResponse.self)
-                    print("-----------response-----------")
+                    print("-----------DayRecordRequest response-----------")
                     print(responseData)
                     print("------------------------------")
                     completion()
@@ -65,7 +65,7 @@ final class RecordStorage {
                 }
             case .failure(let err):
                 print(err.localizedDescription)
-                completion()
+                print("와 실패다!")
             }
         }
     }
@@ -92,7 +92,7 @@ final class RecordStorage {
                 }
             case .failure(let err):
                 print(err.localizedDescription)
-                completion()
+                print("와 실패다!")
             }
         }
     }
@@ -101,7 +101,7 @@ final class RecordStorage {
     func fetchMonthRecord(date: String,
                           stroke: String,
                           completion: @escaping (() -> ())) {
-        let query = CommonRecordRequest(date: date, stroke: stroke)
+        let query = MonthRecordRequest(date: date, stroke: stroke)
         
         self.authProvider.request(.askMonthRecord(query: query)) { response in
             switch response {
@@ -118,7 +118,7 @@ final class RecordStorage {
                 }
             case .failure(let err):
                 print(err.localizedDescription)
-                completion()
+                print("와 실패다!")
             }
         }
     }

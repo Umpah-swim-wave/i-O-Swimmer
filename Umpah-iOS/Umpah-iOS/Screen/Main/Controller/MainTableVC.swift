@@ -184,9 +184,9 @@ extension MainTableVC: SelectedButtonDelegate {
             self.setupMainViewState(to: state, with: date)
 
             self.selectedDates[0] = "\(year)-\(transMonth)-\(transDay)"
-            self.storage.fetchDayRecord(date: self.selectedDates[0], stroke: "") {
-                self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
-            }
+//            self.storage.fetchDayRecord(date: self.selectedDates[0]) {
+//                self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
+//            }
         }
         vc.sendWeekStateData = { [weak self] week in
             guard let self = self else { return }
@@ -207,9 +207,9 @@ extension MainTableVC: SelectedButtonDelegate {
             self.setupMainViewState(to: .month, with: date)
             
             self.selectedDates[0] = "\(year)-\(transMonth)"
-            self.storage.fetchDayRecord(date: self.selectedDates[0], stroke: "") {
-                self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
-            }
+//            self.storage.fetchDayRecord(date: self.selectedDates[0]) {
+//                self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
+//            }
         }
         
         vc.modalPresentationStyle = .overCurrentContext

@@ -10,12 +10,12 @@ import Moya
 
 enum RecordService{
     case sendSwimmingRecord(param: SwimmingRecordRequest)
-    case askDayRecord(query: CommonRecordRequest)
+    case askDayRecord(query: DayRecordRequest)
     case askWeekRecord(query: WeekRecordRequest)
-    case askMonthRecord(query: CommonRecordRequest)
+    case askMonthRecord(query: MonthRecordRequest)
 }
 
-extension RecordService: TargetType{
+extension RecordService: TargetType, AccessTokenAuthorizable {
     var baseURL: URL {
         return URL(string: GeneralAPI.baseURL)!
     }
@@ -58,6 +58,16 @@ extension RecordService: TargetType{
             return .requestParameters(parameters: try! query.asDictionary(), encoding: URLEncoding.default)
         case .askMonthRecord(let query):
             return .requestParameters(parameters: try! query.asDictionary(), encoding: URLEncoding.default)
+        }
+    }
+    
+    var authorizationType: AuthorizationType? {
+        switch self {
+        case .sendSwimmingRecord,
+             .askDayRecord,
+             .askWeekRecord,
+             .askMonthRecord:
+            return .bearer
         }
     }
     

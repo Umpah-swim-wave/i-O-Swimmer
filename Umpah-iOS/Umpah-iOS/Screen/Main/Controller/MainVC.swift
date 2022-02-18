@@ -21,9 +21,11 @@ final class MainVC: MainTableVC {
     override func viewDidLoad() {
         super.viewDidLoad()
         authorizeHealthKit()
-//        storage.fetchDayRecord(date: selectedDates[0], stroke: "") { [weak self] in
-//            self?.baseTableView.reloadData()
-//        }
+        // Dummy Record
+        storage.fetchDayRecord(date: "2021-05-19") { [weak self] in
+            self?.baseTableView.reloadData()
+            print("reload 성공")
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -89,14 +91,15 @@ final class MainVC: MainTableVC {
             .bind(onNext: { [weak self] workoutList in
                 guard let self = self else { return }
                 print("workoutList.count------------\(workoutList.count)---------------")
-                workoutList.forEach{
+                print("workoutList 와왕왕!")
+                workoutList.forEach {
                     print("\($0.display())")
                     print("count = \($0.recordLabsList.count)")
                 }
                 print("----------------------------")
-                self.storage.dispatchRecord(workoutList: workoutList) {
-                    print("success")
-                }
+//                self.storage.dispatchRecord(workoutList: workoutList) {
+//                    print("success")
+//                }
             })
             .disposed(by: disposeBag)
     }
