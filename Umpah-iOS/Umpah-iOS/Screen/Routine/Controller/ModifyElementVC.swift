@@ -134,10 +134,10 @@ class ModifyElementVC: BaseViewController{
     
     func calculateContentViewHeight(){
         if elementType == .stroke {
-            contentViewHeight = (elementList.count + 1) * 40 + 98
+            contentViewHeight = (elementList.count + 1) * 40 + 106
             print("contentViewHeight = \(contentViewHeight)")
         }else{
-            contentViewHeight = elementList.count * 40 + 98
+            contentViewHeight = elementList.count * 40 + 106
         }
         
     }
@@ -223,7 +223,7 @@ extension ModifyElementVC {
         tableView.snp.makeConstraints{
             $0.top.equalTo(titleLabel.snp.bottom).offset(24)
             $0.leading.trailing.equalToSuperview()
-            $0.bottom.equalToSuperview().inset(24)
+            $0.bottom.equalToSuperview().inset(32)
         }
     }
     

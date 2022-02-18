@@ -11,7 +11,7 @@ class ModifyElementTVC: UITableViewCell {
 
     public var nameLabel = UILabel().then{
         $0.textColor = .upuhBlack
-        $0.font = .IBMPlexSansRegular(ofSize: 16)
+        $0.font = .IBMPlexSansText(ofSize: 16)
     }
     
     public var checkImageView = UIImageView().then{
