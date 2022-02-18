@@ -59,7 +59,6 @@ extension ExpandedStateTableView: UITableViewDataSource {
             cell.delegate = self
             cell.setupLabels(with: dayRecordLists[indexPath.row], index: indexPath.row)
             if indexPath.row < dayRecordLists.count - 1 {
-                print("여기 들어오긴 하나")
                 cell.changeCellConfiguration(isModified, dayRecordLists[indexPath.row].stroke == dayRecordLists[indexPath.row + 1].stroke)
             } else {
                 cell.changeCellConfiguration(isModified, false)

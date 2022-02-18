@@ -151,7 +151,6 @@ final class ExpandedDayTVC: UITableViewCell {
     }
 
     func changeCellConfiguration(_ isModified: Bool,_ compareStroke: Bool) {
-        print(compareStroke)
         if isModified && compareStroke {
             strokeLabel.isHidden = true
             strokeButton.isHidden = false
@@ -171,7 +170,7 @@ final class ExpandedDayTVC: UITableViewCell {
     
     @objc
     private func touchUpChangeStroke() {
-        delegate?.didClickedStrokeFilterButton(with: getTableCellIndexPath())
+        delegate?.didClickedStrokeButton(with: getTableCellIndexPath())
     }
     
     @objc
