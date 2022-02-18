@@ -7,31 +7,24 @@
 
 import UIKit
 
-import Then
 import SnapKit
+import Then
 
-class CardBottomButtonView: UIView {
-    // MARK: - Properties
+final class CardBottomButtonView: BaseView {
+    
+    // MARK: - properties
+    
     let selectButton = UIButton().then {
-        $0.setTitle("영법 수정하기", for: .normal)
         $0.titleLabel?.font = .IBMPlexSansSemiBold(ofSize: 16)
+        $0.setTitle("영법 수정하기", for: .normal)
         $0.setTitleColor(.white, for: .normal)
         $0.setBackgroundColor(.upuhBlue2, for: .normal)
         $0.setBackgroundColor(.upuhBlue2.withAlphaComponent(0.7), for: .highlighted)
         $0.layer.cornerRadius = 23
         $0.layer.masksToBounds = true
     }
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupLayout()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    fileprivate func setupLayout() {
+        
+    override func render() {
         addSubview(selectButton)
         
         selectButton.snp.makeConstraints {

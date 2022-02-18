@@ -6,46 +6,39 @@
 //
 
 import UIKit
+
 import SnapKit
 import Then
 
 final class CardView: BaseView, Alertable {
     
-    // MARK: - Public Properties
+    // MARK: - properties
     
-    public var currentState: CurrentMainViewState = .base {
-        didSet { showCard() }
-    }
-    
-    public var cardViewState: CardViewState = .normal {
-        didSet { showCard() }
-    }
-    
-    public var dateText: String?
-    
-    // MARK: - Private Properties
-    
-    private var rootVC: MainCardVC?
-    private var canScrollMore = true
-    
-    // MARK: - UI
-    
-    public lazy var expandedView = ExpandedStateView().then {
+    lazy var expandedView = ExpandedStateView().then {
         $0.alpha = 0.0
     }
-    public let normalView = NormalStateView()
-    
+    let normalView = NormalStateView()
     private let handleView = UIView().then {
         $0.backgroundColor = UIColor.init(red: 224/255, green: 224/255, blue: 224/255, alpha: 1.0)
         $0.layer.cornerRadius = 3
     }
+    
+    var currentState: CurrentMainViewState = .base {
+        didSet { showCard() }
+    }
+    var cardViewState: CardViewState = .normal {
+        didSet { showCard() }
+    }
+    var dateText: String?
+    private var rootVC: MainCardVC
+    private var canScrollMore = true
 
-    // MARK: - Initalizing
+    // MARK: - init
+    
     init(rootVC: MainCardVC) {
-        super.init(frame: .zero)
         self.rootVC = rootVC
-        expandedView.root = rootVC
-        
+        super.init(frame: .zero)
+        expandedView.rootVC = rootVC
         showCard()
     }
     
@@ -53,11 +46,6 @@ final class CardView: BaseView, Alertable {
         fatalError("init(coder:) has not been implemented")
     }
     
-    deinit {
-        print("deinit BaseView instance")
-    }
-    
-    // MARK: - Override Method
     override func configUI() {
         backgroundColor = .white
         clipsToBounds = false
@@ -90,12 +78,10 @@ final class CardView: BaseView, Alertable {
         }
     }
 
-    // MARK: - Public Method
+    // MARK: - func
     
-    public func showCard() {
-        self.rootVC?.view.layoutIfNeeded()
-        
-        normalView.titleLabel.text = decideTitle(of: cardViewState)
+    private func showCard() {
+        self.rootVC.view.layoutIfNeeded()
         
         switch cardViewState {
         case .normal:
@@ -103,7 +89,7 @@ final class CardView: BaseView, Alertable {
             expandedView.fadeOut()
             startAnimation()
         case .expanded:
-            expandedView.state = currentState
+            expandedView.currentMainViewState = currentState
             expandedView.titleLabel.text = applyExpandedTitle(of: currentState)
             expandedView.bottomView.isHidden = decideHiddenState(by: currentState)
             expandedView.listTableView.reloadData()
@@ -114,24 +100,38 @@ final class CardView: BaseView, Alertable {
         case .fail:
             if canScrollMore {
                 canScrollMore = false
-                
-                let alert = makeRequestAlert(okAction: { _ in
-                    self.expandedView.isModified = false
-                    self.rootVC?.setupCardViewState(to: .normal)
-                    self.expandedView.bottomView.selectButton.setTitle("영법 수정하기", for: .normal)
-                    self.canScrollMore = true
-                }, cancelAction: { _ in
-                    self.canScrollMore = true
-                })
-                
-                rootVC?.present(alert, animated: true, completion: nil)
+                presentAlertWhenBlockScroll()
             }
         }
-        
+        normalView.setupTitle(to: decideTitle(of: cardViewState)) 
         expandedView.changeTableViewLayout()
     }
     
-    public func applyExpandedTitle(of state: CurrentMainViewState) -> String {
+    private func startAnimation() {
+        let showCard = UIViewPropertyAnimator(duration: 0.25, curve: .easeIn, animations: {
+            self.rootVC.view.layoutIfNeeded()
+        })
+        showCard.startAnimation()
+    }
+    
+    private func presentAlertWhenBlockScroll() {
+        let alert = makeRequestAlert(okAction: { _ in
+            self.expandedView.isModified = false
+            self.rootVC.setupCardViewState(to: .normal)
+            self.expandedView.bottomView.selectButton.setTitle("영법 수정하기", for: .normal)
+            self.canScrollMore = true
+        }, cancelAction: { _ in
+            self.canScrollMore = true
+        })
+        
+        rootVC.present(alert, animated: true, completion: nil)
+    }
+    
+    private func decideHiddenState(by state: CurrentMainViewState) -> Bool {
+        return state.isHidden
+    }
+    
+    private func applyExpandedTitle(of state: CurrentMainViewState) -> String {
         switch state {
         case .base:
             return Date().getTimeString()
@@ -142,41 +142,12 @@ final class CardView: BaseView, Alertable {
         }
     }
     
-    public func decideTitle(of state: CardViewState) -> String {
+    private func decideTitle(of state: CardViewState) -> String {
         switch state {
         case .expanded:
             return ""
         default:
-            switch currentState {
-            case .week:
-                return "요일별 기록 보기"
-            case .month:
-                return "주간별 기록 보기"
-            case .routine:
-                return "어푸가 추천하는 루틴 보기"
-            default:
-                return "랩스 기록 보기"
-            }
-        }
-    }
-}
-
-// MARK: - Helper
-extension CardView {
-    private func startAnimation() {
-        let showCard = UIViewPropertyAnimator(duration: 0.25, curve: .easeIn, animations: {
-            self.rootVC?.view.layoutIfNeeded()
-        })
-
-        showCard.startAnimation()
-    }
-    
-    private func decideHiddenState(by state: CurrentMainViewState) -> Bool {
-        switch state {
-        case .day, .base:
-            return false
-        default:
-            return true
+            return currentState.title
         }
     }
 }
