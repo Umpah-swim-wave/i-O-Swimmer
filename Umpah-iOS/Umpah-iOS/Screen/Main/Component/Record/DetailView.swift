@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class DetailView: UIView {
+final class DetailView: BaseView {
     
     // MARK: - properties
     
@@ -148,20 +148,7 @@ final class DetailView: UIView {
         $0.changeCharacterAttribute(words: ["bpm"], size: 18, kernValue: 2)
     }
     
-    // MARK: - init
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        render()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - func
-    
-    private func render() {
+    override func render() {
         addSubviews([topView, bottomView, warningLabel])
         topView.addSubviews([distanceLabel, timeLabel])
         bottomView.addSubviews([kcalLabel, bpmLabel])

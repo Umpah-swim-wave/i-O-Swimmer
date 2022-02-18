@@ -10,7 +10,7 @@ import UIKit
 import SnapKit
 import Then
 
-final class TopView: UIView {
+final class TopView: BaseView {
     
     // MARK: - properties
     
@@ -25,21 +25,7 @@ final class TopView: UIView {
         $0.font = .IBMPlexSansRegular(ofSize: 18)
     }
     
-    // MARK: - init
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        render()
-        configUI()
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    // MARK: - func
-    
-    private func render() {
+    override func render() {
         addSubviews([nameLabel, titleLabel])
         
         nameLabel.snp.makeConstraints {
@@ -52,7 +38,7 @@ final class TopView: UIView {
         }
     }
     
-    private func configUI() {
+    override func configUI() {
         backgroundColor = .clear
     }
 }
