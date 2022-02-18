@@ -132,11 +132,9 @@ final class ExpandedStateView: ExpandedStateTableView {
         
         nextVC.elementType = elementType
         nextVC.modalPresentationStyle = .fullScreen
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1 , execute: {
-            nextVC.backgroundImage = self.rootVC?.view.asImage()
-            nextVC.modalTransitionStyle = .crossDissolve
-            self.rootVC?.present(nextVC, animated: true, completion: nil)
-        })
+        nextVC.backgroundImage = self.rootVC?.view.asImage()
+        nextVC.modalTransitionStyle = .crossDissolve
+        self.rootVC?.present(nextVC, animated: true, completion: nil)
     }
     
     private func setupModifyButton() {
