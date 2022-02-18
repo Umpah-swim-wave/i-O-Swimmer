@@ -8,13 +8,13 @@
 import Foundation
 
 extension Date{
-//
-//    func toKoreaTime() -> Date {
-//        let formatter = DateFormatter()
-//        formatter.timeZone = TimeZone(identifier: "Asia/Seoul")
-//        return Date()
-//    }
-//
+    //
+    //    func toKoreaTime() -> Date {
+    //        let formatter = DateFormatter()
+    //        formatter.timeZone = TimeZone(identifier: "Asia/Seoul")
+    //        return Date()
+    //    }
+    //
     func toKoreaTime() -> String{
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
@@ -23,5 +23,13 @@ extension Date{
         let localTime = formatter.string(from: self)
         
         return localTime
+    }
+    
+    func getTimeString(dateFormat: String = "YY/MM/dd") -> String{
+        let formatter = DateFormatter()
+        formatter.timeZone = TimeZone(identifier: "Asia/Seoul")
+        formatter.locale = Locale(identifier: "ko")
+        formatter.dateFormat = dateFormat
+        return formatter.string(from: self)
     }
 }
