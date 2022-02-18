@@ -26,6 +26,7 @@ class SwimmingDataStorage{
     
     //MARK: 가장먼저 source를 가져와야함.
     func loadWorkoutHKSource(completion: @escaping (Bool, Error?) -> Void){
+        Logger.debugDescription("")
         let sampleType = HKObjectType.workoutType()
         let predicate = HKQuery.predicateForSamples(withStart: startDate, end: Date(), options: .strictEndDate)
         
@@ -51,6 +52,7 @@ class SwimmingDataStorage{
     //TODO: start, end data 언제 제대로 처리할 지
     func readSwimmingWorkout(completion: @escaping ([HKSample], Error?) -> Void ){
         //loadWorkoutHKSource()
+        Logger.debugDescription("")
         if sourceSet == []{
             semaphore.wait()
             print("sourceSet is empty")
@@ -77,9 +79,10 @@ class SwimmingDataStorage{
     }
 
     func refineSwimmingWorkoutData(completion: @escaping ([SwimWorkoutData], Error?) -> Void){
+        Logger.debugDescription("")
         readSwimmingWorkout { sampleList, error in
             var swimmingWorkoutList: [SwimWorkoutData] = []
-            for sample in sampleList{
+            for sample in sampleList {
                 let src = sample as! HKWorkout
                 let duration = floor(src.duration / 100) * 100
                 
@@ -108,6 +111,7 @@ class SwimmingDataStorage{
     }
     
     func readSwimmingDistance(start: Date, end: Date, completion: @escaping ([HKSample], Error?) -> Void){
+        Logger.debugDescription("")
         guard let sampleType = HKObjectType.quantityType(forIdentifier: .distanceSwimming) else{ return }
         let datePredicate = HKQuery.predicateForSamples(withStart: start, end: end, options: .strictEndDate)
         let query = HKSampleQuery(sampleType: sampleType,
@@ -126,6 +130,7 @@ class SwimmingDataStorage{
 
     //MARK: 시작시간, 종료시간 , 운동시간
     func refineSwimmingDistanceData(start: Date, end: Date, completion: @escaping ([SwimmingDistanceData], Error?) -> Void){
+        Logger.debugDescription("")
         var list: [SwimmingDistanceData] = []
         readSwimmingDistance(start: start, end: end) { sampleList , error in
             for sample in sampleList{
@@ -137,6 +142,7 @@ class SwimmingDataStorage{
     }
     
     func readHeartRate(start: Date, end: Date, completion: @escaping(Double, Error?) -> Void){
+        Logger.debugDescription("")
         guard let sampleType = HKObjectType.quantityType(forIdentifier: .heartRate) else {return}
         let datePredicate = HKQuery.predicateForSamples(withStart: start, end: end, options: .strictEndDate)
         let query = HKSampleQuery(sampleType: sampleType,
@@ -160,6 +166,7 @@ class SwimmingDataStorage{
     }
     
     func readSwimmingStrokeData(start: Date, end: Date, completion: @escaping ([HKSample], Error?) -> Void){
+        Logger.debugDescription("")
         guard let sampleType = HKObjectType.quantityType(forIdentifier: .swimmingStrokeCount) else{ return }
         let datePredicate = HKQuery.predicateForSamples(withStart: start, end: end, options: .strictEndDate)
         let query = HKSampleQuery(sampleType: sampleType,
@@ -179,6 +186,7 @@ class SwimmingDataStorage{
     }
     
     func refineSwimmingStrokeData(start: Date, end: Date, completion: @escaping ([SwimmingStrokeData], Error?) -> Void){
+        Logger.debugDescription("")
         var strokeDataList: [SwimmingStrokeData] = []
         readSwimmingStrokeData(start: start, end: end) { sampleList, error in
             for sample in sampleList {
@@ -200,6 +208,48 @@ class SwimmingDataStorage{
         }
     }
     
-    
+    func startObservingNewWorkouts(){
+        Logger.debugDescription("")
+        let sampleType =  HKObjectType.workoutType()
+
+        //1. Enable background delivery for workouts
+        self.healthStore.enableBackgroundDelivery(for: sampleType, frequency: .immediate) { (success, error) in
+            if let unwrappedError = error {
+                print("could not enable background delivery: \(unwrappedError)")
+            }
+            if success {
+                print("background delivery enabled")
+            }
+        }
+
+        //2.  open observer query
+        let query = HKObserverQuery(sampleType: sampleType, predicate: nil) { (query, completionHandler, error) in
+            self.updateWorkouts() {
+                completionHandler()
+            }
+        }
+        healthStore.execute(query)
+    }
+
+    func updateWorkouts(completionHandler: @escaping () -> Void) {
+        Logger.debugDescription("")
+        var anchor: HKQueryAnchor?
+        let sampleType =  HKObjectType.workoutType()
+
+        let anchoredQuery = HKAnchoredObjectQuery(type: sampleType, predicate: nil, anchor: anchor, limit: HKObjectQueryNoLimit) { [unowned self] query, newSamples, deletedSamples, newAnchor, error in
+
+            self.handleNewWorkouts(new: newSamples!, deleted: deletedSamples!)
+
+            anchor = newAnchor
+
+            completionHandler()
+        }
+        healthStore.execute(anchoredQuery)
+    }
+
+    func handleNewWorkouts(new: [HKSample], deleted: [HKDeletedObject]) {
+        Logger.debugDescription("")
+        print("new sample added = \(new.last?.startDate)")
+    }
     
 }

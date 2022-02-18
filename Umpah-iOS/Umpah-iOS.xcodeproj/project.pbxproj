@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3C0D3FB2271692DE0019A763 /* RoutineFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C0D3FB1271692DE0019A763 /* RoutineFilterView.swift */; };
+		3C18F6B527BFD8A300287460 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C18F6B427BFD8A300287460 /* Logger.swift */; };
 		3C358BB626E5B2970025ABDC /* UITableViewCell+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C358BB526E5B2970025ABDC /* UITableViewCell+.swift */; };
 		3C662B60271988E70061E133 /* HealthKitSetupAssistant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C662B5F271988E70061E133 /* HealthKitSetupAssistant.swift */; };
 		3C662B6327198AEA0061E133 /* HealthKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C662B6227198AEA0061E133 /* HealthKit.framework */; };
@@ -166,6 +167,7 @@
 		2D05BFF43235C874BA8005FE /* Pods-Umpah-iOS WatchKit Extension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Umpah-iOS WatchKit Extension.release.xcconfig"; path = "Target Support Files/Pods-Umpah-iOS WatchKit Extension/Pods-Umpah-iOS WatchKit Extension.release.xcconfig"; sourceTree = "<group>"; };
 		30E19E303BB4F713D525DDCC /* Pods-Umpah-iOS WatchKit App.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Umpah-iOS WatchKit App.debug.xcconfig"; path = "Target Support Files/Pods-Umpah-iOS WatchKit App/Pods-Umpah-iOS WatchKit App.debug.xcconfig"; sourceTree = "<group>"; };
 		3C0D3FB1271692DE0019A763 /* RoutineFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoutineFilterView.swift; sourceTree = "<group>"; };
+		3C18F6B427BFD8A300287460 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		3C358BB526E5B2970025ABDC /* UITableViewCell+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableViewCell+.swift"; sourceTree = "<group>"; };
 		3C662B5F271988E70061E133 /* HealthKitSetupAssistant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HealthKitSetupAssistant.swift; sourceTree = "<group>"; };
 		3C662B6127198AE90061E133 /* Umpah-iOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Umpah-iOS.entitlements"; sourceTree = "<group>"; };
@@ -571,6 +573,7 @@
 			children = (
 				3C662B5F271988E70061E133 /* HealthKitSetupAssistant.swift */,
 				ED1DC47B2721814B002FF766 /* Alertable+UIViewController.swift */,
+				3C18F6B427BFD8A300287460 /* Logger.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -1154,6 +1157,7 @@
 				ED8AB6AB2703158F0066CD02 /* States.swift in Sources */,
 				3CF4E9162719F43700FE8802 /* SwimmingDataViewModel.swift in Sources */,
 				EDD7C44026CBDB4600D93306 /* DetailTVC.swift in Sources */,
+				3C18F6B527BFD8A300287460 /* Logger.swift in Sources */,
 				ED5F1A1A26ECF05E003FF801 /* StrokeTVC.swift in Sources */,
 				ED78843826DE3D18006D8787 /* DayHeader.swift in Sources */,
 				EDD3CCE62701B4EE00AFED4B /* UIColor+.swift in Sources */,

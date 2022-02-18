@@ -21,6 +21,7 @@ class SwimmingDataViewModel{
     let swimmingSubject = PublishSubject<[SwimmingWorkoutData]>()
 
     func initSwimmingData(){
+        Logger.debugDescription("soucre 가져오기")
         swimmingStorage.loadWorkoutHKSource { completed, error in
             print("complete = \(completed)")
             if completed {
@@ -28,6 +29,7 @@ class SwimmingDataViewModel{
                     self.swimmingWorkoutList = workoutList
                     self.getStrokeAndDistanceData()
                     self.getHeartRateData()
+                    self.swimmingStorage.startObservingNewWorkouts()
                 })
             }
         }
