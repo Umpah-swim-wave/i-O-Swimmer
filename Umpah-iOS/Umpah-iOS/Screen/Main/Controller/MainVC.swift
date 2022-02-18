@@ -22,10 +22,11 @@ final class MainVC: MainTableVC {
         super.viewDidLoad()
         authorizeHealthKit()
         // TODO: Dummy Record
-//        storage.fetchDayRecord(date: "2021-05-19") { [weak self] in
-//            self?.baseTableView.reloadData()
-//            print("reload 성공")
-//        }
+        storage.fetchDayRecord(date: "2021-05-19") { [weak self] in
+            self?.cardView.expandedView.dayRecordLists = self?.storage.dayRecordLabsLists ?? []
+            self?.baseTableView.reloadData()
+            dump(self?.storage.dayRecordLabsLists)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {

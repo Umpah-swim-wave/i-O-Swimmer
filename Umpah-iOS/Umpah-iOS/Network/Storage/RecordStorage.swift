@@ -19,6 +19,8 @@ final class RecordStorage {
     private let authPlugin = AccessTokenPlugin { _ in GeneralAPI.token }
     private lazy var authProvider = MoyaProvider<RecordService>(plugins: [authPlugin, NetworkLoggerPlugin(verbose: true)])
     
+    public private(set) var dayRecordLabsLists: [RecordLabsList] = []
+    
     // MARK: - POST /record
     func dispatchRecord(workoutList: [SwimmingWorkoutData],
                         completion: @escaping (() -> ())) {
@@ -54,7 +56,8 @@ final class RecordStorage {
             switch response {
             case .success(let result):
                 do{
-                    print(result)
+                    let dayRecordModel = try result.map(DayRecordModel.self)
+                    self.dayRecordLabsLists = dayRecordModel.data.recordLabsList
                     completion()
                 } catch(let err){
                     print(err.localizedDescription)

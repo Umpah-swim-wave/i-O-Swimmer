@@ -53,6 +53,7 @@
 		ED348ADE27C00E2F007559E9 /* SignupRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED348ADD27C00E2F007559E9 /* SignupRequest.swift */; };
 		ED348AE027C00EA7007559E9 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED348ADF27C00EA7007559E9 /* LoginRequest.swift */; };
 		ED348AE227C00ED4007559E9 /* LoginStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED348AE127C00ED4007559E9 /* LoginStorage.swift */; };
+		ED501E0827C01613001922FC /* DayRecordModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED501E0727C01613001922FC /* DayRecordModel.swift */; };
 		ED5396E226B975AD0061722F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED5396E126B975AD0061722F /* Main.storyboard */; };
 		ED5396E426B975D70061722F /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5396E326B975D70061722F /* MainVC.swift */; };
 		ED5396E626B975E70061722F /* Routine.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED5396E526B975E70061722F /* Routine.storyboard */; };
@@ -219,6 +220,7 @@
 		ED348ADD27C00E2F007559E9 /* SignupRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupRequest.swift; sourceTree = "<group>"; };
 		ED348ADF27C00EA7007559E9 /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		ED348AE127C00ED4007559E9 /* LoginStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginStorage.swift; sourceTree = "<group>"; };
+		ED501E0727C01613001922FC /* DayRecordModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRecordModel.swift; sourceTree = "<group>"; };
 		ED5396E126B975AD0061722F /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		ED5396E326B975D70061722F /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
 		ED5396E526B975E70061722F /* Routine.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Routine.storyboard; sourceTree = "<group>"; };
@@ -618,6 +620,7 @@
 				3C7F68882715704F00758733 /* RoutineDataModel.swift */,
 				3CF4E9112719C0F100FE8802 /* SwimmingDataModel.swift */,
 				ED348AD827BFE7BD007559E9 /* DayRecordRequest.swift */,
+				ED501E0727C01613001922FC /* DayRecordModel.swift */,
 			);
 			path = Record;
 			sourceTree = "<group>";
@@ -1188,6 +1191,7 @@
 				ED017D9827B3A084009AFCAD /* MainCardVC.swift in Sources */,
 				3CAD1F2626CBDA64001CD535 /* UIWindow+.swift in Sources */,
 				EDFC6EE72702387500B718C6 /* RangeButton.swift in Sources */,
+				ED501E0827C01613001922FC /* DayRecordModel.swift in Sources */,
 				EDEF3B63271EF70000C852E7 /* CardView.swift in Sources */,
 				ED78843026DC9D3C006D8787 /* HeaderView.swift in Sources */,
 			);

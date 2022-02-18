@@ -24,9 +24,10 @@ class ExpandedStateTableView: BaseView {
             $0.sectionHeaderTopPadding = 0
         }
     }
-    private var dummyStrokes: [String] = ["자유형", "접영", "자유형", "자유형", "자유형", "자유형", "배영", "배영", "평영", "평영", "접영", "자유형", "접영"]
+//    private var dummyStrokes: [String] = ["자유형", "접영", "자유형", "자유형", "자유형", "자유형", "배영", "배영", "평영", "평영", "접영", "자유형", "접영"]
     private let dummyDays: [String] = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"]
     private let dummyWeeks: [String] = ["WEEK1", "WEEK2", "WEEK3", "WEEK4", "WEEK5"]
+    var dayRecordLists: [RecordLabsList] = []
     var upuhRoutineOverViewList: [RoutineOverviewData] = []
     var filteredOverViewList: [RoutineOverviewData] = []
     var rootVC: MainCardVC?
@@ -40,7 +41,7 @@ extension ExpandedStateTableView: UITableViewDataSource {
         switch currentMainViewState {
         case .day,
              .base:
-            return dummyStrokes.count
+            return dayRecordLists.count
         case .week:
             return 7
         case .month:
@@ -56,9 +57,9 @@ extension ExpandedStateTableView: UITableViewDataSource {
              .base:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: ExpandedDayTVC.identifier) as? ExpandedDayTVC else { return UITableViewCell() }
             cell.delegate = self
-            cell.setupLabels(with: dummyStrokes, index: indexPath.row)
-            if indexPath.row < dummyStrokes.count - 1 {
-                cell.changeCellConfiguration(isModified, dummyStrokes[indexPath.row] == dummyStrokes[indexPath.row + 1])
+            cell.setupLabels(with: dayRecordLists[indexPath.row], index: indexPath.row)
+            if indexPath.row < dayRecordLists.count - 1 {
+                cell.changeCellConfiguration(isModified, dayRecordLists[indexPath.row].stroke == dayRecordLists[indexPath.row + 1].stroke)
             } else {
                 cell.changeCellConfiguration(isModified, false)
             }
@@ -158,13 +159,13 @@ extension ExpandedStateTableView: SelectedButtonDelegate {
         vc.sendStrokeStateData = { [weak self] style in
             switch style {
             case .freestyle:
-                self?.dummyStrokes[indexPath] = "자유형"
+                self?.dayRecordLists[indexPath].stroke = "FREESTYLE"
             case .butterfly:
-                self?.dummyStrokes[indexPath] = "접영"
+                self?.dayRecordLists[indexPath].stroke = "BUTTERFLY"
             case .backstroke:
-                self?.dummyStrokes[indexPath] = "배영"
+                self?.dayRecordLists[indexPath].stroke = "BACK"
             case .breaststroke:
-                self?.dummyStrokes[indexPath] = "평영"
+                self?.dayRecordLists[indexPath].stroke = "BREAST"
             default:
                 break
             }
@@ -174,7 +175,7 @@ extension ExpandedStateTableView: SelectedButtonDelegate {
     }
     
     func didClickedMergeButton(with indexPath: Int) {
-        dummyStrokes.remove(at: indexPath)
+        dayRecordLists.remove(at: indexPath)
         listTableView.reloadSections(IndexSet(0...0), with: .fade)
     }
 }

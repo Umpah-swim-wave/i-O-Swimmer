@@ -29,19 +29,16 @@ final class ExpandedDayTVC: UITableViewCell {
         $0.addTarget(self, action: #selector(touchUpChangeStroke), for: .touchUpInside)
     }
     private let distanceLabel = UILabel().then {
-        $0.text = "999m"
         $0.font = .IBMPlexSansText(ofSize: 14)
         $0.textColor = .upuhBlack
         $0.addCharacterSpacing(kernValue: -1)
     }
     private let velocityLabel = UILabel().then {
-        $0.text = "1.7m/s"
         $0.font = .IBMPlexSansText(ofSize: 14)
         $0.textColor = .upuhBlack
         $0.addCharacterSpacing(kernValue: -1)
     }
     private let timeLabel = UILabel().then {
-        $0.text = "99:99"
         $0.font = .IBMPlexSansText(ofSize: 14)
         $0.textColor = .upuhBlack
         $0.addCharacterSpacing(kernValue: -1)
@@ -99,11 +96,14 @@ final class ExpandedDayTVC: UITableViewCell {
         }
     }
     
-    func setupLabels(with data: [String], index: Int) {
+    func setupLabels(with data: RecordLabsList, index: Int) {
         let isSingleDigitNumber = (index < 10)
         
-        strokeLabel.text = data[index]
+        strokeLabel.text = data.stroke
         rowLabel.text = isSingleDigitNumber ? "0\(index + 1)" : "\(index + 1)"
+        distanceLabel.text = "\(data.distance)"
+        velocityLabel.text = data.speed
+        timeLabel.text = "\(data.time)"
         
         if #available(iOS 15, *) {
             let attributeContainer = AttributeContainer([.foregroundColor: UIColor.upuhBlack,
@@ -113,13 +113,13 @@ final class ExpandedDayTVC: UITableViewCell {
             configuration.titlePadding = 0
             configuration.imagePadding = 2
             configuration.baseForegroundColor = .upuhBlack
-            configuration.attributedTitle = AttributedString(data[index], attributes: attributeContainer)
+            configuration.attributedTitle = AttributedString(data.stroke, attributes: attributeContainer)
             configuration.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
             strokeButton.configuration = configuration
         } else {
             strokeButton.setImage(UIImage(named: "ic_drop"), for: .normal)
             strokeButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 2, bottom: 0, right: 0)
-            strokeButton.setTitle(data[index], for: .normal)
+            strokeButton.setTitle(data.stroke, for: .normal)
             strokeButton.titleLabel?.font = .IBMPlexSansText(ofSize: 14)
             strokeButton.setTitleColor(.upuhBlack, for: .normal)
             strokeButton.sizeToFit()
