@@ -13,6 +13,9 @@ enum RecordService{
     case askDayRecord(query: DayRecordRequest)
     case askWeekRecord(date: String, week: Int, stroke: String?)
     case askMonthRecord(date: String, stroke: String?)
+    case userDayRecord
+    case userWeekRecord
+    case userMonthRecord
 }
 
 extension RecordService: TargetType, AccessTokenAuthorizable {
@@ -30,6 +33,12 @@ extension RecordService: TargetType, AccessTokenAuthorizable {
             return "/weekRecord/list"
         case .askMonthRecord:
             return "/monthRecord/list"
+        case .userDayRecord:
+            return "/dayRecord/recent-record-date/list"
+        case .userWeekRecord:
+            return "/weekRecord/recent-record-date/list"
+        case .userMonthRecord:
+            return "/monthRecord/recent-record-date/list"
         }
     }
     
@@ -39,7 +48,10 @@ extension RecordService: TargetType, AccessTokenAuthorizable {
             return .post
         case .askDayRecord,
              .askWeekRecord,
-             .askMonthRecord:
+             .askMonthRecord,
+             .userDayRecord,
+             .userWeekRecord,
+             .userMonthRecord:
             return .get
         }
     }
@@ -64,6 +76,12 @@ extension RecordService: TargetType, AccessTokenAuthorizable {
                 return .requestParameters(parameters: ["date" : date, "stroke": stroke], encoding: URLEncoding.default)
             }
             return .requestParameters(parameters: ["date" : date], encoding: URLEncoding.default)
+        case .userDayRecord:
+            return .requestPlain
+        case .userWeekRecord:
+            return .requestPlain
+        case .userMonthRecord:
+            return .requestPlain
         }
     }
     
@@ -72,7 +90,10 @@ extension RecordService: TargetType, AccessTokenAuthorizable {
         case .sendSwimmingRecord,
              .askDayRecord,
              .askWeekRecord,
-             .askMonthRecord:
+             .askMonthRecord,
+             .userDayRecord,
+             .userWeekRecord,
+             .userMonthRecord:
             return .bearer
         }
     }

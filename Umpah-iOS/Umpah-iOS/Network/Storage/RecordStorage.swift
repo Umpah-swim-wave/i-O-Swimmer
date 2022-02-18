@@ -106,4 +106,22 @@ final class RecordStorage {
             }
         }
     }
+    
+    // MARK: - GET /dayRecord/recent-record-date/list
+    func fetchUserDayRecord(completion: @escaping (() -> ())) {
+        self.authProvider.request(.userDayRecord) { response in
+            switch response {
+            case .success(let result):
+                do{
+                    print(result)
+                    completion()
+                } catch(let err){
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+                print("와 실패다!")
+            }
+        }
+    }
 }
