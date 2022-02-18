@@ -26,7 +26,7 @@ class RoutineSetTVC: UITableViewCell {
     public var routineSetTitle = ""
     public var titleLabel = UILabel().then{
         $0.font = .nexaBold(ofSize: 14)
-        $0.textColor = .black
+        $0.textColor = .upuhBlack
     }
     private var tableBackgroundView = UIView().then{
         $0.backgroundColor = .white
@@ -110,6 +110,7 @@ class RoutineSetTVC: UITableViewCell {
     public func setRoutineContent(title: String, viewModel: RoutineViewModel){
         routineSetTitle = title
         titleLabel.text = routineSetTitle.uppercased() + " SET"
+        titleLabel.addCharacterSpacing(kernValue: 2.0)
         self.viewModel = viewModel
         routineListInSet = viewModel.routineStorage.routineList[title] ?? []
         initRoutineItemCells()
@@ -289,7 +290,7 @@ extension RoutineSetTVC {
                 
         distanceLabel.snp.makeConstraints{
             $0.centerY.equalTo(strokeLabel.snp.centerY)
-            $0.trailing.equalTo(timeLabel.snp.leading).offset(-51)
+            $0.trailing.equalTo(timeLabel.snp.leading).offset(-40)
         }
         
         timeLabel.snp.makeConstraints{
@@ -325,7 +326,7 @@ extension RoutineSetTVC {
         }
         
         distanceLabel.snp.updateConstraints{
-            $0.trailing.equalTo(timeLabel.snp.leading).offset(-51)
+            $0.trailing.equalTo(timeLabel.snp.leading).offset(-40)
         }
         
         timeLabel.snp.updateConstraints {

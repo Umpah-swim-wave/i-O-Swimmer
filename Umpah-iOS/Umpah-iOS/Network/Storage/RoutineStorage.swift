@@ -20,19 +20,19 @@ class RoutineStorage: RoutineStorageType{
     }
     
     private func initRoutineItems(){
-        routineSetTitleList = ["warm-up", "main", "cool-down"]
-        routineList = ["warm-up" : [RoutineItemData(stroke: "자유영", distance: 90, time: 60),
-                                    RoutineItemData(stroke: "자유영", distance: 250, time: 60),
-                                    RoutineItemData(stroke: "자유영", distance: 1275, time: 60)] ,
-                       "main" : [RoutineItemData(stroke: "배형", distance: 1225, time: 60),
-                                 RoutineItemData(stroke: "배형", distance: 1250, time: 60),
-                                 RoutineItemData(stroke: "배형", distance: 1275, time: 60),
-                                 RoutineItemData(stroke: "배형", distance: 1300, time: 60),
-                                 RoutineItemData(stroke: "배형", distance: 1225, time: 60)],
-                       "cool-down" : [RoutineItemData(stroke: "접형", distance: 1200, time: 60),
-                                 RoutineItemData(stroke: "접형", distance: 1225, time: 60),
-                                 RoutineItemData(stroke: "접형", distance: 1250, time: 60),
-                                 RoutineItemData(stroke: "접형", distance: 1275, time: 60)]]
+        routineSetTitleList = ["warm - up", "main", "cool-down"]
+        routineList = ["warm - up" : [RoutineItemData(stroke: "자유형", distance: 90, time: 60),
+                                    RoutineItemData(stroke: "자유형", distance: 250, time: 60),
+                                    RoutineItemData(stroke: "자유형", distance: 1275, time: 60)] ,
+                       "main" : [RoutineItemData(stroke: "배영", distance: 1225, time: 60),
+                                 RoutineItemData(stroke: "배영", distance: 1250, time: 60),
+                                 RoutineItemData(stroke: "배영", distance: 1275, time: 60),
+                                 RoutineItemData(stroke: "배영", distance: 1300, time: 60),
+                                 RoutineItemData(stroke: "배영", distance: 1225, time: 60)],
+                       "cool-down" : [RoutineItemData(stroke: "접영", distance: 1200, time: 60),
+                                 RoutineItemData(stroke: "접영", distance: 1225, time: 60),
+                                 RoutineItemData(stroke: "접영", distance: 1250, time: 60),
+                                 RoutineItemData(stroke: "접영", distance: 1275, time: 60)]]
     }
     
     
