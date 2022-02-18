@@ -10,9 +10,9 @@ import Foundation
 struct WeekRecordRequest: Codable {
     let startDate: String
     let endDate: String
-    let stroke: String
+    let stroke: String?
 
-    init(_ startDate: String, _ endDate: String, _ stroke: String) {
+    init(startDate: String, endDate: String, stroke: String?) {
         self.startDate = startDate
         self.endDate = endDate
         self.stroke = stroke

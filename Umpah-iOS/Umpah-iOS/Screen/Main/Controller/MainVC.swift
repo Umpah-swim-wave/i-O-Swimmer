@@ -20,8 +20,10 @@ final class MainVC: MainTableVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        changeStateWhenTappedHeaderTab()
         authorizeHealthKit()
+//        storage.fetchDayRecord(date: selectedDates[0], stroke: "") { [weak self] in
+//            self?.baseTableView.reloadData()
+//        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -108,22 +110,6 @@ final class MainVC: MainTableVC {
         }
     }
     
-    private func changeStateWhenTappedHeaderTab(){
-        headerView.pressedTabIsRecord = { [weak self] isRecord in
-            guard let self = self else { return }
-            self.setupCardViewState(to: .normal)
-            
-            if !isRecord && self.currentMainViewState != .routine {
-                self.cacheMainViewState = self.currentMainViewState
-                self.currentMainViewState = .routine
-            } else if isRecord {
-                self.currentMainViewState = self.cacheMainViewState
-            }
-            self.cardView.currentState = self.currentMainViewState
-            self.baseTableView.reloadData()
-        }
-    }
-    
     private func changeTopAreaBackgroundColor(to headerColor: UIColor,
                                               with statusBarColor: UIColor? = nil) {
         headerView.backgroundColor = headerColor
@@ -166,6 +152,19 @@ extension MainVC: UITableViewDelegate {
         case .topHeader:
             return topView
         case .content:
+            headerView.pressedTabIsRecord = { [weak self] isRecord in
+                guard let self = self else { return }
+                self.setupCardViewState(to: .normal)
+                
+                if !isRecord && self.currentMainViewState != .routine {
+                    self.cacheMainViewState = self.currentMainViewState
+                    self.currentMainViewState = .routine
+                } else if isRecord {
+                    self.currentMainViewState = self.cacheMainViewState
+                }
+                self.cardView.currentState = self.currentMainViewState
+                self.baseTableView.reloadData()
+            }
             return headerView
         }
     }

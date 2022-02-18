@@ -10,9 +10,9 @@ import Moya
 
 enum RecordService{
     case sendSwimmingRecord(param: SwimmingRecordRequest)
-    case askDayRecord(param: CommonRecordRequest)
-    case askWeekRecord(param: WeekRecordRequest)
-    case askMonthRecord(param: CommonRecordRequest)
+    case askDayRecord(query: CommonRecordRequest)
+    case askWeekRecord(query: WeekRecordRequest)
+    case askMonthRecord(query: CommonRecordRequest)
 }
 
 extension RecordService: TargetType{
@@ -52,12 +52,12 @@ extension RecordService: TargetType{
         switch self {
         case .sendSwimmingRecord(let param):
             return .requestJSONEncodable(param)
-        case .askDayRecord(let param):
-            return .requestJSONEncodable(param)
-        case .askWeekRecord(let param):
-            return .requestJSONEncodable(param)
-        case .askMonthRecord(let param):
-            return .requestJSONEncodable(param)
+        case .askDayRecord(let query):
+            return .requestParameters(parameters: try! query.asDictionary(), encoding: URLEncoding.default)
+        case .askWeekRecord(let query):
+            return .requestParameters(parameters: try! query.asDictionary(), encoding: URLEncoding.default)
+        case .askMonthRecord(let query):
+            return .requestParameters(parameters: try! query.asDictionary(), encoding: URLEncoding.default)
         }
     }
     

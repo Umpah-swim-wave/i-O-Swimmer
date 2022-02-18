@@ -44,13 +44,13 @@ final class RecordStorage {
         }
     }
     
-    // MARK: - POST /dayRecord/list
-    func dispatchDayRecord(date: String,
-                           stroke: String,
-                           completion: @escaping (() -> ())) {
-        let param = CommonRecordRequest(date, stroke)
+    // MARK: - GET /dayRecord/list
+    func fetchDayRecord(date: String,
+                        stroke: String,
+                        completion: @escaping (() -> ())) {
+        let query = CommonRecordRequest(date: date, stroke: stroke)
         
-        self.authProvider.request(.askDayRecord(param: param)) { response in
+        self.authProvider.request(.askDayRecord(query: query)) { response in
             switch response {
             case .success(let result):
                 do{
@@ -70,14 +70,14 @@ final class RecordStorage {
         }
     }
     
-    // MARK: - POST /weekRecord/list
-    func dispatchWeekRecord(startDate: String,
-                            endDate: String,
-                            stroke: String,
-                            completion: @escaping (() -> ())) {
-        let param = WeekRecordRequest(startDate, endDate, stroke)
+    // MARK: - GET /weekRecord/list
+    func fetchWeekRecord(startDate: String,
+                         endDate: String,
+                         stroke: String,
+                         completion: @escaping (() -> ())) {
+        let query = WeekRecordRequest(startDate: startDate, endDate: endDate, stroke: stroke)
         
-        self.authProvider.request(.askWeekRecord(param: param)) { response in
+        self.authProvider.request(.askWeekRecord(query: query)) { response in
             switch response {
             case .success(let result):
                 do{
@@ -97,13 +97,13 @@ final class RecordStorage {
         }
     }
     
-    // MARK: - POST /monthRecord/list
-    func dispatchMonthRecord(date: String,
-                           stroke: String,
-                           completion: @escaping (() -> ())) {
-        let param = CommonRecordRequest(date, stroke)
+    // MARK: - GET /monthRecord/list
+    func fetchMonthRecord(date: String,
+                          stroke: String,
+                          completion: @escaping (() -> ())) {
+        let query = CommonRecordRequest(date: date, stroke: stroke)
         
-        self.authProvider.request(.askMonthRecord(param: param)) { response in
+        self.authProvider.request(.askMonthRecord(query: query)) { response in
             switch response {
             case .success(let result):
                 do{

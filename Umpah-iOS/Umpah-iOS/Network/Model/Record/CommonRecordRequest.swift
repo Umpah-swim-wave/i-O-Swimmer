@@ -9,9 +9,9 @@ import Foundation
 
 struct CommonRecordRequest: Codable {
     let date: String
-    let stroke: String
+    let stroke: String?
 
-    init(_ date: String, _ stroke: String) {
+    init(date: String, stroke: String?) {
         self.date = date
         self.stroke = stroke
     }
