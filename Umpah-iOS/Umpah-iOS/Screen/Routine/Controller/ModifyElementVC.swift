@@ -63,8 +63,8 @@ class ModifyElementVC: BaseViewController{
     }
     
     lazy var storkeTextField = UITextField().then{
-        $0.textColor = .upuhBlack
-        $0.font = .IBMPlexSansRegular(ofSize: 16)
+        $0.textColor = .upuhBlue2
+        $0.font = .IBMPlexSansSemiBold(ofSize: 16)
         $0.text = "직접 등록하기"
         $0.placeholder = "원하는 영법을 입력해보세요"
         $0.delegate = self
@@ -131,6 +131,7 @@ class ModifyElementVC: BaseViewController{
     func calculateContentViewHeight(){
         if elementType == .stroke {
             contentViewHeight = (elementList.count + 1) * 40 + 98
+            print("contentViewHeight = \(contentViewHeight)")
         }else{
             contentViewHeight = elementList.count * 40 + 98
         }
@@ -149,7 +150,8 @@ class ModifyElementVC: BaseViewController{
         }.disposed(by: disposeBag)
         
         tableView.rx.itemSelected
-            .subscribe(onNext: { indexPath in
+            .subscribe(onNext: { [weak self] indexPath in
+                guard let self = self else {return}
                 self.selectedContent = self.elementList[indexPath.row]
                 print("self.selectedContent= \(self.selectedContent)")
                 self.changeDataInPresentingVC()
@@ -244,7 +246,7 @@ extension ModifyElementVC: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         storkeTextField.text = nil
         storkeTextField.font = .IBMPlexSansSemiBold(ofSize: 16)
-        storkeTextField.textColor = .upuhBlue
+        storkeTextField.textColor = .upuhBlue2
         checkImageView.isHidden = false
         
         contentView.frame = CGRect(x: contentView.frame.minX,
