@@ -93,8 +93,7 @@ final class MainVC: MainTableVC {
                 }
                 print("----------------------------")
                 self.storage.dispatchRecord(workoutList: workoutList) {
-                    print("success")
-                }
+                    print("success")                }
             })
             .disposed(by: disposeBag)
     }

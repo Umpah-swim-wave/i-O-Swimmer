@@ -10,7 +10,8 @@ import HealthKit
 import RxSwift
 
 //TODO: MetaData에서 "HKLapLength": 25 m 값 추출하기
-struct SwimWorkoutData {
+struct SwimWorkoutData: Equatable {
+    
     var startDate: Date
     var endDate: Date
     var duration : Double
@@ -21,6 +22,10 @@ struct SwimWorkoutData {
     var metadata: [String : Any]
     var distanceList: [SwimmingDistanceData] = []
     var strokeList: [SwimmingStrokeData] = []
+    
+    static func == (lhs: SwimWorkoutData, rhs: SwimWorkoutData) -> Bool {
+        return lhs.startDate == rhs.startDate ? true : false
+    }
     
     func display(){
         print("---------------------------")

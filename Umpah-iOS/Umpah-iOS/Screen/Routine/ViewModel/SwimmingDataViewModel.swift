@@ -11,11 +11,14 @@ import RxCocoa
 
 class SwimmingDataViewModel{
     let semaphore = DispatchSemaphore(value: 0)
+    let disposeBag = DisposeBag()
     let swimmingStorage = SwimmingDataStorage()
     lazy var swimmingWorkoutList: [SwimWorkoutData] = [] {
-        didSet {
-            semaphore.signal()
-            print("semaphore 시드널 불림")
+        didSet(oldList){
+            if swimmingWorkoutList.count != oldList.count {
+                semaphore.signal()
+                print("semaphore 시그널 불림")
+            }
         }
     }
     let swimmingSubject = PublishSubject<[SwimmingWorkoutData]>()
@@ -25,7 +28,9 @@ class SwimmingDataViewModel{
         swimmingStorage.loadWorkoutHKSource { completed, error in
             print("complete = \(completed)")
             if completed {
-                self.swimmingStorage.refineSwimmingWorkoutData(completion: { workoutList, error in
+                self.updateNewSwimmingDate()
+                //self.swimmingStorage.startObservingNewWorkouts()
+                self.swimmingStorage.refineSwimmingWorkoutData(start: nil, completion: { workoutList, error in
                     self.swimmingWorkoutList = workoutList
                     self.getStrokeAndDistanceData()
                     self.getHeartRateData()
@@ -44,11 +49,8 @@ class SwimmingDataViewModel{
                 
         swimmingWorkoutList.forEach{ swimming in
             swimming.isCompleted().bind(onNext: { isComplete in
-                print("swimming.metadata = \(swimming.metadata["HKLapLength"]), \(type(of: swimming.metadata["HKLapLength"]))")
                 let labsData = swimming.metadata["HKLapLength"] as? String
-                print("labsData = \(labsData)")
                 let perLab = Int(labsData?.components(separatedBy: " m")[0] ?? "25")
-                print("perLab = \(perLab), type = \(type(of: perLab))")
                 var recordList: [RecordLab] = []
                 swimming.strokeList.forEach{ stroke in
                     let record = RecordLab(date: stroke.startDate.toKoreaTime(),
@@ -64,12 +66,12 @@ class SwimmingDataViewModel{
                                                        recordLabsList: recordList)
                 swimmingDataList.append(swimmingData)
             }).disposed(by: DisposeBag())
-
         }
         swimmingSubject.onNext(swimmingDataList)
     }
     
     private func getStrokeAndDistanceData(){
+        Logger.debugDescription("")
         for index in 0..<swimmingWorkoutList.count {
             swimmingStorage.refineSwimmingStrokeData(start: swimmingWorkoutList[index].startDate,
                                                      end: swimmingWorkoutList[index].endDate) { strokes, error in
@@ -79,6 +81,7 @@ class SwimmingDataViewModel{
     }
     
     private func getHeartRateData(){
+        Logger.debugDescription("")
         for index in 0..<swimmingWorkoutList.count {
             swimmingStorage.readHeartRate(start: swimmingWorkoutList[index].startDate,
                                           end: swimmingWorkoutList[index].endDate) { heartRate, error in
@@ -87,4 +90,24 @@ class SwimmingDataViewModel{
         }
     }
     
+    func updateNewSwimmingDate(){
+        swimmingStorage
+            .newWorkOutDateSubject
+            .bind(onNext: { [weak self] startDate in
+                print("newWorkOutDateSubject = \(startDate)")
+                Logger.debugDescription("startDate \(startDate)")
+                guard let self = self else { return }
+                self.swimmingStorage.refineSwimmingWorkoutData(start: startDate, completion: { workoutList, error in
+                    print("refineSwimmingWorkoutData")
+                    if self.swimmingWorkoutList != workoutList{
+                        print("둘이 다른 날 -> \(startDate)")
+                        self.swimmingWorkoutList = workoutList
+                        self.getStrokeAndDistanceData()
+                        self.getHeartRateData()
+                        self.refineSwimmingDataForServer()
+                    }
+                    print("기존의 데이터랑 같음")
+                })
+            }).disposed(by: disposeBag)
+    }
 }

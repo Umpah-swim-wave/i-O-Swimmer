@@ -34,7 +34,7 @@ struct SwimmingWorkoutData: Codable {
         print("totalEnergyBurned =  \(totalEnergyBurned)")
         print("distancePerLabs =  \(distancePerLabs)")
         print("totalSwimmingStrokeCount =  \(totalSwimmingStrokeCount)")
-        print("recordLabsList =  \(recordLabsList)")
+//        print("recordLabsList =  \(recordLabsList)")
         print("---------------------------")
     }
 }
