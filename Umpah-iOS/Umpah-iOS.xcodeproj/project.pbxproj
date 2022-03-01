@@ -49,6 +49,10 @@
 		ED2ACAF826E41C7200C5A772 /* FilterCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2ACAF726E41C7200C5A772 /* FilterCVC.swift */; };
 		ED348AD727BFE108007559E9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED348AD627BFE108007559E9 /* GoogleService-Info.plist */; };
 		ED348AD927BFE7BD007559E9 /* DayRecordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED348AD827BFE7BD007559E9 /* DayRecordRequest.swift */; };
+		ED348ADB27C00D9C007559E9 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED348ADA27C00D9C007559E9 /* LoginService.swift */; };
+		ED348ADE27C00E2F007559E9 /* SignupRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED348ADD27C00E2F007559E9 /* SignupRequest.swift */; };
+		ED348AE027C00EA7007559E9 /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED348ADF27C00EA7007559E9 /* LoginRequest.swift */; };
+		ED348AE227C00ED4007559E9 /* LoginStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED348AE127C00ED4007559E9 /* LoginStorage.swift */; };
 		ED5396E226B975AD0061722F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED5396E126B975AD0061722F /* Main.storyboard */; };
 		ED5396E426B975D70061722F /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5396E326B975D70061722F /* MainVC.swift */; };
 		ED5396E626B975E70061722F /* Routine.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED5396E526B975E70061722F /* Routine.storyboard */; };
@@ -211,6 +215,10 @@
 		ED2ACAF726E41C7200C5A772 /* FilterCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCVC.swift; sourceTree = "<group>"; };
 		ED348AD627BFE108007559E9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		ED348AD827BFE7BD007559E9 /* DayRecordRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRecordRequest.swift; sourceTree = "<group>"; };
+		ED348ADA27C00D9C007559E9 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
+		ED348ADD27C00E2F007559E9 /* SignupRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupRequest.swift; sourceTree = "<group>"; };
+		ED348ADF27C00EA7007559E9 /* LoginRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
+		ED348AE127C00ED4007559E9 /* LoginStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginStorage.swift; sourceTree = "<group>"; };
 		ED5396E126B975AD0061722F /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		ED5396E326B975D70061722F /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
 		ED5396E526B975E70061722F /* Routine.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Routine.storyboard; sourceTree = "<group>"; };
@@ -339,6 +347,7 @@
 			isa = PBXGroup;
 			children = (
 				3CA621F02727CB68002CB901 /* RecordService.swift */,
+				ED348ADA27C00D9C007559E9 /* LoginService.swift */,
 			);
 			path = APIServices;
 			sourceTree = "<group>";
@@ -596,6 +605,7 @@
 		ED22C695273A56DB00036CF7 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				ED348ADC27C00E1E007559E9 /* Login */,
 				ED22C696273A56E700036CF7 /* Record */,
 			);
 			path = Model;
@@ -619,8 +629,18 @@
 				3C7479EA2702EFAE006752EE /* RoutineStorage.swift */,
 				3CF4E90F2719C09A00FE8802 /* SwimmingDataStorage.swift */,
 				ED22C69A273A588A00036CF7 /* RecordStorage.swift */,
+				ED348AE127C00ED4007559E9 /* LoginStorage.swift */,
 			);
 			path = Storage;
+			sourceTree = "<group>";
+		};
+		ED348ADC27C00E1E007559E9 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				ED348ADD27C00E2F007559E9 /* SignupRequest.swift */,
+				ED348ADF27C00EA7007559E9 /* LoginRequest.swift */,
+			);
+			path = Login;
 			sourceTree = "<group>";
 		};
 		EDD3CCF32701BE9100AFED4B /* Font */ = {
@@ -1093,6 +1113,7 @@
 				3C7479EB2702EFAE006752EE /* RoutineStorage.swift in Sources */,
 				EDD46F5226BEEA3B00FA91F2 /* UILabel+.swift in Sources */,
 				EDC7642D27BEB254006CBD51 /* ExpandedStateTableView.swift in Sources */,
+				ED348ADE27C00E2F007559E9 /* SignupRequest.swift in Sources */,
 				EDE550BE2700F80D004422CE /* DateTVC.swift in Sources */,
 				ED78843C26DE4551006D8787 /* ExpandedWeekTVC.swift in Sources */,
 				ED5396F526B977A20061722F /* UIScreen+.swift in Sources */,
@@ -1101,6 +1122,7 @@
 				EDD7C43C26CB903F00D93306 /* ChartTVC.swift in Sources */,
 				3CF4E9142719C6C600FE8802 /* Date+.swift in Sources */,
 				EDBA9D9E27B767F500E8E3B5 /* StrokeHeaderView.swift in Sources */,
+				ED348AE027C00EA7007559E9 /* LoginRequest.swift in Sources */,
 				ED8AB6A92703157A0066CD02 /* SelectedButtonDelegate.swift in Sources */,
 				EDD3CCDC27019A7200AFED4B /* SelectedRangeView.swift in Sources */,
 				EDC1EDDF26BF8FF600DCB215 /* Charts+.swift in Sources */,
@@ -1116,6 +1138,7 @@
 				ED78843A26DE3F63006D8787 /* WeekMonthHeader.swift in Sources */,
 				ED5396F726B977BB0061722F /* UIViewController+.swift in Sources */,
 				3C8CE32D26BCC318002BBFE5 /* UITableView+.swift in Sources */,
+				ED348ADB27C00D9C007559E9 /* LoginService.swift in Sources */,
 				3CF69DEA26E7776C002FD6DB /* ModifyElementVC.swift in Sources */,
 				3CA621EA2727C71E002CB901 /* SwimmingRecordRequest.swift in Sources */,
 				3C662B60271988E70061E133 /* HealthKitSetupAssistant.swift in Sources */,
@@ -1150,6 +1173,7 @@
 				ED8AB6AB2703158F0066CD02 /* States.swift in Sources */,
 				3CF4E9162719F43700FE8802 /* SwimmingDataViewModel.swift in Sources */,
 				EDD7C44026CBDB4600D93306 /* DetailTVC.swift in Sources */,
+				ED348AE227C00ED4007559E9 /* LoginStorage.swift in Sources */,
 				ED5F1A1A26ECF05E003FF801 /* StrokeTVC.swift in Sources */,
 				ED78843826DE3D18006D8787 /* DayHeader.swift in Sources */,
 				EDD3CCE62701B4EE00AFED4B /* UIColor+.swift in Sources */,
