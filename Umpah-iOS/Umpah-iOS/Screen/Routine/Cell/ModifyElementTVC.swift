@@ -9,8 +9,6 @@ import UIKit
 
 class ModifyElementTVC: UITableViewCell {
 
-    static let identifier = "ModifyElementTVC"
-    
     public var nameLabel = UILabel().then{
         $0.textColor = .upuhBlack
         $0.font = .IBMPlexSansRegular(ofSize: 16)
@@ -31,6 +29,7 @@ class ModifyElementTVC: UITableViewCell {
         super.setSelected(selected, animated: animated)
         checkImageView.isHidden = selected ? false : true
         nameLabel.textColor = selected ? .upuhBlue2 : .upuhBlack
+        nameLabel.font = selected ? .IBMPlexSansSemiBold(ofSize: 16) : .IBMPlexSansRegular(ofSize: 16)
     }
     
     func setupLayout(){

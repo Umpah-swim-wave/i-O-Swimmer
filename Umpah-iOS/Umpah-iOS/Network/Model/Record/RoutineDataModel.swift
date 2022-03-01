@@ -31,8 +31,26 @@ struct RoutineItemData {
     var time : Int = 0
     
     func getTimeToString() -> String{
-        let minute = time / 60 < 10 ? "0\(time / 60)" : "\(time / 60))"
+        let minute = time / 60 < 10 ? "0\(time / 60)" : "\(time / 60)"
         let second = time % 60 < 10 ? "0\(time % 60)" : "\(time % 60)"
         return minute + ":" + second
+    }
+    
+    func getAutomaticTimeToString() -> String{
+        let newTime = distance * getTimeAccoringToStorke()
+        let minute = newTime / 60 < 10 ? "0\(newTime / 60)" : "\(newTime / 60)"
+        let second = newTime % 60 < 10 ? "0\(newTime % 60)" : "\(newTime % 60)"
+        return minute + ":" + second
+    }
+    
+    //데이터 형식에 맞게 바꾸기
+    func getTimeAccoringToStorke() -> Int{
+        switch stroke {
+        case "자유형": return 11
+        case "평영": return 22
+        case "배영": return 33
+        case "접영": return 44
+            default: return 99
+        }
     }
 }

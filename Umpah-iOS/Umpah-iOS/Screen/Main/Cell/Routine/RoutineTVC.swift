@@ -92,7 +92,7 @@ final class RoutineTVC: UITableViewCell, NibLoadableView, ReusableView {
         $0.textColor = .upuhBlack
         $0.numberOfLines = 2
     }
-    private let deleteButton = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 22, height: 22))).then {
+    let deleteButton = UIButton(frame: CGRect(origin: .zero, size: CGSize(width: 22, height: 22))).then {
         $0.setImage(UIImage(named: "ic_trash"), for: .normal)
     }
     private let disposeBag = DisposeBag()

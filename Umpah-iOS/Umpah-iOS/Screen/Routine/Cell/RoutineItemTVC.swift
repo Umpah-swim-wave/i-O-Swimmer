@@ -10,9 +10,10 @@ import SnapKit
 import Then
 
 class RoutineItemTVC: UITableViewCell {
-    static let identifier = "RoutineItemTVC"
     
-    public var selectStorke: (() -> ())?
+    //MARK: Properties
+    
+    public var selectStorke: ((String) -> ())?
     public var selectDistance: ((Int) -> ())?
     public var selectTime: ((Int) -> ())?
     public var isSelectedDistance: Bool = true
@@ -89,11 +90,13 @@ class RoutineItemTVC: UITableViewCell {
         }
         strokeButton.setTitle(item.stroke, for: .normal)
         distanceTextField.text = "\(item.distance)m"
-        timeTextField.text = item.getTimeToString()
+        timeTextField.text = item.getAutomaticTimeToString()
     }
     
     func addActions(){
-        let touchUpToselectStorke = UIAction {_ in self.selectStorke?()}
+        let touchUpToselectStorke = UIAction { _ in
+            self.selectStorke?(self.routineItem?.stroke ?? "")
+        }
         let checkDistanceAction = UIAction{ _ in
             print("checkDistanceAction isSelectedDistance = \(self.isSelectedDistance)")
             self.isSelectedDistance = true
@@ -168,6 +171,7 @@ extension RoutineItemTVC: UIPickerViewDelegate{
         if isSelectedDistance {
             distanceTextField.text = "\(distanceList[row])m"
             routineItem?.distance = distanceList[row]
+            timeTextField.text = routineItem?.getAutomaticTimeToString()
         }else{
             if component == 0{
                 selectedTime.0 = miniteList[row]*60
