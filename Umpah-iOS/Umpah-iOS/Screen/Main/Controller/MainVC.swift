@@ -183,6 +183,15 @@ extension MainVC: UITableViewDelegate {
         }
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if currentMainViewState == .routine {
+            let storyboard = UIStoryboard(name: "Routine", bundle: nil)
+            guard let routineVC = storyboard.instantiateViewController(withIdentifier: RoutineVC.className) as? RoutineVC else {return}
+            routineVC.modalPresentationStyle = .overFullScreen
+            present(routineVC, animated: true, completion: nil)
+        }
+    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offsetY = scrollView.contentOffset.y
         let touchToSafeAreaTop = offsetY >= 188

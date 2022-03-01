@@ -11,15 +11,12 @@ import Then
 import RxSwift
 import RxCocoa
 
-class RoutineVC: UIViewController {
-
-    static let identifier = "RoutineVC"
+class RoutineVC: BaseViewController {
+    
     private var viewModel = RoutineViewModel()
-    private var disposeBag = DisposeBag()
     
     //MARK: TableView data
     private var routineSetCellList : [RoutineSetTVC] = []
-    private let upuhGreen = UIColor(red: 0.965, green: 0.98, blue: 0.988, alpha: 1)
     
     //MARK: - UI Component
     private let navigationView = UIView()
@@ -36,7 +33,7 @@ class RoutineVC: UIViewController {
         $0.layer.cornerRadius = 25
         $0.setBackgroundColor(.upuhBlue2, for: .normal)
         $0.setBackgroundColor(.upuhBlue2.withAlphaComponent(0.7), for: .highlighted)
-        $0.setTitle("어푸님만의 루틴 만들기", for: .normal)
+        $0.setTitle("어푸님만의 루틴 저장하기", for: .normal)
         $0.titleLabel?.font = .IBMPlexSansSemiBold(ofSize: 16)
         $0.titleLabel?.textColor = .white
         $0.addTarget(self, action: #selector(changeTableViewEditingMode), for: .touchUpInside)
@@ -91,7 +88,6 @@ class RoutineVC: UIViewController {
         $0.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         $0.textContainer.lineBreakMode = .byTruncatingTail
         $0.isUserInteractionEnabled = false
-        
         let kernSpacing: CGFloat = -0.6
         let style = NSMutableParagraphStyle()
         style.lineSpacing = -0.9
@@ -117,10 +113,9 @@ class RoutineVC: UIViewController {
         setupConstraints()
         setTableViewAttribute()
         initRoutineSetCells()
-        addActions()
         addTapGesture()
-        bindDataToViewModel()
-        view.backgroundColor = upuhGreen
+        bind()
+        view.backgroundColor = .upuhBackground
     }
     
     private func updateHeaderLayout(atEditMode: Bool){
@@ -138,71 +133,63 @@ class RoutineVC: UIViewController {
         titleUnderlineView.snp.updateConstraints{
             $0.top.equalTo(titleTextField.snp.bottom).offset(offsetValue)
         }
-
+        
         titleUnderlineView.backgroundColor = atEditMode ? .upuhSubGray : .clear
         titleTextField.isUserInteractionEnabled = atEditMode ? true : false
         titleTextField.text = atEditMode ? "Copy of " + titleTextField.text! : titleTextField.text
     }
-
+    
     private func setTableViewAttribute(){
         tableView.rowHeight = UITableView.automaticDimension
-        tableView.registerCustomXib(name: RoutineSetTVC.identifier)
+        tableView.registerCustomXib(name: RoutineSetTVC.className)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
-        tableView.backgroundColor = upuhGreen
+        tableView.backgroundColor = .upuhBackground
     }
     
     
     private func initRoutineSetCells(){
         viewModel.routineStorage.routineSetTitleList.forEach{
-            print("setTitle = \($0)")
             let cell = getInitRoutineSetCell(setTitle: $0)
             routineSetCellList.append(cell)
         }
-        print(routineSetCellList.count)
     }
     
     private func getInitRoutineSetCell(setTitle: String) -> RoutineSetTVC{
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineSetTVC.identifier) as? RoutineSetTVC else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineSetTVC.className) as? RoutineSetTVC else {
             return RoutineSetTVC() }
         cell.setRoutineContent(title: setTitle, viewModel: viewModel)
         cell.cellDelegate = self
         cell.isEditingMode = tableView.isEditing
         for index in 0..<cell.routineItemCellList.count {
-            cell.routineItemCellList[index].selectStorke = {
-                self.presentModifyElementView(elementType: .stroke,
-                                              setTitle: setTitle,
-                                              index: index)
+            cell.routineItemCellList[index].selectStorke = { [weak self] strokeName in
+                self?.presentToModifyElementView(of: .stroke,
+                                                 setTitle: setTitle,
+                                                 index: index,
+                                                 before: strokeName)
             }
         }
         return cell
     }
     
     private func getNewInitRoutineSetCell(setTitle: String) -> RoutineSetTVC{
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineSetTVC.identifier) as? RoutineSetTVC else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: RoutineSetTVC.className) as? RoutineSetTVC else {
             return RoutineSetTVC() }
         cell.setRoutineContent(title: setTitle, viewModel: viewModel)
         cell.cellDelegate = self
         cell.isEditingMode = true
         for index in 0..<cell.routineItemCellList.count {
-            cell.routineItemCellList[index].selectStorke = {
-                self.presentModifyElementView(elementType: .stroke,
-                                              setTitle: setTitle,
-                                              index: index)
+            cell.routineItemCellList[index].selectStorke = { [weak self] strokeName in
+                self?.presentToModifyElementView(of: .stroke,
+                                                 setTitle: setTitle,
+                                                 index: index,
+                                                 before: strokeName)
             }
             cell.routineItemCellList[index].isEditingMode = true
             cell.tableView.setEditing(true, animated: true)
-            print("cell.routineItemCellList[index].showsReorderControl = \(cell.routineItemCellList[index].showsReorderControl)")
         }
         return cell
-    }
-    
-    private func addActions(){
-        bottomButton.addTarget(self, action: #selector(changeTableViewEditingMode), for: .touchUpInside)
-        
-        let dismissAction = UIAction { _ in self.dismiss(animated: true, completion: nil) }
-        backButton.addAction(dismissAction, for: .touchUpInside)
     }
     
     @objc
@@ -238,17 +225,25 @@ class RoutineVC: UIViewController {
         view.addGestureRecognizer(tapGesture)
     }
     
-   
-    func bindDataToViewModel(){
+    
+    func bind(){
         viewModel.routineStorage.store
             .subscribe(onNext: { _ in
                 self.distanceButton.setTitle(self.viewModel.getTotalRoutinesDistanceToString(), for: .normal)
                 self.timeButton.setTitle(self.viewModel.getTotalRoutinesTimeToString(), for: .normal)
             })
             .disposed(by: disposeBag)
+        
+        backButton.rx.tap
+            .asDriver()
+            .drive(onNext: { [weak self] _ in
+                self?.dismiss(animated: true, completion: nil)
+            })
+            .disposed(by: disposeBag)
     }
 }
 
+//MARK: - UITableViewDelegate
 extension RoutineVC: UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -263,7 +258,6 @@ extension RoutineVC: UITableViewDelegate{
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         let imageView = cell.subviews.first(where: {$0.description.contains("Reorder")})?
             .subviews.first(where: {$0 is UIImageView}) as? UIImageView
-        print("imageView reorder = \(imageView?.frame)")
         imageView?.frame = CGRect(x: 0, y: 0, width: 0, height: 0)
     }
     
@@ -277,6 +271,7 @@ extension RoutineVC: UITableViewDelegate{
     }
 }
 
+//MARK: - UITableViewDataSource
 extension RoutineVC: UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -300,12 +295,14 @@ extension RoutineVC: UITextFieldDelegate {
     }
 }
 
+//MARK: - RoutineCellDelegate
 extension RoutineVC: RoutineCellDelegate{
     func routineItemCellForAdding(cell: RoutineSetTVC, index: Int) {
-        cell.routineItemCellList[index].selectStorke = {
-            self.presentModifyElementView(elementType: .stroke,
-                                          setTitle: cell.routineSetTitle,
-                                          index: index)
+        cell.routineItemCellList[index].selectStorke = { [weak self] strokeName in
+            self?.presentToModifyElementView(of: .stroke,
+                                             setTitle: cell.routineSetTitle,
+                                             index: index,
+                                             before: strokeName)
         }
         updateTableView()
     }
@@ -328,48 +325,36 @@ extension RoutineVC: RoutineCellDelegate{
     
     func resetRoutineItemPresentIndex(cell: RoutineSetTVC){
         for index in 0..<cell.routineItemCellList.count{
-            cell.routineItemCellList[index].selectStorke = {
-                self.presentModifyElementView(elementType: .stroke,
-                                              setTitle: cell.routineSetTitle,
-                                              index: index)
+            cell.routineItemCellList[index].selectStorke = { [weak self] strokeName in
+                self?.presentToModifyElementView(of: .stroke,
+                                                 setTitle: cell.routineSetTitle,
+                                                 index: index,
+                                                 before: strokeName)
             }
         }
     }
 }
 
+//MARK: - TextView Delegate
 
 
+//MARK: - Modify Element
 extension RoutineVC {
-    func presentModifyElementView(elementType: ModifyElementType, setTitle: String, index: Int){
+    func presentToModifyElementView(of type: ModifyElementType, setTitle: String = "", index: Int = 0, before data: String = ""){
         let storyboard = UIStoryboard(name: "ModifyElement", bundle: nil)
-        guard let nextVC = storyboard.instantiateViewController(identifier: ModifyElementVC.identifier) as? ModifyElementVC else {
+        guard let nextVC = storyboard.instantiateViewController(identifier: ModifyElementVC.className) as? ModifyElementVC else {
             return
         }
-        nextVC.elementType = elementType
-        nextVC.presentingSetTitle = setTitle
-        nextVC.presentingItemIndex = index
+        nextVC.setupModificationContent(of: type,
+                                        setTitle: setTitle,
+                                        index: index, before: data)
         nextVC.modalPresentationStyle = .fullScreen
-         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1 , execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1 , execute: {
             nextVC.backgroundImage = self.view.asImage()
-             nextVC.modalTransitionStyle = .crossDissolve
+            nextVC.modalTransitionStyle = .crossDissolve
             self.present(nextVC, animated: true, completion: nil)
-         })
+        })
     }
-    
-    func presentModifyElementView(elementType: ModifyElementType){
-        let storyboard = UIStoryboard(name: "ModifyElement", bundle: nil)
-        guard let nextVC = storyboard.instantiateViewController(identifier: ModifyElementVC.identifier) as? ModifyElementVC else {
-            return
-        }
-        nextVC.elementType = elementType
-        nextVC.modalPresentationStyle = .fullScreen
-         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1 , execute: {
-            nextVC.backgroundImage = self.view.asImage()
-             nextVC.modalTransitionStyle = .crossDissolve
-            self.present(nextVC, animated: true, completion: nil)
-         })
-    }
-
     
     func updateRoutineItem(stroke: String, setTitle: String, index: Int){
         viewModel.routineStorage.update(stroke: stroke, setTitle: setTitle, index: index)
@@ -384,12 +369,13 @@ extension RoutineVC {
     }
 }
 
+//MARK: - configure UI
 extension RoutineVC {
     private func setupConstraints(){
         view.addSubviews([navigationView,
                           tableView,
                           bottomButton])
-
+        
         navigationView.snp.makeConstraints{
             $0.top.leading.trailing.equalTo(view.safeAreaLayoutGuide)
             $0.height.equalTo(44)
@@ -488,40 +474,41 @@ extension RoutineVC {
         let view = UIView(frame: CGRect(x: 0, y: 0,
                                         width: UIScreen.getDeviceWidth(),
                                         height: 68))
-
+        
         let titleButton = UIButton().then{
             $0.setTitle("세트 추가하기", for: .normal)
-            $0.titleLabel?.font = .systemFont(ofSize: 14)
-            $0.setTitleColor(.gray, for: .normal)
+            $0.titleLabel?.font = .IBMPlexSansSemiBold(ofSize: 14)
+            $0.setTitleColor(.upuhGreen, for: .normal)
         }
         
         let titleUnderline = UIView().then{
-            $0.backgroundColor = .gray
+            $0.backgroundColor = .upuhGreen
         }
         
-        let presentingAction = UIAction{ _ in
-            self.presentModifyElementView(elementType: .setTitle)
+        let presentingAction = UIAction{ [weak self] _ in
+            self?.presentToModifyElementView(of: .setTitle)
         }
         
         titleButton.addAction(presentingAction, for: .touchUpInside)
         
         view.addSubviews([titleButton,
                           titleUnderline])
-        titleButton.snp.makeConstraints{
-            $0.centerX.equalTo(UIScreen.getDeviceWidth() / 2.0)
-            $0.centerY.equalToSuperview()
-        }
         
+        titleButton.snp.makeConstraints{
+            $0.center.equalToSuperview()
+        }
+    
         titleUnderline.snp.makeConstraints{
-            $0.top.equalTo(titleButton.snp.bottom).offset(-3)
+            $0.top.equalTo(titleButton.snp.bottom).offset(-10)
             $0.centerX.equalTo(titleButton.snp.centerX)
             $0.width.equalTo(titleButton.snp.width)
-            $0.height.equalTo(1)
+            $0.height.equalTo(1.5)
         }
         return view
     }
     
     func addRoutineSet(setTitle: String){
+        if setTitle == "" {return}
         viewModel.routineStorage.routineSetTitleList.append(setTitle)
         viewModel.routineStorage.routineList[setTitle] = [RoutineItemData()]
         let cell = getNewInitRoutineSetCell(setTitle: setTitle)

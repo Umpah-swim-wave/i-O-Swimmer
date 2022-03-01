@@ -102,10 +102,10 @@ final class ExpandedStateView: ExpandedStateTableView {
     
     private func setupRoutineFilterActions(){
         let presentinglevelAction = UIAction { _ in
-            self.presentToModifyElement(elementType: .level)
+            self.presentToModifyElementView(of: .level, before: self.routineFilterView.levelText)
         }
         let presentingStrokeAction = UIAction { _ in
-            self.presentToModifyElement(elementType: .exceptStorke)
+            self.presentToModifyElementView(of: .exceptStorke, before: self.routineFilterView.exceptionStrokeText)
         }
         let changeOrderingDistanceAction = UIAction { _ in
             self.routineFilterView.changeDistanceButton()
@@ -125,16 +125,20 @@ final class ExpandedStateView: ExpandedStateTableView {
         }
         filteredOverViewList = upuhRoutineOverViewList
     }
-
-    private func presentToModifyElement(elementType: ModifyElementType){
+    
+    func presentToModifyElementView(of type: ModifyElementType, setTitle: String = "", index: Int = 0, before data: String = ""){
         let storyboard = UIStoryboard(name: "ModifyElement", bundle: nil)
-        guard let nextVC = storyboard.instantiateViewController(withIdentifier: ModifyElementVC.identifier) as? ModifyElementVC else {return}
-        
+        guard let nextVC = storyboard.instantiateViewController(identifier: ModifyElementVC.className) as? ModifyElementVC else {
+            return
+        }
         nextVC.sendFilterData = { [weak self] in
             self?.rootVC?.setupCardViewState(to: .expanded)
         }
+
+        nextVC.setupModificationContent(of: type,
+                                        setTitle: setTitle,
+                                        index: index, before: data)
         
-        nextVC.elementType = elementType
         nextVC.backgroundImage = self.rootVC?.view.asImage()
         nextVC.modalPresentationStyle = .overCurrentContext
         nextVC.modalTransitionStyle = .crossDissolve

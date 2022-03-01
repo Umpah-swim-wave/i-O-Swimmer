@@ -16,11 +16,9 @@ enum ModifyElementType {
     case level
 }
 
-class ModifyElementVC: UIViewController{
-
-    static let identifier = "ModifyElementVC"
-    private var disposeBag = DisposeBag()
-    private let maxLength = 9
+class ModifyElementVC: BaseViewController{
+    
+    //MARK: - Properties
     
     public var elementList: [String] = []
     public var elementType: ModifyElementType?
@@ -33,6 +31,8 @@ class ModifyElementVC: UIViewController{
     public var backgroundImage : UIImage?
     
     private var contentViewHeight = 0
+    private let maxLength = 9
+    private var cacheData: String = ""
     
     var sendFilterData: (() -> Void)?
     
@@ -52,7 +52,7 @@ class ModifyElementVC: UIViewController{
     }
     
     private lazy var tableView = UITableView().then {
-        $0.registerCustomXib(name: ModifyElementTVC.identifier)
+        $0.registerCustomXib(name: ModifyElementTVC.className)
         $0.rowHeight = 40
         $0.layer.cornerRadius = 16
         $0.separatorStyle = .none
@@ -65,8 +65,8 @@ class ModifyElementVC: UIViewController{
     }
     
     lazy var storkeTextField = UITextField().then{
-        $0.textColor = .upuhBlack
-        $0.font = .IBMPlexSansRegular(ofSize: 16)
+        $0.textColor = .upuhBlue2
+        $0.font = .IBMPlexSansSemiBold(ofSize: 16)
         $0.text = "직접 등록하기"
         $0.placeholder = "원하는 영법을 입력해보세요"
         $0.delegate = self
@@ -92,23 +92,30 @@ class ModifyElementVC: UIViewController{
         }
     }
     
+    func setupModificationContent(of type: ModifyElementType, setTitle: String = "", index: Int = 0, before data: String = ""){
+        elementType = type
+        presentingSetTitle = setTitle
+        presentingItemIndex = index
+        cacheData = data
+    }
+    
     func changeDataInPresentingVC(){
         switch elementType{
         case .setTitle:
             let presentingVC = presentingViewController as? RoutineVC
-            presentingVC?.addRoutineSet(setTitle: selectedContent ?? "타이틀 잘못 넘어옴")
+            presentingVC?.addRoutineSet(setTitle: selectedContent ?? cacheData)
         case .stroke:
             let presentingVC = presentingViewController as? RoutineVC
-            presentingVC?.updateRoutineItem(stroke: self.selectedContent ?? "잘못넘어옴",
+            presentingVC?.updateRoutineItem(stroke: self.selectedContent ?? cacheData,
                                             setTitle: self.presentingSetTitle ?? "",
                                             index: self.presentingItemIndex ?? 0)
         case .level:
             let presentingVC = presentingViewController as? MainVC
-            presentingVC?.cardView.expandedView.routineFilterView.levelText = selectedContent ?? "레벨"
+            presentingVC?.cardView.expandedView.routineFilterView.levelText = selectedContent ?? (cacheData == "" ? "레벨" : cacheData)
             sendFilterData?()
         case .exceptStorke:
             let presentingVC = presentingViewController as? MainVC
-            presentingVC?.cardView.expandedView.routineFilterView.exceptionStrokeText = selectedContent ?? "제외할 영법"
+            presentingVC?.cardView.expandedView.routineFilterView.exceptionStrokeText = selectedContent ?? (cacheData == "" ? "제외할 영법" : cacheData)
             sendFilterData?()
         case .none:
             elementList = []
@@ -120,7 +127,7 @@ class ModifyElementVC: UIViewController{
             && point.x < contentView.frame.maxX
             && point.y > contentView.frame.minY
             && point.y < contentView.frame.maxY{
-           return false
+            return false
         }
         return true
     }
@@ -128,6 +135,7 @@ class ModifyElementVC: UIViewController{
     func calculateContentViewHeight(){
         if elementType == .stroke {
             contentViewHeight = (elementList.count + 1) * 40 + 98
+            print("contentViewHeight = \(contentViewHeight)")
         }else{
             contentViewHeight = elementList.count * 40 + 98
         }
@@ -136,7 +144,7 @@ class ModifyElementVC: UIViewController{
     
     func bindDataToTableView(){
         let observable = Observable.of(elementList)
-        observable.bind(to: tableView.rx.items(cellIdentifier: ModifyElementTVC.identifier,
+        observable.bind(to: tableView.rx.items(cellIdentifier: ModifyElementTVC.className,
                                                cellType: ModifyElementTVC.self)) { row, element, cell in
             if self.elementType == .setTitle {
                 cell.nameLabel.text = element + " SET"
@@ -146,7 +154,8 @@ class ModifyElementVC: UIViewController{
         }.disposed(by: disposeBag)
         
         tableView.rx.itemSelected
-            .subscribe(onNext: { indexPath in
+            .subscribe(onNext: { [weak self] indexPath in
+                guard let self = self else {return}
                 self.selectedContent = self.elementList[indexPath.row]
                 print("self.selectedContent= \(self.selectedContent)")
                 self.changeDataInPresentingVC()
@@ -174,19 +183,6 @@ class ModifyElementVC: UIViewController{
             elementList = []
         }
     }
-//    
-//    private func changeLevelStringToInt(level: String) -> Int{
-//        switch level{
-//        case "초급":
-//            return 0
-//        case "중급":
-//            return 1
-//        case "고급":
-//            return 2
-//        default:
-//            return -1
-//        }
-//    }
     
 }
 
@@ -254,7 +250,7 @@ extension ModifyElementVC: UITextFieldDelegate {
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         storkeTextField.text = nil
         storkeTextField.font = .IBMPlexSansSemiBold(ofSize: 16)
-        storkeTextField.textColor = .upuhBlue
+        storkeTextField.textColor = .upuhBlue2
         checkImageView.isHidden = false
         
         contentView.frame = CGRect(x: contentView.frame.minX,
@@ -285,7 +281,6 @@ extension ModifyElementVC: UITextFieldDelegate {
         if text.count > maxLength {
             textField.deleteBackward()
         }
-        
         return true
     }
 }
