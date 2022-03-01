@@ -68,7 +68,7 @@ class MainTableVC: MainCardVC {
         strokeState = .none
     }
     
-    private func applyStrokeString(with stroke: Stroke) -> String {
+    private func applyStrokeString(with stroke: Stroke) -> String? {
         switch stroke {
         case .freestyle:
             return "FREESTYLE"
@@ -79,7 +79,7 @@ class MainTableVC: MainCardVC {
         case .butterfly:
             return "BUTTERFLY"
         case .none:
-            return ""
+            return nil
         }
     }
 }
@@ -184,7 +184,7 @@ extension MainTableVC: SelectedButtonDelegate {
             self.setupMainViewState(to: state, with: date)
 
             self.selectedDates[0] = "\(year)-\(transMonth)-\(transDay)"
-            self.storage.dispatchDayRecord(date: self.selectedDates[0], stroke: "") {
+            self.storage.fetchDayRecord(date: self.selectedDates[0]) {
                 self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
             }
         }
@@ -192,11 +192,10 @@ extension MainTableVC: SelectedButtonDelegate {
             guard let self = self else { return }
             self.setupMainViewState(to: .week, with: week)
             
-            self.selectedDates[0] = "2021-10-18"
-            self.selectedDates[1] = "2021-10-24"
-            self.storage.dispatchWeekRecord(startDate: self.selectedDates[0],
-                                            endDate: self.selectedDates[1],
-                                            stroke: "") {
+            self.selectedDates[0] = "2021-05-18"
+            self.selectedDates[1] = "2021-05-24"
+            self.storage.fetchWeekRecord(date: "2021-05",
+                                         week: 3) {
                 self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
             }
         }
@@ -207,7 +206,7 @@ extension MainTableVC: SelectedButtonDelegate {
             self.setupMainViewState(to: .month, with: date)
             
             self.selectedDates[0] = "\(year)-\(transMonth)"
-            self.storage.dispatchDayRecord(date: self.selectedDates[0], stroke: "") {
+            self.storage.fetchMonthRecord(date: self.selectedDates[0]) {
                 self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
             }
         }
@@ -228,14 +227,14 @@ extension MainTableVC: SelectedButtonDelegate {
             
             switch self.currentMainViewState {
             case .week:
-                self.storage.dispatchWeekRecord(startDate: self.selectedDates[0],
-                                                endDate: self.selectedDates[1],
-                                                stroke: self.applyStrokeString(with: style)) {
+                self.storage.fetchWeekRecord(date: "2021-05",
+                                             week: 3,
+                                             stroke: self.applyStrokeString(with: style)) {
                     self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
                 }
             case .month:
-                self.storage.dispatchMonthRecord(date: self.selectedDates[0],
-                                                 stroke: self.applyStrokeString(with: style)) {
+                self.storage.fetchMonthRecord(date: self.selectedDates[0],
+                                              stroke: self.applyStrokeString(with: style)) {
                     self.baseTableView.reloadSections(IndexSet(1...1), with: .automatic)
                 }
             default:

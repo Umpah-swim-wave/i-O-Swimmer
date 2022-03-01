@@ -22,7 +22,7 @@ final class SelectedStrokeTVC: UITableViewCell {
         }
     }
     private let checkButton = UIButton().then {
-        $0.setImage(UIImage(named: "check"), for: .normal)
+        $0.setImage(UIImage(named: "checkIcon"), for: .normal)
         $0.isHidden = true
     }
     let strokeLabel = UILabel().then {

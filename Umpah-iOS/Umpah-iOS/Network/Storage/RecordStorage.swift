@@ -16,7 +16,8 @@ final class RecordStorage {
     
     // MARK: - Network
     
-    private let authProvider = MoyaProvider<RecordService>(plugins: [NetworkLoggerPlugin(verbose: true)])
+    private let authPlugin = AccessTokenPlugin { _ in GeneralAPI.token }
+    private lazy var authProvider = MoyaProvider<RecordService>(plugins: [authPlugin, NetworkLoggerPlugin(verbose: true)])
     
     // MARK: - POST /record
     func dispatchRecord(workoutList: [SwimmingWorkoutData],
@@ -39,86 +40,123 @@ final class RecordStorage {
                 }
             case .failure(let err):
                 print(err.localizedDescription)
-                completion()
+                print("와 실패다!")
             }
         }
     }
     
-    // MARK: - POST /dayRecord/list
-    func dispatchDayRecord(date: String,
-                           stroke: String,
-                           completion: @escaping (() -> ())) {
-        let param = CommonRecordRequest(date, stroke)
+    // MARK: - GET /dayRecord/list
+    func fetchDayRecord(date: String,
+                        completion: @escaping (() -> ())) {
+        let query = DayRecordRequest(date: date)
         
-        self.authProvider.request(.askDayRecord(param: param)) { response in
+        self.authProvider.request(.askDayRecord(query: query)) { response in
             switch response {
             case .success(let result):
                 do{
                     print(result)
-                    let responseData = try result.map(CommonResponse.self)
-                    print("-----------response-----------")
-                    print(responseData)
-                    print("------------------------------")
                     completion()
                 } catch(let err){
                     print(err.localizedDescription)
                 }
             case .failure(let err):
                 print(err.localizedDescription)
-                completion()
+                print("와 실패다!")
             }
         }
     }
     
-    // MARK: - POST /weekRecord/list
-    func dispatchWeekRecord(startDate: String,
-                            endDate: String,
-                            stroke: String,
-                            completion: @escaping (() -> ())) {
-        let param = WeekRecordRequest(startDate, endDate, stroke)
-        
-        self.authProvider.request(.askWeekRecord(param: param)) { response in
+    // MARK: - GET /weekRecord/list
+    func fetchWeekRecord(date: String,
+                         week: Int,
+                         stroke: String? = nil,
+                         completion: @escaping (() -> ())) {
+        self.authProvider.request(.askWeekRecord(date: date, week: week, stroke: stroke)) { response in
             switch response {
             case .success(let result):
                 do{
                     print(result)
-                    let responseData = try result.map(CommonResponse.self)
-                    print("-----------response-----------")
-                    print(responseData)
-                    print("------------------------------")
                     completion()
                 } catch(let err){
                     print(err.localizedDescription)
                 }
             case .failure(let err):
                 print(err.localizedDescription)
-                completion()
+                print("와 실패다!")
             }
         }
     }
     
-    // MARK: - POST /monthRecord/list
-    func dispatchMonthRecord(date: String,
-                           stroke: String,
-                           completion: @escaping (() -> ())) {
-        let param = CommonRecordRequest(date, stroke)
-        
-        self.authProvider.request(.askMonthRecord(param: param)) { response in
+    // MARK: - GET /monthRecord/list
+    func fetchMonthRecord(date: String,
+                          stroke: String? = nil,
+                          completion: @escaping (() -> ())) {
+        self.authProvider.request(.askMonthRecord(date: date, stroke: stroke)) { response in
             switch response {
             case .success(let result):
                 do{
                     print(result)
-                    let responseData = try result.map(CommonResponse.self)
-                    print("-----------response-----------")
-                    print(responseData)
-                    print("------------------------------")
                     completion()
                 } catch(let err){
                     print(err.localizedDescription)
                 }
             case .failure(let err):
                 print(err.localizedDescription)
-                completion()
+                print("와 실패다!")
+            }
+        }
+    }
+    
+    // MARK: - GET /dayRecord/recent-record-date/list
+    func fetchUserDayRecord(completion: @escaping (() -> ())) {
+        self.authProvider.request(.userDayRecord) { response in
+            switch response {
+            case .success(let result):
+                do{
+                    print(result)
+                    completion()
+                } catch(let err){
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+                print("와 실패다!")
+            }
+        }
+    }
+    
+    // MARK: - GET /weekRecord/recent-record-date/list
+    func fetchUserWeekRecord(completion: @escaping (() -> ())) {
+        self.authProvider.request(.userWeekRecord) { response in
+            switch response {
+            case .success(let result):
+                do{
+                    print(result)
+                    completion()
+                } catch(let err){
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+                print("와 실패다!")
+            }
+        }
+    }
+    
+    // MARK: - GET /monthRecord/recent-record-date/list
+    func fetchUserMonthRecord(completion: @escaping (() -> ())) {
+        self.authProvider.request(.userMonthRecord) { response in
+            switch response {
+            case .success(let result):
+                do{
+                    print(result)
+                    completion()
+                } catch(let err){
+                    print(err.localizedDescription)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+                print("와 실패다!")
             }
         }
     }

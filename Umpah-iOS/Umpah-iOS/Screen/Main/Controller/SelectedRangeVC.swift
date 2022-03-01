@@ -25,6 +25,7 @@ final class SelectedRangeVC: BaseViewController {
         $0.backgroundColor = .white
     }
 
+    let storage = RecordStorage.shared
     var rangeState: RangeState = .none
     var sendDayStateData: ((String, String, String) -> ())?
     var sendWeekStateData: ((String) -> ())?
@@ -77,10 +78,12 @@ final class SelectedRangeVC: BaseViewController {
             .asDriver()
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
-                self.setupSelectedRangeState(daySelected: true)
-                self.setupRangeData(year: self.dummyYears[0], month: self.dummyMonths[0], day: self.dummyDays[0], rangeState: .day)
-                self.view.endEditing(true)
-                self.rangeView.setupPickerViewToTextField(with: .day)
+                self.storage.fetchUserDayRecord {
+                    self.setupSelectedRangeState(daySelected: true)
+                    self.setupRangeData(year: self.dummyYears[0], month: self.dummyMonths[0], day: self.dummyDays[0], rangeState: .day)
+                    self.view.endEditing(true)
+                    self.rangeView.setupPickerViewToTextField(with: .day)
+                }
             })
             .disposed(by: disposeBag)
         
@@ -88,10 +91,12 @@ final class SelectedRangeVC: BaseViewController {
             .asDriver()
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
-                self.setupSelectedRangeState(weekSelected: true)
-                self.setupRangeData(week: self.dummyWeeks[0], rangeState: .week)
-                self.view.endEditing(true)
-                self.rangeView.setupPickerViewToTextField(with: .week)
+                self.storage.fetchUserWeekRecord {
+                    self.setupSelectedRangeState(weekSelected: true)
+                    self.setupRangeData(week: self.dummyWeeks[0], rangeState: .week)
+                    self.view.endEditing(true)
+                    self.rangeView.setupPickerViewToTextField(with: .week)
+                }
             })
             .disposed(by: disposeBag)
         
@@ -99,10 +104,12 @@ final class SelectedRangeVC: BaseViewController {
             .asDriver()
             .drive(onNext: { [weak self] in
                 guard let self = self else { return }
-                self.setupSelectedRangeState(monthSelected: true)
-                self.setupRangeData(year: self.dummyYears[0], month: self.dummyMonths[0], rangeState: .month)
-                self.view.endEditing(true)
-                self.rangeView.setupPickerViewToTextField(with: .month)
+                self.storage.fetchUserMonthRecord {
+                    self.setupSelectedRangeState(monthSelected: true)
+                    self.setupRangeData(year: self.dummyYears[0], month: self.dummyMonths[0], rangeState: .month)
+                    self.view.endEditing(true)
+                    self.rangeView.setupPickerViewToTextField(with: .month)
+                }
             })
             .disposed(by: disposeBag)
     }

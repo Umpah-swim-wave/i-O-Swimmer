@@ -44,11 +44,11 @@
 		ED1DC478271FD94D002FF766 /* BaseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1DC477271FD94D002FF766 /* BaseView.swift */; };
 		ED1DC47C2721814B002FF766 /* Alertable+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED1DC47B2721814B002FF766 /* Alertable+UIViewController.swift */; };
 		ED22C692273A554200036CF7 /* GeneralAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED22C691273A554200036CF7 /* GeneralAPI.swift */; };
-		ED22C698273A573500036CF7 /* CommonRecordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED22C697273A573500036CF7 /* CommonRecordRequest.swift */; };
 		ED22C69B273A588A00036CF7 /* RecordStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED22C69A273A588A00036CF7 /* RecordStorage.swift */; };
-		ED22C69D273A619800036CF7 /* WeekRecordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED22C69C273A619800036CF7 /* WeekRecordRequest.swift */; };
 		ED2ACAF626E41A4F00C5A772 /* FilterTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2ACAF526E41A4F00C5A772 /* FilterTVC.swift */; };
 		ED2ACAF826E41C7200C5A772 /* FilterCVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED2ACAF726E41C7200C5A772 /* FilterCVC.swift */; };
+		ED348AD727BFE108007559E9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = ED348AD627BFE108007559E9 /* GoogleService-Info.plist */; };
+		ED348AD927BFE7BD007559E9 /* DayRecordRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED348AD827BFE7BD007559E9 /* DayRecordRequest.swift */; };
 		ED5396E226B975AD0061722F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED5396E126B975AD0061722F /* Main.storyboard */; };
 		ED5396E426B975D70061722F /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED5396E326B975D70061722F /* MainVC.swift */; };
 		ED5396E626B975E70061722F /* Routine.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED5396E526B975E70061722F /* Routine.storyboard */; };
@@ -74,7 +74,6 @@
 		ED8AB6A62702EDC20066CD02 /* SelectedStrokeTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8AB6A52702EDC20066CD02 /* SelectedStrokeTVC.swift */; };
 		ED8AB6A92703157A0066CD02 /* SelectedButtonDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8AB6A82703157A0066CD02 /* SelectedButtonDelegate.swift */; };
 		ED8AB6AB2703158F0066CD02 /* States.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8AB6AA2703158F0066CD02 /* States.swift */; };
-		EDB91D8626C2A4F300F4562D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EDB91D8526C2A4F300F4562D /* GoogleService-Info.plist */; };
 		EDB9E95927B6B4CD00559548 /* NSObject+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDB9E95827B6B4CD00559548 /* NSObject+.swift */; };
 		EDBA9D9E27B767F500E8E3B5 /* StrokeHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDBA9D9D27B767F500E8E3B5 /* StrokeHeaderView.swift */; };
 		EDC1EDDF26BF8FF600DCB215 /* Charts+.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDC1EDDE26BF8FF600DCB215 /* Charts+.swift */; };
@@ -207,11 +206,11 @@
 		ED1DC477271FD94D002FF766 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		ED1DC47B2721814B002FF766 /* Alertable+UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Alertable+UIViewController.swift"; sourceTree = "<group>"; };
 		ED22C691273A554200036CF7 /* GeneralAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralAPI.swift; sourceTree = "<group>"; };
-		ED22C697273A573500036CF7 /* CommonRecordRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommonRecordRequest.swift; sourceTree = "<group>"; };
 		ED22C69A273A588A00036CF7 /* RecordStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordStorage.swift; sourceTree = "<group>"; };
-		ED22C69C273A619800036CF7 /* WeekRecordRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekRecordRequest.swift; sourceTree = "<group>"; };
 		ED2ACAF526E41A4F00C5A772 /* FilterTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTVC.swift; sourceTree = "<group>"; };
 		ED2ACAF726E41C7200C5A772 /* FilterCVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCVC.swift; sourceTree = "<group>"; };
+		ED348AD627BFE108007559E9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		ED348AD827BFE7BD007559E9 /* DayRecordRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayRecordRequest.swift; sourceTree = "<group>"; };
 		ED5396E126B975AD0061722F /* Main.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		ED5396E326B975D70061722F /* MainVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainVC.swift; sourceTree = "<group>"; };
 		ED5396E526B975E70061722F /* Routine.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Routine.storyboard; sourceTree = "<group>"; };
@@ -237,7 +236,6 @@
 		ED8AB6A52702EDC20066CD02 /* SelectedStrokeTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedStrokeTVC.swift; sourceTree = "<group>"; };
 		ED8AB6A82703157A0066CD02 /* SelectedButtonDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedButtonDelegate.swift; sourceTree = "<group>"; };
 		ED8AB6AA2703158F0066CD02 /* States.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = States.swift; sourceTree = "<group>"; };
-		EDB91D8526C2A4F300F4562D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EDB9E95827B6B4CD00559548 /* NSObject+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NSObject+.swift"; sourceTree = "<group>"; };
 		EDBA9D9D27B767F500E8E3B5 /* StrokeHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeHeaderView.swift; sourceTree = "<group>"; };
 		EDC1EDDE26BF8FF600DCB215 /* Charts+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Charts+.swift"; sourceTree = "<group>"; };
@@ -609,8 +607,7 @@
 				3CA621E92727C71E002CB901 /* SwimmingRecordRequest.swift */,
 				3C7F68882715704F00758733 /* RoutineDataModel.swift */,
 				3CF4E9112719C0F100FE8802 /* SwimmingDataModel.swift */,
-				ED22C697273A573500036CF7 /* CommonRecordRequest.swift */,
-				ED22C69C273A619800036CF7 /* WeekRecordRequest.swift */,
+				ED348AD827BFE7BD007559E9 /* DayRecordRequest.swift */,
 			);
 			path = Record;
 			sourceTree = "<group>";
@@ -734,8 +731,8 @@
 			children = (
 				EDD43FD326483C9500C866F3 /* AppDelegate.swift */,
 				EDD43FD526483C9500C866F3 /* SceneDelegate.swift */,
+				ED348AD627BFE108007559E9 /* GoogleService-Info.plist */,
 				EDD43FE126483C9600C866F3 /* Info.plist */,
-				EDB91D8526C2A4F300F4562D /* GoogleService-Info.plist */,
 			);
 			path = Supports;
 			sourceTree = "<group>";
@@ -967,9 +964,9 @@
 				EDD43FE026483C9600C866F3 /* LaunchScreen.storyboard in Resources */,
 				EDD43FDD26483C9600C866F3 /* Assets.xcassets in Resources */,
 				3CF69DF126E781B5002FD6DB /* ModifyElementTVC.xib in Resources */,
+				ED348AD727BFE108007559E9 /* GoogleService-Info.plist in Resources */,
 				ED5396E626B975E70061722F /* Routine.storyboard in Resources */,
 				EDD3CCEE2701B77D00AFED4B /* IBMPlexSansKR-SemiBold.ttf in Resources */,
-				EDB91D8626C2A4F300F4562D /* GoogleService-Info.plist in Resources */,
 				EDD3CCED2701B77D00AFED4B /* IBMPlexSansKR-Bold.ttf in Resources */,
 				3C8CE32A26BCBE6B002BBFE5 /* RoutineSetTVC.xib in Resources */,
 				EDD3CCEB2701B77D00AFED4B /* IBMPlexSansKR-Text.ttf in Resources */,
@@ -1108,7 +1105,6 @@
 				EDD3CCDC27019A7200AFED4B /* SelectedRangeView.swift in Sources */,
 				EDC1EDDF26BF8FF600DCB215 /* Charts+.swift in Sources */,
 				ED22C69B273A588A00036CF7 /* RecordStorage.swift in Sources */,
-				ED22C698273A573500036CF7 /* CommonRecordRequest.swift in Sources */,
 				EDD7C44226CBDCE200D93306 /* DetailView.swift in Sources */,
 				ED1DC47C2721814B002FF766 /* Alertable+UIViewController.swift in Sources */,
 				EDD3CCDE2701B16A00AFED4B /* UIFont+.swift in Sources */,
@@ -1126,6 +1122,7 @@
 				3CE4D67926DD2786007E4193 /* CALayer+.swift in Sources */,
 				3CA621F12727CB68002CB901 /* RecordService.swift in Sources */,
 				ED8AB6A62702EDC20066CD02 /* SelectedStrokeTVC.swift in Sources */,
+				ED348AD927BFE7BD007559E9 /* DayRecordRequest.swift in Sources */,
 				3C7F68892715704F00758733 /* RoutineDataModel.swift in Sources */,
 				ED78843E26DE4C50006D8787 /* CardBottomButtonView.swift in Sources */,
 				3C7F688C27157EDE00758733 /* RoutineTVC.swift in Sources */,
@@ -1145,7 +1142,6 @@
 				ED5396EF26B9774C0061722F /* Encodable+.swift in Sources */,
 				ED5396E426B975D70061722F /* MainVC.swift in Sources */,
 				3C0D3FB2271692DE0019A763 /* RoutineFilterView.swift in Sources */,
-				ED22C69D273A619800036CF7 /* WeekRecordRequest.swift in Sources */,
 				3CF69DF426E79A68002FD6DB /* RoutineViewModel.swift in Sources */,
 				EDD46F4B26BE99F900FA91F2 /* NormalStateView.swift in Sources */,
 				ED5396F926B977D10061722F /* UIView+.swift in Sources */,

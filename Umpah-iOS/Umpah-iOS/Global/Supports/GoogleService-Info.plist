@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>151296000000-gfggpc0bamutlu4csptkdn90e2i655vg.apps.googleusercontent.com</string>
+	<string>151296000000-7e4mavp9hm87542dlgmobuct83n3k2bv.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.151296000000-gfggpc0bamutlu4csptkdn90e2i655vg</string>
+	<string>com.googleusercontent.apps.151296000000-7e4mavp9hm87542dlgmobuct83n3k2bv</string>
 	<key>API_KEY</key>
 	<string>AIzaSyD6m5RZy3zw3kYjzYJd2-_3EyoUf7vdJxg</string>
 	<key>GCM_SENDER_ID</key>
@@ -13,22 +13,22 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.tiekle.Umpah-iOS</string>
+	<string>com.swimis.uhpuh</string>
 	<key>PROJECT_ID</key>
 	<string>umpah-ea7ea</string>
 	<key>STORAGE_BUCKET</key>
 	<string>umpah-ea7ea.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<true/>
+	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_GCM_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:151296000000:ios:682efb753c4d312fe298e5</string>
+	<string>1:151296000000:ios:44f6b6c5b14953dae298e5</string>
 </dict>
 </plist>

@@ -20,8 +20,12 @@ final class MainVC: MainTableVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        changeStateWhenTappedHeaderTab()
         authorizeHealthKit()
+        // TODO: Dummy Record
+        storage.fetchDayRecord(date: "2021-05-19") { [weak self] in
+            self?.baseTableView.reloadData()
+            print("reload 성공")
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -87,14 +91,15 @@ final class MainVC: MainTableVC {
             .bind(onNext: { [weak self] workoutList in
                 guard let self = self else { return }
                 print("workoutList.count------------\(workoutList.count)---------------")
-                workoutList.forEach{
+                print("workoutList 와왕왕!")
+                workoutList.forEach {
                     print("\($0.display())")
                     print("count = \($0.recordLabsList.count)")
                 }
                 print("----------------------------")
-                self.storage.dispatchRecord(workoutList: workoutList) {
-                    print("success")
-                }
+//                self.storage.dispatchRecord(workoutList: workoutList) {
+//                    print("success")
+//                }
             })
             .disposed(by: disposeBag)
     }
@@ -105,22 +110,6 @@ final class MainVC: MainTableVC {
             data.level = Int.random(in: 0...2)
             data.totalDistance = 1000 + $0 * 150
             routineOverViewList.append(data)
-        }
-    }
-    
-    private func changeStateWhenTappedHeaderTab(){
-        headerView.pressedTabIsRecord = { [weak self] isRecord in
-            guard let self = self else { return }
-            self.setupCardViewState(to: .normal)
-            
-            if !isRecord && self.currentMainViewState != .routine {
-                self.cacheMainViewState = self.currentMainViewState
-                self.currentMainViewState = .routine
-            } else if isRecord {
-                self.currentMainViewState = self.cacheMainViewState
-            }
-            self.cardView.currentState = self.currentMainViewState
-            self.baseTableView.reloadData()
         }
     }
     
@@ -166,6 +155,19 @@ extension MainVC: UITableViewDelegate {
         case .topHeader:
             return topView
         case .content:
+            headerView.pressedTabIsRecord = { [weak self] isRecord in
+                guard let self = self else { return }
+                self.setupCardViewState(to: .normal)
+                
+                if !isRecord && self.currentMainViewState != .routine {
+                    self.cacheMainViewState = self.currentMainViewState
+                    self.currentMainViewState = .routine
+                } else if isRecord {
+                    self.currentMainViewState = self.cacheMainViewState
+                }
+                self.cardView.currentState = self.currentMainViewState
+                self.baseTableView.reloadData()
+            }
             return headerView
         }
     }
